@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MdDashboard , MdNewLabel , MdOutlineCategory , MdComputer} from "react-icons/md";
+import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote} from "react-icons/md";
 import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie} from "react-icons/fa";
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer } from "react-icons/io5";
@@ -29,6 +29,7 @@ const Menu = (props) =>{
         ['ordering','سفارش گذاری',<MdNewLabel/>],
         ['shareholders','سهامدارن',<HiOutlineDocumentDuplicate/>],
         ['transactions','نقل و انتقال',<BiTransfer/>],
+        ['createassembly','ایجاد مجمع',<MdHowToVote/>],
 
     ]
     const Navigate = useNavigate()
@@ -40,6 +41,7 @@ const Menu = (props) =>{
             for (let i = 0; i < menuFullList.length; i++) {
                 const dic = menuFullList[i];
                 const keyDic = dic[0]
+                console.log(props.access.menu)
                 if(props.access.menu.includes(keyDic)){ml.push(dic)}
             }
             setMenuList(ml)

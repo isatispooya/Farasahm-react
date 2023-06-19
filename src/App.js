@@ -26,6 +26,8 @@ import ExcerptTrader from './page/subPage/bours/ExcerptTrader';
 import Manegment from './page/manegment/manegment';
 import FormerStockman from './page/subPage/bours/FormerStockman';
 import Metric from './page/subPage/bours/metric';
+import CreateAssembly from './page/subPage/noBours/createAssembly';
+
 import './style/style.css'
 function App() {
   return (
@@ -57,6 +59,7 @@ function App() {
           <Route path='category' element={<Category />}/>
           <Route path='broker' element={<Broker />}/>
           <Route path='transactions' element={<Transactions />}/>
+          <Route path='createassembly' element={<CreateAssembly />}/>
         </Route>
         <Route path='/admin' element={<Manegment />}/>
 
