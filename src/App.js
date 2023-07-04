@@ -28,6 +28,7 @@ import FormerStockman from './page/subPage/bours/FormerStockman';
 import Metric from './page/subPage/bours/metric';
 import CreateAssembly from './page/subPage/noBours/createAssembly';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
 function App() {
   return (

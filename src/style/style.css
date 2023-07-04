@@ -582,6 +582,66 @@ header .btn-bs input:focus {
   color: #2094d2;
   transform: rotate(-40deg);
 }
+.desk main .subPage .createassembly {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.desk main .subPage .createassembly > div p {
+  text-align: right;
+}
+.desk main .subPage .createassembly .row {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+.desk main .subPage .createassembly .row input, .desk main .subPage .createassembly .row .custom-input {
+  border: 1px #20409d solid;
+  border-radius: 5px;
+  text-align: center;
+}
+.desk main .subPage .createassembly .row .agenda {
+  height: 150px;
+  width: 350px;
+}
+.desk main .subPage .createassembly button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+  margin: 10px;
+}
+.desk main .subPage .assemblyList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.desk main .subPage .assemblyList .assemblyDetail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px #636363 solid;
+}
+.desk main .subPage .assemblyList .assemblyDetail .tad {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+.desk main .subPage .assemblyList .assemblyDetail .tad p {
+  text-align: right;
+}
+.desk main .subPage .assemblyList .assemblyDetail p {
+  text-align: right;
+  margin-top: 10px;
+}
 .desk .update {
   border: 1px #fff solid;
   display: flex;
