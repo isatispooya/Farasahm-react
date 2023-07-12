@@ -5,7 +5,7 @@ import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer } from "react-icons/io5";
 import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
 import { VscGroupByRefType } from "react-icons/vsc";
-import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill} from "react-icons/bs";
+import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsHandIndexThumbFill} from "react-icons/bs";
 import { BiTransfer} from "react-icons/bi";
 import { useNavigate } from "react-router-dom"
 
@@ -30,9 +30,10 @@ const Menu = (props) =>{
         ['shareholders','سهامدارن',<HiOutlineDocumentDuplicate/>],
         ['transactions','نقل و انتقال',<BiTransfer/>],
         ['createassembly','ایجاد مجمع',<MdHowToVote/>],
+        ['attendeesassembly','حاضرین مجمع',<BsHandIndexThumbFill/>],
     ]
+    
     const Navigate = useNavigate()
-
 
     const checkMenu = () =>{
         if(props.access!=''){
@@ -40,7 +41,6 @@ const Menu = (props) =>{
             for (let i = 0; i < menuFullList.length; i++) {
                 const dic = menuFullList[i];
                 const keyDic = dic[0]
-                console.log(props.access.menu)
                 if(props.access.menu.includes(keyDic)){ml.push(dic)}
             }
             setMenuList(ml)

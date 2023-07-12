@@ -582,18 +582,102 @@ header .btn-bs input:focus {
   color: #2094d2;
   transform: rotate(-40deg);
 }
+.desk main .subPage .AttendeesAssembly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.desk main .subPage .AttendeesAssembly .row {
+  width: 80%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-around;
+}
+.desk main .subPage .AttendeesAssembly .row .idPersonal {
+  width: 300px;
+  border: 1px #20409d solid;
+  border-radius: 5px;
+  text-align: center;
+  height: 25px;
+}
+.desk main .subPage .AttendeesAssembly .row button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+}
+.desk main .subPage .AttendeesAssembly .row :last-child {
+  background: #ae4040;
+}
+.desk main .subPage .AttendeesAssembly .dataPersonal {
+  width: 80%;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0px;
+}
+.desk main .subPage .AttendeesAssembly .dataPersonal .field {
+  margin: 5px;
+  width: 280px;
+  border: 1px #1980c3 solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.desk main .subPage .AttendeesAssembly .dataPersonal .field :nth-child(1) {
+  background: #1980c3;
+  text-align: right;
+  color: #eae4e4;
+  padding-right: 5px;
+}
+.desk main .subPage .AttendeesAssembly .dataPersonal .field :nth-child(2) {
+  text-align: left;
+  padding-left: 5px;
+}
+.desk main .subPage .AttendeesAssembly .dataPersonal .field p {
+  width: 50%;
+}
+.desk main .subPage .AttendeesAssembly .btns {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.desk main .subPage .AttendeesAssembly .btns button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+  margin: 10px;
+}
 .desk main .subPage .createassembly {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
+  padding: 50px 0px;
 }
 .desk main .subPage .createassembly > div p {
   text-align: right;
 }
 .desk main .subPage .createassembly .row {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   width: 80%;
   justify-content: space-around;
   margin-bottom: 50px;
@@ -606,6 +690,24 @@ header .btn-bs input:focus {
 .desk main .subPage .createassembly .row .agenda {
   height: 150px;
   width: 350px;
+}
+.desk main .subPage .createassembly .row .votesMaker {
+  display: flex;
+  flex-direction: column;
+}
+.desk main .subPage .createassembly .row .votesMaker .opt {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+.desk main .subPage .createassembly .row .votesMaker .opt > div {
+  display: flex;
+  flex-direction: column;
+}
+.desk main .subPage .createassembly .row .votesMaker .opt > div .addVote {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
 }
 .desk main .subPage .createassembly button {
   background-image: linear-gradient(to top right, #20409d, #1980c3);
@@ -624,23 +726,39 @@ header .btn-bs input:focus {
   align-items: center;
   justify-content: center;
 }
-.desk main .subPage .assemblyList .assemblyDetail {
+.desk main .subPage .assemblyList .assemblyConteiner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   width: 100%;
   border-bottom: 1px #636363 solid;
 }
-.desk main .subPage .assemblyList .assemblyDetail .tad {
+.desk main .subPage .assemblyList .assemblyConteiner .assemblyDetail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.desk main .subPage .assemblyList .assemblyConteiner .assemblyDetail .tad {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-around;
 }
-.desk main .subPage .assemblyList .assemblyDetail .tad p {
+.desk main .subPage .assemblyList .assemblyConteiner .assemblyDetail .tad p {
   text-align: right;
 }
-.desk main .subPage .assemblyList .assemblyDetail p {
+.desk main .subPage .assemblyList .assemblyConteiner .assemblyDetail p {
   text-align: right;
   margin-top: 10px;
+}
+.desk main .subPage .assemblyList .assemblyConteiner .delEdit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15pt;
+}
+.desk main .subPage .assemblyList .assemblyConteiner .delEdit span {
+  font-size: 20pt;
+  color: #20409d;
 }
 .desk .update {
   border: 1px #fff solid;
@@ -753,6 +871,18 @@ header .btn-bs input:focus {
 }
 .desk .tablePg {
   background: #fff;
+}
+.desk .tablePg .setVote {
+  position: absolute;
+  width: 500px;
+  height: 450px;
+  background: #fff;
+  z-index: 5;
+  left: calc((100vw - 500px) / 2);
+  top: calc((100vh - 450px) / 2);
+  border: 1px #20409d solid;
+  display: flex;
+  flex-direction: column;
 }
 
 .loaders {
@@ -1302,4 +1432,67 @@ header .btn-bs input:focus {
   border-radius: 10px;
   vertical-align: middle;
   margin: 0px 10px;
+}
+
+.print {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  margin: 0px auto;
+  direction: rtl;
+}
+.print .conteiner {
+  display: flex;
+  flex-direction: column;
+}
+.print .conteiner .title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.print .conteiner .title img {
+  width: 150px;
+}
+.print .conteiner .title h1 {
+  font-size: 18pt;
+}
+.print .conteiner .title h2 {
+  font-size: 15pt;
+}
+.print .conteiner .text {
+  margin: 30px 0px;
+}
+.print .conteiner .text p {
+  font-size: 12pt;
+}
+.print .conteiner .da {
+  display: flex;
+  flex-direction: row;
+}
+.print .conteiner .da p {
+  font-size: 12pt;
+}
+.print .conteiner .aras {
+  border-top: 1px #636363 dashed;
+  padding: 20px;
+  margin-top: 25px;
+}
+.print .conteiner .aras > p {
+  font-size: 12pt;
+}
+.print .conteiner .aras .ara {
+  display: flex;
+  flex-direction: row;
+  border: 1px #636363 solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+.print .conteiner .aras .ara p {
+  width: 30%;
+}
+.print .conteiner .singer {
+  width: 250px;
+  align-self: flex-end;
 }/*# sourceMappingURL=style.css.map */

@@ -25,6 +25,7 @@ const Traders = () =>{
         {
             label:"گزیده",
             action:function(e, row){
+                console.log(row.getData())
                 window.open('/desk/excerpttrader/'+row.getData()['کد'])
             }
         },

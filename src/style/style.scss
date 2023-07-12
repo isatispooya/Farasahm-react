@@ -625,11 +625,86 @@ header{
                     }
                 }
             }
+            .AttendeesAssembly{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .row{
+                    width: 80%;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    align-items: center;
+                    justify-content: space-around;
+                    .idPersonal{
+                        width: 300px;
+                        border: 1px $colorBDark solid;
+                        border-radius: 5px;
+                        text-align: center;
+                        height: 25px;
+                    }
+                    button{
+                        @include btn();
+
+                    }
+                    :last-child{
+                        background: $colorRed;
+                    }
+
+                }
+                .dataPersonal{
+                    width: 80%;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 50px 0px;
+                    .field{
+                        margin: 5px;
+                        width: 280px;
+                        border: 1px $colorBSemi solid;
+                        border-radius: 5px;
+                        display: flex;
+                        flex-direction: row-reverse;
+                        align-items: center;
+                        :nth-child(1){
+                            background: $colorBSemi;
+                            text-align: right;
+                            color: $colorTosi;
+                            padding-right: 5px;
+                        }
+                        :nth-child(2){
+                            text-align: left;
+                            padding-left: 5px;
+                        }
+                        p{
+                            width: 50%;
+                        }
+                    }
+                }
+                .btns{
+                    display: flex;
+                    flex-direction: row-reverse;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    justify-content: center;
+                    button{
+                        @include btn();
+                        margin: 10px;
+                    }
+
+                }
+            }
+
             .createassembly{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                overflow-y: scroll;
+                padding: 50px 0px;
+                
                 >div{
                     p{
                         text-align: right;
@@ -637,7 +712,7 @@ header{
                 }
                 .row{
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: row-reverse;
                     width: 80%;
                     justify-content: space-around;
                     margin-bottom: 50px;
@@ -651,6 +726,26 @@ header{
                         height: 150px;
                         width: 350px;
                     }
+                    .votesMaker{
+                        display: flex;
+                        flex-direction: column;
+                        .opt{
+                            display: flex;
+                            flex-direction: column;
+                            margin-top: 25px;
+                            >div{
+                                display: flex;
+                                flex-direction: column;
+                                .addVote{
+                                    display: flex;
+                                    flex-direction: row;
+                                    margin-top: 25px;
+                                }
+                            }
+
+
+                        }
+                    }
                 }
                 button{
                     @include btn();
@@ -663,23 +758,43 @@ header{
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                .assemblyDetail{
+                .assemblyConteiner{
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row-reverse;
                     width: 100%;
                     border-bottom: 1px $colorDisable solid;
-                    .tad{
+
+                    .assemblyDetail{
                         display: flex;
-                        flex-direction: row-reverse;
-                        justify-content: space-around;
+                        flex-direction: column;
+                        width: 100%;
+                        .tad{
+                            display: flex;
+                            flex-direction: row-reverse;
+                            justify-content: space-around;
+                            p{
+                                text-align: right;
+                            }
+                            
+                        }
                         p{
                             text-align: right;
+                            margin-top: 10px;
                         }
-                        
+
                     }
-                    p{
-                        text-align: right;
-                        margin-top: 10px;
+                    .delEdit{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        margin-left: 15pt;
+                        span{
+                            font-size: 20pt;
+                            color: $colorBDark;
+
+                        }
+
                     }
                 }
             }
@@ -788,13 +903,22 @@ header{
                         }
                     }
                 }
-                
-
-
             }
         }
         .tablePg{
             background: #fff;
+            .setVote{
+                position: absolute;
+                width: 500px;
+                height: 450px;
+                background: #fff;
+                z-index: 5;
+                left: calc(calc(100vw - 500px)/2);
+                top:calc(calc(100vh - 450px)/2);
+                border: 1px $colorBDark solid;
+                display: flex;
+                flex-direction: column;
+            }
 
 
     }
@@ -1355,6 +1479,71 @@ header{
                 vertical-align: middle;
                 margin: 0px 10px;
             }
+        }
+    }
+}
+
+
+.print{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: 0px auto;
+    direction: rtl;
+    .conteiner{
+        display: flex;
+        flex-direction: column;
+        .title{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            img{
+                width: 150px;
+            }
+            h1{
+                font-size: 18pt;
+            }
+            h2{
+                font-size: 15pt;
+            }
+        }
+        .text{
+            margin: 30px 0px;
+            p{
+                font-size: 12pt;
+            }
+        }
+        .da{
+            display: flex;
+            flex-direction: row;
+            p{
+
+                font-size: 12pt;
+            }
+        }
+        .aras{
+            border-top: 1px $colorDisable dashed;
+            padding: 20px;
+            margin-top: 25px;
+            >p{
+                font-size: 12pt;
+            }
+            .ara{
+                display: flex;
+                flex-direction: row;
+                border: 1px $colorDisable solid;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px;
+                p{
+                    width: 30%;
+                }
+            }
+        }
+        .singer{
+            width: 250px;
+            align-self: flex-end;
         }
     }
 }

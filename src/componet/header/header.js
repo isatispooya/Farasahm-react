@@ -73,7 +73,7 @@ const Header = (props) =>{
                         {
                             allName.map(i=>{
                                 return(
-                                    <option key={i.code} value={i.code}>{i.fullname}</option>
+                                    <option key={(Math.floor(Math.random()*10000000000))} value={i.code}>{i.fullname}</option>
                                 )
                             })
                         }

@@ -27,6 +27,8 @@ import Manegment from './page/manegment/manegment';
 import FormerStockman from './page/subPage/bours/FormerStockman';
 import Metric from './page/subPage/bours/metric';
 import CreateAssembly from './page/subPage/noBours/createAssembly';
+import AttendeesAssembly from './page/subPage/noBours/attendeesassembly';
+import AssemblySheetPrint from './page/subPage/assemblySheetPrint';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
@@ -61,8 +63,10 @@ function App() {
           <Route path='broker' element={<Broker />}/>
           <Route path='transactions' element={<Transactions />}/>
           <Route path='createassembly' element={<CreateAssembly />}/>
+          <Route path='attendeesassembly' element={<AttendeesAssembly />}/>
         </Route>
         <Route path='/admin' element={<Manegment />}/>
+        <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
 
       </Routes>
     </BrowserRouter>
