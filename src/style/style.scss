@@ -429,6 +429,30 @@ header{
 
                 .btntls{
                     margin-right: auto;
+                    display: flex;
+                    flex-direction: row;
+                    >p{
+                        height: 100%;
+                        color: $colorBlueTxt;
+                        font-size: 13pt;
+                        margin: 0px 10px;
+                        display: flex;
+                        flex-direction: row-reverse;
+                        align-items: center;
+                        cursor: pointer;
+                        padding: 0px 10px;
+                        span{
+                            margin-right: 4px;
+                            font-size: 11pt;
+                            display: flex;
+                            margin: 0px 3px;
+                        }
+                        &:hover{
+                            background: rgba($colorBDark , 0.3);
+                        }
+                        
+                    }
+    
                 }
                 >p{
                     height: 100%;
@@ -698,59 +722,196 @@ header{
             }
 
             .createassembly{
+                position: absolute;
+                z-index: 10;
+                inset: 10%;
+                background: #fff;
+                border: 1px $colorBDark solid;
+                padding: 30px;
+                border-radius: 10px;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
                 overflow-y: scroll;
-                padding: 50px 0px;
-                
-                >div{
-                    p{
-                        text-align: right;
-                    }
-                }
-                .row{
+
+                .row1{
                     display: flex;
                     flex-direction: row-reverse;
-                    width: 80%;
-                    justify-content: space-around;
-                    margin-bottom: 50px;
-
-                    input,.custom-input{
-                        border: 1px $colorBDark solid;
-                        border-radius: 5px;
-                        text-align: center;
-                    }
-                    .agenda{
-                        height: 150px;
-                        width: 350px;
-                    }
-                    .votesMaker{
+                    flex-wrap: wrap;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: center;
+                    .field{
                         display: flex;
-                        flex-direction: column;
-                        .opt{
-                            display: flex;
-                            flex-direction: column;
-                            margin-top: 25px;
-                            >div{
-                                display: flex;
-                                flex-direction: column;
-                                .addVote{
-                                    display: flex;
-                                    flex-direction: row;
-                                    margin-top: 25px;
-                                }
+                        flex-direction: row-reverse;
+                        width: 250px;
+                        margin: 0px 30px;
+                        background: $colorBDark;
+                        border: 1px $colorBDark solid;
+                        border-radius: 10px;
+                        overflow: hidden;
+                        align-items: center;
+                        p{
+                            flex: 1px;
+                            color: $colorTosi;
+                            text-align: center;
+                        }
+                        input{
+                            flex: 3;
+                            border-top-right-radius: 20px;
+                            border-top-left-radius: 10px;
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 20px;
+                            height: 30px;
+                            border-style: solid;
+                            border-color: $colorBDark;
+                            padding: 0px 5px;
+                            &:focus{
+                                outline: 0px;
                             }
-
+                            &::-webkit-inner-spin-button{
+                                display: none;
+                            }
+                            &::-webkit-outer-spin-button{
+                                display: none;
+                            }
 
                         }
                     }
+
                 }
-                button{
-                    @include btn();
-                    margin: 10px;
+                .row2{
+                    display: flex;
+                    flex-direction: row-reverse;
+                    margin: 20px;
+                    align-items: center;
+                    justify-content: space-around;
+                    width: 75%;
+                    >div{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background: $colorBDark;
+                        border: 2px $colorBDark solid;
+                        overflow: hidden;
+                        flex: 1;
+                        margin: 10px 35px;
+                        border-radius: 15px;
+                        p{
+                            font: 16pt;
+                            color: $colorTosi;
+                            padding: 10px;
+                        }
+                        textarea{
+                            width: calc(100% - 40px);
+                            padding: 20px;
+                            border-top-left-radius: 15px;
+                            border-top-right-radius: 15px;
+                            border-bottom-left-radius: 5px;
+                            border-bottom-right-radius: 5px;
+                            height: 250px;
+                            text-align: right;
+                            &:focus{
+                                outline: 0px;
+                            }
+                        }
+
+                    }
                 }
+                .row3{
+                    display: flex;
+                    flex-direction: row-reverse;
+                    width: 100%;
+                    justify-content: space-around;
+                    .prt{
+                        display: flex;
+                        flex-direction: column;
+                        input[type='checkbox']{
+                            display: none;
+                            + label{
+                                background: rgba($colorDisable,0.35);
+                                padding: 3px;
+                                width: 150px;
+                                border-radius: 10px;
+                                text-align: center;
+                                color: $colorBDark;
+                                border: 2px $colorBDark solid;
+                                cursor: pointer;
+                            }
+                            &:checked{
+                                + label{
+                                background: rgba($colorBDark,0.90);
+                                color: $colorTosi;
+                                }
+                            }
+                        }
+                    }
+                    .opt{
+                        display: flex;
+                        flex-direction: column;
+                        margin: 25px 0px;
+                        h3{
+                            text-align: center;
+                            color: $colorBDark;
+                            margin: 10px;
+                        }
+                        >div{
+                            display: flex;
+                            flex-direction: column;
+                            margin: 15px 0px;
+                            span{
+                                margin: 5px;
+                                border: 1px $colorBDark solid;
+                                border-radius: 15px;
+                                text-align: center;
+                                padding: 3px;
+                                color: $colorBDark;
+                            }
+                            .adding{
+                                display: flex;
+                                flex-direction: row;
+                                background: $colorBDark;
+                                border: 1px $colorBDark solid;
+                                overflow: hidden;
+                                border-radius: 5px;
+                                p{
+                                    flex: 1;
+                                    text-align: center;
+                                    color: $colorTosi;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                                input{
+                                    border: 0px;
+                                    border-radius: 5px;
+                                    padding: 5px;
+                                    border-top-right-radius: 15px;
+                                    border-bottom-right-radius: 15px;
+
+                                    &:focus{
+                                        outline: 0px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .bbtn{
+                    display: flex;
+                    flex-direction: row;
+                    width: 45%;
+                    align-items: center;
+                    justify-content: space-around;
+                    margin: 50px 0px;
+                    button{
+                        @include btn();
+
+                    }
+
+                }
+  
 
             }
             .assemblyList{
@@ -763,23 +924,95 @@ header{
                     flex-direction: row-reverse;
                     width: 100%;
                     border-bottom: 1px $colorDisable solid;
-
                     .assemblyDetail{
                         display: flex;
                         flex-direction: column;
                         width: 100%;
+                        .title{
+                            display: flex;
+                            flex-direction: row-reverse;
+                            justify-content: space-around;
+                            background: rgba($colorBDark , 0.3);
+                            align-items: center;
+                            padding: 15px;
+                            p{
+                                font-size: 18pt;
+                            }
+
+
+                        }
                         .tad{
                             display: flex;
                             flex-direction: row-reverse;
                             justify-content: space-around;
-                            p{
-                                text-align: right;
+                            padding: 15px;
+                            .addr{
+                                width: 370px;
                             }
-                            
+                            .cntnr-tad{
+                                display: flex;
+                                flex-direction: row-reverse;
+                                align-items: center;
+                                justify-content: center;
+                                border: 1px $colorBDark solid;
+                                border-radius: 5px;
+                                width: 240px;
+                                height: 35px;
+                                overflow: hidden;
+
+                                span{
+                                    font-size: 17pt;
+                                    text-align: center;
+                                    padding: 5px;
+                                    color: $colorTosi;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    flex: 1;
+                                    flex-basis: 35px;
+                                    height: 100%;
+                                    background: $colorBDark;
+
+                                }
+                                p{
+                                    font-size: 13pt;
+                                    text-align: center;
+                                    color: $colorBUltra;
+                                    flex: 3;
+                                    text-overflow: clip;
+                                    white-space: nowrap;
+                                }
+                            }
                         }
-                        p{
+                        .cntnr-dis{
+                            display: flex;
+                            flex-direction: row;
+                            >div{
+                                display: flex;
+                                flex-direction: column;
+                                flex: 1;
+                                margin: 25px 35px;
+                                border: 1px $colorBDark solid;
+                                border-radius: 15px;
+                                overflow: hidden;
+
+                                h6{
+                                    font-size: 16pt;
+                                    color: $colorTosi;
+                                    background: $colorBDark;
+                                    text-align: center;
+                                    padding: 6px;
+                                }
+                            }
+                        }
+                        >p{
                             text-align: right;
                             margin-top: 10px;
+                        }
+                        .voteController{
+                            h5{
+                                text-align: right;
+                            }
                         }
 
                     }
@@ -788,13 +1021,32 @@ header{
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        margin-left: 15pt;
-                        span{
-                            font-size: 20pt;
-                            color: $colorBDark;
+                        background: $colorBDark;
+                        width: 170px;
+                        .btn{
+                            display: flex;
+                            flex-direction: row-reverse;
+                            width: 90px;
+                            align-items: center;
+                            cursor: pointer;
+                            border: 1px $colorTosi solid;
+                            margin: 5px 0px;
+                            padding: 5px;
+                            border-radius: 10px;
 
+                            span{
+                                font-size: 20pt;
+                                color: $colorTosi;
+                                display: flex;
+                                align-items: center;
+                                width: 55px;
+                                justify-content: end;
+                            }
+                            p{
+                                font-size: 13pt;
+                                color: $colorTosi;
+                            }
                         }
-
                     }
                 }
             }
@@ -1493,25 +1745,54 @@ header{
     .conteiner{
         display: flex;
         flex-direction: column;
+        .results{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 25px;
+            width: 100%;
+            border: 1px $colorBDark solid;
+            .result{
+                display: grid;
+                width: 100%;
+                grid-template-columns: 2fr 1fr 1fr;
+                p{
+                    text-align: center;
+                    border: 1px $colorBDark solid;
+                    padding: 5px 0px;
+                }
+
+            }
+        }
         .title{
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             img{
-                width: 150px;
+                width: 100px;
             }
             h1{
                 font-size: 18pt;
+                margin-top: 20px;
             }
             h2{
-                font-size: 15pt;
+                font-size: 13pt;
+                margin-top: 40px;
             }
         }
         .text{
             margin: 30px 0px;
-            p{
-                font-size: 12pt;
+            display: flex;
+            flex-direction: row;
+            >div{
+                display: flex;
+                flex-direction: row;
+                margin: 0px 0px 0px 25px;
+                >p{
+                    margin: 0px 0px 0px 10px;
+                }
             }
         }
         .da{
@@ -1528,22 +1809,29 @@ header{
             margin-top: 25px;
             >p{
                 font-size: 12pt;
+                border: 1px $colorBDark solid;
+                padding: 15px 10px;
+                border-radius: 10px;
             }
-            .ara{
+            .opt{
                 display: flex;
                 flex-direction: row;
-                border: 1px $colorDisable solid;
-                border-radius: 5px;
-                padding: 10px;
-                margin: 10px;
-                p{
-                    width: 30%;
+                flex-wrap: wrap;
+                margin: 20px 0px;
+                h1{
+                    font-size: 15pt;
+                    margin-left: 20px;
+                }
+
+                span{
+                    margin: 0px 0px 0px 25px;
                 }
             }
         }
         .singer{
-            width: 250px;
+            width: 150px;
             align-self: flex-end;
+            margin-top: 50px;
         }
     }
 }

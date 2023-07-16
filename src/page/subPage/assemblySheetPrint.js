@@ -15,7 +15,6 @@ const AssemblySheetPrint = () =>{
     const GetData = () =>{
         axios.post(OnRun+'/getsheetassembly',{symbol:symbol,nc:nc})
         .then(response=>{
-            console.log(response.data)
             setRes(response.data.data)
         })
 
@@ -37,21 +36,36 @@ const AssemblySheetPrint = () =>{
 
                     <div className="text">
                         <div>
+                            {
+                                res.register['شناسه ملی']?
+                                <p>شرکت</p>
+                                :
+                                <p>خانم / آقای</p>
+                            }
                             <p>{res.register['نام'] + ' ' + res.register["نام خانوادگی "]}</p>
                         </div>
                         <div>
                             <p>شماره/شناسه ملی</p>
-                            <p>{res.register['شناسه ملی'] +  res.register["نام خانوادگی "]}</p>
+                            <p>{res.register['شناسه ملی'] +  res.register["کد ملی"]}</p>
                         </div>
-                    </div>
-                    <div className="da">
-                        <p>دستور جلسه: {res.agenda}</p>
+                        <div>
+                            <p>صدور</p>
+                            <p>{res.register['محل صدور']}</p>
+                        </div>
                     </div>
                     <div className="aras">
-                        <p>انتخاب بازرس</p>
-                        <div className="ara">
-                            <p>بازرس پیشنهادی</p>
+
+                        <div className="opt">
+                            <h1>گزینه های انتخاب بازرس:</h1>
+                            {
+                                res.assembly.controller.map(i=>{
+                                    return(
+                                        <span key={i}>{i}</span>
+                                    )
+                                })
+                            }
                         </div>
+                        <p>بازرس منتخب:</p>
                     </div>
                     <div className="singer">
                         <p>{res.name}</p>

@@ -3,9 +3,11 @@ import { AccessContext } from "../../../config/accessContext"
 import axios from "axios"
 import { OnRun } from '../../../config/config'
 import { BsPlusCircle} from "react-icons/bs";
+import { HiArchive} from "react-icons/hi";
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { useNavigate } from "react-router-dom";
+
 const AttendeesAssembly = () =>{
 
     const [popUp, setPopUp] = useState(false)
@@ -15,7 +17,9 @@ const AttendeesAssembly = () =>{
     const [df, setDf] = useState(null)
     const [setVote, setSetVote] = useState(false)
     const [DataVoteAssembly, setDataVoteAssembly] = useState([])
-    console.log(DataVoteAssembly)
+    const [controllerVotes, setControllerVotes] = useState({nc:'',opt:''})
+    const navigate = useNavigate()
+
 
     const getDataVotes = () =>{
         axios.post(OnRun+'/getdatavotes', {access:access})
@@ -24,9 +28,18 @@ const AttendeesAssembly = () =>{
                     setDataVoteAssembly(response.data.data)
                 }else{
                     toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
-
                 }
         })
+    }
+
+    const handleAdd = ()=>{
+        axios.post(OnRun+'/addvoteasemboly',{access:access,controllerVotes:controllerVotes})
+        .then(response=>{
+            if (response.data.replay) {
+                setSetVote(false)
+            }
+        })
+
     }
 
 
@@ -52,12 +65,8 @@ const AttendeesAssembly = () =>{
         {
             label:"ثبت رای",
             action:function(e, row){
-                if (DataVoteAssembly.length>0) {
-                    setSetVote(true)
-                    console.log(row.getData())
-                }else{
-                    toast.warning('انتخابات برای این مجمع یافت نشد',{position: toast.POSITION.BOTTOM_RIGHT})
-                }
+                setSetVote(true)
+                setControllerVotes({... controllerVotes,nc:row.getData()['کد ملی'],opt:DataVoteAssembly.controller[0]})
             }
         }
     ]
@@ -118,9 +127,8 @@ const AttendeesAssembly = () =>{
             textDirection:"rtl",
             autoResize:false,
             rowContextMenu: rowMenu,
-
             columns:[
-                {title:"نام کامل", field:"fullName", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"نام کامل", field:"fullName", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
                 {title:"کد ملی", field:"کد ملی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
                 {title:"تاریخ تولد ", field:"تاریخ تولد", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
                 {title:"نام پدر ", field:"نام پدر", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
@@ -128,12 +136,10 @@ const AttendeesAssembly = () =>{
                 {title:"کد سهامداری", field:"کد سهامداری", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:8,headerFilter:"input"},
                 {title:"سهام کل", field:"سهام کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:8,headerFilter:"input",topCalc:'sum'},
                 {title:"درصد سهام", field:"rate", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:8,headerFilter:"input",topCalc:'sum'},
-
+                {title:"بازرس منتخب", field:"opt", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:8,headerFilter:"list",headerFilterParams:{valuesLookup:true, clearable:true}},
             ],
         })
     }
-
-
 
     useEffect(personalInAssembly,[])
     useEffect(getDataVotes,[])
@@ -141,13 +147,29 @@ const AttendeesAssembly = () =>{
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
             <div className="tls">
-                <h2 className="titlePage">نقل و انتقال</h2>
-                <p className="btntls" onClick={()=>{setPopUp(!popUp)}}><span><BsPlusCircle/></span>افزودن</p>
+                <h2 className="titlePage">برگزاری مجمع</h2>
+                <div className="btntls">
+                    <p className="" onClick={()=>{setPopUp(!popUp)}}><span><BsPlusCircle/></span>افزودن</p>
+                    <p className="" onClick={()=>{navigate('/printas/sheetvotecontroller/'+access[1])}}><span><HiArchive/></span>انتخابات بازرس</p>
+                </div>
             </div>
             {
                 setVote==false?null:
                 <div className="setVote">
-
+                    <div>
+                        <p>انتخاب بازرس</p>
+                        <select onChange={(e)=>setControllerVotes({...controllerVotes,opt:e.target.value})}>
+                            {
+                                DataVoteAssembly.controller.map(i=>{
+                                    return(
+                                        <option value={i} key={i}>{i}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>                    
+                    <button onClick={handleAdd}>ثبت</button>
+                    <button onClick={()=>setSetVote(false)}>لغو</button>
                 </div>
             }
             {

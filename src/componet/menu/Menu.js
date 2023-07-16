@@ -30,7 +30,6 @@ const Menu = (props) =>{
         ['shareholders','سهامدارن',<HiOutlineDocumentDuplicate/>],
         ['transactions','نقل و انتقال',<BiTransfer/>],
         ['createassembly','ایجاد مجمع',<MdHowToVote/>],
-        ['attendeesassembly','حاضرین مجمع',<BsHandIndexThumbFill/>],
     ]
     
     const Navigate = useNavigate()

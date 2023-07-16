@@ -9,8 +9,11 @@ import { BsPlusCircle} from "react-icons/bs";
 import { AiOutlineDelete} from "react-icons/ai";
 import { FiEdit} from "react-icons/fi";
 import { ToastContainer, toast } from 'react-toastify'
-import { AiOutlineCheckCircle , AiOutlineCloseCircle} from "react-icons/ai";
-import { GrAddCircle } from "react-icons/gr";
+import { MdGroups} from "react-icons/md";
+import { BiAddToQueue } from "react-icons/bi";
+import { useNavigate } from "react-router-dom"
+import { RxClock } from "react-icons/rx";
+import { BsCalendarDate ,BsPinMapFill} from "react-icons/bs";
 
 const CreateAssembly = () =>{
 
@@ -20,6 +23,8 @@ const CreateAssembly = () =>{
     const [dict, setDict] = useState({time:'',address:'',agenda:'',description:'',title:'',controller:false,managers:false})
     const [controllerInput, setControllerInput] = useState('')
     const [controller, setController] = useState([])
+    const navigate = useNavigate()
+
 
     const [df, setDf] = useState([])
  
@@ -53,7 +58,6 @@ const CreateAssembly = () =>{
     const getAssembly = () =>{
         axios.post(OnRun+'/getassembly',{access:access})
         .then(response=>{
-            console.log(response.data)
             if (response.data.replay) {
                 setDf(response.data.df)
             }else{
@@ -62,7 +66,6 @@ const CreateAssembly = () =>{
         })
     }
     const delAssembly = (idassembly) =>{
-        console.log(idassembly)
         axios.post(OnRun+'/delassembly',{idassembly:idassembly,access:access})
         .then(response=>{
             getAssembly()
@@ -86,37 +89,37 @@ const CreateAssembly = () =>{
             </div>
             {
                 popUp?
-                <div className="PopUpTransactions createassembly">
-                    <div className="row">
-                        <div>
+                <div className="createassembly">
+                    <div className="row1">
+                        <div className="field">
                             <p>عنوان</p>
                             <input  value={dict.title} onChange={(e)=>{setDict({...dict,title:e.target.value})}}/>
                         </div>
-                        <div>
+                        <div className="field">
                             <p>تاریخ</p>
                             <DatePicker  value={dateSelection} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={setDateSelection}/>
                         </div>
-                        <div>
+                        <div className="field">
                             <p>ساعت</p>
                             <input type="number" value={dict.time} onChange={(e)=>{timeHandle(e.target.value)}}/>
                         </div>
-                        <div>
+                        <div className="field">
                             <p>مکان</p>
                             <input  value={dict.address} onChange={(e)=>{setDict({...dict,address:e.target.value})}}/>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row2">
                         <div>
                             <p>دستور جلسه</p>
-                            <input className="agenda" value={dict.agenda} onChange={(e)=>{setDict({...dict,agenda:e.target.value})}}/>
+                            <textarea value={dict.agenda} onChange={(e)=>{setDict({...dict,agenda:e.target.value})}}/>
                         </div>
                         <div>
                             <p>توضیحات</p>
-                            <input className="agenda" value={dict.description} onChange={(e)=>{setDict({...dict,description:e.target.value})}}/>
+                            <textarea value={dict.description} onChange={(e)=>{setDict({...dict,description:e.target.value})}}/>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="votesMaker">
+                    <div className="row3" >
+                        <div className="prt">
                             <input type="checkbox" id="controller" checked={dict.controller} onChange={()=>setDict({...dict,controller:!dict.controller})}  ></input>
                             <label htmlFor="controller">انتخاب بازرس</label>
                             {
@@ -131,23 +134,25 @@ const CreateAssembly = () =>{
                                                     )
                                                 })
                                             }
-                                            <div className="addVote">
+                                            <div className="adding">
                                                 <input value={controllerInput} onChange={(e)=>setControllerInput(e.target.value)} />
-                                                <p onClick={handleAddController}><GrAddCircle/></p>
+                                                <p onClick={handleAddController}><BiAddToQueue/></p>
                                             </div>
                                         </div>
                                     </div>
                                     :null
                             }
                         </div>
-                        <div>
+                        <div className="prt">
                             <input type="checkbox" id="managers" checked={dict.managers} onChange={()=>setDict({...dict,managers:!dict.managers})}></input>
                             <label htmlFor="managers">انتخاب هیئت مدیره</label>
                         </div>
 
                     </div>
+                    <div className="bbtn">
                     <button onClick={apply}>ثبت</button>
                     <button onClick={()=>setPopUp(false)}>لغو</button>
+                    </div>
                 </div>
                 :null
             }
@@ -158,32 +163,63 @@ const CreateAssembly = () =>{
                         return(
                             <div className="assemblyConteiner">
                                 <div className="assemblyDetail">
-                                    <p>{i.title}</p>
-                                    <div className="tad">
-                                        <p>ساعت: {i.time}</p>
-                                        <p>تاریخ: {i.date}</p>
-                                        <p>آدرس: {i.address}</p>
+                                    <div className="title">
+                                        <p>عنوان مجمع</p>
+                                        <p>{i.title}</p>
                                     </div>
-                                    <p>دستور جلسه: {i.agenda}</p>
-                                    <p>توضیحات: {i.description}</p>
-                                        {i.controller?
-                                            <div>
-                                                <h5>انتخابات بازرس:</h5>
-                                                {
-                                                    i.controller.map(j=>{
-                                                        return(
-                                                            <p>{j}</p>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            :null
-                                        }
+                                    <div className="tad">
+                                        <div className="cntnr-tad">
+                                            <span><RxClock/></span>
+                                            <p>{i.time}:00</p>
+                                        </div>
+                                        <div className="cntnr-tad">
+                                            <span><BsCalendarDate/></span>
+                                            <p>{i.date}</p>
+                                        </div>
+                                        <div className="cntnr-tad addr">
+                                            <span><BsPinMapFill/></span>
+                                            <p>{i.address}</p>
+                                        </div>
+                                    </div>
+                                    <div className="cntnr-dis">
+                                        <div>
+                                            <h6>دستور جلسه</h6>
+                                            <p>{i.agenda}</p>
+                                        </div>
+                                        <div>
+                                            <h6>توضیحات</h6>
+                                            <p>{i.description}</p>
+                                        </div>
+                                        
+                                    </div>
+                                    {i.controller?
+                                        <div className="voteController">
+                                            <h5>انتخابات بازرس:</h5>
+                                            {
+                                                i.controller.map(j=>{
+                                                    return(
+                                                        <p>{j}</p>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        :null
+                                    }
 
                                 </div>
                                 <div className="delEdit">
-                                    <span onClick={()=>delAssembly(i)}><AiOutlineDelete/></span>
-                                    <span onClick={()=>Edit(i)}><FiEdit/></span>
+                                    <div className="btn" onClick={()=>delAssembly(i)}>
+                                        <span><AiOutlineDelete/></span>
+                                        <p>حذف</p>
+                                    </div>
+                                    <div className="btn" onClick={()=>Edit(i)}>
+                                        <span ><FiEdit/></span>
+                                        <p>ویرایش</p>
+                                    </div>
+                                    <div className="btn"onClick={()=>navigate('/desk/attendeesassembly')}>
+                                        <span ><MdGroups/></span>
+                                        <p>برگزاری</p>
+                                    </div>
                                 </div>
                             </div>
                         )
