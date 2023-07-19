@@ -2,7 +2,7 @@ import { useState ,useContext, useEffect} from "react"
 import { AccessContext } from "../../../config/accessContext"
 import axios from "axios"
 import { OnRun } from '../../../config/config'
-import { BsPlusCircle} from "react-icons/bs";
+import { BsPlusCircle,BsPersonLinesFill} from "react-icons/bs";
 import { HiArchive} from "react-icons/hi";
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
@@ -37,9 +37,9 @@ const AttendeesAssembly = () =>{
         .then(response=>{
             if (response.data.replay) {
                 setSetVote(false)
+                personalInAssembly()
             }
         })
-
     }
 
 
@@ -78,7 +78,6 @@ const AttendeesAssembly = () =>{
             .then(response =>{
                 if(response.data.replay){
                     setDataPersonal(response.data.df)
-                    console.log(response.data.df)
                 }else{
                     toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
                 }
@@ -88,6 +87,16 @@ const AttendeesAssembly = () =>{
         }
     }
 
+    const personalInAssembly = () =>{
+        axios.post(OnRun+'/personalinassembly',{access:access})
+        .then(response=>{
+            if(response.data.replay){
+                setDf(response.data.df)
+            }else{
+                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+            }
+        })
+    }
     const addPersonalAssembly = () =>{
         axios.post(OnRun+'/addpersonalassembly',{access:access,dataPersonal:dataPersonal})
         .then(response=>{
@@ -101,16 +110,7 @@ const AttendeesAssembly = () =>{
     }
 
 
-    const personalInAssembly = () =>{
-        axios.post(OnRun+'/personalinassembly',{access:access})
-        .then(response=>{
-            if(response.data.replay){
-                setDf(response.data.df)
-            }else{
-                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
-            }
-        })
-    }
+
 
 
     if(df!=null){
@@ -150,7 +150,8 @@ const AttendeesAssembly = () =>{
                 <h2 className="titlePage">برگزاری مجمع</h2>
                 <div className="btntls">
                     <p className="" onClick={()=>{setPopUp(!popUp)}}><span><BsPlusCircle/></span>افزودن</p>
-                    <p className="" onClick={()=>{navigate('/printas/sheetvotecontroller/'+access[1])}}><span><HiArchive/></span>انتخابات بازرس</p>
+                    <p className="" onClick={()=>{window.open('/printas/sheetvotecontroller/'+access[1])}}><span><HiArchive/></span>گزارش بازرس</p>
+                    <p className="" onClick={()=>{window.open('/printas/sheetinassembly/'+access[1])}}><span><BsPersonLinesFill/></span>گزارش حاضرین</p>
                 </div>
             </div>
             {

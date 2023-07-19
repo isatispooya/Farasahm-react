@@ -43,8 +43,10 @@ const CreateAssembly = () =>{
 
 
     const handleAddController =()=>{
-        var c = controller.concat([controllerInput])
-        setController(c)
+        if (controllerInput!='') {
+            var c = controller.concat([controllerInput])
+            setController(c)
+        }
     }
 
 
@@ -74,6 +76,7 @@ const CreateAssembly = () =>{
 
     const Edit = (data) =>{
         setDict(data)
+        setController(data.controller)
         setPopUp(true)
 
     }
@@ -194,7 +197,7 @@ const CreateAssembly = () =>{
                                     </div>
                                     {i.controller?
                                         <div className="voteController">
-                                            <h5>انتخابات بازرس:</h5>
+                                            <h5>کاندیدا های حسابرسی و بازرس:</h5>
                                             {
                                                 i.controller.map(j=>{
                                                     return(

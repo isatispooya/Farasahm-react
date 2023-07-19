@@ -44,7 +44,7 @@ const SheetVoteController = () =>{
                                 return(
                                     <div key={i.opt} className="result">
                                         <p>{i.opt}</p>
-                                        <p>{i.count}</p>
+                                        <p>{i['سهام کل'].toLocaleString()}</p>
                                         <p>{i.status}</p>
                                     </div>
                                 )

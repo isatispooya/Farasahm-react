@@ -1170,6 +1170,33 @@ header{
                 border: 1px $colorBDark solid;
                 display: flex;
                 flex-direction: column;
+                align-items: center;
+                >div{
+                    width: 70%;
+                    background: $colorBDark;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    margin: 20px;
+                    border: 1px $colorBDark solid;
+                    p{
+                        color: $colorTosi;
+                        flex: 1;
+                    }
+                    select{
+                        flex: 3;
+                        border-top-right-radius: 15px;
+                        border-bottom-right-radius: 15px;
+                        margin-right: 10px;
+                        border: 0px;
+                    }
+
+                }
+                button{
+                    @include btn();
+                    margin: 10px;
+                }
             }
 
 
@@ -1739,9 +1766,22 @@ header{
 .print{
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: 550px;
     margin: 0px auto;
     direction: rtl;
+    .inpersonal{
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+        .person{
+            width: 600px;
+            border: 1px $colorDisable solid;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        
+    }
     .conteiner{
         display: flex;
         flex-direction: column;
@@ -1782,6 +1822,15 @@ header{
                 margin-top: 40px;
             }
         }
+        .agade{
+            display: flex;
+            flex-direction: column;
+            border-top: 1px $colorBDark dashed;
+            padding-top: 20px;
+            h1{
+                font-size: 14pt;
+            }
+        }
         .text{
             margin: 30px 0px;
             display: flex;
@@ -1815,11 +1864,11 @@ header{
             }
             .opt{
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
                 flex-wrap: wrap;
                 margin: 20px 0px;
                 h1{
-                    font-size: 15pt;
+                    font-size: 13pt;
                     margin-left: 20px;
                 }
 

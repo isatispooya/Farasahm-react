@@ -30,6 +30,7 @@ import CreateAssembly from './page/subPage/noBours/createAssembly';
 import AttendeesAssembly from './page/subPage/noBours/attendeesassembly';
 import AssemblySheetPrint from './page/subPage/assemblySheetPrint';
 import SheetVoteController from './page/subPage/SheetVoteController';
+import SheetInAssembly from './page/subPage/SheetInAssembly';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
@@ -70,6 +71,7 @@ function App() {
         <Route path='/admin' element={<Manegment />}/>
         <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
         <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
+        <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
 
       </Routes>
     </BrowserRouter>

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 const AssemblySheetPrint = () =>{
     const {symbol,nc} = useParams()
     const [res, setRes] = useState(null)
+    console.log(res)
 
 
 
@@ -49,14 +50,22 @@ const AssemblySheetPrint = () =>{
                             <p>{res.register['شناسه ملی'] +  res.register["کد ملی"]}</p>
                         </div>
                         <div>
-                            <p>صدور</p>
-                            <p>{res.register['محل صدور']}</p>
+                            <p>سهام کل</p>
+                            <p>{(res.register['سهام کل'])}</p>
                         </div>
+                    </div>
+                    <div className="agade">
+                        <h1>دستور جلسه:</h1>
+                        <p style={{ whiteSpace: "pre-line" }}>
+                            {res.assembly.agenda}
+                        </p>
+
+
                     </div>
                     <div className="aras">
 
                         <div className="opt">
-                            <h1>گزینه های انتخاب بازرس:</h1>
+                            <h1>کاندیدا های انتخابات حسابرسی و بازرس:</h1>
                             {
                                 res.assembly.controller.map(i=>{
                                     return(

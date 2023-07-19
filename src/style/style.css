@@ -1125,6 +1125,39 @@ header .btn-bs input:focus {
   border: 1px #20409d solid;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+.desk .tablePg .setVote > div {
+  width: 70%;
+  background: #20409d;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 20px;
+  border: 1px #20409d solid;
+}
+.desk .tablePg .setVote > div p {
+  color: #eae4e4;
+  flex: 1;
+}
+.desk .tablePg .setVote > div select {
+  flex: 3;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-right: 10px;
+  border: 0px;
+}
+.desk .tablePg .setVote button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+  margin: 10px;
 }
 
 .loaders {
@@ -1679,9 +1712,21 @@ header .btn-bs input:focus {
 .print {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 550px;
   margin: 0px auto;
   direction: rtl;
+}
+.print .inpersonal {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+.print .inpersonal .person {
+  width: 600px;
+  border: 1px #636363 solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .print .conteiner {
   display: flex;
@@ -1723,6 +1768,15 @@ header .btn-bs input:focus {
   font-size: 13pt;
   margin-top: 40px;
 }
+.print .conteiner .agade {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px #20409d dashed;
+  padding-top: 20px;
+}
+.print .conteiner .agade h1 {
+  font-size: 14pt;
+}
 .print .conteiner .text {
   margin: 30px 0px;
   display: flex;
@@ -1756,12 +1810,12 @@ header .btn-bs input:focus {
 }
 .print .conteiner .aras .opt {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   margin: 20px 0px;
 }
 .print .conteiner .aras .opt h1 {
-  font-size: 15pt;
+  font-size: 13pt;
   margin-left: 20px;
 }
 .print .conteiner .aras .opt span {
