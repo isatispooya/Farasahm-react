@@ -5,16 +5,15 @@ import { useParams } from "react-router-dom"
 import { OnRun } from "../../config/config"
 import { useEffect, useState } from "react"
 
+
 const SheetInAssembly = () =>{
     const {symbol} = useParams()
     const [df, setDf] = useState(null)
-    console.log(symbol)
 
     const personalInAssembly = () =>{
         axios.post(OnRun+'/personalinassembly',{access:['',symbol]})
         .then(response=>{
             if(response.data.replay){
-                console.log(response.data.df)
                 setDf(response.data.df)
             }
         })
@@ -45,9 +44,7 @@ const SheetInAssembly = () =>{
                     
                     
                     }
-                    
 
-                    
                 </div>
 
 

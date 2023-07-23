@@ -31,6 +31,8 @@ import AttendeesAssembly from './page/subPage/noBours/attendeesassembly';
 import AssemblySheetPrint from './page/subPage/assemblySheetPrint';
 import SheetVoteController from './page/subPage/SheetVoteController';
 import SheetInAssembly from './page/subPage/SheetInAssembly';
+import CapitalIncrease from './page/subPage/noBours/CapitalIncrease';
+import Priority from './page/subPage/noBours/Priority';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
@@ -67,6 +69,8 @@ function App() {
           <Route path='createassembly' element={<CreateAssembly />}/>
           <Route path='attendeesassembly' element={<AttendeesAssembly />}/>
           <Route path='sheetvotecontroller' element={<SheetVoteController />}/>
+          <Route path='capitalincrease' element={<CapitalIncrease />}/>
+          <Route path='priority' element={<Priority />}/>
         </Route>
         <Route path='/admin' element={<Manegment />}/>
         <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>

@@ -6,7 +6,8 @@ import { IoSpeedometer } from "react-icons/io5";
 import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
 import { VscGroupByRefType } from "react-icons/vsc";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsHandIndexThumbFill} from "react-icons/bs";
+import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill } from "react-icons/bs";
+import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiTransfer} from "react-icons/bi";
 import { useNavigate } from "react-router-dom"
 
@@ -31,7 +32,8 @@ const Menu = (props) =>{
         ['shareholders','سهامدارن',<HiOutlineDocumentDuplicate/>],
         ['transactions','نقل و انتقال',<BiTransfer/>],
         ['createassembly','ایجاد مجمع',<MdHowToVote/>],
-        ['CapitalIncrease','افزایش سرمایه',<RiHandCoinFill/>],
+        ['capitalincrease','افزایش سرمایه',<RiHandCoinFill/>],
+        ['priority','حق تقدم',<AiOutlinePaperClip/>],
     ]
     
     const Navigate = useNavigate()

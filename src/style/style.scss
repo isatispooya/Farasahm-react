@@ -1815,32 +1815,35 @@ header{
             }
             h1{
                 font-size: 18pt;
-                margin-top: 20px;
+                margin-top: 5px;
             }
             h2{
                 font-size: 13pt;
-                margin-top: 40px;
+                margin-top: 5px;
             }
         }
         .agade{
             display: flex;
             flex-direction: column;
             border-top: 1px $colorBDark dashed;
-            padding-top: 20px;
+            padding-top: 10px;
             h1{
                 font-size: 14pt;
             }
         }
         .text{
-            margin: 30px 0px;
+            margin: 15px 0px;
             display: flex;
             flex-direction: row;
             >div{
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
                 margin: 0px 0px 0px 25px;
                 >p{
                     margin: 0px 0px 0px 10px;
+                    flex: 1;
                 }
             }
         }
@@ -1855,18 +1858,18 @@ header{
         .aras{
             border-top: 1px $colorDisable dashed;
             padding: 20px;
-            margin-top: 25px;
+            margin-top: 15px;
             >p{
                 font-size: 12pt;
                 border: 1px $colorBDark solid;
-                padding: 15px 10px;
+                padding: 10px 10px;
                 border-radius: 10px;
             }
             .opt{
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
-                margin: 20px 0px;
+                margin: 10px 0px;
                 h1{
                     font-size: 13pt;
                     margin-left: 20px;
@@ -1880,7 +1883,124 @@ header{
         .singer{
             width: 150px;
             align-self: flex-end;
-            margin-top: 50px;
+            margin-top: 30px;
+        }
+    }
+}
+
+.popUpCapitalIncrease{
+    position: absolute;
+    z-index: 2;
+    inset: 10%;
+    border: 1px $colorBDark solid;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    background: #fff;
+    .field{
+        display: flex;
+        flex-direction: row-reverse;
+        width: 250px;
+        margin: 0px 30px;
+        background: $colorBDark;
+        border: 1px $colorBDark solid;
+        border-radius: 10px;
+        overflow: hidden;
+        align-items: center;
+        p{
+            flex: 2;
+            color: $colorTosi;
+            text-align: center;
+        }
+        input,select{
+            flex: 3;
+            border-top-right-radius: 20px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 20px;
+            height: 30px;
+            border-style: solid;
+            border-color: $colorBDark;
+            padding: 0px 5px;
+            &:focus{
+                outline: 0px;
+            }
+            &::-webkit-inner-spin-button{
+                display: none;
+            }
+            &::-webkit-outer-spin-button{
+                display: none;
+            }
+
+        }
+
+    }
+    .bbtn{
+        display: flex;
+        flex-direction: row;
+        width: 45%;
+        align-items: center;
+        justify-content: space-around;
+        margin: 50px 0px;
+        button{
+            @include btn();
+
+        }
+
+    }
+}
+
+
+.capInc-Card{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px;
+    border: 1px $colorBDark solid;
+    padding: 10px;
+    border-radius: 10px;
+    .fld{
+        display: flex;
+        flex-direction: column;
+        background: $colorBDark;
+        border:1px $colorBDark solid;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 220px;
+        p{
+            text-align: center;
+            padding: 2px 5px;
+        }
+        :nth-child(1){
+            color: $colorTosi;
+        }
+        :nth-child(2){
+            background: #fff;
+        }
+    }
+    .act{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        span{
+            border-radius: 10px;
+            background: $colorBLite;
+            font-size: 15pt;
+            padding:5px;
+
+            margin: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            color: $colorTosi;
         }
     }
 }
