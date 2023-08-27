@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d95d2809.css",
+    "main.js": "/static/js/main.df73356e.js",
+    "static/js/703.a0ba5a88.chunk.js": "/static/js/703.a0ba5a88.chunk.js",
+    "static/js/541.d0077dec.chunk.js": "/static/js/541.d0077dec.chunk.js",
+    "static/media/Peyda-Regular.ttf": "/static/media/Peyda-Regular.4eb6621b1ab1548aa8dc.ttf",
+    "static/media/PeydaWeb-Regular.woff": "/static/media/PeydaWeb-Regular.e1f298caefd1d1727ef6.woff",
+    "static/media/PeydaWeb-Regular.woff2": "/static/media/PeydaWeb-Regular.84fe896ff0a7be4185fe.woff2",
+    "index.html": "/index.html",
+    "main.d95d2809.css.map": "/static/css/main.d95d2809.css.map",
+    "main.df73356e.js.map": "/static/js/main.df73356e.js.map",
+    "703.a0ba5a88.chunk.js.map": "/static/js/703.a0ba5a88.chunk.js.map",
+    "541.d0077dec.chunk.js.map": "/static/js/541.d0077dec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d95d2809.css",
+    "static/js/main.df73356e.js"
+  ]
+}

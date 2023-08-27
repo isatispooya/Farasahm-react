@@ -11,7 +11,15 @@ const Header = (props) =>{
     const [allName, setAllName] = useState(null)
     const access = useContext(AccessContext)
     const [traderSelect, setTraderSelect] = useState('')
-    const navigate = useNavigate()
+    function findUpdate(objects) {
+        for (let i = 0; i < objects.length; i++) {
+            if (objects[i].url == 'update' ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     
     const exitBtn = () =>{
         setCookie('id','',0)
@@ -58,14 +66,14 @@ const Header = (props) =>{
         <header>
             <img src={'/img/'+props.access.icon}/>
             <div className="title" onClick={basicInformationBtn}>
-                <h1>{props.access.name}</h1>
+                <h1>{props.access.symbol}</h1>
                 <h2>{props.access.fullName}</h2>
             </div>
 
             <div className="btn-bs">
                 <span onClick={exitBtn}><AiOutlinePoweroff/><p>خروج</p></span>
                 <span onClick={homeBtn}><AiOutlineHome/><p>خانه</p></span>
-                {props.access==''?null:props.access.menu.includes("update")?<span onClick={updateBtn}><AiOutlineCloudUpload/><p>بروزرسانی</p></span>:null}
+                {props.access.menu==undefined?null:findUpdate(props.access.menu)?<span onClick={updateBtn}><AiOutlineCloudUpload/><p>بروزرسانی</p></span>:null}
                 {allName==null?null:
                     <>
                     <input value={traderSelect} onChange={(e)=>setTraderSelect(e.target.value)}list="allname" placeholder="جستجو"></input>

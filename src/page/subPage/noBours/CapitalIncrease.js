@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useState } from "react";
-import { BsFiletypePdf , BsFiletypeCsv , BsPlusCircle} from "react-icons/bs";
+import { BsFileEarmarkExcelFill , BsPlusCircle} from "react-icons/bs";
 import { AccessContext } from "../../../config/accessContext"
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
@@ -53,6 +53,21 @@ const CapitalIncrease = () =>{
                 toast.success("حذف شد",{position: toast.POSITION.BOTTOM_RIGHT})
                 getCi()
             }
+        })
+    }
+
+
+
+    const getXlsx = (id) =>{
+        axios.post(OnRun+'/getxlsxpriority',{access:access,id:id},{responseType: 'blob'})
+        .then(response=>{
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'df.xlsx');
+            document.body.appendChild(link);
+            link.click();
+
         })
     }
 
@@ -120,6 +135,7 @@ const CapitalIncrease = () =>{
                             </div>
                             <div className="act">
                                 <span onClick={()=>delCi(i['_id'])}><MdDelete/></span>
+                                <span onClick={()=>getXlsx(i['_id'])}><BsFileEarmarkExcelFill/></span>
                             </div>
                         </div>
                     )

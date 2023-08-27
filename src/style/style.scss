@@ -43,6 +43,10 @@ $colorDisable:#636363;
     padding: 0px;
     font-family: 'peydaRegular';
 }
+
+html,body,#root{
+    height: 100%;
+}
 body{
     background: #fff;
 }
@@ -243,6 +247,7 @@ body{
                     flex-wrap: wrap;
                 }
             }
+
         }
     }
     .btnSct{
@@ -255,7 +260,7 @@ body{
         border: 1px solid rgba(255, 255, 255, 0.68);
         padding: 10px 15px;
         height: 90px;
-        width: 220px;
+        width: 180px;
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
@@ -2001,6 +2006,32 @@ header{
             align-items: center;
             justify-content: center;
             color: $colorTosi;
+        }
+    }
+}
+
+
+
+.PreemptionCard{
+    background: linear-gradient(45deg,$colorBDark,$colorBUltra);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .br{
+        border: 2px rgba(#fff, 0.7) solid;
+        background: rgba(#fff, 0.4);
+        width: 350px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: 20px;
+        button{
+            margin: 10px;
+            @include btn();
         }
     }
 }

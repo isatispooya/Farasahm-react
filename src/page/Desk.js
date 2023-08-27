@@ -16,15 +16,21 @@ const Desk = () =>{
         const id = getCookie('id')
         const symbol = getCookie('symbol')
 
-        if(!symbol){Navigate('/section')}
-        if(id){
-            axios({method:'POST',url:OnRun+'/access',data:{id:id}
-            }).then(response=>{
-                if(response.data.replay){
-                    setAccess(response.data.acc[symbol])
-                }else{Navigate('/home')}
+        if(!symbol){
+            Navigate('/section')
+        }else if(!id){
+            Navigate('/section')
+        }else{
+            axios.post(OnRun+'/getapp',{id:id,symbol:symbol})
+            .then(response=>{
+                if (response.data.reply) {
+                    setAccess(response.data.app)
+                }else{
+                    Navigate('/section')
+                }
             })
-        }else{Navigate('/home')}
+        }
+
     }
 
     useEffect(AccessCheck,[])

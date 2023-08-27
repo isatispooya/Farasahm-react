@@ -1,19 +1,32 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { BsFiletypePdf , BsFiletypeCsv , BsPlusCircle} from "react-icons/bs";
+import { TbTransform} from "react-icons/tb";
+import { BsCashCoin} from "react-icons/bs";
 import { OnRun } from "../../../config/config";
 import { AccessContext } from "../../../config/accessContext"
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { useNavigate } from "react-router-dom";
 
+import DatePicker, { DateObject } from "react-multi-date-picker"
+import persian from "react-date-object/calendars/persian"
+import persian_fa from 'react-date-object/locales/persian_fa' 
 
 
 const Priority = () =>{
     const [transaction, setTransaction] = useState({popUp:false,frm:'',to:'',count:''})
-    const [pay, setPay] = useState({popUp:false,count:''})
+    const [pay, setPay] = useState({popUp:false,count:'',value:'',document:''})
+    const [dateSelection, setDateSelection] = useState(new DateObject)
+
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])
+
+
+
+
+
     const access = useContext(AccessContext)
+    const navigate = useNavigate()
 
 
     const getAllPepole = () =>{
@@ -75,8 +88,9 @@ const Priority = () =>{
 
     const setPayPriority = () =>{
         if (pay.count<=0) {toast.warning('مقدار باید بیشتر از صفر باشد',{position: toast.POSITION.BOTTOM_RIGHT})
+        }else if (pay.value<=0) {toast.warning('مبلغ باید بیشتر از صفر باشد',{position: toast.POSITION.BOTTOM_RIGHT})
         }else{
-            axios.post(OnRun+'/setpayprority',{pay:pay,access:access})
+            axios.post(OnRun+'/setpayprority',{pay:pay,access:access,date:dateSelection})
             .then(response=>{
                 if (response.data.replay) {
                     toast.success('انجام شد',{position: toast.POSITION.BOTTOM_RIGHT})
@@ -105,10 +119,30 @@ const Priority = () =>{
             autoResize:false,
             rowContextMenu: rowMenu,
             columns:[
-                {title:"نام و نام خانوادگی", field:"نام و نام خانوادگی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
+                {title:"نام و نام خانوادگی", field:"نام و نام خانوادگی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"count"},
                 {title:"کد ملی", field:"کد ملی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
-                {title:"حق تقدم", field:"حق تقدم", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
-                {title:"استفاده شده", field:"حق تقدم استفاده شده", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
+                {title:"شماره تماس", field:"شماره تماس", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
+                {title:"تعداد سهام", field:"تعداد سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
+                {title:"حق تقدم", field:"حق تقدم", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
+                {title:"استفاده شده", field:"حق تقدم استفاده شده", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
                 {title:"تاریخ ", field:"تاریخ", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
             ],
         })
@@ -122,6 +156,10 @@ const Priority = () =>{
             <ToastContainer autoClose={3000} />
             <div className="tls">
                 <h2 className="titlePage">حق تقدم</h2>
+                <div className="btntls">
+                    <p onClick={()=>navigate('/desk/prioritytransaction')}  className="btntls" ><span><TbTransform/></span>ریز تراکنش ها</p>
+                    <p onClick={()=>navigate('/desk/prioritypay')}  className="btntls" ><span><BsCashCoin/></span>ریز پرداخت ها</p>
+                </div>
             </div>
             {
                 transaction.popUp?
@@ -182,7 +220,19 @@ const Priority = () =>{
                     </div>
                     <div className="field">
                         <p>تعداد</p>
-                        <input value={pay.count} onChange={(e)=>setPay({...pay,count:e.target.value})} list="browsers"/>
+                        <input value={pay.count} onChange={(e)=>setPay({...pay,count:e.target.value})}/>
+                    </div>
+                    <div className="field">
+                        <p>مبلغ</p>
+                        <input value={pay.value} onChange={(e)=>setPay({...pay,value:e.target.value})}/>
+                    </div>
+                    <div className="field">
+                        <p>سند</p>
+                        <input value={pay.document} onChange={(e)=>setPay({...pay,document:e.target.value})} />
+                    </div>
+                    <div className="field">
+                        <p>تاریخ</p>
+                        <DatePicker  value={dateSelection} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={setDateSelection}/>
                     </div>
                     <div className="bbtn">
                         <button onClick={setPayPriority} type="submit">ثبت</button>
@@ -191,8 +241,6 @@ const Priority = () =>{
                 </div>
                 :null
             }
-
-
             <div id="data-table"></div>
         </div>
     )

@@ -9,6 +9,10 @@
   font-family: "peydaRegular";
 }
 
+html, body, #root {
+  height: 100%;
+}
+
 body {
   background: #fff;
 }
@@ -220,7 +224,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.68);
   padding: 10px 15px;
   height: 90px;
-  width: 220px;
+  width: 180px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -1946,4 +1950,35 @@ header .btn-bs input:focus {
   align-items: center;
   justify-content: center;
   color: #eae4e4;
+}
+
+.PreemptionCard {
+  background: linear-gradient(45deg, #20409d, #22c0eb);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.PreemptionCard .br {
+  border: 2px rgba(255, 255, 255, 0.7) solid;
+  background: rgba(255, 255, 255, 0.4);
+  width: 350px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 20px;
+}
+.PreemptionCard .br button {
+  margin: 10px;
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
 }/*# sourceMappingURL=style.css.map */

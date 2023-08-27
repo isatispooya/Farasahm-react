@@ -33,7 +33,10 @@ import SheetVoteController from './page/subPage/SheetVoteController';
 import SheetInAssembly from './page/subPage/SheetInAssembly';
 import CapitalIncrease from './page/subPage/noBours/CapitalIncrease';
 import Priority from './page/subPage/noBours/Priority';
-
+import PriorityTransaction from './page/subPage/noBours/PriorityTransaction';
+import PriorityPay from './page/subPage/noBours/prioritypay';
+import VolumeTrade from './page/subPage/desk/broker/volumeTrade';
+import PreemptionCard from './page/public/PreemptionCard';
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
 function App() {
@@ -71,11 +74,15 @@ function App() {
           <Route path='sheetvotecontroller' element={<SheetVoteController />}/>
           <Route path='capitalincrease' element={<CapitalIncrease />}/>
           <Route path='priority' element={<Priority />}/>
+          <Route path='prioritytransaction' element={<PriorityTransaction />}/>
+          <Route path='prioritypay' element={<PriorityPay />}/>
+          <Route path='volumetrade' element={<VolumeTrade />}/>
         </Route>
-        <Route path='/admin' element={<Manegment />}/>
+        {/*<Route path='/admin' element={<Manegment />}/>*/}
         <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
         <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
         <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
+        <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
 
       </Routes>
     </BrowserRouter>

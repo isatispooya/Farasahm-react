@@ -42,7 +42,7 @@ const Home = () =>{
         }).then(response=>{
             console.log(response.data)
             if(response.data.replay){
-                setCookie('id',response.data.id,10)
+                setCookie('id',response.data.id,1)
                 Navigate('/section')
             }else{
                 setErrMsg(response.data.msg)
