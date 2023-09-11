@@ -4,6 +4,8 @@ import { OnRun } from "../../../config/config"
 import { AccessContext } from "../../../config/accessContext"
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { BsFiletypePdf, BsFiletypeCsv} from "react-icons/bs";
+import { exportPdf } from "../../../config/exportPdf"
 
 
 
@@ -35,7 +37,7 @@ const PriorityTransaction = () =>{
             columns:[
                 {title:"فروشنده", field:"frm", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
                 {title:"خریدار", field:"to", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
-                {title:"تعداد", field:"count", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
+                {title:"تعداد", field:"count", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:'sum'},
                 {title:"تاریخ", field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
             ],
         })
@@ -61,6 +63,8 @@ const PriorityTransaction = () =>{
             <ToastContainer autoClose={3000} />
             <div className="tls">
                 <h2 className="titlePage">تراکنش های حق تقدم</h2>
+                <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
+                <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
             </div>
             <div id="data-table"></div>
         </div>

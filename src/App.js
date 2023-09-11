@@ -37,6 +37,8 @@ import PriorityTransaction from './page/subPage/noBours/PriorityTransaction';
 import PriorityPay from './page/subPage/noBours/prioritypay';
 import VolumeTrade from './page/subPage/desk/broker/volumeTrade';
 import PreemptionCard from './page/public/PreemptionCard';
+import WellcomBrokerDesk from './page/subPage/desk/broker/wellcom';
+import TraderBroker from './page/subPage/bours/traderBroker';
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
 function App() {
@@ -48,7 +50,7 @@ function App() {
         <Route path='/desk' element={<Desk />}>
           <Route path='update' element={<Update />}/>
           <Route path='dashboard' element={<Dashboard />}/>
-          <Route path='traders' element={<Traders />}/>
+          <Route path='tradersall' element={<Traders />}/>
           <Route path='newComer' element={<NewComer />}/>
           <Route path='runaway' element={<Runaway />}/>
           <Route path='stockman' element={<Stockman />}/>
@@ -76,7 +78,9 @@ function App() {
           <Route path='priority' element={<Priority />}/>
           <Route path='prioritytransaction' element={<PriorityTransaction />}/>
           <Route path='prioritypay' element={<PriorityPay />}/>
+          <Route path='wellcom' element={<WellcomBrokerDesk />}/>
           <Route path='volumetrade' element={<VolumeTrade />}/>
+          <Route path='tradersbroker' element={<TraderBroker />}/>
         </Route>
         {/*<Route path='/admin' element={<Manegment />}/>*/}
         <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>

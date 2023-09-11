@@ -4,6 +4,8 @@ import { OnRun } from "../../../config/config"
 import { AccessContext } from "../../../config/accessContext"
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import { BsCashCoin, BsFiletypePdf, BsFiletypeCsv} from "react-icons/bs";
+import { exportPdf } from "../../../config/exportPdf"
 
 
 
@@ -90,6 +92,8 @@ const PriorityPay = () =>{
             <ToastContainer autoClose={3000} />
             <div className="tls">
                 <h2 className="titlePage">تراکنش های حق تقدم</h2>
+                <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
+                <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
             </div>
             <div id="data-table"></div>
         </div>

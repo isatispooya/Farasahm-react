@@ -151,6 +151,119 @@ body {
   color: #2d41fd;
 }
 
+.datefromto {
+  margin: 0px 10px;
+  display: flex;
+  flex-direction: row;
+}
+.datefromto input {
+  width: 125px;
+  border-radius: 5px;
+  border: 1px #1980c3 solid;
+  text-align: center;
+  color: #20409d;
+}
+.datefromto p {
+  margin: 0px 10px;
+  color: #20409d;
+}
+
+.microLoader {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0px;
+  border: 1px #20409d solid;
+  background: #fff;
+  border-radius: 5px;
+}
+.microLoader > div {
+  width: 5px;
+  height: 9px;
+  margin: 8px;
+  background: #20409d;
+  border-radius: 1px;
+  opacity: 0.1;
+}
+.microLoader :nth-child(1) {
+  animation: growOpacity 1s 0s alternate-reverse infinite;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.microLoader :nth-child(2) {
+  animation: growOpacity 1s ease-in-out 0.2s alternate-reverse infinite;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.microLoader :nth-child(3) {
+  animation: growOpacity 1s 0.4s alternate-reverse infinite;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.microLoader :nth-child(4) {
+  animation: growOpacity 1s 0.6s alternate-reverse infinite;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@keyframes growOpacity {
+  to {
+    height: 13px;
+    opacity: 0.8;
+  }
+}
+
+.LoaderCircle {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  left: calc((100% - 400px) / 2);
+  top: calc((100% - 400px) / 2);
+  background: #f4f5fa;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.LoaderCircle .imgCntr {
+  background: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  border: 6px #c2c3d6 solid;
+  border-left-color: #20409d;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: loaderCircle 4s 0s forwards;
+  animation-timing-function: cubic-bezier(0.165, 0.56, 0.69, 1);
+  animation-iteration-count: infinite;
+  overflow: hidden;
+}
+.LoaderCircle .imgCntr > img {
+  width: 100px;
+  animation: loaderCircleImg 4s 0s forwards;
+  animation-timing-function: cubic-bezier(0.165, 0.56, 0.69, 1);
+  animation-iteration-count: infinite;
+}
+@keyframes loaderCircle {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loaderCircleImg {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.LoaderCircle h4 {
+  font-size: 16pt;
+  color: #20409d;
+  margin: 15pt;
+}
+
 .sectionPage {
   height: 100vh;
   display: flex;
@@ -361,7 +474,7 @@ header .btn-bs input:focus {
   flex-direction: row-reverse;
   padding: 0px 15px;
   align-items: center;
-  height: 20px;
+  height: 25px;
   background: rgba(32, 64, 157, 0.2);
   border-bottom: 1px #20409d solid;
   border-top: 1px #20409d solid;
@@ -390,6 +503,19 @@ header .btn-bs input:focus {
   margin-right: auto;
   display: flex;
   flex-direction: row;
+}
+.desk main .subPage .tls .btntls select {
+  height: 20px;
+  width: 100px;
+  margin: 2px 10px;
+  border-radius: 5px;
+  border: 1px #20409d solid;
+  color: #20409d;
+  text-align: center;
+}
+.desk main .subPage .tls .btntls select option {
+  color: #20409d;
+  text-align: center;
 }
 .desk main .subPage .tls .btntls > p {
   height: 100%;
@@ -1292,6 +1418,13 @@ header .btn-bs input:focus {
   color: #20409d;
   font-size: 11pt;
 }
+.Menu .subMenu {
+  display: flex;
+  flex-direction: column !important;
+}
+.Menu .sub {
+  margin-right: 20px;
+}
 .Menu .itemMenu {
   display: flex;
   flex-direction: row-reverse;
@@ -1316,6 +1449,61 @@ header .btn-bs input:focus {
   margin: 0px 0px 0px 5px;
 }
 
+.infoPopup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  inset: 0px 0px 0px 0px;
+  z-index: 4;
+}
+.infoPopup .closehide {
+  inset: 0px 0px 0px 0px;
+  position: fixed;
+}
+.infoPopup .conteiner {
+  z-index: 5;
+  position: fixed;
+  height: 350px;
+  width: 550px;
+  top: calc((100% - 350px) / 2);
+  left: calc((100% - 550px) / 2);
+  background: #fbfafa;
+  border: 1px #20409d solid;
+  border-radius: 10px;
+  padding: 20px;
+}
+.infoPopup .conteiner h1 {
+  text-align: center;
+  font-size: 14pt;
+  color: #20409d;
+}
+.infoPopup .conteiner .rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.infoPopup .conteiner .rows .row {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+.infoPopup .conteiner .rows .row h3 {
+  text-align: right;
+  font-size: 12pt;
+  color: #1980c3;
+}
+.infoPopup .conteiner .rows .row p {
+  text-align: right;
+  font-size: 10pt;
+  color: #636363;
+}
+
+.tabulator .tabulator-calcs-holder .tabulator-cell {
+  background: #dee2f0 !important;
+}
+.tabulator .tabulator-col-title {
+  text-align: center !important;
+}
 .tabulator .tabulator-menu-item {
   text-align: right !important;
 }
@@ -1373,6 +1561,37 @@ header .btn-bs input:focus {
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   height: 15px;
+}
+.tabulator .TableChartBarContiner {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+}
+.tabulator .TableChartBarContiner .barValue {
+  position: absolute;
+  width: 45px;
+  text-align: center;
+  font-size: 9pt;
+  font-family: "bold";
+  right: 0%;
+}
+.tabulator .TableChartBarContiner .barContiner {
+  width: 50%;
+}
+.tabulator .TableChartBarContiner .barContiner > div {
+  height: 15px;
+}
+.tabulator .TableChartBarContiner .barContiner .barPos {
+  margin-left: auto;
+  background: rgba(90, 174, 64, 0.99);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.tabulator .TableChartBarContiner .barContiner .barNeg {
+  margin-right: auto;
+  background: rgba(174, 64, 64, 0.99);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .PopUpTransactions {
@@ -1589,6 +1808,82 @@ header .btn-bs input:focus {
 }
 .formPopUp .btnfield .btnfieldneg {
   background: linear-gradient(45deg, #ae4040, #c45151);
+}
+
+.wellcom {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
+  position: relative;
+}
+.wellcom::after {
+  content: "";
+  height: 300px;
+  width: 10px;
+  background: rgba(32, 64, 157, 0.3);
+  animation: openCadrr 2s normal forwards;
+}
+.wellcom::before {
+  content: "";
+  height: 300px;
+  width: 10px;
+  background: rgba(32, 64, 157, 0.3);
+  animation: openCadrl 2s normal forwards;
+}
+.wellcom .logo {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 350px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+  animation: wllcm 2s 1s normal forwards;
+  opacity: 0;
+}
+.wellcom .logo h2 {
+  font-size: 13pt;
+  color: #1980c3;
+}
+.wellcom .logo h1 {
+  font-size: 19pt;
+  color: #20409d;
+  font-weight: bold;
+}
+@keyframes openCadrr {
+  0% {
+    background: rgba(32, 64, 157, 0.3);
+    transform: translateX(0px);
+  }
+  50% {
+    background: rgba(32, 64, 157, 0.2);
+  }
+  100% {
+    background: rgba(32, 64, 157, 0);
+    transform: translateX(-400px);
+  }
+}
+@keyframes openCadrl {
+  0% {
+    background: rgba(32, 64, 157, 0.3);
+    transform: translateX(0px);
+  }
+  50% {
+    background: rgba(32, 64, 157, 0.2);
+  }
+  100% {
+    background: rgba(32, 64, 157, 0);
+    transform: translateX(400px);
+  }
+}
+@keyframes wllcm {
+  100% {
+    opacity: 1;
+  }
 }
 
 .msgDel {

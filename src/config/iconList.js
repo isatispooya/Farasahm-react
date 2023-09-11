@@ -5,10 +5,9 @@ import { IoSpeedometer } from "react-icons/io5";
 import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
 import { VscGroupByRefType } from "react-icons/vsc";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill } from "react-icons/bs";
+import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
-import { BiTransfer} from "react-icons/bi";
-
+import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
@@ -31,4 +30,8 @@ export const menuFullList ={
     'createassembly':<MdHowToVote/>,
     'capitalincrease':<RiHandCoinFill/>,
     'priority':<AiOutlinePaperClip/>,
+    "oragh":<BsFileEarmarkText />,
+    'volumetrade':<FaPeopleArrows/>,
+    'tradersbroker':<BsBuildingFill />,
+    'tradersall':<BiTransferAlt/>
 }

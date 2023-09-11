@@ -11,9 +11,6 @@ import { OnRun } from "../../../config/config";
 import axios from "axios";
 import { AccessContext } from "../../../config/accessContext"
 
-import { ChartComponent } from "../../../componet/ChartComponent"
-
-
 const TraderActivityReport = () =>{
     const {code} = useParams()
     const [traderSelect, setTraderSelect] = useState(code)

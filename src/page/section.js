@@ -76,7 +76,7 @@ const Section = ()=>{
                                             <div key={i['name']} className="btnSct btnSctDis">
                                                 <img src={img}/>
                                                 <div>
-                                                    <h6>{i['name']}</h6>
+                                                    <h6>{i['symbol']}</h6>
                                                     <p className="fullName">{i['fullName']}</p>
                                                 </div>
                                             </div>
@@ -100,7 +100,7 @@ const Section = ()=>{
                                     if(i['type']=='desk'){
                                         var img = '/img/' + i['icon']
                                         return(
-                                            <div onClick={()=>toDesk(i['name'],i['firstPage'])} key={i['name']} className="btnSct">
+                                            <div onClick={()=>toDesk(i['name'],'wellcom')} key={i['name']} className="btnSct">
                                                 <img src={img}/>
                                                 <div>
                                                     <h6>{i['symbol']}</h6>
@@ -121,7 +121,7 @@ const Section = ()=>{
                                             <div key={i['name']} className="btnSct btnSctDis">
                                                 <img src={img}/>
                                                 <div>
-                                                    <h6>{i['name']}</h6>
+                                                    <h6>{i['symbol']}</h6>
                                                     <p className="fullName">{i['fullName']}</p>
                                                 </div>
                                             </div>
@@ -167,7 +167,7 @@ const Section = ()=>{
                                             <div key={i['name']} className="btnSct btnSctDis">
                                                 <img src={img}/>
                                                 <div>
-                                                    <h6>{i['name']}</h6>
+                                                    <h6>{i['symbol']}</h6>
                                                     <p className="fullName">{i['fullName']}</p>
                                                 </div>
                                             </div>
@@ -215,7 +215,7 @@ const Section = ()=>{
                                             <div key={i['name']} className="btnSct btnSctDis">
                                                 <img src={img}/>
                                                 <div>
-                                                    <h6>{i['name']}</h6>
+                                                    <h6>{i['symbol']}</h6>
                                                     <p className="fullName">{i['fullName']}</p>
                                                 </div>
                                             </div>

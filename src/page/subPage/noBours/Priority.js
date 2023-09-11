@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { TbTransform} from "react-icons/tb";
-import { BsCashCoin} from "react-icons/bs";
+import { BsCashCoin, BsFiletypePdf, BsFiletypeCsv} from "react-icons/bs";
 import { OnRun } from "../../../config/config";
 import { AccessContext } from "../../../config/accessContext"
 import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { useNavigate } from "react-router-dom";
+import { exportPdf } from "../../../config/exportPdf"
 
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
@@ -156,6 +157,8 @@ const Priority = () =>{
             <ToastContainer autoClose={3000} />
             <div className="tls">
                 <h2 className="titlePage">حق تقدم</h2>
+                <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
+                <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
                 <div className="btntls">
                     <p onClick={()=>navigate('/desk/prioritytransaction')}  className="btntls" ><span><TbTransform/></span>ریز تراکنش ها</p>
                     <p onClick={()=>navigate('/desk/prioritypay')}  className="btntls" ><span><BsCashCoin/></span>ریز پرداخت ها</p>
