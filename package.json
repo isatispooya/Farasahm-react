@@ -1,6 +1,6 @@
 {
   "name": "farasahm",
-  "version": "2.2.0",
+  "version": "2.18.0",
   "private": true,
   "dependencies": {
     "@antv/g2": "^4.2.3",

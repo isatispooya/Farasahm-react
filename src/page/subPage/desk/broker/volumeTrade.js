@@ -42,12 +42,12 @@ const VolumeTrade = () =>{
                     dataTree:true,
                     dataTreeStartExpanded:false,
                     columns:[
-                        {title:"تاریخ", field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input",topCalc: function (values, data, calcParams) {return "میانگین بازه انتخابی";
+                        {title:"تاریخ",headerTooltip:'تاریخ', field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input",topCalc: function (values, data, calcParams) {return "میانگین بازه انتخابی";
                         }},
                         {
                             title:'ایساتیس پویا',
                             columns:[
-                                {title:"سهام", field:"سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"سهام",headerTooltip:'ارزش معاملات سهام در کارگزاری', field:"سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -55,9 +55,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات سهام در کارگزاری";
+                                    },
                                 },
-                                {title:"صندوق", field:"صندوق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"صندوق",headerTooltip:'ارزش معاملات صندوق ها در کارگزاری', field:"صندوق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -65,9 +68,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات صندوق ها در کارگزاری";
+                                    },
                                 },
-                                {title:"اوراق", field:"اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"اوراق",headerTooltip:'ارزش معاملات اوراق در کارگزاری', field:"اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -75,9 +81,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات اوراق در کارگزاری";
+                                    },
                                 },
-                                {title:"کل", field:"کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"کل",headerTooltip:'ارزش معاملات کل در کارگزاری', field:"کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -85,7 +94,10 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات کل در کارگزاری";
+                                    },
                                 },
                             ]
                         },
@@ -93,7 +105,7 @@ const VolumeTrade = () =>{
                         {
                             title:'کل بازار',
                             columns:[
-                                {title:"سهام", field:"کل سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"سهام",headerTooltip:'ارزش معاملات سهام در کل بازار', field:"کل سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -101,9 +113,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات سهام در کل بازار";
+                                    },
                                 },
-                                {title:"صندوق", field:"کل صندوق ها", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"صندوق",headerTooltip:'ارزش معاملات صندوق ها در کل بازار', field:"کل صندوق ها", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -111,9 +126,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات صندوق ها در کل بازار";
+                                    },
                                 },
-                                {title:"اوراق", field:"کل اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"اوراق",headerTooltip:'ارزش معاملات اوراق در کل بازار', field:"کل اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -121,9 +139,12 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات اوراق در کل بازار";
+                                    },
                                 },
-                                {title:"کل", field:"کل بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"کل",headerTooltip:'ارزش معاملات کل بازار', field:"کل بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
@@ -131,7 +152,10 @@ const VolumeTrade = () =>{
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
                                         return (value * 1).toLocaleString() + " B";
-                                    }
+                                    },
+                                    tooltip: function (cell) {
+                                        return "ارزش معاملات کل بازار";
+                                    },
                                 }
                             ]
                         },
@@ -142,7 +166,7 @@ const VolumeTrade = () =>{
                                 {
                                     title:'سهام',
                                     columns:[
-                                        {title:"مقدار", field:"نسبت سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"مقدار",headerTooltip:'مقدار سهم از بازار کارگزاری در سهام', field:"نسبت سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"% </p></div>")
@@ -150,9 +174,12 @@ const VolumeTrade = () =>{
                                             topCalcFormatter:function (cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return (value * 1).toLocaleString() + " %";
-                                            }
+                                            },
+                                            tooltip: function (cell) {
+                                                return "مقدار سهم از بازار کارگزاری در سهام";
+                                            },
                                         },
-                                        {title:"انحراف از میانگین ابتدای سال", field:"نسبت سهام انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"انحراف از میانگین ابتدای سال",headerTooltip:'اختلاف سهم از بازار کار گزاری در سهام هر روز با میانگین سال جاری', field:"نسبت سهام انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 if (value>0) {
@@ -162,13 +189,16 @@ const VolumeTrade = () =>{
                                                     return("<div class='TableChartBarContiner'><div class='barValue'>"+((value)).toLocaleString()+"</div><div class='barContiner'><div class='barPos' style='width:0%' ></div></div> <div class='barContiner'><div class='barNeg' style='width:"+((value/response.data.dic['نسبت سهام انحراف'])*100).toString()+'%'+"'></div></div></div>")
                                                 }
                                             },
+                                            tooltip: function (cell) {
+                                                return "اختلاف سهم از بازار کار گزاری در سهام هر روز با میانگین سال جاری";
+                                            },
                                         }
                                     ]
                                 },
                                 {
                                     title:'صندوق',
                                     columns:[
-                                        {title:"مقدار", field:"نسبت صندوق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"مقدار",headerTooltip:'مقدار سهم از بازار کارگزاری در صندوق ها', field:"نسبت صندوق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"% </p></div>")
@@ -176,9 +206,12 @@ const VolumeTrade = () =>{
                                             topCalcFormatter:function (cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return (value * 1).toLocaleString() + " %";
-                                            }
+                                            },
+                                            tooltip: function (cell) {
+                                                return "مقدار سهم از بازار کارگزاری در صندوق ها";
+                                            },
                                         },
-                                        {title:"انحراف از میانگین ابتدای سال", field:"نسبت صندوق انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"انحراف از میانگین ابتدای سال",headerTooltip:'اختلاف سهم از بازار کار گزاری در صندوق ها هر روز با میانگین سال جاری', field:"نسبت صندوق انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 if (value>0) {
@@ -188,13 +221,16 @@ const VolumeTrade = () =>{
                                                     return("<div class='TableChartBarContiner'><div class='barValue'>"+((value)).toLocaleString()+"</div><div class='barContiner'><div class='barPos' style='width:0%' ></div></div> <div class='barContiner'><div class='barNeg' style='width:"+((value/response.data.dic['نسبت صندوق انحراف'])*100).toString()+'%'+"'></div></div></div>")
                                                 }
                                             },
+                                            tooltip: function (cell) {
+                                                return "اختلاف سهم از بازار کار گزاری در صندوق ها هر روز با میانگین سال جاری";
+                                            },
                                         }
                                     ]
                                 },
                                 {
                                     title:'اوراق',
                                     columns:[
-                                        {title:"مقدار", field:"نسبت اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"مقدار",headerTooltip:'مقدار سهم از بازار کارگزاری در اوراق', field:"نسبت اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"% </p></div>")
@@ -202,9 +238,12 @@ const VolumeTrade = () =>{
                                             topCalcFormatter:function (cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return (value * 1).toLocaleString() + " %";
-                                            }
+                                            },
+                                            tooltip: function (cell) {
+                                                return "مقدار سهم از بازار کارگزاری در اوراق";
+                                            },
                                         },
-                                        {title:"انحراف از میانگین ابتدای سال", field:"نسبت اوراق انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"انحراف از میانگین ابتدای سال",headerTooltip:'اختلاف سهم از بازار کار گزاری در اوراق هر روز با میانگین سال جاری', field:"نسبت اوراق انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 if (value>0) {
@@ -214,13 +253,16 @@ const VolumeTrade = () =>{
                                                     return("<div class='TableChartBarContiner'><div class='barValue'>"+((value)).toLocaleString()+"</div><div class='barContiner'><div class='barPos' style='width:0%' ></div></div> <div class='barContiner'><div class='barNeg' style='width:"+((value/response.data.dic['نسبت اوراق انحراف'])*100).toString()+'%'+"'></div></div></div>")
                                                 }
                                             },
+                                            tooltip: function (cell) {
+                                                return "اختلاف سهم از بازار کار گزاری در اوراق هر روز با میانگین سال جاری";
+                                            },
                                         }
                                     ]
                                 },
                                 {
                                     title:'کل',
                                     columns:[
-                                        {title:"مقدار", field:"نسبت کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"مقدار", headerTooltip:'مقدار کل سهم از بازار کارگزاری در سهام', field:"نسبت کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"% </p></div>")
@@ -228,9 +270,12 @@ const VolumeTrade = () =>{
                                             topCalcFormatter:function (cell, formatterParams){
                                                 var value = cell.getValue();
                                                 return (value * 1).toLocaleString() + " %";
-                                            }
+                                            },
+                                            tooltip: function (cell) {
+                                                return "مقدار کل سهم از بازار کارگزاری در سهام";
+                                            },
                                         },
-                                        {title:"انحراف از میانگین ابتدای سال", field:"نسبت کل انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
+                                        {title:"انحراف از میانگین ابتدای سال",headerTooltip:'اختلاف کل سهم از بازار کار گزاری هر روز با میانگین سال جاری', field:"نسبت کل انحراف", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,topCalc:"avg",
                                             formatter:function(cell, formatterParams){
                                                 var value = cell.getValue();
                                                 if (value>0) {
@@ -239,6 +284,9 @@ const VolumeTrade = () =>{
                                                     value = value*-1
                                                     return("<div class='TableChartBarContiner'><div class='barValue'>"+((value)).toLocaleString()+"</div><div class='barContiner'><div class='barPos' style='width:0%' ></div></div> <div class='barContiner'><div class='barNeg' style='width:"+((value/response.data.dic['نسبت کل انحراف'])*100).toString()+'%'+"'></div></div></div>")
                                                 }
+                                            },
+                                            tooltip: function (cell) {
+                                                return "اختلاف کل سهم از بازار کار گزاری هر روز با میانگین سال جاری";
                                             },
                                         }
                                     ]

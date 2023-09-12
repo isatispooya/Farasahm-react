@@ -15,8 +15,19 @@ const PriorityTransaction = () =>{
     const access = useContext(AccessContext)
 
     var rowMenu = [
-
-
+        {
+            label:"حذف",
+            action:function(e, row){
+                axios.post(OnRun+'/delprioritytransaction',{access:access,id:row.getData()['_id']})
+                .then(response=>{
+                    if (response.data.replay) {
+                        toast.success('حذف شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                    }else{
+                        toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                    }
+                })
+            }
+        },
     ]
 
 
