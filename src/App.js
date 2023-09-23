@@ -37,10 +37,14 @@ import PriorityTransaction from './page/subPage/noBours/PriorityTransaction';
 import PriorityPay from './page/subPage/noBours/prioritypay';
 import VolumeTrade from './page/subPage/desk/broker/volumeTrade';
 import PreemptionCard from './page/public/PreemptionCard';
-import WellcomBrokerDesk from './page/subPage/desk/broker/wellcom';
+import WellcomBrokerDesk from './page/subPage/desk/wellcom';
 import TraderBroker from './page/subPage/bours/traderBroker';
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
+import Turnover from './page/subPage/desk/sabad/turnover';
+import TraderCodes from './page/subPage/desk/sabad/tradercodes';
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -81,6 +85,8 @@ function App() {
           <Route path='wellcom' element={<WellcomBrokerDesk />}/>
           <Route path='volumetrade' element={<VolumeTrade />}/>
           <Route path='tradersbroker' element={<TraderBroker />}/>
+          <Route path='turnover' element={<Turnover />}/>
+          <Route path='tradercodes' element={<TraderCodes />}/>
         </Route>
         {/*<Route path='/admin' element={<Manegment />}/>*/}
         <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>

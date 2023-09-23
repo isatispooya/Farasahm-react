@@ -1658,6 +1658,21 @@ header{
     box-shadow: 1px 1px 15px 3px rgba($colorDisable,0.5);
     z-index: 1;
     background: #fff;
+    .prgName{
+        p{
+            font-size: 13pt !important;
+        }
+    }
+    .getinfo{
+        button{
+            width: 150px;
+            height: 25px;
+            border: 0px;
+            border-radius: 5px;
+            color: #fff;
+            background: $colorBDark;
+        }
+    }
     .trd{
         display: flex;
         flex-direction: row-reverse;

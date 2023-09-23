@@ -144,6 +144,20 @@ const Priority = () =>{
 
                     },
                 },
+                {title:"ارزش واریز", field:"ارزش واریز", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
+                {title:"تعداد واریز", field:"تعداد واریز", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
                 {title:"تاریخ ", field:"تاریخ", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
             ],
         })

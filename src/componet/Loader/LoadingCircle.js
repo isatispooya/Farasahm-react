@@ -7,7 +7,6 @@ const LoaderCircle = (props) =>{
     useEffect(()=>{if(props.Message){setMessage(props.Message)}else{setMessage('')}},[props])
     const logoname = useContext(AccessContext)[1]
 
-
     if(props.loading){
         return(
             <div className="LoaderCircle">

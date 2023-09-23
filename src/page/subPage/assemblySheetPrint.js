@@ -8,7 +8,6 @@ import { useEffect, useState } from "react"
 const AssemblySheetPrint = () =>{
     const {symbol,nc} = useParams()
     const [res, setRes] = useState(null)
-    console.log(res)
 
 
 

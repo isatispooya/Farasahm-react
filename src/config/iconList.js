@@ -1,11 +1,11 @@
 import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote} from "react-icons/md";
 import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie} from "react-icons/fa";
 import { GiNewShoot } from "react-icons/gi";
-import { IoSpeedometer } from "react-icons/io5";
-import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
+import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType } from "react-icons/vsc";
+import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill} from "react-icons/bs";
+import { BsCashCoin , BsFillPersonVcardFill , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 
@@ -33,5 +33,8 @@ export const menuFullList ={
     "oragh":<BsFileEarmarkText />,
     'volumetrade':<FaPeopleArrows/>,
     'tradersbroker':<BsBuildingFill />,
-    'tradersall':<BiTransferAlt/>
+    'tradersall':<BiTransferAlt/>,
+    'setting':<IoSettingsSharp />,
+    "turnover":<BiTransfer/>,
+    "tradercodes":<BsFillPersonVcardFill/>
 }

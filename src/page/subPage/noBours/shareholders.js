@@ -13,7 +13,7 @@ const Shareholders = () =>{
     const [dic, setDic] = useState(null)
     const access = useContext(AccessContext)
     const [popUp, setPopUp] = useState(false)
-    const [dataTrader, setDataTrader] = useState({'نام و نام خانوادگی':'','کد ملی':'','نام پدر':'','شماره تماس':'','شماره حساب':'','صادره':'','بانک':'','کدبورسی':''})
+    const [dataTrader, setDataTrader] = useState({'نام و نام خانوادگی':'','کد ملی':'','شماره شناسنامه':'','نام پدر':'','شماره تماس':'','تاریخ تولد':'','شماره حساب':'','صادره':'','بانک':'','کدبورسی':''})
 
 
     var rowMenu = [
@@ -138,12 +138,20 @@ const Shareholders = () =>{
                             <input value={dataTrader['نام و نام خانوادگی']} onChange={(e)=>setDataTrader({...dataTrader,'نام و نام خانوادگی':e.target.value})}></input>
                         </fieldset>
                         <fieldset>
-                            <label>*کد ملی</label>
+                            <label>*کد/شناسه ملی</label>
                             <input type="number" value={dataTrader['کد ملی']} onChange={(e)=>setDataTrader({...dataTrader,'کد ملی':e.target.value})}></input>
                         </fieldset>
                         <fieldset>
-                            <label>نام پدر</label>
+                            <label>*شماره شناسنامه/ثبت</label>
+                            <input type="number" value={dataTrader['شماره شناسنامه']} onChange={(e)=>setDataTrader({...dataTrader,'شماره شناسنامه':e.target.value})}></input>
+                        </fieldset>
+                        <fieldset>
+                            <label>*نام پدر</label>
                             <input value={dataTrader['نام پدر']} onChange={(e)=>setDataTrader({...dataTrader,'نام پدر':e.target.value})}></input>
+                        </fieldset>
+                        <fieldset>
+                            <label>*تاریخ تولد</label>
+                            <input value={dataTrader['تاریخ تولد']} onChange={(e)=>setDataTrader({...dataTrader,'تاریخ تولد':e.target.value})}></input>
                         </fieldset>
                         <fieldset>
                             <label>صادره</label>

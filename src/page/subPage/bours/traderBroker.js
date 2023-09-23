@@ -127,6 +127,7 @@ const TraderBroker = () =>{
                     setDic(response.data.dic)
                 }else{
                     setDf(false)
+                    
                 }
             })
         }
