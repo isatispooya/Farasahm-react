@@ -9,6 +9,8 @@ import { BsInfoCircle } from "react-icons/bs";
 import DateFromTo from "../../../../componet/datepicker/DateFromTo";
 import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
 import InfoPopUp from "../../../../componet/popup/info";
+import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
 const Turnover = () =>{
     const access = useContext(AccessContext)
@@ -18,6 +20,57 @@ const Turnover = () =>{
         {title:'ستون انحراف',content:'این ستون مقدار اختلاف هر روز با میانگین از ابتدای سال 1402 میباشد'},
         {title:'ردیف میانگین',content:'این ردیف میانگین هر ستون برای بازه انتخاب شده است'}
     ]})
+    const [popUpChart,setPopUpChart] = useState({popup:false,data:[]})
+    ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+    const options = {
+        responsive: true,
+      };
+
+    var rowMenu = [
+        {
+            label:"جزئیات به تفکیک کد ها",
+            action:function(e, row){
+                setLoading(true)
+                axios.post(OnRun+'/desk/sabad/turnoverpercode',{access:access,row:row.getData()})
+                .then(response=>{
+                    setLoading(false)
+                    if (response.data.reply) {
+                        const labels = response.data.df.labels
+                        setPopUpChart(
+                            {
+                                popup:true,
+                                data:{
+                                    labels,
+                                    datasets: [
+                                        {
+                                            label:'سهام',
+                                            data: response.data.df.sahm,
+                                            backgroundColor: '#03a5fc',
+                                            borderRadius: 15
+                                        },
+                                        {
+                                            label:'صندوق ها',
+                                            data: response.data.df.fund,
+                                            backgroundColor: '#5aae40',
+                                            borderRadius: 15
+                                        },
+                                        {
+                                            label:'اوراق',
+                                            data: response.data.df.orag,
+                                            backgroundColor: '#fca903',
+                                            borderRadius: 15
+                                        }
+                                    ]
+                                }
+                            }
+                        )
+                    }else{
+                        toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                    }
+                })
+            }
+        },
+    ]
 
     const getdf = () =>{
         setLoading(true)
@@ -40,6 +93,7 @@ const Turnover = () =>{
                     autoResize:false,
                     dataTree:true,
                     dataTreeStartExpanded:false,
+                    rowContextMenu: rowMenu,
                     columns:[
                         {title:"تاریخ",headerTooltip:'تاریخ', field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input",topCalc: function (values, data, calcParams) {return "میانگین بازه انتخابی";
                         }},
@@ -305,6 +359,16 @@ const Turnover = () =>{
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
             <InfoPopUp data={infoData} setData={setInfoData}/>
+            {
+                popUpChart.popup?
+                <>
+                    <div className="popupchartsClose" onClick={()=>setPopUpChart({...popUpChart,popup:false})}></div>
+                    <div className="popupcharts">
+                        <Bar data={popUpChart.data} />
+                    </div>
+                </>
+                :null
+            }
             <div className="tls">
                 <h2 className="titlePage">حجم معاملات</h2>
                 <div className="btntls">

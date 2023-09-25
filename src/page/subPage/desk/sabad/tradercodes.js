@@ -60,6 +60,7 @@ const TraderCodes = () =>{
     const getDf = () =>{
         axios.post(OnRun+'/desk/sabad/codetrader',{access:access})
         .then(response=>{
+            console.log(response.data.df)
             if (response.data.reply) {
                 var table = new Tabulator("#data-table", {
                     data:response.data.df,
@@ -77,8 +78,8 @@ const TraderCodes = () =>{
                     dataTreeStartExpanded:false,
                     rowContextMenu: rowMenu,
                     columns:[
-                        {title:"کد",headerTooltip:'code', field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input"},
-                        {title:"نام",headerTooltip:'name', field:"date", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input"}
+                        {title:"کد", field:"code", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input"},
+                        {title:"نام", field:"name", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,headerFilter:"input"}
                     ]
                 })
                 toast.success('اطلاعات بروز شد',{position: toast.POSITION.BOTTOM_RIGHT})

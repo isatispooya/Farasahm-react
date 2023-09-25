@@ -2258,6 +2258,24 @@ header .btn-bs input:focus {
   color: #eae4e4;
 }
 
+.popupchartsClose {
+  position: absolute;
+  inset: 0px;
+  z-index: 3;
+}
+
+.popupcharts {
+  position: absolute;
+  width: 900px;
+  height: 500px;
+  z-index: 4;
+  background: #fff;
+  top: calc((100% - 500px) / 2);
+  left: calc((100% - 900px) / 2);
+  border: 1px #20409d solid;
+  border-radius: 10px;
+}
+
 .PreemptionCard {
   background: linear-gradient(45deg, #20409d, #22c0eb);
   height: 100%;

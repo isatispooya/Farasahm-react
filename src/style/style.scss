@@ -2327,6 +2327,22 @@ header{
     }
 }
 
+.popupchartsClose{
+    position: absolute;
+    inset: 0px;
+    z-index: 3;
+}
+.popupcharts{
+    position: absolute;
+    width: 900px;
+    height: 500px;
+    z-index: 4;
+    background: #fff;
+    top: calc((100% - 500px) /2);
+    left: calc((100% - 900px) /2);
+    border: 1px $colorBDark solid;
+    border-radius: 10px;
+}
 
 
 .PreemptionCard{
