@@ -24,6 +24,7 @@ import BrokerActivityReport from './page/subPage/bours/BrokerActivityReport';
 import StationActivityReport from './page/subPage/bours/StationActivityReport';
 import ExcerptTrader from './page/subPage/bours/ExcerptTrader';
 import Manegment from './page/manegment/manegment';
+import StockSheet from './page/subPage/noBours/stocksheet';
 import FormerStockman from './page/subPage/bours/FormerStockman';
 import Metric from './page/subPage/bours/metric';
 import CreateAssembly from './page/subPage/noBours/createAssembly';
@@ -74,6 +75,7 @@ function App() {
           <Route path='grouping' element={<Grouping />}/>
           <Route path='category' element={<Category />}/>
           <Route path='broker' element={<Broker />}/>
+          <Route path='stocksheet' element={<StockSheet />}/>
           <Route path='transactions' element={<Transactions />}/>
           <Route path='createassembly' element={<CreateAssembly />}/>
           <Route path='attendeesassembly' element={<AttendeesAssembly />}/>

@@ -18,6 +18,7 @@ const Priority = () =>{
     const [transaction, setTransaction] = useState({popUp:false,frm:'',to:'',count:''})
     const [pay, setPay] = useState({popUp:false,count:'',value:'',document:''})
     const [dateSelection, setDateSelection] = useState(new DateObject)
+    const [datePriority, setDatePriority] = useState(null)
 
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])
@@ -29,6 +30,18 @@ const Priority = () =>{
     const access = useContext(AccessContext)
     const navigate = useNavigate()
 
+
+    const getDatePriority = () =>{
+        axios.post(OnRun+'/getdatepriority',{access:access})
+        .then(response=>{
+            if (response.data.reply) {
+                console.log(response.data.lst)
+                setDatePriority({selected:response.data.lst[0],lst:response.data.lst})
+            }else{
+                toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+            }
+        })
+    }
 
     const getAllPepole = () =>{
         axios.post(OnRun+'/getallnamenobourse',{access:access})
@@ -53,17 +66,25 @@ const Priority = () =>{
         {
             label:"انتقال",
             action:function(e, row){
-                const dt =row.getData()
-                setTransaction({...transaction,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
-                setPay({...pay,popUp:false})
+                if (datePriority.selected===false) {
+                    const dt =row.getData()
+                    setTransaction({...transaction,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
+                    setPay({...pay,popUp:false})
+                }else{
+                    toast.warning('این افزایش سرمایه پایان یافته',{position: toast.POSITION.BOTTOM_RIGHT})
+                }
             }
         },
         {
             label:"پرداخت",
             action:function(e, row){
-                const dt =row.getData()
-                setPay({...pay,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
-                setTransaction({...transaction,popUp:false})
+                if (datePriority.selected===false) {
+                    const dt =row.getData()
+                    setPay({...pay,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
+                    setTransaction({...transaction,popUp:false})
+                }else{
+                    toast.warning('این افزایش سرمایه پایان یافته',{position: toast.POSITION.BOTTOM_RIGHT})
+                }
             }
         },
 
@@ -124,6 +145,10 @@ const Priority = () =>{
                 {title:"کد ملی", field:"کد ملی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
                 {title:"شماره تماس", field:"شماره تماس", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:5,headerFilter:"input"},
                 {title:"تعداد سهام", field:"تعداد سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
@@ -131,6 +156,10 @@ const Priority = () =>{
                     },
                 },
                 {title:"حق تقدم", field:"حق تقدم", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
@@ -138,6 +167,21 @@ const Priority = () =>{
                     },
                 },
                 {title:"استفاده شده", field:"حق تقدم استفاده شده", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
+                {title:"تعداد سهام بعد از افزایش سرمایه", field:"countForward", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
@@ -145,6 +189,10 @@ const Priority = () =>{
                     },
                 },
                 {title:"ارزش واریز", field:"ارزش واریز", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
@@ -152,10 +200,13 @@ const Priority = () =>{
                     },
                 },
                 {title:"تعداد واریز", field:"تعداد واریز", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
-
                     },
                 },
                 {title:"تاریخ ", field:"تاریخ", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
@@ -166,6 +217,7 @@ const Priority = () =>{
 
     useEffect(getAllPepole,[])
     useEffect(get,[])
+    useEffect(getDatePriority,[])
     return(
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
@@ -173,9 +225,22 @@ const Priority = () =>{
                 <h2 className="titlePage">حق تقدم</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
+
                 <div className="btntls">
                     <p onClick={()=>navigate('/desk/prioritytransaction')}  className="btntls" ><span><TbTransform/></span>ریز تراکنش ها</p>
                     <p onClick={()=>navigate('/desk/prioritypay')}  className="btntls" ><span><BsCashCoin/></span>ریز پرداخت ها</p>
+                    {
+                        datePriority==null?null:
+                        <select onChange={(e)=>setDatePriority({...datePriority,selected:e.target.value})}>
+                            {
+                                datePriority.lst.map(i=>{
+                                    return(
+                                        <option key={i.date} value={i}>{i.date}</option>
+                                        )
+                                    })
+                            }
+                        </select>
+                    }
                 </div>
             </div>
             {

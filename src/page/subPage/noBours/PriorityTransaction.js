@@ -13,22 +13,41 @@ import { exportPdf } from "../../../config/exportPdf"
 const PriorityTransaction = () =>{
     const [df, setDf] = useState([])
     const access = useContext(AccessContext)
+    const [datePriority, setDatePriority] = useState(null)
 
     var rowMenu = [
         {
             label:"حذف",
             action:function(e, row){
-                axios.post(OnRun+'/delprioritytransaction',{access:access,id:row.getData()['_id']})
-                .then(response=>{
-                    if (response.data.replay) {
-                        toast.success('حذف شد',{position: toast.POSITION.BOTTOM_RIGHT})
-                    }else{
-                        toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
-                    }
-                })
+                if (datePriority.selected===false) {
+                    axios.post(OnRun+'/delprioritytransaction',{access:access,id:row.getData()['_id']})
+                    .then(response=>{
+                        if (response.data.replay) {
+                            toast.success('حذف شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                        }else{
+                            toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                        }
+                    })
+                }else{
+                    toast.warning('این افزایش سرمایه پایان یافته',{position: toast.POSITION.BOTTOM_RIGHT})
+                }
+
+
             }
         },
     ]
+
+    const getDatePriority = () =>{
+        axios.post(OnRun+'/getdatepriority',{access:access})
+        .then(response=>{
+            if (response.data.reply) {
+                console.log(response.data.lst)
+                setDatePriority({selected:response.data.lst[0],lst:response.data.lst})
+            }else{
+                toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+            }
+        })
+    }
 
 
     if(df!=[]){
@@ -68,6 +87,7 @@ const PriorityTransaction = () =>{
 
 
     useEffect(get, [])
+    useEffect(getDatePriority,[])
 
     return(
         <div className="subPage tablePg">
@@ -76,6 +96,20 @@ const PriorityTransaction = () =>{
                 <h2 className="titlePage">تراکنش های حق تقدم</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
+                <div className="btntls">
+                    {
+                        datePriority==null?null:
+                        <select onChange={(e)=>setDatePriority({...datePriority,selected:e.target.value})}>
+                            {
+                                datePriority.lst.map(i=>{
+                                    return(
+                                        <option key={i.date} value={i}>{i.date}</option>
+                                        )
+                                    })
+                            }
+                        </select>
+                    }
+                </div>
             </div>
             <div id="data-table"></div>
         </div>

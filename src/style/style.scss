@@ -2344,6 +2344,25 @@ header{
     border-radius: 10px;
 }
 
+.gtstcsht{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    input{
+        width: 200px;
+        border: $colorBDark 1px solid;
+        border-radius: 5px;
+        text-align: center;
+    }
+    button{
+        @include btn();
+        margin: 20px;
+        width: 200px;
+    }
+}
 
 .PreemptionCard{
     background: linear-gradient(45deg,$colorBDark,$colorBUltra);

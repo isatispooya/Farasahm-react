@@ -1,6 +1,6 @@
 
 import { useContext, useEffect, useState } from "react";
-import { BsFileEarmarkExcelFill , BsPlusCircle} from "react-icons/bs";
+import { BsFileEarmarkExcelFill , BsPlusCircle, BsCheckCircleFill} from "react-icons/bs";
 import { AccessContext } from "../../../config/accessContext"
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
@@ -71,6 +71,17 @@ const CapitalIncrease = () =>{
         })
     }
 
+    const end = (id) =>{
+        axios.post(OnRun+'/endpriority',{access:access,id:id})
+        .then(response=>{
+            if(response.data.reply){
+                toast.success("ثبت شد",{position: toast.POSITION.BOTTOM_RIGHT})
+            }else{
+                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+            }
+        })
+    }
+
     useEffect(getCi,[])
     return(
         <div className="subPage tablePg">
@@ -111,6 +122,7 @@ const CapitalIncrease = () =>{
 
             {
                 df.map(i=>{
+                    console.log(i)
                     return(
                         <div key={i['_id']} className="capInc-Card">
                             <div className="fld">
@@ -134,7 +146,14 @@ const CapitalIncrease = () =>{
                                 <p>{i['rate']}%</p>
                             </div>
                             <div className="act">
-                                <span onClick={()=>delCi(i['_id'])}><MdDelete/></span>
+                                {
+                                    i.enable!=false?
+                                        <>
+                                            <span onClick={()=>end(i['_id'])}><BsCheckCircleFill/></span>
+                                            <span onClick={()=>delCi(i['_id'])}><MdDelete/></span>
+                                        </>
+                                    :null
+                                }
                                 <span onClick={()=>getXlsx(i['_id'])}><BsFileEarmarkExcelFill/></span>
                             </div>
                         </div>

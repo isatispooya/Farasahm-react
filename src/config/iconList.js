@@ -5,7 +5,7 @@ import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType } from "react-icons/vsc";
 import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin , BsFillPersonVcardFill , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill} from "react-icons/bs";
+import { BsCashCoin , BsFillPersonVcardFill , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 
@@ -36,5 +36,6 @@ export const menuFullList ={
     'tradersall':<BiTransferAlt/>,
     'setting':<IoSettingsSharp />,
     "turnover":<BiTransfer/>,
-    "tradercodes":<BsFillPersonVcardFill/>
+    "tradercodes":<BsFillPersonVcardFill/>,
+    "stocksheet":<BsFillFileEarmarkTextFill/>
 }

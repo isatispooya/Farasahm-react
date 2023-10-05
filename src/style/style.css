@@ -2276,6 +2276,33 @@ header .btn-bs input:focus {
   border-radius: 10px;
 }
 
+.gtstcsht {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+}
+.gtstcsht input {
+  width: 200px;
+  border: #20409d 1px solid;
+  border-radius: 5px;
+  text-align: center;
+}
+.gtstcsht button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+  margin: 20px;
+  width: 200px;
+}
+
 .PreemptionCard {
   background: linear-gradient(45deg, #20409d, #22c0eb);
   height: 100%;

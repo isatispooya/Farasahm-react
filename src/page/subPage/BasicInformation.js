@@ -8,13 +8,12 @@ import { OnRun } from "../../config/config"
 
 
 const BasicInformation = () =>{
-    const [information, setInformation] = useState({'نام شرکت':'','نوع شرکت':'','شماره ثبت':'','محل ثبت':'','تاریخ تاسیس':'','شناسه ملی':'','تعداد سهام':'','سرمایه ثبتی':'','زمینه فعالیت':'','آدرس':''})
+    const [information, setInformation] = useState({'نام شرکت':'','نوع شرکت':'','شماره ثبت':'','محل ثبت':'','تاریخ تاسیس':'','شناسه ملی':'','تعداد سهام':'','سرمایه ثبتی':'','زمینه فعالیت':'','آدرس':'','مدیر عامل':'','رئیس هیئت مدیره':''})
     const access = useContext(AccessContext)
 
     const getInformation = () =>{
         axios({method:'POST',url:OnRun+'/getinformationcompany',data:{access:access}
         }).then(response=>{
-            console.log(response.data)
             setInformation({'نام شرکت':response.data.dic['نام شرکت'],
             'نوع شرکت':response.data.dic['نوع شرکت'],
             'شماره ثبت':response.data.dic['شماره ثبت'],
@@ -24,7 +23,10 @@ const BasicInformation = () =>{
             'تعداد سهام':response.data.dic['تعداد سهام'],
             'سرمایه ثبتی':response.data.dic['سرمایه ثبتی'],
             'زمینه فعالیت':response.data.dic['زمینه فعالیت'],
-            'آدرس':response.data.dic['آدرس']})
+            'آدرس':response.data.dic['آدرس'],
+            'مدیر عامل':response.data.dic['مدیر عامل'],
+            'رئیس هیئت مدیره':response.data.dic['رئیس هیئت مدیره'],
+            })
         })
     }
 
@@ -81,6 +83,14 @@ const BasicInformation = () =>{
                 <fieldset>
                     <label>آدرس</label>
                     <input value={information['آدرس']} onChange={(e)=>setInformation({...information,'آدرس':e.target.value})}/>
+                </fieldset>
+                <fieldset>
+                    <label>مدیر عامل</label>
+                    <input value={information['مدیر عامل']} onChange={(e)=>setInformation({...information,'مدیر عامل':e.target.value})}/>
+                </fieldset>
+                <fieldset>
+                    <label>رئیس هیئت مدیره</label>
+                    <input value={information['رئیس هیئت مدیره']} onChange={(e)=>setInformation({...information,'رئیس هیئت مدیره':e.target.value})}/>
                 </fieldset>
                 <fieldset className="btn">
                     <button onClick={save}>تایید</button>
