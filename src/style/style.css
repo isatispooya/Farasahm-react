@@ -1934,6 +1934,72 @@ header .btn-bs input:focus {
   background: #c45151;
 }
 
+.PopUpToDo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.PopUpToDo .closer {
+  z-index: 2;
+  inset: 0px;
+  position: fixed;
+}
+.PopUpToDo .win {
+  z-index: 3;
+  position: fixed;
+  width: 700px;
+  height: 600px;
+  top: calc((100vh - 600px) / 2);
+  left: calc((100vw - 700px) / 2);
+  background: #fff;
+  border-radius: 10px;
+  border: 1px #20409d solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.PopUpToDo .win .fild {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  margin: 15px 0px;
+}
+.PopUpToDo .win .fild p {
+  color: #20409d;
+  font-size: 13pt;
+}
+.PopUpToDo .win .fild input, .PopUpToDo .win .fild textarea, .PopUpToDo .win .fild select {
+  border: 1px #20409d solid;
+  border-radius: 3px;
+  color: #20409d;
+  text-align: center;
+  width: 200px;
+}
+.PopUpToDo .win .fild textarea {
+  height: 150px;
+}
+.PopUpToDo .win .fild .emptySymbol, .PopUpToDo .win .fild .fullSymbol {
+  font-size: 20pt;
+}
+.PopUpToDo .win .fild .force {
+  color: rgba(32, 141, 204, 0.867);
+}
+.PopUpToDo .win .fild .important {
+  color: #daad1a;
+}
+.PopUpToDo .win button {
+  background-image: linear-gradient(to top right, #20409d, #1980c3);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: #eae4e4;
+  font-size: 14pt;
+  cursor: pointer;
+}
+
 .PopUpInformation {
   position: fixed;
   top: 25%;

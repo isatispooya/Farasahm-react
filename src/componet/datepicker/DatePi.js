@@ -12,7 +12,7 @@ const DatePi = (props) =>{
     const [dateAvalibale, setDateAvalibale] = useState([])
     const handle = (date) =>{
         setDateSelection(date)
-        
+
     }
 
     const lastUpdate = () =>{

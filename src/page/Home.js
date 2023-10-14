@@ -15,8 +15,8 @@ const Home = () =>{
     const getCaptcha = () =>{
         axios({method:'POST',url:OnRun+'/captcha'
         }).then(response=>{
-            setCaptchaCode(response.data.captcha)
-            setCaptchaImg(response.data.img)
+            setCaptchaCode(response.data.encrypted_response)
+            setCaptchaImg(response.data.image)
         })
     }
 
@@ -37,11 +37,12 @@ const Home = () =>{
             })
         }
     }
+
     const applyCode = () =>{
         axios({method:'POST',url:OnRun+'/applycode',data:{inputPhone:inputPhone}
         }).then(response=>{
-            console.log(response.data)
             if(response.data.replay){
+
                 setCookie('id',response.data.id,1)
                 Navigate('/section')
             }else{
@@ -61,6 +62,7 @@ const Home = () =>{
             })
         }
     }
+
 
 
     useEffect(getCaptcha,[])

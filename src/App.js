@@ -44,60 +44,67 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
 import Turnover from './page/subPage/desk/sabad/turnover';
 import TraderCodes from './page/subPage/desk/sabad/tradercodes';
+import Todo from './page/subPage/desk/todo';
+
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/section' element={<Section />}/>
-        <Route path='/desk' element={<Desk />}>
-          <Route path='update' element={<Update />}/>
-          <Route path='dashboard' element={<Dashboard />}/>
-          <Route path='tradersall' element={<Traders />}/>
-          <Route path='newComer' element={<NewComer />}/>
-          <Route path='runaway' element={<Runaway />}/>
-          <Route path='stockman' element={<Stockman />}/>
-          <Route path='formerstockman' element={<FormerStockman />}/>
-          <Route path='metric' element={<Metric />}/>
-          <Route path='details/:code' element={<Details />}/>
-          <Route path='balancetrader/:code' element={<BalanceTrader />}/>
-          <Route path='traderactivityreport/:code' element={<TraderActivityReport />}/>
-          <Route path='brokeractivityreport/:code' element={<BrokerActivityReport />}/>
-          <Route path='stationactivityreport/:code' element={<StationActivityReport />}/>
-          <Route path='excerpttrader/:code' element={<ExcerptTrader />}/>
-          <Route path='nav' element={<Nav />}/>
-          <Route path='return' element={<Return />}/>
-          <Route path='compare' element={<Compare />}/>
-          <Route path='biasicinformation' element={<BasicInformation />}/>
-          <Route path='shareholders' element={<Shareholders />}/>
-          <Route path='grouping' element={<Grouping />}/>
-          <Route path='category' element={<Category />}/>
-          <Route path='broker' element={<Broker />}/>
-          <Route path='stocksheet' element={<StockSheet />}/>
-          <Route path='transactions' element={<Transactions />}/>
-          <Route path='createassembly' element={<CreateAssembly />}/>
-          <Route path='attendeesassembly' element={<AttendeesAssembly />}/>
-          <Route path='sheetvotecontroller' element={<SheetVoteController />}/>
-          <Route path='capitalincrease' element={<CapitalIncrease />}/>
-          <Route path='priority' element={<Priority />}/>
-          <Route path='prioritytransaction' element={<PriorityTransaction />}/>
-          <Route path='prioritypay' element={<PriorityPay />}/>
-          <Route path='wellcom' element={<WellcomBrokerDesk />}/>
-          <Route path='volumetrade' element={<VolumeTrade />}/>
-          <Route path='tradersbroker' element={<TraderBroker />}/>
-          <Route path='turnover' element={<Turnover />}/>
-          <Route path='tradercodes' element={<TraderCodes />}/>
-        </Route>
-        {/*<Route path='/admin' element={<Manegment />}/>*/}
-        <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
-        <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
-        <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
-        <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />}/>
+          <Route path='/section' element={<Section />}/>
+          <Route path='/desk' element={<Desk />}>
+            <Route path='update' element={<Update />}/>
+            <Route path='dashboard' element={<Dashboard />}/>
+            <Route path='tradersall' element={<Traders />}/>
+            <Route path='newComer' element={<NewComer />}/>
+            <Route path='runaway' element={<Runaway />}/>
+            <Route path='stockman' element={<Stockman />}/>
+            <Route path='formerstockman' element={<FormerStockman />}/>
+            <Route path='metric' element={<Metric />}/>
+            <Route path='details/:code' element={<Details />}/>
+            <Route path='balancetrader/:code' element={<BalanceTrader />}/>
+            <Route path='traderactivityreport/:code' element={<TraderActivityReport />}/>
+            <Route path='brokeractivityreport/:code' element={<BrokerActivityReport />}/>
+            <Route path='stationactivityreport/:code' element={<StationActivityReport />}/>
+            <Route path='excerpttrader/:code' element={<ExcerptTrader />}/>
+            <Route path='nav' element={<Nav />}/>
+            <Route path='return' element={<Return />}/>
+            <Route path='compare' element={<Compare />}/>
+            <Route path='biasicinformation' element={<BasicInformation />}/>
+            <Route path='shareholders' element={<Shareholders />}/>
+            <Route path='grouping' element={<Grouping />}/>
+            <Route path='category' element={<Category />}/>
+            <Route path='broker' element={<Broker />}/>
+            <Route path='stocksheet' element={<StockSheet />}/>
+            <Route path='transactions' element={<Transactions />}/>
+            <Route path='createassembly' element={<CreateAssembly />}/>
+            <Route path='attendeesassembly' element={<AttendeesAssembly />}/>
+            <Route path='sheetvotecontroller' element={<SheetVoteController />}/>
+            <Route path='capitalincrease' element={<CapitalIncrease />}/>
+            <Route path='priority' element={<Priority />}/>
+            <Route path='prioritytransaction' element={<PriorityTransaction />}/>
+            <Route path='prioritypay' element={<PriorityPay />}/>
+            <Route path='wellcom' element={<WellcomBrokerDesk />}/>
+            <Route path='volumetrade' element={<VolumeTrade />}/>
+            <Route path='tradersbroker' element={<TraderBroker />}/>
+            <Route path='turnover' element={<Turnover />}/>
+            <Route path='tradercodes' element={<TraderCodes />}/>
+            <Route path='todo' element={<Todo />}/>
+          </Route>
+          {/*<Route path='/admin' element={<Manegment />}/>*/}
+          <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
+          <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
+          <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
+          <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
 
   );
 }

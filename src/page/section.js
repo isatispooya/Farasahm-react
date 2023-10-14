@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { OnRun } from "../config/config"
 import { AiOutlinePoweroff} from "react-icons/ai";
-
+import { useCheckid } from "../hook"
 
 const Section = ()=>{
+
+    const {data, isLoading} = useCheckid(getCookie('id'))
+
+
+
     const [access, setAccess] = useState('')
-    const [disable, setDisable] = useState('')
+
     const Navigate = useNavigate()
 
     const exitBtn = () =>{
@@ -21,6 +26,8 @@ const Section = ()=>{
         setCookie('symbol',name,365)
         Navigate('/desk/'+firstPage)
     }
+
+
 
     const AccessCheck = () =>{
         const id = getCookie('id')
@@ -36,6 +43,7 @@ const Section = ()=>{
             })
         }else{Navigate('/')}
     }
+
 
     useEffect(AccessCheck,[])
 

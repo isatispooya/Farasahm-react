@@ -8,6 +8,7 @@ import { RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin , BsFillPersonVcardFill , BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
+import { RiCalendarTodoLine} from "react-icons/ri";
 
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
@@ -37,5 +38,6 @@ export const menuFullList ={
     'setting':<IoSettingsSharp />,
     "turnover":<BiTransfer/>,
     "tradercodes":<BsFillPersonVcardFill/>,
-    "stocksheet":<BsFillFileEarmarkTextFill/>
+    "stocksheet":<BsFillFileEarmarkTextFill/>,
+    "todo":<RiCalendarTodoLine/>
 }
