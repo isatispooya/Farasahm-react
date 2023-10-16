@@ -4,17 +4,21 @@ import { ToastContainer, toast } from 'react-toastify'
 import { OnRun } from '../../../config/config'
 import { AccessContext } from '../../../config/accessContext'
 import DateFromToNow from '../../../componet/datepicker/DateFromToNow'
-import {BsPlusCircle} from "react-icons/bs";
+import {BsPlusCircle,BsCheckLg,} from "react-icons/bs";
 import {IoSpeedometerOutline, IoSpeedometerSharp ,IoWarningOutline, IoWarningSharp} from "react-icons/io5";
 import Rating from 'react-rating'
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
 import persian_fa from 'react-date-object/locales/persian_fa'
+import { Tooltip } from 'react-tooltip';
+import { AiOutlineHourglass ,AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 
 const Todo = () =>{
     const access = useContext(AccessContext)
     const [DateSelection, setDateSelection] = useState(null)
     const [popup, setPopup] = useState({enable:false,title:'',discription:'',date:'',force:1,importent:1,repetition:'daily'})
+    const repetition = {daily:'روزانه', weekly:'هفتگی', monthly:'ماهانه', yearly:'سالانه'}
+    const [dfListTodo, setDfListTodo] = useState([])
 
     const handleDate = (date) =>{
         setPopup({...popup,date:date})
@@ -58,10 +62,26 @@ const Todo = () =>{
             if (DateSelection[0]!=undefined && DateSelection[1]!=undefined) {
                 axios.post(OnRun+'/desk/todo/gettask',{access:access,DateSelection:DateSelection})
                 .then(response=>{
-                    console.log(response)
+                    if (response.data.reply) {
+                        setDfListTodo(response.data.df)
+                        console.log(response.data.df)
+                    }else{
+                        toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                    }
                 })
             }
         }
+    }
+
+    const setActToTask = (act,task) =>{
+        axios.post(OnRun+'/desk/todo/setact',{access:access , act:act , task:task})
+        .then(response=>{
+            if (response.data.reply) {
+                toast.success('ثبت شد',{position: toast.POSITION.BOTTOM_RIGHT})
+            }else{
+                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+            }
+        })
     }
 
     useEffect(getTodoList,[popup, DateSelection])
@@ -119,6 +139,52 @@ const Todo = () =>{
                     <p onClick={()=>setPopup({...popup,enable:!popup.enable})} className=""><span><BsPlusCircle/></span>افزودن</p>
                     <DateFromToNow setDateSelection={setDateSelection} />
                 </div>
+            </div>
+            <div className='todoListConteiner'>
+                {
+                    Object.keys(dfListTodo).map(i=>{
+                        return(
+                            <div className='todoDate' key={i}>
+                                <h1>{i}</h1>
+                                {
+                                    dfListTodo[i].map(j=>{
+                                        const key = Math.floor(Math.random()*10000000000)
+                                        return(
+                                            <>
+                                                <div data-tooltip-delay-show="300" data-tooltip-content={j.discription} data-tooltip-id={"myTooltip"+key} className='todoTask' key={Math.floor(key)+'kys'+Math.floor(Math.random()*10000000000)}>
+                                                    <div className='ttl'>
+                                                        <h2 >{j.title}</h2>
+                                                        <div className={j.deadline?"trSts":"flSts"}></div>
+                                                    </div>
+                                                    <div className='imFrc'>
+                                                        <div>
+                                                            <span><IoSpeedometerSharp/></span>
+                                                            <p>{j.force}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span><IoWarningSharp/></span>
+                                                            <p>{j.importent}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='todoHide dtRp'>
+                                                        <p>{j.date}</p>
+                                                        <p>{repetition[j.repetition]}</p>
+                                                    </div>
+                                                    <div className='todoHide act'>
+                                                        <button onClick={()=>setActToTask('done',j)}><AiOutlineCheck/></button>
+                                                        <button onClick={()=>setActToTask('doing',j)}><AiOutlineHourglass/></button>
+                                                        <button onClick={()=>setActToTask('failed',j)}><AiOutlineClose/></button>
+                                                    </div>
+                                                </div>
+                                                <Tooltip id={"myTooltip"+key} place="bottom" />
+                                            </>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
             </div>
 
 

@@ -2398,4 +2398,135 @@ header .btn-bs input:focus {
   color: #eae4e4;
   font-size: 14pt;
   cursor: pointer;
+}
+
+.todoListConteiner {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.todoListConteiner .todoDate {
+  display: flex;
+  flex-direction: column;
+  background: #9ad6e7;
+  width: 200px;
+  padding: 15px 20px;
+  margin: 10px;
+  border-radius: 10px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.todoListConteiner .todoDate h1 {
+  font-size: 15pt;
+  text-align: center;
+}
+.todoListConteiner .todoDate .todoTask {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  width: 100%;
+  padding: 5px;
+  margin: 5px;
+  border: 1px #1980c3 solid;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+.todoListConteiner .todoDate .todoTask .todoHide {
+  height: 0px;
+  opacity: 0;
+  overflow: hidden;
+  transform: 1s;
+}
+.todoListConteiner .todoDate .todoTask:hover {
+  border: 1px #636363 solid;
+  transform: scale(1.05);
+}
+.todoListConteiner .todoDate .todoTask:hover .todoHide {
+  height: auto !important;
+  opacity: 1;
+}
+.todoListConteiner .todoDate .todoTask .ttl {
+  display: flex;
+  flex-direction: row;
+}
+.todoListConteiner .todoDate .todoTask .ttl h2 {
+  font-size: 12pt;
+  text-align: center;
+  flex: 1;
+}
+.todoListConteiner .todoDate .todoTask .ttl .flSts, .todoListConteiner .todoDate .todoTask .ttl .trSts {
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+}
+.todoListConteiner .todoDate .todoTask .ttl .trSts {
+  background: #c45151;
+}
+.todoListConteiner .todoDate .todoTask .ttl .flSts {
+  background: #5aae40;
+}
+.todoListConteiner .todoDate .todoTask .imFrc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.todoListConteiner .todoDate .todoTask .imFrc > div {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.todoListConteiner .todoDate .todoTask .imFrc > div span {
+  font-size: 13pt;
+  color: #22c0eb;
+  margin: 0px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.todoListConteiner .todoDate .todoTask .imFrc > div p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10;
+  color: #20409d;
+}
+.todoListConteiner .todoDate .todoTask .dtRp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  transform: 1s;
+}
+.todoListConteiner .todoDate .todoTask .dtRp p {
+  font-size: 10pt;
+  color: #1980c3;
+}
+.todoListConteiner .todoDate .todoTask .act {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.todoListConteiner .todoDate .todoTask .act button {
+  flex: 1;
+  margin: 0px 7px;
+  font-size: 12pt;
+  border-radius: 5px;
+  height: 20px;
+  padding: 1px 0px;
+  cursor: pointer;
+}
+.todoListConteiner .todoDate .todoTask .act > :nth-child(1) {
+  background: #d6ebcf;
+  border: 1px #6bb653 solid;
+}
+.todoListConteiner .todoDate .todoTask .act > :nth-child(2) {
+  background: #f6ebc6;
+  border: 1px #deb531 solid;
+}
+.todoListConteiner .todoDate .todoTask .act > :nth-child(3) {
+  background: #f0d4d4;
+  border: 1px #ca6262 solid;
 }/*# sourceMappingURL=style.css.map */

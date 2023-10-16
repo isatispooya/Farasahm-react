@@ -42,6 +42,7 @@ import WellcomBrokerDesk from './page/subPage/desk/wellcom';
 import TraderBroker from './page/subPage/bours/traderBroker';
 import 'react-toastify/dist/ReactToastify.css';
 import './style/style.css'
+import 'react-tooltip/dist/react-tooltip.css'
 import Turnover from './page/subPage/desk/sabad/turnover';
 import TraderCodes from './page/subPage/desk/sabad/tradercodes';
 import Todo from './page/subPage/desk/todo';
