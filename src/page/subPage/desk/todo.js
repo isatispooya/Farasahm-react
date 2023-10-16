@@ -16,24 +16,29 @@ import { AiOutlineHourglass ,AiOutlineCheck, AiOutlineClose} from "react-icons/a
 const Todo = () =>{
     const access = useContext(AccessContext)
     const [DateSelection, setDateSelection] = useState(null)
-    const [popup, setPopup] = useState({enable:false,title:'',discription:'',date:'',force:1,importent:1,repetition:'daily'})
+    const [popup, setPopup] = useState({enable:false,title:'',discription:'', deadlineDate:'', reminderDate:'', force:1, importent:1, repetition:'daily',person:''})
     const repetition = {daily:'روزانه', weekly:'هفتگی', monthly:'ماهانه', yearly:'سالانه'}
     const [dfListTodo, setDfListTodo] = useState([])
 
-    const handleDate = (date) =>{
-        setPopup({...popup,date:date})
+    const handleDateReminder = (date) =>{
+        setPopup({...popup,reminderDate:date})
+    }
+
+    const handleDateDeadline = (date) =>{
+        setPopup({...popup,deadlineDate:date})
     }
 
     const add = () =>{
         if (popup.title == '') {toast.warning('ورودی عنوان خالی است',{position: toast.POSITION.BOTTOM_RIGHT})
         }else if (popup.discription=='') {toast.warning('ورودی توضیحات خالی است',{position: toast.POSITION.BOTTOM_RIGHT})
-        }else if (popup.date =='') {toast.warning('ورودی تاریخ خالی است',{position: toast.POSITION.BOTTOM_RIGHT})   
+        }else if (popup.reminderDate =='') {toast.warning('ورودی تاریخ یاداور خالی است',{position: toast.POSITION.BOTTOM_RIGHT})   
+        }else if (popup.deadlineDate =='') {toast.warning('ورودی تاریخ سررسید خالی است',{position: toast.POSITION.BOTTOM_RIGHT})
         }else{
             axios.post(OnRun+'/desk/todo/addtask',{access:access,popup:popup})
             .then(response=>{
                 if(response.data.reply){
                     toast.success('ثبت شد',{position: toast.POSITION.BOTTOM_RIGHT})
-                    setPopup({enable:false,title:'',discription:'',date:'',force:1,importent:1,repetition:'daily'})
+                    setPopup({enable:false,title:'',discription:'', deadlineDate:'', reminderDate:'', force:1, importent:1, repetition:'daily',person:''})
                 }else{
                     toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
                 }
@@ -78,6 +83,7 @@ const Todo = () =>{
         .then(response=>{
             if (response.data.reply) {
                 toast.success('ثبت شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                getTodoList()
             }else{
                 toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
@@ -114,18 +120,27 @@ const Todo = () =>{
                             <h6>{popup.importent}/5</h6>
                         </div>
                         <div className='fild'>
+                            <p>تاریخ یادوری</p>
+                            <DatePicker value={popup.reminderDate} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={handleDateReminder}/>
+                        </div>
+                        <div className='fild'>
                             <p>تاریخ سررسید</p>
-                            <DatePicker  value={popup.date} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={handleDate}/>
+                            <DatePicker value={popup.date} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={handleDateDeadline}/>
                         </div>
                         <div className='fild'>
                             <p>تکرار</p>
                             <select value={popup.repetition} onChange={(e)=>setPopup({...popup,repetition:e.target.value})}>
                                 <option value='NoRepetition'>بدون تکرار</option>
                                 <option value='daily'>روزانه</option>
-                                <option className='weekly'>هفتگی</option>
+                                <option value='weekly'>هفتگی</option>
                                 <option value='monthly'>ماهانه</option>
+                                <option value='quarterly'>فصلی</option>
                                 <option value='yearly'>سالانه</option>
                             </select>
+                        </div>
+                        <div className='fild'>
+                            <p>مسئول</p>
+                            <input value={popup.person} onChange={(e)=>setPopup({...popup,person:e.target.value})}></input>
                         </div>
                         <button onClick={add}>افزودن</button>
                     </div>

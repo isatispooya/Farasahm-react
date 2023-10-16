@@ -57,6 +57,7 @@ const DateFromToNow = (props) =>{
                     <MicroLoader loading={true} />
                     :
                     <DatePicker
+                        disabled
                         value={dateFrom}
                         calendar={persian}
                         locale={persian_fa}
