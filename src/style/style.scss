@@ -2541,6 +2541,17 @@ header{
                     }
                 }
             }
+            .prRd{
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                width: 100%;
+                transform: 1s;
+                p{
+                    font-size: 9pt;
+                    color: $colorBSemi;
+                }
+            }
             
             .dtRp{
                 display: flex;
@@ -2548,11 +2559,19 @@ header{
                 justify-content: space-between;
                 width: 100%;
                 transform: 1s;
-
-                p{
-                    font-size: 10pt;
-                    color: $colorBSemi;
+                >div{
+                    display: flex;
+                    flex-direction: row;
+                    p{
+                        font-size: 9pt;
+                        color: $colorBSemi;
+                    }
+                    span{
+                        font-size: 13pr;
+                        color: $colorBDark;
+                    }
                 }
+
             }
             .act{
                 display: flex;

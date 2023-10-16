@@ -2491,6 +2491,17 @@ header .btn-bs input:focus {
   font-size: 10;
   color: #20409d;
 }
+.todoListConteiner .todoDate .todoTask .prRd {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 100%;
+  transform: 1s;
+}
+.todoListConteiner .todoDate .todoTask .prRd p {
+  font-size: 9pt;
+  color: #1980c3;
+}
 .todoListConteiner .todoDate .todoTask .dtRp {
   display: flex;
   flex-direction: row;
@@ -2498,9 +2509,17 @@ header .btn-bs input:focus {
   width: 100%;
   transform: 1s;
 }
-.todoListConteiner .todoDate .todoTask .dtRp p {
-  font-size: 10pt;
+.todoListConteiner .todoDate .todoTask .dtRp > div {
+  display: flex;
+  flex-direction: row;
+}
+.todoListConteiner .todoDate .todoTask .dtRp > div p {
+  font-size: 9pt;
   color: #1980c3;
+}
+.todoListConteiner .todoDate .todoTask .dtRp > div span {
+  font-size: 13pr;
+  color: #20409d;
 }
 .todoListConteiner .todoDate .todoTask .act {
   display: flex;

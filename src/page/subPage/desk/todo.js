@@ -12,12 +12,13 @@ import persian from "react-date-object/calendars/persian"
 import persian_fa from 'react-date-object/locales/persian_fa'
 import { Tooltip } from 'react-tooltip';
 import { AiOutlineHourglass ,AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
+import { BiAlarmExclamation,BiAlarmOff} from "react-icons/bi";
 
 const Todo = () =>{
     const access = useContext(AccessContext)
     const [DateSelection, setDateSelection] = useState(null)
     const [popup, setPopup] = useState({enable:false,title:'',discription:'', deadlineDate:'', reminderDate:'', force:1, importent:1, repetition:'daily',person:''})
-    const repetition = {daily:'روزانه', weekly:'هفتگی', monthly:'ماهانه', yearly:'سالانه'}
+    const repetition = {daily:'روزانه', weekly:'هفتگی', monthly:'ماهانه', yearly:'سالانه',quarterly:'فصلی'}
     const [dfListTodo, setDfListTodo] = useState([])
 
     const handleDateReminder = (date) =>{
@@ -169,7 +170,7 @@ const Todo = () =>{
                                                 <div data-tooltip-delay-show="300" data-tooltip-content={j.discription} data-tooltip-id={"myTooltip"+key} className='todoTask' key={Math.floor(key)+'kys'+Math.floor(Math.random()*10000000000)}>
                                                     <div className='ttl'>
                                                         <h2 >{j.title}</h2>
-                                                        <div className={j.deadline?"trSts":"flSts"}></div>
+                                                        <div className={j.expier?"trSts":"flSts"}></div>
                                                     </div>
                                                     <div className='imFrc'>
                                                         <div>
@@ -182,8 +183,18 @@ const Todo = () =>{
                                                         </div>
                                                     </div>
                                                     <div className='todoHide dtRp'>
-                                                        <p>{j.date}</p>
+                                                        <div>
+                                                            <span><BiAlarmExclamation/></span>
+                                                            <p>{j.jalali_reminderDate}</p>
+                                                        </div>
+                                                        <div>
+                                                            <span><BiAlarmOff/></span>
+                                                            <p>{j.jalali_deadlineDate}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className='todoHide prRd'>
                                                         <p>{repetition[j.repetition]}</p>
+                                                        <p>{j.person}</p>
                                                     </div>
                                                     <div className='todoHide act'>
                                                         <button onClick={()=>setActToTask('done',j)}><AiOutlineCheck/></button>
