@@ -2418,7 +2418,13 @@ header .btn-bs input:focus {
   justify-content: flex-start;
   align-items: center;
 }
-.todoListConteiner .todoDate h1 {
+.todoListConteiner .todoDate .titles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.todoListConteiner .todoDate .titles h1 {
   font-size: 15pt;
   text-align: center;
 }

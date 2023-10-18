@@ -161,16 +161,20 @@ const Todo = () =>{
                     Object.keys(dfListTodo).map(i=>{
                         return(
                             <div className='todoDate' key={i}>
-                                <h1>{i}</h1>
+                                <div className='titles'>
+                                    <h1>{i}</h1>
+                                    <p>{dfListTodo[i].length}</p>
+                                </div>
                                 {
                                     dfListTodo[i].map(j=>{
                                         const key = Math.floor(Math.random()*10000000000)
+                                        console.log(j)
                                         return(
                                             <>
                                                 <div data-tooltip-delay-show="300" data-tooltip-content={j.discription} data-tooltip-id={"myTooltip"+key} className='todoTask' key={Math.floor(key)+'kys'+Math.floor(Math.random()*10000000000)}>
                                                     <div className='ttl'>
                                                         <h2 >{j.title}</h2>
-                                                        <div className={j.expier?"trSts":"flSts"}></div>
+                                                        <div className={j.expier_deadlineDate?"trSts":"flSts"}></div>
                                                     </div>
                                                     <div className='imFrc'>
                                                         <div>

@@ -2468,9 +2468,15 @@ header{
         border-radius: 10px;
         justify-content: flex-start;
         align-items: center;
-        h1{
-            font-size: 15pt;
-            text-align: center;
+        .titles{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            h1{
+                font-size: 15pt;
+                text-align: center;
+            }
         }
         .todoTask{
             display: flex;
