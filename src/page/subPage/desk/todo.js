@@ -91,7 +91,7 @@ const Todo = () =>{
         })
     }
 
-    useEffect(getTodoList,[popup, DateSelection])
+    useEffect(getTodoList,[popup.enable, DateSelection])
 
     return(
         <div className="subPage">
@@ -160,57 +160,62 @@ const Todo = () =>{
                 {
                     Object.keys(dfListTodo).map(i=>{
                         return(
-                            <div className='todoDate' key={i}>
+                            <div className={dfListTodo[i].length>0?'todoDate':'todoDate noTask'} key={i}>
                                 <div className='titles'>
                                     <h1>{i}</h1>
                                     <p>{dfListTodo[i].length}</p>
                                 </div>
                                 {
-                                    dfListTodo[i].map(j=>{
-                                        const key = Math.floor(Math.random()*10000000000)
-                                        console.log(j)
-                                        return(
-                                            <>
-                                                <div data-tooltip-delay-show="300" data-tooltip-content={j.discription} data-tooltip-id={"myTooltip"+key} className='todoTask' key={Math.floor(key)+'kys'+Math.floor(Math.random()*10000000000)}>
-                                                    <div className='ttl'>
-                                                        <h2 >{j.title}</h2>
-                                                        <div className={j.expier_deadlineDate?"trSts":"flSts"}></div>
-                                                    </div>
-                                                    <div className='imFrc'>
-                                                        <div>
-                                                            <span><IoSpeedometerSharp/></span>
-                                                            <p>{j.force}</p>
+                                    dfListTodo[i].length==0?null:
+                                    <div className='conteinerTask'>
+                                    {
+                                        dfListTodo[i].map(j=>{
+                                            const key = Math.floor(Math.random()*10000000000)
+                                            return(
+                                                <>
+                                                    <div data-tooltip-delay-show="300" data-tooltip-content={j.discription} data-tooltip-id={"myTooltip"+key} className='todoTask' key={Math.floor(key)+'kys'+Math.floor(Math.random()*10000000000)}>
+                                                        <div className='ttl'>
+                                                            <h2 >{j.title}</h2>
+                                                            <div className={j.expier_deadlineDate?"trSts":"flSts"}></div>
                                                         </div>
-                                                        <div>
-                                                            <span><IoWarningSharp/></span>
-                                                            <p>{j.importent}</p>
+                                                        <div className='imFrc'>
+                                                            <div>
+                                                                <span><IoSpeedometerSharp/></span>
+                                                                <p>{j.force}</p>
+                                                            </div>
+                                                            <div>
+                                                                <span><IoWarningSharp/></span>
+                                                                <p>{j.importent}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className='todoHide dtRp'>
+                                                            <div>
+                                                                <span><BiAlarmExclamation/></span>
+                                                                <p>{j.jalali_reminderDate}</p>
+                                                            </div>
+                                                            <div>
+                                                                <span><BiAlarmOff/></span>
+                                                                <p>{j.jalali_deadlineDate}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className='todoHide prRd'>
+                                                            <p>{repetition[j.repetition]}</p>
+                                                            <p>{j.person}</p>
+                                                        </div>
+                                                        <div className='todoHide act'>
+                                                            <button onClick={()=>setActToTask('done',j)}><AiOutlineCheck/></button>
+                                                            <button onClick={()=>setActToTask('doing',j)}><AiOutlineHourglass/></button>
+                                                            <button onClick={()=>setActToTask('failed',j)}><AiOutlineClose/></button>
                                                         </div>
                                                     </div>
-                                                    <div className='todoHide dtRp'>
-                                                        <div>
-                                                            <span><BiAlarmExclamation/></span>
-                                                            <p>{j.jalali_reminderDate}</p>
-                                                        </div>
-                                                        <div>
-                                                            <span><BiAlarmOff/></span>
-                                                            <p>{j.jalali_deadlineDate}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className='todoHide prRd'>
-                                                        <p>{repetition[j.repetition]}</p>
-                                                        <p>{j.person}</p>
-                                                    </div>
-                                                    <div className='todoHide act'>
-                                                        <button onClick={()=>setActToTask('done',j)}><AiOutlineCheck/></button>
-                                                        <button onClick={()=>setActToTask('doing',j)}><AiOutlineHourglass/></button>
-                                                        <button onClick={()=>setActToTask('failed',j)}><AiOutlineClose/></button>
-                                                    </div>
-                                                </div>
-                                                <Tooltip id={"myTooltip"+key} place="bottom" />
-                                            </>
-                                        )
-                                    })
+                                                    <Tooltip id={"myTooltip"+key} place="bottom" />
+                                                </>
+                                            )
+                                        })
+                                    }
+                                    </div>
                                 }
+
                             </div>
                         )
                     })

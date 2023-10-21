@@ -46,6 +46,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import Turnover from './page/subPage/desk/sabad/turnover';
 import TraderCodes from './page/subPage/desk/sabad/tradercodes';
 import Todo from './page/subPage/desk/todo';
+import TodoControl from './page/subPage/desk/todocontrol';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -96,6 +97,7 @@ function App() {
             <Route path='turnover' element={<Turnover />}/>
             <Route path='tradercodes' element={<TraderCodes />}/>
             <Route path='todo' element={<Todo />}/>
+            <Route path='todocontrol' element={<TodoControl />}/>
           </Route>
           {/*<Route path='/admin' element={<Manegment />}/>*/}
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
