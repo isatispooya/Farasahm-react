@@ -35,65 +35,51 @@ const Compare = () =>{
             dataTree:true,
             dataTreeStartExpanded:false,
             columns:[
-                {title:"صندوق", field:"index", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
-                {title:"%یکروزه", field:"1", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"صندوق", field:"symbol", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"%هفتگی", field:"ret_ytm_7", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d1)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['1']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_7)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_7']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
                     },
                 },
-                {title:"%دوهفته", field:"14", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%دوهفته", field:"ret_ytm_14", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d14)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['14']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_14)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_14']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
                     },
                 },
-                {title:"%یکماهه", field:"30", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%یکماهه", field:"ret_ytm_30", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d30)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['30']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_30)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_30']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
 
                     },
                 },
-                {title:"%سه ماهه", field:"90", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%سه ماهه", field:"ret_ytm_90", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d90)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['90']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_90)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_90']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
 
                     },
                 },
-                {title:"%شش ماهه", field:"180", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%شش ماهه", field:"ret_ytm_180", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d180)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['180']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_180)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_180']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
 
                     },
                 },
-                {title:"%یکساله", field:"365", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%یکساله", field:"ret_ytm_365", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d365)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['365']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_365)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_365']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
 
                     },
                 },
-                {title:"%دوساله", field:"730", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"%دوساله", field:"ret_ytm_730", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.d730)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['730']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
-
-                    },
-                },
-                {title:"%انحراف ناو", field:"navlast", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
-                    formatter:function(cell, formatterParams){
-                        var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.navlast)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['navlast']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
-
-                    },
-                },
-                {title:"%میانگین 30 روزه انحراف ناو", field:"mean30PN", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
-                    formatter:function(cell, formatterParams){
-                        var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.mean30PN)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['mean30PN']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ret_ytm_730)*60).toString()+'%'+"'><span>"+Ranking(df.map(i=>i['ret_ytm_730']),value)+"</span></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
 
                     },
                 },
@@ -121,7 +107,7 @@ useEffect(getDf,[])
     return(
         <div className="subPage tablePg">
             <div className="tls">
-                <h2 className="titlePage">مقایسه</h2>
+                <h2 className="titlePage">بازدهی مرکب</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
             </div>

@@ -31,27 +31,33 @@ const Return = () =>{
             dataTree:true,
             dataTreeStartExpanded:false,
             columns:[
-                {title:"دوره(روز)", field:"period", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
-                {title:"بازده", field:"ptp", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"دوره(روز)", field:"indx", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"بازده", field:"ret", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"%</p>")
                     },
                 },
-                {title:"سالانه شده", field:"yearly", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"YTM", field:"ytm", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.yearly)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.ytm)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
                     },
                 },
-                {title:"اختلاف با هدف", field:"diff", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"ساده", field:"smp", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.smp)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
+                    },
+                },
+                {title:"اختلاف با هدف", field:"dif", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
 
                         if (value>0) {
-                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.diff)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.dif)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
                         }else{
-                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((Math.abs(value)/dic.diff)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((Math.abs(value)/dic.dif)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")
                         }
                     },
                 },
@@ -65,6 +71,7 @@ const Return = () =>{
         axios({method:'POST',url:OnRun+'/getreturn',data:{access:access,input:input}
         }).then(response=>{
             if(response.data.replay){
+                console.log(response.data)
                 setDf(response.data.df)
                 setDic(response.data.dic)
             }else{

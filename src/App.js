@@ -47,7 +47,7 @@ import Turnover from './page/subPage/desk/sabad/turnover';
 import TraderCodes from './page/subPage/desk/sabad/tradercodes';
 import Todo from './page/subPage/desk/todo';
 import TodoControl from './page/subPage/desk/todocontrol';
-
+import CompareReturnSample from './page/subPage/CompareReturnSample';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
@@ -98,6 +98,7 @@ function App() {
             <Route path='tradercodes' element={<TraderCodes />}/>
             <Route path='todo' element={<Todo />}/>
             <Route path='todocontrol' element={<TodoControl />}/>
+            <Route path='comparereturnsample' element={<CompareReturnSample />}/>
           </Route>
           {/*<Route path='/admin' element={<Manegment />}/>*/}
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>

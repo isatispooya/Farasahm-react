@@ -30,6 +30,7 @@ const TodoControl = () =>{
     const getDf = () =>{
         axios.post(OnRun+'/desk/todo/getcontrol',{access:access})
         .then(response=>{
+            console.log(response)
             if (response.data.reply) {
                 var table = new Tabulator("#data-table", {
                     data:response.data.df,
