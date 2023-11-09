@@ -49,6 +49,8 @@ import Todo from './page/subPage/desk/todo';
 import TodoControl from './page/subPage/desk/todocontrol';
 import CompareReturnSample from './page/subPage/CompareReturnSample';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import LimitFundFix from './page/subPage/bours/LimitFundFix';
+import CompareReturnPeriod from './page/subPage/CompareReturnPeriod';
 
 
 function App() {
@@ -99,6 +101,8 @@ function App() {
             <Route path='todo' element={<Todo />}/>
             <Route path='todocontrol' element={<TodoControl />}/>
             <Route path='comparereturnsample' element={<CompareReturnSample />}/>
+            <Route path='limitfundfix' element={<LimitFundFix />}/>
+            <Route path='comparereturnperiod' element={<CompareReturnPeriod />}/>
           </Route>
           {/*<Route path='/admin' element={<Manegment />}/>*/}
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>

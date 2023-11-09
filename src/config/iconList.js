@@ -10,6 +10,7 @@ import { AiOutlinePaperClip } from "react-icons/ai";
 import { IoPieChartSharp } from "react-icons/io5";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 import { RiCalendarTodoLine} from "react-icons/ri";
+import { CgArrowsShrinkV} from "react-icons/cg";
 
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
@@ -43,5 +44,7 @@ export const menuFullList ={
     "todo":<RiCalendarTodoLine/>,
     "todocontrol":<BsPersonFillGear/>,
     "dilution":<IoPieChartSharp/>,
-    "CompareReturnSample":<BsBarChartFill/>
+    "comparereturnsample":<BsBarChartFill/>,
+    "comparereturnperiod":<BsBarChartFill/>,
+    "limitfundfix":<CgArrowsShrinkV/>,
 }
