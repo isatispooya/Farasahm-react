@@ -27,12 +27,6 @@ const OraghYTM = () =>{
 
     useEffect(getDf,[])
 
-    const Ranking = (array,value)=>{
-        const Rank = array.sort(function(a, b){return a - b}).reverse()
-        const indx = Rank.indexOf(value)+1
-        return indx
-    }
-
     if(df!=null){
         var table = new Tabulator("#data-table", {
             data:df,

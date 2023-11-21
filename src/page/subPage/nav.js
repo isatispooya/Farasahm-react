@@ -41,18 +41,25 @@ const Nav = () =>{
                 {title:"حجم", field:"trade_volume", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartBlue' style='width:"+((value/dic.volume)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")                            
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartBlue' style='width:"+(((Math.log((value/dic.volume)*100))/2)*40).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")                            
 
                     },
                 },
-                {title:"nav", field:"nav", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"nav ابطال", field:"nav", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
 
                     },
                 },
-                {title:"اختلاف", field:"diff", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"nav آماری", field:"navAmary", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+ (value*1).toLocaleString()+"</p>")
+
+                    },
+                },
+                {title:"اختلاف ریالی ابطال", field:"diff", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         if (value>0) {
@@ -62,14 +69,33 @@ const Nav = () =>{
                         }
                     },
                 },
-                {title:"% اختلاف", field:"rate", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"اختلاف ریالی آماری", field:"diffAmary", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
-
+                        if (value>0) {
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.diffAmary)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")                            
+                        }else{
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((Math.abs(value)/dic.diffAmary)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")
+                        }
+                    },
+                },
+                {title:"اختلاف درصدی ابطال", field:"rate", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
                         if (value>0) {
                             return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.rate)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
                         }else{
                             return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((Math.abs(value)/dic.rate)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                        }
+                    },
+                },
+                {title:"اختلاف درصدی آماری", field:"rateAmary", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        if (value>0) {
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.rateAmary)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")                            
+                        }else{
+                            return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((Math.abs(value)/dic.rateAmary)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"%</p></div>")
                         }
                     },
                 },

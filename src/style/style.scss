@@ -583,6 +583,27 @@ header{
                         }
                         
                     }
+                    .inp-fld{
+                        display: flex;
+                        flex-direction: row;
+                        margin: 0px 10px;
+                        padding: 1px 9px;
+                        border-radius: 5px;
+                        justify-content: space-between;
+                        p{
+                            color: $colorBDark;
+                        }
+                        input{
+                            width: 40px;
+                            margin: 0px 5px;
+                            border-radius: 5px;
+                            border: 1px $colorBDark solid;
+                            text-align: center;
+                            &::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
+                                display: none;
+                            }
+                        }
+                    }
     
                 }
                 >p{
@@ -1588,6 +1609,13 @@ header{
     }
     .tabulator-row-even{
         background:mix($colorBUltra, #fff,0);
+    }
+    .holiday{
+        color: $colorError;
+        width: 100%;
+    }
+    .nonHoliday{
+        color: $colorBDark;
     }
     .StocksTableChartContiner{
         display: flex;
@@ -2663,8 +2691,8 @@ header{
         position: absolute;
         z-index: 4;
         width: 750px;
-        height: 450px;
-        top: calc((100% - 450px) / 4);
+        height: 500px;
+        top: calc((100% - 500px) / 4);
         left: calc((100% - 750px) / 2);
         background: #fff;
         border: 1px $colorBDark solid;
@@ -2706,5 +2734,169 @@ header{
             font-size: 20pt;
             margin-top: 15px;
         }
+    }
+}
+
+.invoce{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input{
+        &::-webkit-inner-spin-button{
+            display: none;
+        }
+        &::-webkit-outer-spin-button{
+            display: none;
+        }
+    }
+    section{
+        width: 96%;
+        display: flex;
+        flex-direction: column;
+        border: 1px rgba($colorBDark,0.2) solid;
+        margin: 10px 20px;
+        border-radius: 10px;
+        .header-section{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 20px;
+            h3{
+                font-size: 20pt;
+                color: $colorBDark;
+            }
+            .btn{
+                span{
+                    font-size: 25pt;
+                    cursor: pointer;
+                    color: $colorGreen;
+                }
+
+            }
+        }
+        .body-section{
+            display: flex;
+            flex-direction: row-reverse;
+            margin: 20px;
+            justify-content: space-around;
+            >:nth-child(odd){
+                background: rgba($colorBDark , 0.1);
+            }
+            >:nth-child(even){
+                background: rgba($colorDisable , 0.1);
+            }
+            fieldset{
+                padding: 10px 20px;
+                display: flex;
+                flex-direction: column;
+                border: 1px rgba($colorBSemi,0.2) solid;
+                margin: 5px 10px;
+                align-items: flex-end;
+                justify-content: center;
+                border-radius: 10px;
+                width: 170px;
+                justify-content: center;
+                align-self: center;
+                flex:1;
+                label{
+                    text-align: right;
+                }
+                >input,select,>.rmdp-container{
+                    width: 100%;
+                    height: 30px;
+                    text-align: center;
+                    border: 1px rgba($colorDisable, 0.2) solid;
+                    border-radius: 5px;
+                }
+                .rmdp-container{
+                    border: 0px;
+                }
+
+                
+                
+            }
+        }
+        .body-section-row{
+            flex-direction: column;
+            >:nth-child(odd){
+                background: rgba($colorBlueTxt , 0.05);
+            }
+            >:nth-child(even){
+                background: rgba($colorBlueTxt , 0.15);
+            }
+            .row{
+                display: flex;
+                flex-direction: row-reverse;
+                flex-wrap: nowrap;
+                justify-content: center;
+                width: 90%;
+                margin: 10px 5%;
+                padding: 5px 10px;
+                border-radius: 10px;
+                .inx{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0px 10px;
+                    h6{
+                        font-size: 20pt;
+                        margin: 0px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    span{
+                        font-size: 25pt;
+                        color: $colorError;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+                .fild{
+                    display: flex;                    
+                    flex-direction: row-reverse;
+                    flex-wrap: wrap;
+                    fieldset{
+                        padding: 5px 10px;
+                        display: flex;
+                        flex-direction: column;
+                        border: 1px rgba($colorBSemi,0.25) solid;
+                        margin: 5px 10px;
+                        align-items: flex-end;
+                        justify-content: center;
+                        border-radius: 10px;
+                        width: 170px;
+                        justify-content: center;
+                        align-self: center;
+                        width: 150px;
+                        background: rgba(#fff,0.5);
+                        label{
+                            text-align: right;
+                            font-size: 9pt;
+                        }
+                        input,select{
+                            width: 100%;
+                            height: 20px;
+                            text-align: center;
+                            border: 1px rgba($colorDisable, 0.2) solid;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    button{
+        width: 200px;
+        background: $colorGreen;
+        border: 0px;
+        height: 35px;
+        border-radius: 10px;
+        font-size: 15pt;
+        color: #fff;
+
     }
 }

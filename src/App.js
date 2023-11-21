@@ -52,7 +52,10 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import LimitFundFix from './page/subPage/bours/LimitFundFix';
 import CompareReturnPeriod from './page/subPage/CompareReturnPeriod';
 import OraghYTM from './page/subPage/oraghytm';
-
+import ForwardYtm from './page/subPage/ForwardYtm';
+import InvoiceCreate from './page/subPage/desk/moadian/invoicecreate';
+import CompanyMoadian from './page/subPage/desk/moadian/companymoadian';
+import InvoceList from './page/subPage/desk/moadian/invoicelist';
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -77,7 +80,7 @@ function App() {
             <Route path='stationactivityreport/:code' element={<StationActivityReport />}/>
             <Route path='excerpttrader/:code' element={<ExcerptTrader />}/>
             <Route path='nav' element={<Nav />}/>
-            <Route path='return' element={<Return />}/>
+            <Route path='backwardreturn' element={<Return />}/>
             <Route path='compare' element={<Compare />}/>
             <Route path='biasicinformation' element={<BasicInformation />}/>
             <Route path='shareholders' element={<Shareholders />}/>
@@ -104,13 +107,15 @@ function App() {
             <Route path='limitfundfix' element={<LimitFundFix />}/>
             <Route path='comparereturnperiod' element={<CompareReturnPeriod />}/>
             <Route path='oraghytm' element={<OraghYTM />}/>
+            <Route path='forwardytm' element={<ForwardYtm />}/>
+            <Route path='invoicecreate' element={<InvoiceCreate />}/>
+            <Route path='companymoadian' element={<CompanyMoadian />}/>
+            <Route path='invoicelist' element={<InvoceList />}/>
           </Route>
-          {/*<Route path='/admin' element={<Manegment />}/>*/}
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
           <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
           <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
-
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

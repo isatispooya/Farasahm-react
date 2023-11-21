@@ -8,7 +8,8 @@ const WellcomBrokerDesk = () =>{
     const data = {
         deskboker:{logo:process.env.PUBLIC_URL+'/img/evisa.png',title:'کارگزاری ایساتیس پویا'},
         desksabad:{logo:process.env.PUBLIC_URL+'/img/nevisa.png',title:'سبدگردانی ایساتیس پویا'},
-        deskvisa:{logo:process.env.PUBLIC_URL+'/img/visa.png',title:'سرمایه گذاری ایساتیس پویا'}
+        deskvisa:{logo:process.env.PUBLIC_URL+'/img/visa.png',title:'سرمایه گذاری ایساتیس پویا'},
+        moadian:{logo:process.env.PUBLIC_URL+'/img/moadian.png',title:'سامانه مودیان'}
     }
     
 

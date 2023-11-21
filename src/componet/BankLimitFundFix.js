@@ -11,7 +11,7 @@ import { AccessContext } from "../config/accessContext"
 const BankLimitFundFix = (props)=>{
     const access = useContext(AccessContext)
 
-    const [bank, setBank] = useState({name:'ملی ایران', balance:0, return:'monthly', rate:20})
+    const [bank, setBank] = useState({name:'ملی ایران', balance:0, return:'monthly', rate:20, num:''})
     const [startDate, setStartDate] = useState()
 
     const bankListName =[
@@ -72,6 +72,10 @@ const BankLimitFundFix = (props)=>{
                     <fieldset>
                         <label>نرخ سود</label>
                         <input value={bank.rate} onChange={(e)=>setBank({...bank, rate:e.target.value})}></input>
+                    </fieldset>
+                    <fieldset>
+                        <label>شماره حساب</label>
+                        <input value={bank.num} onChange={(e)=>setBank({...bank, num:e.target.value})}></input>
                     </fieldset>
                     <fieldset>
                         <label>تاریخ شروع</label>

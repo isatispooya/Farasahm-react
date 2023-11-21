@@ -3,16 +3,16 @@ import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} f
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType } from "react-icons/vsc";
-import { HiOutlineDocumentDuplicate ,  } from "react-icons/hi";
+import { HiOutlineDocumentDuplicate , HiOfficeBuilding } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin , BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
-import { IoPieChartSharp } from "react-icons/io5";
+import { IoPieChartSharp , IoPlayBack , IoPlayForward } from "react-icons/io5";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
-import { RiCalendarTodoLine} from "react-icons/ri";
+import { RiCalendarTodoLine, RiFileAddFill} from "react-icons/ri";
 import { CgArrowsShrinkV} from "react-icons/cg";
 import { HiReceiptPercent } from "react-icons/hi2";
-
+import { FaFileInvoiceDollar , FaListAlt } from "react-icons/fa";
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
     'traders':<FaPeopleArrows/>,
@@ -49,5 +49,11 @@ export const menuFullList ={
     "comparereturnperiod":<BsBarChartFill/>,
     "limitfundfix":<CgArrowsShrinkV/>,
     "watchlist":<FaRegEye />,
-    "oraghytm":<HiReceiptPercent/>
+    "oraghytm":<HiReceiptPercent/>,
+    "backwardreturn":<IoPlayBack />,
+    "forwardytm":<IoPlayForward />,
+    "invoice":<FaFileInvoiceDollar />,
+    "invoicecreate":<RiFileAddFill />,
+    "companymoadian":<HiOfficeBuilding />,
+    "invoicelist":<FaListAlt />
 }
