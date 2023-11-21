@@ -1,9 +1,9 @@
 import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote} from "react-icons/md";
-import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie} from "react-icons/fa";
+import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} from "react-icons/fa";
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType } from "react-icons/vsc";
-import { HiOutlineDocumentDuplicate , HiScale } from "react-icons/hi";
+import { HiOutlineDocumentDuplicate ,  } from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin , BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
@@ -11,6 +11,7 @@ import { IoPieChartSharp } from "react-icons/io5";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 import { RiCalendarTodoLine} from "react-icons/ri";
 import { CgArrowsShrinkV} from "react-icons/cg";
+import { HiReceiptPercent } from "react-icons/hi2";
 
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
@@ -47,4 +48,6 @@ export const menuFullList ={
     "comparereturnsample":<BsBarChartFill/>,
     "comparereturnperiod":<BsBarChartFill/>,
     "limitfundfix":<CgArrowsShrinkV/>,
+    "watchlist":<FaRegEye />,
+    "oraghytm":<HiReceiptPercent/>
 }

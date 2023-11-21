@@ -51,7 +51,7 @@ import CompareReturnSample from './page/subPage/CompareReturnSample';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import LimitFundFix from './page/subPage/bours/LimitFundFix';
 import CompareReturnPeriod from './page/subPage/CompareReturnPeriod';
-
+import OraghYTM from './page/subPage/oraghytm';
 
 function App() {
   const queryClient = new QueryClient();
@@ -103,6 +103,7 @@ function App() {
             <Route path='comparereturnsample' element={<CompareReturnSample />}/>
             <Route path='limitfundfix' element={<LimitFundFix />}/>
             <Route path='comparereturnperiod' element={<CompareReturnPeriod />}/>
+            <Route path='oraghytm' element={<OraghYTM />}/>
           </Route>
           {/*<Route path='/admin' element={<Manegment />}/>*/}
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
