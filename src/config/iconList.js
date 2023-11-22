@@ -1,4 +1,4 @@
-import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote} from "react-icons/md";
+import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard} from "react-icons/md";
 import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} from "react-icons/fa";
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
@@ -55,5 +55,6 @@ export const menuFullList ={
     "invoice":<FaFileInvoiceDollar />,
     "invoicecreate":<RiFileAddFill />,
     "companymoadian":<HiOfficeBuilding />,
-    "invoicelist":<FaListAlt />
+    "invoicelist":<FaListAlt />,
+    "dashboardfixincom":<MdSpaceDashboard />
 }

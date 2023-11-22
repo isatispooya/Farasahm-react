@@ -2900,3 +2900,36 @@ header{
 
     }
 }
+
+.fixdash{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .liner{
+        h1{
+            font-size: 15pt;
+            text-align: center;
+            width: 100%;
+            color: $colorBDark;
+        }
+        width: 100%;
+    }
+    .row{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        >div{
+            h1{
+                font-size: 15pt;
+                text-align: center;
+                width: 100%;
+                color: $colorBDark;
+            }
+            flex: 2;
+            margin-top: 20px;
+        }
+        .pie{
+            flex: 1;
+        }
+    }
+}

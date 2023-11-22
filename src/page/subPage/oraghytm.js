@@ -47,10 +47,30 @@ const OraghYTM = () =>{
                 {title:"قیمت معامله شده هر ورقه", field:"قیمت معامله شده هر ورقه", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"تاریخ آخرین روز معاملاتی", field:"تاریخ آخرین روز معاملاتی", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"تاریخ سررسید", field:"تاریخ سررسید", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"نوع", field:"owner", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"کوپن", field:"type", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"YTM", field:"YTM", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.YTM)*60).toString()+'%'+"'></div><p>"+ (value*1).toLocaleString()+"%</p></div>")
+                    },
+                },
+                {title:"تعداد روز های معاملاتی یک ماه اخیر", field:"count", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.count)*60).toString()+'%'+"'></div><p>"+ (value*1).toLocaleString()+"</p></div>")
+                    },
+                },
+                {title:"میانگین حجم یک ماهه", field:"mean", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.mean)*60).toString()+'%'+"'></div><p>"+ (value*1).toLocaleString()+"</p></div>")
+                    },
+                },
+                {title:"حجم آخرین روز", field:"vol", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.vol)*60).toString()+'%'+"'></div><p>"+ (value*1).toLocaleString()+"</p></div>")
                     },
                 },
                 {title:"روز تا سررسید", field:"LastDay", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",

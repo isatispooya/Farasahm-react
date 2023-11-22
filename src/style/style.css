@@ -2828,4 +2828,37 @@ header .btn-bs input:focus {
   border-radius: 10px;
   font-size: 15pt;
   color: #fff;
+}
+
+.fixdash {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.fixdash .liner {
+  width: 100%;
+}
+.fixdash .liner h1 {
+  font-size: 15pt;
+  text-align: center;
+  width: 100%;
+  color: #20409d;
+}
+.fixdash .row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.fixdash .row > div {
+  flex: 2;
+  margin-top: 20px;
+}
+.fixdash .row > div h1 {
+  font-size: 15pt;
+  text-align: center;
+  width: 100%;
+  color: #20409d;
+}
+.fixdash .row .pie {
+  flex: 1;
 }/*# sourceMappingURL=style.css.map */
