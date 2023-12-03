@@ -10,7 +10,7 @@ import {TabulatorFull as Tabulator} from 'tabulator-tables';
 const ForwardYtm = () =>{
     const [df, setDf] = useState(null)
     const [dic, setDic] = useState(null)
-    const [input, setInput] = useState({target:22,befor:50,after:50})
+    const [input, setInput] = useState({target:26,befor:50,after:50})
     const access = useContext(AccessContext)
 
 

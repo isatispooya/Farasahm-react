@@ -14,6 +14,7 @@ import {
     Legend,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
+  import { Bar } from 'react-chartjs-2';
 
 const DashRtnPrc = () =>{
     const access = useContext(AccessContext)
@@ -43,8 +44,9 @@ const DashRtnPrc = () =>{
                     {
                         label: 'YTM',
                         data: response.data.df.YTM,
-                        backgroundColor: 'rgb(183, 75, 175, 0.5)',
-                        borderColor: 'rgb(183, 75, 175)'
+                        backgroundColor: '#599fd9',
+                        borderColor: '#599fd9',
+                        borderRadius:'15'
                     }
                 ]
             })
@@ -70,14 +72,14 @@ const DashRtnPrc = () =>{
             {
                 dic==null?
                 <MiniLoader/>:
-                <Line options={Options} data={dic} />
-
+                <Bar options={Options} data={dic} />
             }
             <select onChange={(e)=>setPeriod(e.target.value)} value={period}>
                 <option value='روزانه'>روزانه</option>
                 <option value='هفتگی'>هفتگی</option>
                 <option value='ماهانه'>ماهانه</option>
                 <option value='فصلی'>فصلی</option>
+                <option value='شش ماهه'>شش ماهه</option>
             </select>
         </div>
     )

@@ -57,6 +57,8 @@ import InvoiceCreate from './page/subPage/desk/moadian/invoicecreate';
 import CompanyMoadian from './page/subPage/desk/moadian/companymoadian';
 import InvoceList from './page/subPage/desk/moadian/invoicelist';
 import DashboardFixInCome from './page/subPage/bours/dashbordFixIncome';
+import Potential from './page/subPage/bours/potential';
+import IncreaseAsset from './page/subPage/fixincom/IncreaseAsset';
 
 function App() {
   const queryClient = new QueryClient();
@@ -114,6 +116,8 @@ function App() {
             <Route path='companymoadian' element={<CompanyMoadian />}/>
             <Route path='invoicelist' element={<InvoceList />}/>
             <Route path='dashboardfixincom' element={<DashboardFixInCome />}/>
+            <Route path='potential' element={<Potential />}/>
+            <Route path='increaseasset' element={<IncreaseAsset />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>

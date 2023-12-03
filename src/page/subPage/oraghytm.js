@@ -21,7 +21,6 @@ const OraghYTM = () =>{
         .then(response=>{
             setDf(response.data.df)
             setDic(response.data.dic)
-            console.log(response.data.dic)
         })
     }
 
@@ -49,6 +48,7 @@ const OraghYTM = () =>{
                 {title:"تاریخ سررسید", field:"تاریخ سررسید", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"نوع", field:"owner", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"کوپن", field:"type", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
+                {title:"بازار", field:"market", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"YTM", field:"YTM", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();

@@ -53,7 +53,11 @@ const LimitFundFix = () =>{
                     {title:"نوع", field:"type", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                     {title:"دارایی", field:"name", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                     {title:"شماره", field:"num", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input"},
-                    {title:"ارزش", field:"value", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    {title:"ارزش", field:"value", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:'sum',
+                        topCalcFormatter:function (cell, formatterParams){
+                            var value = cell.getValue();
+                            return (value * 1).toLocaleString();
+                        },
                         formatter:function(cell, formatterParams){
                             var value = cell.getValue();
                             return("<p>"+ (value*1).toLocaleString()+"</p>")
@@ -63,10 +67,22 @@ const LimitFundFix = () =>{
                         formatter:function(cell, formatterParams){
                             var value = cell.getValue();
                             return("<p> % "+ (value*1).toLocaleString()+"</p>")
-
+                            
                         },
                     },
                     {title:"محدودیت ها", field:"warning", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",},
+                    {title:"افزایش مجاز", field:"max", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                        formatter:function(cell, formatterParams){
+                            var value = cell.getValue();
+                            return("<p>"+ (value*1).toLocaleString()+"</p>")
+                        },
+                    },
+                    {title:"کاهش مجاز", field:"min", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                        formatter:function(cell, formatterParams){
+                            var value = cell.getValue();
+                            return("<p>"+ (value*1).toLocaleString()+"</p>")
+                        },
+                    },
                 ],
             })
             

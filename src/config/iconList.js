@@ -3,13 +3,13 @@ import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} f
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType } from "react-icons/vsc";
-import { HiOutlineDocumentDuplicate , HiOfficeBuilding } from "react-icons/hi";
+import { HiOutlineDocumentDuplicate , HiOfficeBuilding , HiDocumentReport} from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin , BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
+import { BsCashCoin ,BsPersonBadgeFill, BsDatabaseFillAdd, BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { IoPieChartSharp , IoPlayBack , IoPlayForward } from "react-icons/io5";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
-import { RiCalendarTodoLine, RiFileAddFill} from "react-icons/ri";
+import { RiCalendarTodoLine, RiFileAddFill, RiTableFill} from "react-icons/ri";
 import { CgArrowsShrinkV} from "react-icons/cg";
 import { HiReceiptPercent } from "react-icons/hi2";
 import { FaFileInvoiceDollar , FaListAlt } from "react-icons/fa";
@@ -47,7 +47,8 @@ export const menuFullList ={
     "dilution":<IoPieChartSharp/>,
     "comparereturnsample":<BsBarChartFill/>,
     "comparereturnperiod":<BsBarChartFill/>,
-    "limitfundfix":<CgArrowsShrinkV/>,
+    "limitfundfixmain":<CgArrowsShrinkV/>,
+    "limitfundfix":<RiTableFill />,
     "watchlist":<FaRegEye />,
     "oraghytm":<HiReceiptPercent/>,
     "backwardreturn":<IoPlayBack />,
@@ -56,5 +57,8 @@ export const menuFullList ={
     "invoicecreate":<RiFileAddFill />,
     "companymoadian":<HiOfficeBuilding />,
     "invoicelist":<FaListAlt />,
-    "dashboardfixincom":<MdSpaceDashboard />
+    "dashboardfixincom":<MdSpaceDashboard />,
+    "potential":<BsPersonBadgeFill />,
+    "reports":<HiDocumentReport />,
+    'increaseasset':<BsDatabaseFillAdd />
 }

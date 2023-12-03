@@ -18,6 +18,7 @@ import {
 const DashDifNavPrc = () =>{
     const access = useContext(AccessContext)
     const [dic, setDic] = useState(null)
+    const [period, setPeriod] = useState('ماه')
 
 
     ChartJS.register(
@@ -32,7 +33,7 @@ const DashDifNavPrc = () =>{
       
 
     const get = () =>{
-        axios.post(OnRun+'/getdiffnavprc',{access:access})
+        axios.post(OnRun+'/getdiffnavprc',{access:access,period:period})
         .then(response=>{
             console.log(response.data.df)
             var lab = response.data.df.dateInt
@@ -68,7 +69,7 @@ const DashDifNavPrc = () =>{
         },
     }
 
-    useEffect(get,[])
+    useEffect(get,[period])
     return(
         <div>
             {
@@ -77,6 +78,13 @@ const DashDifNavPrc = () =>{
                 <Line options={Options} data={dic} />
 
             }
+            <select onChange={(e)=>setPeriod(e.target.value)} value={period}>
+                <option value='ماه'>ماه</option>
+                <option value='فصل'>فصل</option>
+                <option value='شش ماه'>شش ماه</option>
+                <option value='سال'>سال</option>
+                <option value='همه'>همه</option>
+            </select>
         </div>
     )
 }

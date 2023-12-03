@@ -2933,3 +2933,101 @@ header{
         }
     }
 }
+
+
+.dshRnk{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lineGauge{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    .rank{
+        flex: 2;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0px 10px;
+        h1{
+            font-size: 18pt;
+            color: $colorBDark;
+        }
+        h2{
+            font-size: 22pt;
+            color: $colorBDark;
+        }
+        h3{
+            font-size: 13pt;
+            color: $colorBUltra;
+        }
+    }
+    .meter{
+        flex: 5;
+        height: 10px;
+        background: linear-gradient(90deg,$colorRed,rgb(255, 243, 68),$colorGreen);
+        border: 1px $colorDisable solid;
+        border-radius: 10px;
+        p{
+            color: $colorDisable;
+            font-size: 25pt;
+            margin-top: -10px;
+        }
+    }
+}
+
+
+.formInpPanel{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    .row{
+        width: 90%;
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+        margin: 20px 0px;
+        border: 1px rgba($colorDisable, 0.3) solid;
+        border-radius: 20px;
+        padding: 15px 0px;
+        >h1{
+            font-size: 18pt;
+            color: $colorBDark;
+        }
+        >:nth-child(odd){
+            background: rgba($colorBDark , 0.1);
+        }
+        >:nth-child(even){
+            background: rgba($colorDisable , 0.1);
+        }
+
+        fieldset{
+            border: 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 15px 25px;
+            border-radius: 15px;
+            label{
+                font-size: 12pt;
+                color: $colorBDark;
+            }
+            select, input{
+                width: 200px;
+                height: 30px;
+                text-align: center;
+                border: 1px $colorBDark solid;
+                border-radius: 10px;
+            }
+
+        }
+
+    }
+}

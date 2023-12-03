@@ -47,9 +47,8 @@ const DashRatFixAsset = () =>{
                 display: true,
                 title: { display: false, text: 'ارزش دارایی ها' },
                 tooltip: { backgroundColor: '#273bb0' }
-            },
+            }
         },
-
     };
     
     
