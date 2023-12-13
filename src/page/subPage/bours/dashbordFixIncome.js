@@ -18,11 +18,9 @@ const DashboardFixInCome = () =>{
                 <DashRnkFixIn />
             </div>
             <div className="liner">
-                <h1>قیمت  / nav</h1>
                 <DashDifNavPrc />
             </div>
             <div className="liner">
-                <h1>بازدهی</h1>
                 <DashRtnPrc />
             </div>
         </div>

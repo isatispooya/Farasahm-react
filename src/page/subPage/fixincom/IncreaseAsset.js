@@ -2,24 +2,33 @@ import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { OnRun } from "../../../config/config"
 import { AccessContext } from "../../../config/accessContext"
-
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 
 
 const IncreaseAsset = () => {
     const [inp ,setInp] = useState({increase:1000,static:'یک روز',bank:22, nogov:20, gov:20, saham: 0, type:'محافظه کارانه'})
+    const [increaseReult, setIncreaseResult] = useState([])
     const access = useContext(AccessContext)
-    console.log(inp)
 
-    const calc = () =>{
-        axios.post(OnRun+'/calcincass',{access:access,inp:inp})
+    const getRetAss = () =>{
+        axios.post(OnRun+'/getretassfix',{access:access,static:inp.static})
         .then(response=>{
             console.log(response.data)
         })
     }
 
-    useEffect(calc,[inp])
+    const calc = () =>{
+        axios.post(OnRun+'/calcincass',{access:access,inp:inp})
+        .then(response=>{
+            setIncreaseResult(response.data.df)
+            console.log(response.data.df)
+        })
+    }
 
+    useEffect(calc,[inp])
+    useEffect(getRetAss,[])
+    
     return(
         <div className="subPage tablePg">
             <div className="tls">
@@ -29,7 +38,7 @@ const IncreaseAsset = () => {
                 <div className="row">
                     <fieldset>
                         <label>مقدار</label>
-                        <input type="number" value={inp.type} onChange={(e)=>setInp({...inp,type:e.target.value})}></input>
+                        <input type="number" value={inp.increase} onChange={(e)=>setInp({...inp,increase:e.target.value})}></input>
                     </fieldset>
                     <fieldset>
                         <label>ماندگاری</label>
@@ -71,6 +80,35 @@ const IncreaseAsset = () => {
                     </fieldset>
                 </div>
             </div>
+            {
+                increaseReult.length==0?null:
+                <div className="incresrow">
+                    <div className="row">
+                        {
+                            increaseReult.map(i=>{
+                                return(
+                                    <div className="asscls">
+                                        <h3>{i.name}</h3>
+                                        <div className="vlap">
+                                            <p>+ {(Math.round(i.approve/1000000)).toLocaleString()} M</p>
+                                        </div>
+                                        <div className="vlft">
+                                            <p>{(Math.round(i.value/1000000)).toLocaleString()} M</p>
+                                            <span><MdKeyboardDoubleArrowRight /></span>
+                                            <p className="vlap">{(Math.round(i.value_after/1000000)).toLocaleString()} M</p>
+                                        </div>
+                                        <div className="vlft">
+                                            <p className="vlaf">{(Math.round(i.rate_befor*100)).toLocaleString()} %</p>
+                                            <span><MdKeyboardDoubleArrowRight /></span>
+                                            <p className="vlaf">{(Math.round(i.rate_after*100)).toLocaleString()} %</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            }
         </div>
     )
 }

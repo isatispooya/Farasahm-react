@@ -24,7 +24,7 @@ const DashRnkFixIn = () =>{
     useEffect(get,[])
 
     return(
-        <div className="dshRnk">
+        <div className="dshRnk dshfixdv">
             {
                 dic==null?
                 <MiniLoader/>

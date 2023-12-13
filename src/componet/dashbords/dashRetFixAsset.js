@@ -56,7 +56,7 @@ const DashRatFixAsset = () =>{
 
     useEffect(get,[])
     return(
-        <div className="pie">
+        <div className="pie dshfixdv">
             <h1>نسبت دارایی ها</h1>
             {
                 dic==null?

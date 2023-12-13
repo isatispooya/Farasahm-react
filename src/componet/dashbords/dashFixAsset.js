@@ -45,7 +45,7 @@ const DashFixAsset = () =>{
 
     useEffect(get,[])
     return(
-        <div>
+        <div className="dshfixdv">
             <h1>ارزش دارایی ها</h1>
             {
                 dic==null?

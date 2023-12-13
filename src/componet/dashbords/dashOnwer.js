@@ -36,12 +36,11 @@ const DashOnwer = () =>{
         axios.post(OnRun+'/getonwerfix',{access:access})
         .then(response=>{
             var lab = response.data.df.CustomerTitle
-            console.log(lab)
             setDic({
                 lab,
                 datasets: [
                     {
-                        label: 'حجم',
+                        label: 'واحد',
                         data: response.data.df.Volume,
                         backgroundColor: '#599fd9',
                         borderColor: '#599fd9',
@@ -58,7 +57,7 @@ const DashOnwer = () =>{
         plugins: {
             legend: {
                 display:true,
-                title: {display: true,text:'ارزش دارایی ها'},
+                title: {display: true,text:'مالکین بیشتری تعداد واحد'},
                 tooltip:{backgroundColor:'#273bb0'}
             },
         },
@@ -67,7 +66,7 @@ const DashOnwer = () =>{
     useEffect(get,[])
 
     return(
-        <div>
+        <div dshfixdv>
             {
                 dic==null?
                 <MiniLoader/>:

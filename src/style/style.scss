@@ -3031,3 +3031,83 @@ header{
 
     }
 }
+
+
+.incresrow{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px;
+    .row{
+        width: 85%;
+        border: 1px rgba($colorBDark , 0.1) solid;
+        background: rgba($colorBDark , 0.05);
+        border-radius: 25px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row-reverse;
+        .asscls{
+            display: flex;
+            flex-direction: column;
+            h3{
+                font-size: 15pt;
+                color: $colorDisable;
+                text-align: center;
+            }
+            .vlap{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                p{
+                    color: $colorBDark;
+                    font-size: 15pt;
+                    text-align: center;
+                }
+            }
+            .vlft{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                p{
+                    font-size: 12pt;
+                    color: $colorDisable;
+                }
+                span{
+                    font-size: 16pt;
+                    color: $colorDisable;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
+
+            
+        }
+
+
+    }
+}
+
+
+.dshfixdv{
+    display: flex;
+    flex-direction: column;
+    border: 1px rgba($colorDisable, 0.25) solid;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 10px 0px;
+    .opt{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        select{
+            border: 0px;
+            border-bottom: 2px $colorBDark solid;
+        }
+    }
+}

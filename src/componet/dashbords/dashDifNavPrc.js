@@ -3,6 +3,7 @@ import { AccessContext } from "../../config/accessContext"
 import axios from "axios"
 import { OnRun } from "../../config/config"
 import MiniLoader from "../Loader/miniLoader"
+import { setCookie, getCookie } from "../cookie/cookie"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -19,6 +20,12 @@ const DashDifNavPrc = () =>{
     const access = useContext(AccessContext)
     const [dic, setDic] = useState(null)
     const [period, setPeriod] = useState('ماه')
+
+
+    const handlePeriod = (e) =>{
+        setCookie('dashdifnavprc',e.target.value,10)
+        setPeriod(e.target.value)
+    }
 
 
     ChartJS.register(
@@ -70,21 +77,34 @@ const DashDifNavPrc = () =>{
     }
 
     useEffect(get,[period])
+    useEffect(
+        ()=>{
+            var per = getCookie('dashdifnavprc')
+            if (per.length>0) {
+                setPeriod(per)
+            }else{
+                setPeriod('ماه')
+            }
+        },
+        []
+    )
     return(
-        <div>
+        <div className="dshfixdv">
             {
                 dic==null?
                 <MiniLoader/>:
                 <Line options={Options} data={dic} />
 
             }
-            <select onChange={(e)=>setPeriod(e.target.value)} value={period}>
-                <option value='ماه'>ماه</option>
-                <option value='فصل'>فصل</option>
-                <option value='شش ماه'>شش ماه</option>
-                <option value='سال'>سال</option>
-                <option value='همه'>همه</option>
-            </select>
+            <div className="opt" >
+                <select onChange={(e)=>handlePeriod(e)} value={period}>
+                    <option value='ماه'>ماه</option>
+                    <option value='فصل'>فصل</option>
+                    <option value='شش ماه'>شش ماه</option>
+                    <option value='سال'>سال</option>
+                    <option value='همه'>همه</option>
+                </select>
+            </div>
         </div>
     )
 }

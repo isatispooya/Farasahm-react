@@ -83,6 +83,7 @@ const Compare = () =>{
 
                     },
                 },
+                {title:"بروزرسانی", field:"update", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
             ],
         })
     }

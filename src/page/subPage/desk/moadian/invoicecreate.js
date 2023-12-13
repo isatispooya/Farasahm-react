@@ -148,12 +148,12 @@ const InvoiceCreate = () =>{
                                     <label>الگوی صورت حساب</label>
                                     <select value={invoceData.patern} onChange={(e)=>setInvoiceData({...invoceData,patern:e.target.value})}>
                                         <option value={1}>فروش</option>
-                                        <option value={3}>پیمانکاری</option>
+                                        <option value={4}>پیمانکاری</option>
                                     </select>
                                 </fieldset>
                                 <fieldset>
                                     <label>نوع خریدار</label>
-                                    <select value={invoceData.buerType} onChange={(e)=>setInvoiceData({...invoceData,buerType:e.target.buerType})}>
+                                    <select value={invoceData.buerType} onChange={(e)=>setInvoiceData({...invoceData,buerType:e.target.value})}>
                                         <option value={1}>حقیقی</option>
                                         <option value={2}>حقوقی</option>
                                         <option value={5}>مصرف کننده</option>

@@ -74,13 +74,22 @@ const TraderBroker = () =>{
                 {title:"زمان", field:"TradeDate", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input"},
                 {title:"ایستگاه", field:"BranchTitle", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input"},
                 {title:"TradeCode", visible:false, field:"TradeCode", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
-                {title:"حجم خرید", field:"Volume_Buy", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"حقوقی", field:"isCompany", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:1,topCalc:"sum",formatter:"tickCross"},
+                {title:"حجم خرید", field:"Volume_Buy", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell,formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+value.toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic.Volume_Buy)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")
                     },
                 },
-                {title:"حجم فروش", field:"Volume_Sell", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"حجم فروش", field:"Volume_Sell", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell,formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+value.toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<div class='StocksTableChartContiner'><div class='StocksTableChartNeg' style='width:"+((value/dic.Volume_Sell)*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")
@@ -99,13 +108,21 @@ const TraderBroker = () =>{
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
                     },
                 },
-                {title:"مانده آنی", field:"balance", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input",
+                {title:"مانده آنی", field:"balance", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input",topCalc:"sum",
+                    topCalcFormatter:function(cell,formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+value.toLocaleString()+"</p>")
+                    },
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+ (value*1).toLocaleString()+"</p>")
                     },
                 },
-                {title:"مانده امورسهام", field:"balanceRegister", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input",
+                {title:"مانده امورسهام", field:"balanceRegister", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:2,headerFilter:"input",topCalc:"sum",
+                topCalcFormatter:function(cell,formatterParams){
+                    var value = cell.getValue();
+                    return("<p>"+value.toLocaleString()+"</p>")
+                },
                 formatter:function(cell, formatterParams){
                     var value = cell.getValue();
                     return("<p>"+ (value*1).toLocaleString()+"</p>")
