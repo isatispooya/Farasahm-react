@@ -14,6 +14,9 @@ const IncreaseAsset = () => {
     const getRetAss = () =>{
         axios.post(OnRun+'/getretassfix',{access:access,static:inp.static})
         .then(response=>{
+            if (response.data.reply) {
+                setInp({...inp, bank:response.data.dic.bank, gov:response.data.dic.gov, nogov:response.data.dic.nongov})
+            }
             console.log(response.data)
         })
     }
@@ -22,7 +25,6 @@ const IncreaseAsset = () => {
         axios.post(OnRun+'/calcincass',{access:access,inp:inp})
         .then(response=>{
             setIncreaseResult(response.data.df)
-            console.log(response.data.df)
         })
     }
 
@@ -37,7 +39,7 @@ const IncreaseAsset = () => {
             <div className="formInpPanel">
                 <div className="row">
                     <fieldset>
-                        <label>مقدار</label>
+                        <label>مقدار (میلیون ریال)</label>
                         <input type="number" value={inp.increase} onChange={(e)=>setInp({...inp,increase:e.target.value})}></input>
                     </fieldset>
                     <fieldset>
