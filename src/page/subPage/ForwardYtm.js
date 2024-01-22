@@ -3,8 +3,10 @@ import { useState ,useContext, useEffect} from "react"
 import { AccessContext } from "../../config/accessContext"
 import axios from "axios"
 import { OnRun } from '../../config/config'
-
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import DatePiBroker from "../../componet/datepicker/DatePiBroker"
+import { exportPdf } from "../../config/exportPdf";
+import { BsFiletypePdf , BsFiletypeCsv } from "react-icons/bs"
 
 
 const ForwardYtm = () =>{
@@ -12,6 +14,7 @@ const ForwardYtm = () =>{
     const [dic, setDic] = useState(null)
     const [input, setInput] = useState({target:26,befor:50,after:50})
     const access = useContext(AccessContext)
+    const [dateSelection, setDateSelection] = useState(null)
 
 
     const handleBefor = (e) =>{
@@ -31,7 +34,8 @@ const ForwardYtm = () =>{
 
 
     const getDf = () =>{
-        axios.post(OnRun+'/getpriceforward',{access:access, target:input.target, befor:input.befor, after:input.after})
+        
+        axios.post(OnRun+'/getpriceforward',{access:access, target:input.target, befor:input.befor, after:input.after, date:dateSelection})
         .then(response=>{
             setDf(response.data.df)
             console.log(response.data.df)
@@ -70,7 +74,19 @@ const ForwardYtm = () =>{
                     
                 },
                 },
-                {title:"قیمت", field:"fut_price", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                {title:"قیمت پایانی", field:"real", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+(value).toLocaleString()+"</p>")
+                    },
+                },
+                {title:"قیمت پیش بینی", field:"fut_price", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
+                    formatter:function(cell, formatterParams){
+                        var value = cell.getValue();
+                        return("<p>"+(value).toLocaleString()+"</p>")
+                    },
+                },
+                {title:"انحراف", field:"diff", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input",
                     formatter:function(cell, formatterParams){
                         var value = cell.getValue();
                         return("<p>"+(value).toLocaleString()+"</p>")
@@ -88,7 +104,7 @@ const ForwardYtm = () =>{
 
 
 
-    useEffect(getDf,[input.after,input.befor,input.target])
+    useEffect(getDf,[input.after,input.befor,input.target,dateSelection])
 
     return(
         <div className="subPage tablePg">
@@ -110,6 +126,13 @@ const ForwardYtm = () =>{
                         <input max={100} min={0} value={input.after} onChange={(e)=>handleAfter(e)} type="number" placeholder="نرخ هدف"></input>
                         <p>بعد تعطیلات</p>
                     </div>
+                    <div className="inp-fld">
+                    <DatePiBroker setDateSelection={setDateSelection} />
+                        <p>مبدا محاسبه</p>
+                    </div>
+                <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
+                <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
+
                 </div>
             </div>
             <div id="data-table"></div>

@@ -19,6 +19,9 @@ const Priority = () =>{
     const [pay, setPay] = useState({popUp:false,count:'',value:'',document:''})
     const [dateSelection, setDateSelection] = useState(new DateObject)
     const [datePriority, setDatePriority] = useState(null)
+    const [datePriorityLst, setDatePriorityLst] = useState(null)
+    console.log(datePriority)
+    console.log(datePriorityLst)
 
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])
@@ -35,8 +38,8 @@ const Priority = () =>{
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
-                console.log(response.data.lst)
-                setDatePriority({selected:response.data.lst[0],lst:response.data.lst})
+                setDatePriority(response.data.lst[0]['date'])
+                setDatePriorityLst(response.data.lst)
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
@@ -50,15 +53,18 @@ const Priority = () =>{
         })
     }
 
+
     const get = () =>{
-        axios.post(OnRun+'/getpriority',{access:access})
-        .then(response=>{
-            if(response.data.replay){
-                setDf(response.data.df)
-            }else{
-                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
-            }
-        })
+        if (datePriority) {
+            axios.post(OnRun+'/getpriority',{access:access, datePriority:datePriority})
+            .then(response=>{
+                if(response.data.replay){
+                    setDf(response.data.df)
+                }else{
+                    toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                }
+            })
+        }
     }
 
 
@@ -66,7 +72,8 @@ const Priority = () =>{
         {
             label:"انتقال",
             action:function(e, row){
-                if (datePriority.selected===false) {
+                const matchingItem = datePriorityLst.find(item => item.date == datePriority)
+                if (matchingItem.enable===true) {
                     const dt =row.getData()
                     setTransaction({...transaction,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
                     setPay({...pay,popUp:false})
@@ -78,7 +85,8 @@ const Priority = () =>{
         {
             label:"پرداخت",
             action:function(e, row){
-                if (datePriority.selected===false) {
+                const matchingItem = datePriorityLst.find(item => item.date == datePriority)
+                if (matchingItem.enable===true) {
                     const dt =row.getData()
                     setPay({...pay,popUp:true,frm:dt['نام و نام خانوادگی'],count:dt['حق تقدم']})
                     setTransaction({...transaction,popUp:false})
@@ -95,7 +103,7 @@ const Priority = () =>{
         }else if(transaction.to==''){toast.warning('نام خریدار را وارد کنید',{position: toast.POSITION.BOTTOM_RIGHT})
         }else if (transaction.count==0) {toast.warning('تعداد حق  تقدم را وارد کنید',{position: toast.POSITION.BOTTOM_RIGHT})
         }else{
-            axios.post(OnRun+'/settransactionpriority',{transaction:transaction,access:access})
+            axios.post(OnRun+'/settransactionpriority',{transaction:transaction, access:access, datePriority:datePriority})
             .then(response =>{
                 if(response.data.replay){
                     toast.success('انجام شد',{position: toast.POSITION.BOTTOM_RIGHT})
@@ -112,7 +120,7 @@ const Priority = () =>{
         if (pay.count<=0) {toast.warning('مقدار باید بیشتر از صفر باشد',{position: toast.POSITION.BOTTOM_RIGHT})
         }else if (pay.value<=0) {toast.warning('مبلغ باید بیشتر از صفر باشد',{position: toast.POSITION.BOTTOM_RIGHT})
         }else{
-            axios.post(OnRun+'/setpayprority',{pay:pay,access:access,date:dateSelection})
+            axios.post(OnRun+'/setpayprority',{pay:pay,access:access, date:dateSelection, datePriority:datePriority})
             .then(response=>{
                 if (response.data.replay) {
                     toast.success('انجام شد',{position: toast.POSITION.BOTTOM_RIGHT})
@@ -216,7 +224,7 @@ const Priority = () =>{
 
 
     useEffect(getAllPepole,[])
-    useEffect(get,[])
+    useEffect(get,[datePriority])
     useEffect(getDatePriority,[])
     return(
         <div className="subPage tablePg">
@@ -230,12 +238,13 @@ const Priority = () =>{
                     <p onClick={()=>navigate('/desk/prioritytransaction')}  className="btntls" ><span><TbTransform/></span>ریز تراکنش ها</p>
                     <p onClick={()=>navigate('/desk/prioritypay')}  className="btntls" ><span><BsCashCoin/></span>ریز پرداخت ها</p>
                     {
-                        datePriority==null?null:
-                        <select onChange={(e)=>setDatePriority({...datePriority,selected:e.target.value})}>
+                        datePriorityLst==null?null:
+                        <select onChange={(e)=>setDatePriority(e.target.value)}>
                             {
-                                datePriority.lst.map(i=>{
+                                datePriorityLst.map(i=>{
+                                    console.log(i)
                                     return(
-                                        <option key={i.date} value={i}>{i.date}</option>
+                                        <option key={i.date} value={i.date}>{i.date}</option>
                                         )
                                     })
                             }

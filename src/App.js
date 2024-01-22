@@ -59,6 +59,9 @@ import InvoceList from './page/subPage/desk/moadian/invoicelist';
 import DashboardFixInCome from './page/subPage/bours/dashbordFixIncome';
 import Potential from './page/subPage/bours/potential';
 import IncreaseAsset from './page/subPage/fixincom/IncreaseAsset';
+import ReturnAsset from './page/subPage/fixincom/ReturnAsset';
+import SetRetAsst from './page/subPage/desk/sabad/SetRetAsst';
+import Managementcommittee from './page/subPage/fixincom/managementcommittee';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -123,6 +126,9 @@ function App() {
             <Route path='dashboardfixincom' element={<DashboardFixInCome />}/>
             <Route path='potential' element={<Potential />}/>
             <Route path='increaseasset' element={<IncreaseAsset />}/>
+            <Route path='returnasset' element={<ReturnAsset />}/>
+            <Route path='setreturnasset' element={<SetRetAsst />}/>
+            <Route path='managementcommittee' element={<Managementcommittee />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>

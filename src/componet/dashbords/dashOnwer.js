@@ -21,22 +21,36 @@ const DashOnwer = () =>{
 
 
 
-    ChartJS.register(
-        CategoryScale,
-        LinearScale,
-        PointElement,
-        LineElement,
-        Title,
-        Tooltip,
-        Legend
-      );
+    useEffect(() => {
+        ChartJS.register(
+          CategoryScale,
+          LinearScale,
+          PointElement,
+          LineElement,
+          Title,
+          Tooltip,
+          Legend
+        );
+      }, []);
+    
+      const Options = {
+        responsive: true,
+        aspectRatio:4,
+        plugins: {
+            legend: {
+                display:true,
+                title: {display: true,text:'مالکین بیشتری تعداد واحد در ایساتیس پویا'},
+                tooltip:{backgroundColor:'#273bb0'}
+            },
+        },
+    }
       
 
     const get = () =>{
         axios.post(OnRun+'/getonwerfix',{access:access})
         .then(response=>{
             var lab = response.data.df.CustomerTitle
-            setDic({
+            var data = {
                 lab,
                 datasets: [
                     {
@@ -47,30 +61,21 @@ const DashOnwer = () =>{
                         borderRadius:'15'
                     }
                 ]
-            })
+            }
+            setDic(<Bar options={Options} data={data} />)
         })
     }
 
-    const Options = {
-        responsive: true,
-        aspectRatio:4,
-        plugins: {
-            legend: {
-                display:true,
-                title: {display: true,text:'مالکین بیشتری تعداد واحد'},
-                tooltip:{backgroundColor:'#273bb0'}
-            },
-        },
-    }
+
 
     useEffect(get,[])
 
     return(
-        <div dshfixdv>
+        <div className="dshfixdv">
             {
                 dic==null?
                 <MiniLoader/>:
-                <Bar options={Options} data={dic} />
+                dic
             }
         </div>
     )

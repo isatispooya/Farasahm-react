@@ -3030,6 +3030,50 @@ header{
         }
 
     }
+    .inuComRow{
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+        margin: 20px 0px;
+        border: 1px rgba($colorDisable, 0.3) solid;
+        border-radius: 20px;
+        padding: 15px 0px;
+        >:nth-child(odd){
+            background: rgba($colorBDark , 0.1);
+        }
+        >:nth-child(even){
+            background: rgba($colorDisable , 0.1);
+        }
+        fieldset{
+            border: 0px;
+            display: grid;
+            grid-template-columns: 25% 15% 60%;
+            grid-template-rows: 1fr;
+            flex-direction: row-reverse;
+            width: 60%;
+            border-radius: 15px;
+            margin: 5px 0px;
+            padding: 5px 20px;
+            label{
+                font-size: 12pt;
+                color: $colorBDark;
+                text-align: right;
+            }
+            select, input{
+                width: 100px;
+                height: 30px;
+                text-align: center;
+                border: 1px $colorBDark solid;
+                border-radius: 10px;
+                margin-right: auto;
+            }
+
+        }
+
+    }
 }
 
 
@@ -3109,5 +3153,23 @@ header{
             border: 0px;
             border-bottom: 2px $colorBDark solid;
         }
+    }
+}
+
+
+.retnasst{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    h4{
+        color: $colorBDark;
+        font-size: 10pt;
+        margin: 0px 10px;
+    }
+    h3{
+        font-size: 15pt;
+        color: $colorGreen;
+        margin: 0px 10px;
     }
 }

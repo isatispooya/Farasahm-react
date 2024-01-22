@@ -1,4 +1,4 @@
-import { useState , useContext} from "react"
+import { useState , useContext, useEffect} from "react"
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
 import persian_fa from 'react-date-object/locales/persian_fa'
@@ -13,6 +13,7 @@ const BankLimitFundFix = (props)=>{
 
     const [bank, setBank] = useState({name:'ملی ایران', balance:0, return:'monthly', rate:20, num:''})
     const [startDate, setStartDate] = useState()
+
 
     const bankListName =[
         "ملی ایران", "اقتصاد نوین", "قرض‌الحسنه مهر ایران", "سپه", "پارسیان", "قرض‌الحسنه رسالت", "صنعت و معدن", "کارآفرین", "کشاورزی", "سامان", "مسکن", "سینا",
@@ -39,6 +40,7 @@ const BankLimitFundFix = (props)=>{
             })
         }
     }
+
 
     if (props.enable.bank) {
         return(
@@ -83,7 +85,6 @@ const BankLimitFundFix = (props)=>{
                     </fieldset>
                     <button onClick={submit}>ثبت</button>
                 </div>
-    
             </div>
         )
     }

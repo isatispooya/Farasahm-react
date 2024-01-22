@@ -19,6 +19,7 @@ const Compare = () =>{
         const indx = Rank.indexOf(value)+1
         return indx
     }
+    
     if(df!=null && dic!=null){
         var table = new Tabulator("#data-table", {
             data:df,

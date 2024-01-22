@@ -2,7 +2,7 @@ import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDash
 import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} from "react-icons/fa";
 import { GiNewShoot } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
-import { VscGroupByRefType } from "react-icons/vsc";
+import { VscGroupByRefType , VscSettings} from "react-icons/vsc";
 import { HiOutlineDocumentDuplicate , HiOfficeBuilding , HiDocumentReport} from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin ,BsPersonBadgeFill, BsDatabaseFillAdd, BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
@@ -13,6 +13,9 @@ import { RiCalendarTodoLine, RiFileAddFill, RiTableFill} from "react-icons/ri";
 import { CgArrowsShrinkV} from "react-icons/cg";
 import { HiReceiptPercent } from "react-icons/hi2";
 import { FaFileInvoiceDollar , FaListAlt } from "react-icons/fa";
+import { FaPercentage } from "react-icons/fa";
+import { MdRemoveRedEye } from "react-icons/md";
+import { MdGroups2 } from "react-icons/md";
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
     'traders':<FaPeopleArrows/>,
@@ -60,5 +63,10 @@ export const menuFullList ={
     "dashboardfixincom":<MdSpaceDashboard />,
     "potential":<BsPersonBadgeFill />,
     "reports":<HiDocumentReport />,
-    'increaseasset':<BsDatabaseFillAdd />
+    'increaseasset':<BsDatabaseFillAdd />,
+    'returnassetsub':<FaPercentage />,
+    'setreturnasset':<VscSettings />,
+    'returnasset':<MdRemoveRedEye />,
+    'managementcommittee':<MdGroups2 />
+    
 }

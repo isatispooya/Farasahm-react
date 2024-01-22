@@ -10,12 +10,12 @@ const DashboardFixInCome = () =>{
     return(
         <div className="fixdash">
             <div className="row">
-                <DashOnwer />
-            </div>
-            <div className="row">
                 <DashFixAsset />
                 <DashRatFixAsset />
                 <DashRnkFixIn />
+            </div>
+            <div className="row">
+                <DashOnwer />
             </div>
             <div className="liner">
                 <DashDifNavPrc />

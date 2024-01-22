@@ -14,12 +14,15 @@ const PriorityTransaction = () =>{
     const [df, setDf] = useState([])
     const access = useContext(AccessContext)
     const [datePriority, setDatePriority] = useState(null)
+    console.log(datePriority)
 
     var rowMenu = [
         {
             label:"حذف",
             action:function(e, row){
-                if (datePriority.selected===false) {
+                const matchingItem = datePriority.lst.find(item => item.date == datePriority.selected)
+
+                if (matchingItem.enable===true) {
                     axios.post(OnRun+'/delprioritytransaction',{access:access,id:row.getData()['_id']})
                     .then(response=>{
                         if (response.data.replay) {
@@ -41,8 +44,7 @@ const PriorityTransaction = () =>{
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
-                console.log(response.data.lst)
-                setDatePriority({selected:response.data.lst[0],lst:response.data.lst})
+                setDatePriority({selected:response.data.lst[0].date,lst:response.data.lst})
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
@@ -75,18 +77,22 @@ const PriorityTransaction = () =>{
 
 
     const get = () =>{
-        axios.post(OnRun+'/getprioritytransaction',{access:access})
-        .then(response=>{
-            if (response.data.replay) {
-                setDf(response.data.df)
-            }else{
-                toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
-            }
-        })
+        if (datePriority) {
+            
+            axios.post(OnRun+'/getprioritytransaction',{access:access,date:datePriority.selected})
+            .then(response=>{
+                if (response.data.replay) {
+                    setDf(response.data.df)
+                }else{
+                    setDf([])
+                    toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                }
+            })
+        }
     }
 
 
-    useEffect(get, [])
+    useEffect(get, [datePriority])
     useEffect(getDatePriority,[])
 
     return(
@@ -103,7 +109,7 @@ const PriorityTransaction = () =>{
                             {
                                 datePriority.lst.map(i=>{
                                     return(
-                                        <option key={i.date} value={i}>{i.date}</option>
+                                        <option key={i.date} value={i.date}>{i.date}</option>
                                         )
                                     })
                             }

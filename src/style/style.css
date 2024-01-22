@@ -2955,6 +2955,48 @@ header .btn-bs input:focus {
   border: 1px #20409d solid;
   border-radius: 10px;
 }
+.formInpPanel .inuComRow {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0px;
+  border: 1px rgba(99, 99, 99, 0.3) solid;
+  border-radius: 20px;
+  padding: 15px 0px;
+}
+.formInpPanel .inuComRow > :nth-child(odd) {
+  background: rgba(32, 64, 157, 0.1);
+}
+.formInpPanel .inuComRow > :nth-child(even) {
+  background: rgba(99, 99, 99, 0.1);
+}
+.formInpPanel .inuComRow fieldset {
+  border: 0px;
+  display: grid;
+  grid-template-columns: 25% 15% 60%;
+  grid-template-rows: 1fr;
+  flex-direction: row-reverse;
+  width: 60%;
+  border-radius: 15px;
+  margin: 5px 0px;
+  padding: 5px 20px;
+}
+.formInpPanel .inuComRow fieldset label {
+  font-size: 12pt;
+  color: #20409d;
+  text-align: right;
+}
+.formInpPanel .inuComRow fieldset select, .formInpPanel .inuComRow fieldset input {
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  border: 1px #20409d solid;
+  border-radius: 10px;
+  margin-right: auto;
+}
 
 .incresrow {
   width: 100%;
@@ -3028,4 +3070,21 @@ header .btn-bs input:focus {
 .dshfixdv .opt select {
   border: 0px;
   border-bottom: 2px #20409d solid;
+}
+
+.retnasst {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+}
+.retnasst h4 {
+  color: #20409d;
+  font-size: 10pt;
+  margin: 0px 10px;
+}
+.retnasst h3 {
+  font-size: 15pt;
+  color: #5aae40;
+  margin: 0px 10px;
 }/*# sourceMappingURL=style.css.map */
