@@ -16,7 +16,6 @@ const ReturnAsset = () => {
       data: { access: access },
     }).then((response) => {
       if (response.data.reply) {
-        console.log(response.data.df);
         setDf(response.data.df);
         setRtn(response.data.retn);
       } else {
@@ -51,26 +50,22 @@ const ReturnAsset = () => {
           headerFilter: "input",
         },
         {
-          title: "نماد",
-          field: "Symbol",
-          hozAlign: "center",
-          headerHozAlign: "center",
-          resizable: true,
-          widthGrow: 4,
-          headerFilter: "input",
-        },
-        {
           title: "ارزش",
           field: "VolumeInPrice",
           hozAlign: "center",
           headerHozAlign: "center",
           resizable: true,
           widthGrow: 4,
+          topCalc:"sum",
           headerFilter: "input",
           formatter: function (cell, formatterParams) {
             var value = cell.getValue();
             return "<p>" + (value * 1).toLocaleString() + "</p>";
           },
+          topCalcFormatter:function(cell,formatterParams){
+            var value = cell.getValue();
+            return("<p>"+value.toLocaleString()+"</p>")
+        },
         },
         {
           title: "بازدهی",
