@@ -12,6 +12,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarElement,
 } from "chart.js";
 import { setCookie, getCookie } from "../cookie/cookie";
 import { Bar } from "react-chartjs-2";
@@ -39,7 +40,8 @@ const DashRtnPrc = () => {
       LineElement,
       Title,
       Tooltip,
-      Legend
+      Legend,
+      BarElement 
     );
   }, []);
   
