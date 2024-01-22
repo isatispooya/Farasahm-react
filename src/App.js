@@ -64,6 +64,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Residual from './page/subPage/Residual';
 
 function App() {
   const queryClient = new QueryClient();
@@ -123,6 +124,7 @@ function App() {
             <Route path='dashboardfixincom' element={<DashboardFixInCome />}/>
             <Route path='potential' element={<Potential />}/>
             <Route path='increaseasset' element={<IncreaseAsset />}/>
+            <Route path='residual' element={<Residual />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
