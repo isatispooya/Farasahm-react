@@ -14,6 +14,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    BarElement,
   } from 'chart.js';
   import { Line } from 'react-chartjs-2';
 
@@ -31,7 +32,8 @@ const StaticOwnerInComp = () =>{
           LineElement,
           Title,
           Tooltip,
-          Legend
+          Legend,
+          BarElement 
         );
       }, []);
       

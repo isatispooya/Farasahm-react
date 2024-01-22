@@ -14,6 +14,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    BarElement,
   } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -29,7 +30,8 @@ const DashPotentialSymbol = () =>{
           LineElement,
           Title,
           Tooltip,
-          Legend
+          Legend,
+          BarElement 
         );
       }, []);
 
