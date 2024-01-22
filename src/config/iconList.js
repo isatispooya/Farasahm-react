@@ -5,7 +5,7 @@ import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType , VscSettings} from "react-icons/vsc";
 import { HiOutlineDocumentDuplicate , HiOfficeBuilding , HiDocumentReport} from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin ,BsPersonBadgeFill, BsDatabaseFillAdd, BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill} from "react-icons/bs";
+import { BsCashCoin ,BsPersonBadgeFill, BsDatabaseFillAdd, BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill, BsPersonFillDown} from "react-icons/bs";
 import { AiOutlinePaperClip } from "react-icons/ai";
 import { IoPieChartSharp , IoPlayBack , IoPlayForward } from "react-icons/io5";
 import { BiTransfer,BiTransferAlt} from "react-icons/bi";
@@ -64,9 +64,12 @@ export const menuFullList ={
     "potential":<BsPersonBadgeFill />,
     "reports":<HiDocumentReport />,
     'increaseasset':<BsDatabaseFillAdd />,
+
     'returnassetsub':<FaPercentage />,
     'setreturnasset':<VscSettings />,
     'returnasset':<MdRemoveRedEye />,
-    'managementcommittee':<MdGroups2 />
-    
+    'managementcommittee':<MdGroups2 />,
+
+    'residual':<BsPersonFillDown />,
+
 }

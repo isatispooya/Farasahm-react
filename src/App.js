@@ -67,6 +67,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Residual from './page/subPage/Residual';
 
 function App() {
   const queryClient = new QueryClient();
@@ -129,6 +130,7 @@ function App() {
             <Route path='returnasset' element={<ReturnAsset />}/>
             <Route path='setreturnasset' element={<SetRetAsst />}/>
             <Route path='managementcommittee' element={<Managementcommittee />}/>
+            <Route path='residual' element={<Residual />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
