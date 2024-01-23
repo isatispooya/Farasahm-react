@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { OnRun } from '../../../config/config'
 import { AccessContext } from '../../../config/accessContext'
+import LoaderCircle from '../../../componet/Loader/LoadingCircle'
 
 
 
@@ -10,9 +11,12 @@ import { AccessContext } from '../../../config/accessContext'
 const StockSheet = () =>{
     const [inp, setInp] = useState(null)
     const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(false)
+
     const access = useContext(AccessContext)
 
     const getEstelam = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getestelamstocksheet',{access:access})
         .then(response=>{
             if (response.data.reply) {
@@ -22,6 +26,7 @@ const StockSheet = () =>{
                 toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
         })
+        setLoading(false);
     }
 
     const download = () =>{
@@ -57,6 +62,7 @@ const StockSheet = () =>{
             <div className="tls">
                 <h2 className="titlePage">برگ سهم</h2>
             </div>
+            <LoaderCircle loading={loading}/>
             <div className='gtstcsht'>
                 {
                     data == null? null:

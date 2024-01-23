@@ -12,6 +12,7 @@ import { exportPdf } from "../../../config/exportPdf"
 import DatePicker, { DateObject } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
 import persian_fa from 'react-date-object/locales/persian_fa' 
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 
 const Priority = () =>{
@@ -20,6 +21,8 @@ const Priority = () =>{
     const [dateSelection, setDateSelection] = useState(new DateObject)
     const [datePriority, setDatePriority] = useState(null)
     const [datePriorityLst, setDatePriorityLst] = useState(null)
+    const [loading, setLoading] = useState(true)
+
     // console.log(datePriority)
     // console.log(datePriorityLst)
 
@@ -35,6 +38,7 @@ const Priority = () =>{
 
 
     const getDatePriority = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
@@ -44,6 +48,8 @@ const Priority = () =>{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
         })
+        setLoading(false);
+
     }
 
     const getAllPepole = () =>{
@@ -230,6 +236,8 @@ const Priority = () =>{
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
             <div className="tls">
+            <LoaderCircle loading={loading} />
+
                 <h2 className="titlePage">حق تقدم</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>

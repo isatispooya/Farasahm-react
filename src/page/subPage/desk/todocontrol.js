@@ -20,7 +20,7 @@ const TodoControl = () =>{
             action:(e, row)=>{
                 axios.post(OnRun+'/desk/todo/deltask',{access:access,idTask:row.getData()['_id']})
                 .then(response=>{
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
             }
         }

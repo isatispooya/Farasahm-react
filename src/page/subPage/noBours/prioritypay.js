@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { BsCashCoin, BsFiletypePdf, BsFiletypeCsv} from "react-icons/bs";
 import { exportPdf } from "../../../config/exportPdf"
+import LoaderCircle from "../../../componet/Loader/LoadingCircle"
 
 
 
@@ -15,9 +16,12 @@ const PriorityPay = () =>{
     const [df, setDf] = useState([])
     const access = useContext(AccessContext)
     const [datePriority, setDatePriority] = useState(null)
+    const [loading, setLoading] = useState(true)
+
 
 
     const getDatePriority = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
@@ -26,6 +30,7 @@ const PriorityPay = () =>{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
         })
+        setLoading(false);
     }
 
 
@@ -113,6 +118,7 @@ const PriorityPay = () =>{
     return(
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
+            <LoaderCircle loading={loading} />
             <div className="tls">
                 <h2 className="titlePage">تراکنش های حق تقدم</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>

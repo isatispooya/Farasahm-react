@@ -9,10 +9,11 @@ import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
+import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
 
 const InvoiceCreate = () =>{
     const access = useContext(AccessContext)
-
+    const [loading, setLoading] = useState(true);
     const [invoceData,setInvoiceData]= useState({
         sellerId:'',buyerId:'',createDate:'',addDate:'',patern:'1',buerType:'1',title:'',type:'1',
         body:[
@@ -33,7 +34,12 @@ const InvoiceCreate = () =>{
             }
         })
     }
-
+    useEffect(() => {
+        getListCompanyMoadian(); 
+        setTimeout(() => {
+          setLoading(false);
+        }, 100);
+      }, []);
 
     const handleIdBodyChange = (event,index,key) => {
         // Copy the existing state
@@ -89,12 +95,16 @@ const InvoiceCreate = () =>{
     useEffect(getListCompanyMoadian,[])
 
     return(
-        <div className="subPage tablePg">
+      <div className="subPage tablePg">
             <ToastContainer  autoClose={3000}/>
             <div className="tls">
                 <h2 className="titlePage">ایجاد صورت حساب</h2>
             </div>
-                {
+            {loading ? (
+       <LoaderCircle loading={loading}/>
+          ) : (
+           <div>
+          {
                     listCompanyMoadian.length==0?null:
                     <div className="invoce">
                         <section>
@@ -220,9 +230,12 @@ const InvoiceCreate = () =>{
                         <button onClick={save}>ذخیره</button>
                     </div>
                 }
-
-        </div>
-    )
+           </div>
+       
+          )}
+      </div>
+          );
+               
 }
 
 
