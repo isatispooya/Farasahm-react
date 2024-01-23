@@ -64,12 +64,11 @@ export const menuFullList ={
     "potential":<BsPersonBadgeFill />,
     "reports":<HiDocumentReport />,
     'increaseasset':<BsDatabaseFillAdd />,
-
     'returnassetsub':<FaPercentage />,
     'setreturnasset':<VscSettings />,
     'returnasset':<MdRemoveRedEye />,
     'managementcommittee':<MdGroups2 />,
-
     'residual':<BsPersonFillDown />,
+    
 
 }
