@@ -163,7 +163,7 @@ const TraderBroker = () =>{
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
                 <DatePiBroker setDateSelection={setDateSelection} />
             </div>
-            {df===null?<MiniLoader />:df===false?<NoData/>:null}
+            {df===false?<NoData/>:null}
             <div id="data-table"></div>
         </div>
     )

@@ -20,8 +20,8 @@ const Priority = () =>{
     const [dateSelection, setDateSelection] = useState(new DateObject)
     const [datePriority, setDatePriority] = useState(null)
     const [datePriorityLst, setDatePriorityLst] = useState(null)
-    console.log(datePriority)
-    console.log(datePriorityLst)
+    // console.log(datePriority)
+    // console.log(datePriorityLst)
 
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])
@@ -241,12 +241,12 @@ const Priority = () =>{
                         datePriorityLst==null?null:
                         <select onChange={(e)=>setDatePriority(e.target.value)}>
                             {
-                                datePriorityLst.map(i=>{
-                                    console.log(i)
-                                    return(
+                                datePriorityLst.slice().reverse().map(i => {
+                                    // console.log(i);
+                                    return (
                                         <option key={i.date} value={i.date}>{i.date}</option>
-                                        )
-                                    })
+                                    );
+                                })
                             }
                         </select>
                     }

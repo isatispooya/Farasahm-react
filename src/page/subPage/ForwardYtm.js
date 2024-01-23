@@ -38,7 +38,6 @@ const ForwardYtm = () =>{
         axios.post(OnRun+'/getpriceforward',{access:access, target:input.target, befor:input.befor, after:input.after, date:dateSelection})
         .then(response=>{
             setDf(response.data.df)
-            console.log(response.data.df)
         })
     }
 

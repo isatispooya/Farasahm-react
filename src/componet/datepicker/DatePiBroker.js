@@ -18,11 +18,13 @@ const DatePiBroker = (props) =>{
     const lastUpdate = () =>{
         axios.post(OnRun+'/desk/broker/dateavalibale',{access:access})
         .then(response=>{
+            
             setDateAvalibale(response.data.dataList)
             setDateSelection(
+
                 new DateObject(
                     {
-                        date:response.data.lastDate,
+                        date:response.data.weekDate,
                         format: "YYYY-MM-DD",
                         calendar: persian,
                         locale: persian_fa
