@@ -1,21 +1,23 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import axios from "axios";
 import { OnRun } from "../../../config/config";
 import { AccessContext } from "../../../config/accessContext";
 import MiniLoader from "../../../componet/Loader/miniLoader";
+import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
+import { exportPdf } from "../../../config/exportPdf";
 
 const Potential = () => {
   const access = useContext(AccessContext);
   const [loading, setLoadnig] = useState(true);
-
+  const tableRef = useRef(null);
   const getDf = () => {
     axios
       .post(OnRun + "/getpotentialcoustomer", { access: access })
       .then((response) => {
         setLoadnig(false);
         if (response.data.reply) {
-          var table = new Tabulator("#data-table", {
+          tableRef.current = new Tabulator("#data-table", {
             data: response.data.df,
             layout: "fitColumns",
             responsiveLayout: true,
@@ -109,6 +111,8 @@ const Potential = () => {
     <div className="subPage tablePg">
       <div className="tls">
         <h2 className="titlePage">مشتریان بالقوه</h2>
+        <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
+        <p onClick={()=>{tableRef.current.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
       </div>
       {loading ? <MiniLoader /> : null}
       <div id="data-table"></div>

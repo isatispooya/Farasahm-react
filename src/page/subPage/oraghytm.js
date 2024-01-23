@@ -6,6 +6,7 @@ import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import axios from "axios";
 import { OnRun } from "../../config/config";
 import { AccessContext } from "../../config/accessContext"
+import LoaderCircle from "../../componet/Loader/LoadingCircle";
 
 
 
@@ -13,15 +14,20 @@ const OraghYTM = () =>{
 
     const [df, setDf] = useState([])
     const [dic, setDic] = useState([])
+    const [loading, setLoading] = useState(true)
     const access = useContext(AccessContext)
 
 
     const getDf = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getoraghytm',{access:access})
         .then(response=>{
             setDf(response.data.df)
             setDic(response.data.dic)
         })
+        .finally(() => {
+            setLoading(false);
+          });
     }
 
     useEffect(getDf,[])
@@ -90,6 +96,7 @@ const OraghYTM = () =>{
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
             </div>
+            <LoaderCircle loading={loading} />
             <div id="data-table"></div>
 
 

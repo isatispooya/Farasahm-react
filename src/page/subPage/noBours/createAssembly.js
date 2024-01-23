@@ -14,6 +14,7 @@ import { BiAddToQueue } from "react-icons/bi";
 import { useNavigate } from "react-router-dom"
 import { RxClock } from "react-icons/rx";
 import { BsCalendarDate ,BsPinMapFill} from "react-icons/bs";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle"
 
 const CreateAssembly = () =>{
 
@@ -23,6 +24,7 @@ const CreateAssembly = () =>{
     const [dict, setDict] = useState({time:'',address:'',agenda:'',description:'',title:'',controller:false,managers:false})
     const [controllerInput, setControllerInput] = useState('')
     const [controller, setController] = useState([])
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
 
@@ -58,6 +60,7 @@ const CreateAssembly = () =>{
 
 
     const getAssembly = () =>{
+        setLoading(true)
         axios.post(OnRun+'/getassembly',{access:access})
         .then(response=>{
             if (response.data.replay) {
@@ -66,6 +69,7 @@ const CreateAssembly = () =>{
                 toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
         })
+        .finally(() => setLoading(false));
     }
     const delAssembly = (idassembly) =>{
         axios.post(OnRun+'/delassembly',{idassembly:idassembly,access:access})
@@ -86,6 +90,7 @@ const CreateAssembly = () =>{
     return(
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
+            <LoaderCircle loading={loading} />
             <div className="tls">
                 <h2 className="titlePage">ایجاد مجمع</h2>
                 <p className="btntls" onClick={()=>{setPopUp(!popUp)}}><span><BsPlusCircle/></span>افزودن</p>

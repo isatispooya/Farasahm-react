@@ -3,13 +3,16 @@ import { OnRun } from "../../../config/config";
 import { useContext, useEffect, useState } from "react";
 import { AccessContext } from "../../../config/accessContext";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 const ReturnAsset = () => {
   const [df, setDf] = useState(null);
   const [rtn, setRtn] = useState(0);
   const access = useContext(AccessContext);
+  const [loading, setLoading] = useState(true);
 
   const getDf = () => {
+    setLoading(true);
     axios({
       method: "POST",
       url: OnRun + "/getreturnasset",
@@ -22,6 +25,8 @@ const ReturnAsset = () => {
         setDf(false);
       }
     });
+    setLoading(false);
+
   };
 
   if (df != null) {
@@ -85,6 +90,7 @@ const ReturnAsset = () => {
   return (
     <div className="subPage tablePg">
       <div className="tls">
+      <LoaderCircle loading={loading} />
         <h2 className="titlePage">بازدهی دارایی ها</h2>
       </div>
       <div className="retnasst">

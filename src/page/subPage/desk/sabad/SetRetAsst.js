@@ -4,9 +4,11 @@ import { AccessContext } from "../../../../config/accessContext";
 import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaSave } from "react-icons/fa";
+import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
 const SetRetAsst = () => {
   const access = useContext(AccessContext);
   const [df, setDf] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const updateRate = (index, newRate) => {
     // کپی کردن آرایه با استفاده از spread operator
@@ -20,6 +22,7 @@ const SetRetAsst = () => {
   };
 
   const get = () => {
+    setLoading(true);
     axios
       .post(OnRun + "/getratretasst", { access: access })
       .then((response) => {
@@ -31,6 +34,7 @@ const SetRetAsst = () => {
           });
         }
     });
+    setLoading(false);
 };
 
 
@@ -62,6 +66,8 @@ const save = () =>{
         </div>
       </div>
       <div className="formInpPanel">
+      <LoaderCircle loading={loading} />
+
         <div className="inuComRow">
           {df.length == 0
             ? null

@@ -3,15 +3,18 @@ import axios from "axios"
 import { OnRun } from "../../../config/config"
 import { AccessContext } from "../../../config/accessContext"
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 
 
 const IncreaseAsset = () => {
     const [inp ,setInp] = useState({increase:1000,static:'یک روز',bank:22, nogov:20, gov:20, saham: 0, type:'محافظه کارانه'})
     const [increaseReult, setIncreaseResult] = useState([])
+    const [loading, setLoading] = useState(true)
     const access = useContext(AccessContext)
 
     const getRetAss = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getretassfix',{access:access,static:inp.static})
         .then(response=>{
             if (response.data.reply) {
@@ -19,6 +22,8 @@ const IncreaseAsset = () => {
             }
             console.log(response.data)
         })
+        setLoading(false);
+
     }
 
     const calc = () =>{
@@ -33,6 +38,7 @@ const IncreaseAsset = () => {
     
     return(
         <div className="subPage tablePg">
+            <LoaderCircle loading={loading} />
             <div className="tls">
                 <h2 className="titlePage">ورود پول</h2>
             </div>

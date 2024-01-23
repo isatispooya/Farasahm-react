@@ -6,10 +6,12 @@ import { AccessContext } from "../../../config/accessContext";
 import axios from "axios";
 import { OnRun } from "../../../config/config";
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 const LimitFundFix = () =>{
     const [enable, setEnable] = useState({bank:false})
     const access = useContext(AccessContext)
+    const [loading, setLoading] = useState(true)
 
 
     var rowMenu = [
@@ -31,6 +33,7 @@ const LimitFundFix = () =>{
 
 
     const getAsset = () =>{
+        setLoading(true);
         axios.post(OnRun+'/getassetfund',{access:access})
         .then(response=>{
             var table = new Tabulator("#data-table", {
@@ -85,6 +88,7 @@ const LimitFundFix = () =>{
                     },
                 ],
             })
+        setLoading(false)
             
         })
     }
@@ -96,6 +100,7 @@ const LimitFundFix = () =>{
     return(
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000}/>
+            <LoaderCircle loading={loading} />
             <div className="tls">
                 <h2 className="titlePage">حد نصب های صندوق</h2>
                 <p className="btntls" onClick={()=>setEnable({...enable, bank:!enable.enable})}><span><FaCoins/></span>حساب بانکی</p>

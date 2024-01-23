@@ -122,7 +122,6 @@ const CapitalIncrease = () =>{
 
             {
                 df.map(i=>{
-                    console.log(i)
                     return(
                         <div key={i['_id']} className="capInc-Card">
                             <div className="fld">

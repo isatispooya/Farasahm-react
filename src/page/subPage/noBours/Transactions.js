@@ -208,6 +208,7 @@ const Transactions = () =>{
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
                 <p className="btntls" onClick={()=>{setPopUp(!popUp)}}><span><BsPlusCircle/></span>افزودن</p>
             </div>
+            {df===null?<MiniLoader />:df===false?<NoData/>:null}
             {
                 popUp?
                 <div className="PopUpTransactions">

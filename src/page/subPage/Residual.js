@@ -7,7 +7,7 @@ import axios from "axios";
 import { OnRun } from "../../config/config";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import NoData from "../../componet/Loader/NoData";
-import LoaderCircle from "../../componet/Loader/LoadingCircle";
+import MiniLoader from "../../componet/Loader/miniLoader";
 
 const Residual = () => {
   const access = useContext(AccessContext);
@@ -15,7 +15,6 @@ const Residual = () => {
   const [df, setDf] = useState(null);
   const [input, setInput] = useState(100);
   const [selectedType, setSelectedType] = useState("buy");
-  const [loading, setLoading] = useState(false)
 
   if (df != null) {
     var table = new Tabulator("#data-table", {
@@ -135,10 +134,8 @@ const Residual = () => {
   }
 
   const getDf = () => {
-    setLoading(true)
     axios.post(OnRun + "/getresidual", {access: access,target: input, type: selectedType })
       .then((response) => {
-        setLoading(false)
         if (response.data.reply) {
           setDf(response.data.df);
         } else {
@@ -156,7 +153,6 @@ const Residual = () => {
         dataProfile={dataProfile}
         setDataProfile={setDataProfile}
       />
-      <LoaderCircle loading={loading}/>
       <div className="tls">
         <h2 className="titlePage">سهامداران</h2>
         <p onClick={exportPdf}>
@@ -188,7 +184,7 @@ const Residual = () => {
           <span>نوع</span>
         </div>
       </div>
-      {df === false ? <NoData /> : null}
+      {df===null?<MiniLoader />:df===false?<NoData/>:null}
       <div id="data-table"></div>
     </div>
   );
