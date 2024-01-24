@@ -7,10 +7,12 @@ import axios from "axios";
 import { OnRun } from "../../../../config/config";
 
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
+import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
 
 
 const TraderCodes = () =>{
     const access = useContext(AccessContext)
+    const [loading, setLoading] = useState(true)
     const [infoData, setInfoData] = useState({enable:false,title:'راهنمای صفحه',
         row:[
             {title:'کدهای معاملات',content:'منظور کد هایی است که در اختیار شرکت سبدگردانی است و در محاسبات مختلف مورد استفاده قرار میگیرد'},
@@ -58,9 +60,10 @@ const TraderCodes = () =>{
 
 
     const getDf = () =>{
+        setLoading(true);
         axios.post(OnRun+'/desk/sabad/codetrader',{access:access})
         .then(response=>{
-            console.log(response.data.df)
+            // console.log(response.data.df)
             if (response.data.reply) {
                 var table = new Tabulator("#data-table", {
                     data:response.data.df,
@@ -87,6 +90,7 @@ const TraderCodes = () =>{
                 toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
         })
+        setLoading(false);
     }
 
     useEffect(getDf,[])
@@ -101,6 +105,7 @@ const TraderCodes = () =>{
                     <p onClick={()=>setInfoData({...infoData,enable:!infoData.enable})} className=""><span><BsInfoCircle/></span>راهنمایی</p>
                 </div>
             </div>
+            <LoaderCircle loading={loading}/>
             {
                 popup.popup?
                 <div className="PopUpTransactions">

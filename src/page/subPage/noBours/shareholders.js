@@ -7,12 +7,14 @@ import NoData from "../../../componet/Loader/NoData"
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import { exportPdf } from "../../../config/exportPdf"
 import { BsFiletypePdf , BsFiletypeCsv , BsPlusCircle} from "react-icons/bs";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle"
 
 const Shareholders = () =>{
     const [df, setDf] = useState(null)
     const [dic, setDic] = useState(null)
     const access = useContext(AccessContext)
     const [popUp, setPopUp] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [dataTrader, setDataTrader] = useState({'نام و نام خانوادگی':'','کد ملی':'','شماره شناسنامه':'','نام پدر':'','شماره تماس':'','تاریخ تولد':'','شماره حساب':'','صادره':'','بانک':'','کدبورسی':''})
 
 
@@ -98,6 +100,7 @@ const Shareholders = () =>{
     }
 
     const getDf = ()=>{
+        setLoading(true);
         axios({method:'POST',url:OnRun+'/getshareholders',data:{access:access}
         }).then(response=>{
             if(response.data.replay){
@@ -107,7 +110,7 @@ const Shareholders = () =>{
                 setDf(false)
             }
         })
-        
+        setLoading(false);
     }
 
     useEffect(getDf,[])
@@ -129,6 +132,7 @@ const Shareholders = () =>{
                     }}><span><BsPlusCircle/></span>افزودن</p>
 
             </div>
+            <LoaderCircle loading={loading}/>
             {
                 popUp?
                 <div className="PopUpTransactions">

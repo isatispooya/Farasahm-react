@@ -94,7 +94,7 @@ const StationActivityReport = () =>{
     const getDf = ()=>{
         axios({method:'POST',url:OnRun+'/getstationactivityreport',data:{access:access,station:stationSelect}
         }).then(response=>{
-            console.log(response)
+            // console.log(response)
             if(response.data.replay){
                 setDf(response.data.df)
                 setDic(response.data.dic)

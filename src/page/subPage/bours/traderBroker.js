@@ -2,14 +2,13 @@ import { useState ,useContext, useEffect} from "react"
 import { AccessContext } from "../../../config/accessContext"
 import axios from "axios"
 import { OnRun } from '../../../config/config'
-import DatePiBroker from "../../../componet/datepicker/DatePiBroker"
-import MiniLoader from "../../../componet/Loader/miniLoader"
 import NoData from "../../../componet/Loader/NoData"
 import {TabulatorFull as Tabulator} from 'tabulator-tables'
 import { exportPdf } from "../../../config/exportPdf"
 import { BsFiletypePdf , BsFiletypeCsv } from "react-icons/bs"
 import ProfileTrader from "../../../componet/ProfileTrader"
 import LoaderCircle from "../../../componet/Loader/LoadingCircle"
+import DatepiTradeBroker from "../../../componet/datepicker/DatepiTraderBroker"
 
 const TraderBroker = () =>{
     const [dateSelection, setDateSelection] = useState(null)
@@ -139,7 +138,7 @@ const TraderBroker = () =>{
         }).then(response=>{
                 setLoading(false)
                 if(response.data.replay){
-                    console.log(response.data.df)
+                    // console.log(response.data.df)
                     setDf(response.data.df)
                     setDic(response.data.dic)
                 }else{
@@ -161,7 +160,7 @@ const TraderBroker = () =>{
                 <h2 className="titlePage">معامله گران</h2>
                 <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
-                <DatePiBroker setDateSelection={setDateSelection} />
+                <DatepiTradeBroker setDateSelection={setDateSelection} />
             </div>
             {df===false?<NoData/>:null}
             <div id="data-table"></div>

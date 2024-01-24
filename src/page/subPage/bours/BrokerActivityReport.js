@@ -93,7 +93,7 @@ const BrokerActivityReport = () =>{
     const getDf = ()=>{
         axios({method:'POST',url:OnRun+'/getbrokeractivityreport',data:{access:access,broker:brokerSelect}
         }).then(response=>{
-            console.log(response)
+            // console.log(response)
             if(response.data.replay){
                 setDf(response.data.df)
                 setDic(response.data.dic)

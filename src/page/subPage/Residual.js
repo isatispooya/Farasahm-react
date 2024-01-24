@@ -53,6 +53,7 @@ const Residual = () => {
             var value = cell.getValue();
             return("<p>"+ (value*1).toLocaleString()+"</p>")
         },
+        topCalc:"sum",
         },
         {
           title: "کد",
@@ -119,6 +120,7 @@ const Residual = () => {
           resizable: true,
           widthGrow: 2,
           headerFilter: "input",
+          topCalc:"sum",
         },
         {
           title: "تاریخ آخرین معالمه",
@@ -144,8 +146,10 @@ const Residual = () => {
         console.log(response.data.df);
       });
   };
-  useEffect(getDf, [input, selectedType]);
 
+  const handleRequestData = () => {
+    getDf();
+  };
   return (
     <div className="subPage tablePg">
       <ProfileTrader
@@ -164,15 +168,16 @@ const Residual = () => {
           <span>خروجی CSV</span>
         </p>
         <div className="btntls">
-          <div className="inp-fld">
-            <span>روز</span>
+          
+          <button  onClick={handleRequestData}>درخواست</button>
+            <span>&nbsp;&nbsp;روز&nbsp;</span>
             <input
               type="number"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             ></input>
             <span>تعداد</span>
-          </div>
+          
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
@@ -184,8 +189,8 @@ const Residual = () => {
           <span>نوع</span>
         </div>
       </div>
-      {df===null?<MiniLoader />:df===false?<NoData/>:null}
-      <div id="data-table"></div>
+      {df===null?<NoData/>:<div id="data-table"></div>}
+      
     </div>
   );
 };

@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import { OnRun } from '../../../config/config'
 import { AccessContext } from '../../../config/accessContext'
-import {BsPlusCircle,BsCheckLg,} from "react-icons/bs";
 import { IoReloadSharp } from "react-icons/io5";
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 
@@ -20,7 +19,7 @@ const TodoControl = () =>{
             action:(e, row)=>{
                 axios.post(OnRun+'/desk/todo/deltask',{access:access,idTask:row.getData()['_id']})
                 .then(response=>{
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
             }
         }

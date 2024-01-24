@@ -10,6 +10,7 @@ import { OnRun } from "../../../config/config";
 import { ToastContainer, toast } from 'react-toastify'
 
 import { MdDelete} from "react-icons/md";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 
 const CapitalIncrease = () =>{
@@ -17,6 +18,7 @@ const CapitalIncrease = () =>{
     const [df, setDf] = useState([])
     const [data, setData] = useState({methode:'آورده سهامداران',capital:'',cuont:''})
     const access = useContext(AccessContext)
+    const [loading, setLoading] = useState(true)
     const [dateSelection, setDateSelection] = useState(new DateObject)
 
     const addCI = () =>{
@@ -37,12 +39,16 @@ const CapitalIncrease = () =>{
     }
 
     const getCi = () =>{
+        setLoading(true);
+
         axios.post(OnRun+'/getcapitalincrease',{access:access})
         .then(response=>{
             if (response.data.replay) {
                 setDf(response.data.df)
             }
         })
+        setLoading(false);
+        
     }
 
 
@@ -90,6 +96,8 @@ const CapitalIncrease = () =>{
                 <h2 className="titlePage">افزایش سرمایه</h2>
                 <p onClick={()=>setPopUp(!popUp)}  className="btntls" ><span><BsPlusCircle/></span>افزودن</p>
             </div>
+            <LoaderCircle loading={loading} />
+
             {
                 popUp?
                 <div className="popUpCapitalIncrease">
