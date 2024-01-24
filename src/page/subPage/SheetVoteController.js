@@ -8,7 +8,7 @@ import { useState , useEffect} from "react"
 const SheetVoteController = () =>{
     const {symbol} = useParams()
     const [data, setData] = useState([])
-    console.log(data)
+    // console.log(data)
 
 
     const getData = () =>{

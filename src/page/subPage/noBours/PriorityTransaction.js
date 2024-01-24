@@ -14,7 +14,7 @@ const PriorityTransaction = () =>{
     const [df, setDf] = useState([])
     const access = useContext(AccessContext)
     const [datePriority, setDatePriority] = useState(null)
-    console.log(datePriority)
+    // console.log(datePriority)
 
     var rowMenu = [
         {
