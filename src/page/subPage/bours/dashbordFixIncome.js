@@ -6,6 +6,9 @@ import DashRtnPrc from "../../../componet/dashbords/dashRtnPrc"
 import DashRatFixAsset from "../../../componet/dashbords/dashRetFixAsset"
 import DashOnwer from "../../../componet/dashbords/dashOnwer"
 import DashRnkFixIn from "../../../componet/dashbords/dashRankFixIn"
+import StaticOwnerInComp from "../../../componet/dashbords/staticOwnerInComp"
+import DashPotential from "../../../componet/dashbords/dashpotential"
+import DashPotentialSymbol from "../../../componet/dashbords/dashpotentialSymbol"
 const DashboardFixInCome = () =>{
     return(
         <div className="fixdash">
@@ -23,6 +26,15 @@ const DashboardFixInCome = () =>{
             <div className="liner">
                 <DashRtnPrc />
             </div>
+            <div className="row">
+          <StaticOwnerInComp />
+        </div>
+        <div className="liner">
+          <DashPotential />
+        </div>
+        <div className="liner">
+          <DashPotentialSymbol />
+        </div>
         </div>
     )
 }
