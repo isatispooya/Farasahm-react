@@ -23,8 +23,8 @@ const Priority = () =>{
     const [datePriorityLst, setDatePriorityLst] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    console.log(datePriority)
-    console.log(datePriorityLst)
+    // console.log(datePriority)
+    // console.log(datePriorityLst)
 
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])

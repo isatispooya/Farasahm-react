@@ -25,7 +25,9 @@ const PriorityPay = () =>{
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
-                setDatePriority({selected:response.data.lst[0].date,lst:response.data.lst})
+                const lst = response.data.lst;
+                const lastDate = lst[lst.length - 1].date;
+                setDatePriority({ selected: lastDate, lst: lst });
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }
@@ -128,7 +130,7 @@ const PriorityPay = () =>{
                         datePriority==null?null:
                         <select onChange={(e)=>setDatePriority({...datePriority,selected:e.target.value})}>
                             {
-                                datePriority.lst.map(i=>{
+                                datePriority.lst.slice().reverse().map(i=>{
                                     return(
                                         <option key={i.date} value={i.date}>{i.date}</option>
                                         )
