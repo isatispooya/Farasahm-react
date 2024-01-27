@@ -1453,8 +1453,8 @@ header .btn-bs input:focus {
   cursor: pointer;
   width: 100%;
   padding: 5px 8px;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
   transition: 0.3s;
 }
 .Menu .itemMenu h3 {
@@ -1468,6 +1468,10 @@ header .btn-bs input:focus {
   color: #20409d;
   font-size: 15pt;
   margin: 0px 0px 0px 5px;
+}
+.Menu .active {
+  background-color: #dde6fd;
+  width: 91%;
 }
 
 .infoPopup {

@@ -13,13 +13,14 @@ const Residual = () => {
   const access = useContext(AccessContext);
   const [dataProfile, setDataProfile] = useState(null);
   const [df, setDf] = useState(null);
+  const [dic, setDic] = useState(null);
   const [input, setInput] = useState(100);
   const [selectedType, setSelectedType] = useState("buy");
   const tableRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (df != null) {
+    if (df != null && dic!=null) {
       tableRef.current = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
@@ -50,13 +51,14 @@ const Residual = () => {
             hozAlign: "center",
             headerHozAlign: "center",
             resizable: true,
-            widthGrow: 2,
+            widthGrow: 4,
             headerFilter: "input",
-            formatter: function (cell, formatterParams) {
-              var value = cell.getValue();
-              return "<p>" + (value * 1).toLocaleString() + "</p>";
-            },
             topCalc: "sum",
+            formatter:function(cell, formatterParams){
+              var value = cell.getValue();
+              return("<div class='StocksTableChartContiner'><div class='StocksTableChartPos' style='width:"+((value/dic['سهام کل'])*60).toString()+'%'+"'> </div><p>"+ (value*1).toLocaleString()+"</p></div>")
+
+          },
           },
           {
             title: "کد",
@@ -125,6 +127,15 @@ const Residual = () => {
             topCalc: "sum",
           },
           {
+            title: "درصد",
+            field: "rate",
+            hozAlign: "center",
+            headerHozAlign: "center",
+            resizable: true,
+            widthGrow: 2,
+            headerFilter: "input",
+          },
+          {
             title: "تاریخ آخرین معالمه",
             field: "date",
             hozAlign: "center",
@@ -148,6 +159,8 @@ const Residual = () => {
       .then((response) => {
         if (response.data.reply) {
           setDf(response.data.df);
+          setDic(response.data.dic)
+          
         } else {
           setDf(false);
         }
