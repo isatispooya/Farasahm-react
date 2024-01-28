@@ -1,14 +1,14 @@
 import { useState ,useContext, useEffect} from "react"
-import { AccessContext } from "../../config/accessContext"
+import { AccessContext } from "../../../config/accessContext"
 import axios from "axios"
-import { OnRun } from '../../config/config'
-import DatePi from "../../componet/datepicker/DatePi"
-import MiniLoader from "../../componet/Loader/miniLoader"
-import NoData from "../../componet/Loader/NoData"
+import { OnRun } from '../../../config/config'
+import DatePi from "../../../componet/datepicker/DatePi"
+import MiniLoader from "../../../componet/Loader/miniLoader"
+import NoData from "../../../componet/Loader/NoData"
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
-import { exportPdf } from "../../config/exportPdf"
+import { exportPdf } from "../../../config/exportPdf"
 import { BsFiletypePdf , BsFiletypeCsv } from "react-icons/bs";
-import ProfileTrader from "../../componet/ProfileTrader"
+import ProfileTrader from "../../../componet/ProfileTrader"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 

@@ -1,12 +1,12 @@
 import { useState ,useContext, useEffect} from "react"
-import { AccessContext } from "../../config/accessContext"
+import { AccessContext } from "../../../config/accessContext"
 import axios from "axios"
-import { OnRun } from '../../config/config'
-import DatePi from "../../componet/datepicker/DatePi"
+import { OnRun } from '../../../config/config'
+import DatePi from "../../../componet/datepicker/DatePi"
 import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,defaults} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import MiniLoader from "../../componet/Loader/miniLoader"
-import NoData from "../../componet/Loader/NoData"
+import MiniLoader from "../../../componet/Loader/miniLoader"
+import NoData from "../../../componet/Loader/NoData"
 
 const Dashboard = () =>{
     const [dateSelection, setDateSelection] = useState(null)

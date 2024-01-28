@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { AccessContext } from "../../config/accessContext";
-import ProfileTrader from "../../componet/ProfileTrader";
+import { AccessContext } from "../../../config/accessContext";
+import ProfileTrader from "../../../componet/ProfileTrader";
 import { BsArrowRepeat, BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import { exportPdf } from "../../config/exportPdf";
+import { exportPdf } from "../../../config/exportPdf";
 import axios from "axios";
-import { OnRun } from "../../config/config";
+import { OnRun } from "../../../config/config";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
-import NoData from "../../componet/Loader/NoData";
-import MiniLoader from "../../componet/Loader/miniLoader";
+import NoData from "../../../componet/Loader/NoData";
+import MiniLoader from "../../../componet/Loader/miniLoader";
 
 const Residual = () => {
   const access = useContext(AccessContext);
@@ -15,9 +15,12 @@ const Residual = () => {
   const [df, setDf] = useState(null);
   const [dic, setDic] = useState(null);
   const [input, setInput] = useState(100);
+  const [noise, setNoise] = useState(10);
   const [selectedType, setSelectedType] = useState("buy");
   const tableRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   useEffect(() => {
     if (df != null && dic!=null) {
@@ -154,6 +157,7 @@ const Residual = () => {
       .post(OnRun + "/getresidual", {
         access: access,
         target: input,
+        noise: noise,
         type: selectedType,
       })
       .then((response) => {
@@ -200,15 +204,19 @@ const Residual = () => {
             درخواست
             <BsArrowRepeat />
           </p>
-          <span>روز</span>
           <div className="inp-fld">
+          
+          <p>روز</p>
             <input
               type="number"
               min={0}
               value={input}
               onChange={(e) => setInput(e.target.value)}
             ></input>
-            <span>تعداد</span>
+            <p>تعداد</p>
+
+            <input type="number" min={0} max={100} value={noise} onChange={(e)=>setNoise(e.target.value)}/>
+            <p>حذف نویز</p>
 
             <select
               value={selectedType}
@@ -218,7 +226,8 @@ const Residual = () => {
               <option value="sell">فروش</option>
               <option value="all">همه</option>
             </select>
-            <span>نوع</span>
+            <p>نوع</p>
+            
           </div>
         </div>
       </div>

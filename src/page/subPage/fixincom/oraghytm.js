@@ -1,12 +1,12 @@
 
 import { useState ,useContext, useEffect} from "react";
-import { exportPdf } from "../../config/exportPdf"
+import { exportPdf } from "../../../config/exportPdf"
 import { BsFiletypePdf , BsFiletypeCsv } from "react-icons/bs";
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import axios from "axios";
-import { OnRun } from "../../config/config";
-import { AccessContext } from "../../config/accessContext"
-import LoaderCircle from "../../componet/Loader/LoadingCircle";
+import { OnRun } from "../../../config/config";
+import { AccessContext } from "../../../config/accessContext"
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 
 
 

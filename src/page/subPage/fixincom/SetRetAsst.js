@@ -1,10 +1,10 @@
 import axios from "axios";
-import { OnRun } from "../../../../config/config";
-import { AccessContext } from "../../../../config/accessContext";
+import { OnRun } from "../../../config/config";
+import { AccessContext } from "../../../config/accessContext";
 import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaSave } from "react-icons/fa";
-import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
+import LoaderCircle from "../../../componet/Loader/LoadingCircle";
 const SetRetAsst = () => {
   const access = useContext(AccessContext);
   const [df, setDf] = useState([]);
