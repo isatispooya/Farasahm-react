@@ -42,8 +42,11 @@ const Priority = () =>{
         axios.post(OnRun+'/getdatepriority',{access:access})
         .then(response=>{
             if (response.data.reply) {
+                const lst = response.data.lst;
+                const lastDate = lst[lst.length - 1]['date'];
                 setDatePriority(response.data.lst[0]['date'])
-                setDatePriorityLst(response.data.lst)
+                setDatePriority(lastDate);
+                setDatePriorityLst(lst);
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
             }

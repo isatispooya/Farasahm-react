@@ -5,6 +5,7 @@ import { menuFullList } from "../../config/iconList";
 const Menu = (props) =>{
     const [menu, setMenu] =useState(null)
     const [menuOpen, setMenuTop] = useState([])
+    const [activeMenuItem, setActiveMenuItem] = useState(0);
     const Navigate = useNavigate()
 
     const toggleActMenu = (index) =>{
@@ -16,18 +17,20 @@ const Menu = (props) =>{
         }else{
             setMenuTop((prevMenu) => [...prevMenu, updatedMenu[index].url]);
         }
+        setActiveMenuItem(index);
     }
 
     const toggleActMenuSub = (index,indexj) =>{
         const updatedMenu = [...menu];
         Navigate(updatedMenu[index]['sub'][indexj].url)
+        setActiveMenuItem(index);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         if (props.access.menu) {
-            setMenu(props.access.menu)
+            setMenu(props.access.menu);
         }
-    },[props])
+    }, [props]);
     return(
         <div className="Menu">
             <div className="title">
@@ -37,8 +40,11 @@ const Menu = (props) =>{
                 menu==null || menu==undefined?null:
                 menu.map((item, index)=>{
                     if (item['url']!='update'){
+                        
                         return(
-                            <div key={index} className="itemMenu subMenu" >
+                            <div key={index}
+                            className={`itemMenu subMenu ${activeMenuItem === index ? 'active' : ''}`} 
+                             >
                                 {
                                     item['sub'].length>0?
                                         <>

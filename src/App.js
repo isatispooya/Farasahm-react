@@ -68,6 +68,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Residual from './page/subPage/Residual';
+import NotFound from './page/notFound';
 
 function App() {
   const queryClient = new QueryClient();
@@ -136,6 +137,7 @@ function App() {
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
           <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
           <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
+          <Route path='/*' element={<NotFound />}/>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

@@ -1495,8 +1495,8 @@ header{
         cursor: pointer;
         width: 100%;
         padding: 5px 8px;
-        border-top-right-radius: 25px;
-        border-bottom-right-radius: 25px;
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
         transition: 0.3s;
         h3{
             color: $colorBDark;
@@ -1509,7 +1509,11 @@ header{
             color: $colorBDark;
             font-size: 15pt;
             margin: 0px 0px 0px 5px;
-        }
+        } 
+    }
+    .active{
+        background-color: #dde6fd;
+        width: 91%;
     }
 }
 
@@ -3172,4 +3176,5 @@ header{
         color: $colorGreen;
         margin: 0px 10px;
     }
+    
 }

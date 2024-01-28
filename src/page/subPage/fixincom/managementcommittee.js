@@ -10,7 +10,7 @@ const Managementcommittee = () => {
 
       <div className="fixdash">
         <div className="row">
-          <DashRnkFixIn />
+          {/* <DashRnkFixIn /> */}
         </div>
         <div className="row">{/*<DashOnwer />*/}</div>
         <div className="row">

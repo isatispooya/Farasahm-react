@@ -70,7 +70,7 @@ const Dashboard = () =>{
             }).then(response=>{
                 if(response.data.replay){
                     const labelsTopBuy = response.data.df.buy.name
-                    console.log(labelsTopBuy)
+                    // console.log(labelsTopBuy)
                     setTopBuyTraders({
                         labelsTopBuy,
                         datasets: [{
