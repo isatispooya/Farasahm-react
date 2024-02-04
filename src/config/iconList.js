@@ -1,6 +1,6 @@
 import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard} from "react-icons/md";
-import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye} from "react-icons/fa";
-import { GiNewShoot } from "react-icons/gi";
+import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye, FaCoins} from "react-icons/fa";
+import { GiNewShoot, GiTwoCoins } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
 import { VscGroupByRefType , VscSettings} from "react-icons/vsc";
 import { HiOutlineDocumentDuplicate , HiOfficeBuilding , HiDocumentReport} from "react-icons/hi";
@@ -16,6 +16,7 @@ import { FaFileInvoiceDollar , FaListAlt } from "react-icons/fa";
 import { FaPercentage } from "react-icons/fa";
 import { MdRemoveRedEye } from "react-icons/md";
 import { MdGroups2 } from "react-icons/md";
+
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
     'traders':<FaPeopleArrows/>,
@@ -69,6 +70,9 @@ export const menuFullList ={
     'returnasset':<MdRemoveRedEye />,
     'managementcommittee':<MdGroups2 />,
     'residual':<BsPersonFillDown />,
-    'calculator':<BsCalculator />
+    'calculator':<BsCalculator />,
+    'customerremain':<GiTwoCoins />
+    ,
+
 
 }
