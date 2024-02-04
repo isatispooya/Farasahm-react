@@ -62,9 +62,6 @@ import IncreaseAsset from './page/subPage/fixincom/IncreaseAsset';
 import ReturnAsset from './page/subPage/fixincom/ReturnAsset';
 import SetRetAsst from './page/subPage/fixincom/SetRetAsst';
 import Managementcommittee from './page/subPage/fixincom/managementcommittee';
-import Residual from './page/subPage/bours/Residual';
-import NotFound from './page/notFound';
-import Calculator from './page/subPage/fixincom/CalculatorFixincom';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -133,7 +130,6 @@ function App() {
             <Route path='setreturnasset' element={<SetRetAsst />}/>
             <Route path='managementcommittee' element={<Managementcommittee />}/>
             <Route path='residual' element={<Residual />}/>
-            <Route path='calculator' element={<Calculator />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>

@@ -23,8 +23,6 @@ const Priority = () =>{
     const [datePriorityLst, setDatePriorityLst] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    // console.log(datePriority)
-    // console.log(datePriorityLst)
 
     const [allName, setAllName] = useState([])
     const [df, setDf] = useState([])
@@ -45,7 +43,6 @@ const Priority = () =>{
                 const lst = response.data.lst;
                 const lastDate = lst[lst.length - 1]['date'];
                 setDatePriority(response.data.lst[0]['date'])
-                setDatePriority(lastDate);
                 setDatePriorityLst(lst);
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
@@ -253,7 +250,6 @@ const Priority = () =>{
                         <select onChange={(e)=>setDatePriority(e.target.value)}>
                             {
                                 datePriorityLst.slice().reverse().map(i => {
-                                    // console.log(i);
                                     return (
                                         <option key={i.date} value={i.date}>{i.date}</option>
                                     );
