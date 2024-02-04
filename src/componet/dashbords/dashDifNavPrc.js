@@ -43,6 +43,7 @@ const DashDifNavPrc = () =>{
         axios.post(OnRun+'/getdiffnavprc',{access:access,period:period})
         .then(response=>{
             var lab = response.data.df.dateInt
+            // console.log(response.data)
             setDic({
                 lab,
                 datasets: [

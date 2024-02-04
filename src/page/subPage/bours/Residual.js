@@ -186,7 +186,7 @@ const Residual = () => {
         setDataProfile={setDataProfile}
       />
       <div className="tls">
-        <h2 className="titlePage">سهامداران</h2>
+        <h2 className="titlePage"> سهامداران رسوبی</h2>
         <p onClick={exportPdf}>
           <BsFiletypePdf />
           <span>خروجی PDF</span>

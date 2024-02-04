@@ -51,6 +51,7 @@ const DashPotentialSymbol = () =>{
     const get = () =>{
         axios.post(OnRun+'/dashpotantialsymbol',{access:access})
         .then(response=>{
+            // console.log(response.data.df)
             var lab = response.data.df.CustomerTitle
             var data = {
                 lab,
