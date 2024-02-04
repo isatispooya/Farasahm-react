@@ -6,15 +6,17 @@ import { OnRun } from '../../../../config/config'
 import {TabulatorFull as Tabulator} from 'tabulator-tables';
 import DatePiBroker from "../../../../componet/datepicker/DatePiBroker"
 import { exportPdf } from "../../../../config/exportPdf";
-import { BsFiletypePdf , BsFiletypeCsv } from "react-icons/bs"
+import { BsFiletypePdf , BsFiletypeCsv, BsArrowRepeat } from "react-icons/bs"
 
 
 const ForwardYtm = () =>{
     const [df, setDf] = useState(null)
     const [dic, setDic] = useState(null)
-    const [input, setInput] = useState({target:26,befor:50,after:50})
+    const [input, setInput] = useState({target:28,befor:50,after:50})
     const access = useContext(AccessContext)
     const [dateSelection, setDateSelection] = useState(null)
+    const [updateDataClicked, setUpdateDataClicked] = useState(false);
+    const [table, setTable] = useState(null);
 
 
     const handleBefor = (e) =>{
@@ -43,9 +45,15 @@ const ForwardYtm = () =>{
 
 
 
-    
-    if(df!=null){
-        var table = new Tabulator("#data-table", {
+    const initializeTable = () => {
+        if (df != null && !table) {
+            const newTable = new Tabulator("#data-table", {
+            });
+            setTable(newTable);
+        }
+    };
+    if (df != null && !table) {
+        const newTable = new Tabulator("#data-table", {
             data:df,
             layout:"fitColumns",
             responsiveLayout:true,
@@ -99,17 +107,47 @@ const ForwardYtm = () =>{
                 },
             ],
         })
+        setTable(newTable);
+
     }
 
+    const destroyTable = () => {
+        if (table) {
+            table.destroy();
+            setTable(null);
+        }
+    };
+    
 
+    useEffect(() => {
+        if (updateDataClicked) {
+            getDf();
+            destroyTable();
 
-    useEffect(getDf,[input.after,input.befor,input.target,dateSelection])
+            setUpdateDataClicked(false);
+        }
+    }, [updateDataClicked, input.after, input.befor, input.target, dateSelection]);
+
+    useEffect(() => {
+        if (!updateDataClicked) {
+            getDf(); 
+            initializeTable();
+        }
+    }, [input.after, input.befor, input.target, dateSelection]);
+
+    const handleUpdateData = () => {
+        setUpdateDataClicked(true);
+    };
 
     return(
         <div className="subPage tablePg">
             <div className="tls">
                 <h2 className="titlePage">بازده آتی</h2>
-                <div className="btntls">
+                  <div className="btntls">
+                       <p className="inp-fld" onClick={handleUpdateData}>
+                           درخواست
+                      <BsArrowRepeat />
+                       </p>
                     <div className="inp-fld">
                         <p>%</p>
                         <input max={100} min={0} value={input.target} onChange={(e)=>setInput({...input,target:e.target.value})} type="number" placeholder="نرخ هدف"></input>
@@ -129,12 +167,11 @@ const ForwardYtm = () =>{
                     <DatePiBroker setDateSelection={setDateSelection} />
                         <p>مبدا محاسبه</p>
                     </div>
-                <p onClick={exportPdf}><BsFiletypePdf/><span>خروجی PDF</span></p>
                 <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
 
-                </div>
+               </div>
             </div>
-            <div id="data-table"></div>
+                <div id="data-table"></div>
 
         </div>
     )
