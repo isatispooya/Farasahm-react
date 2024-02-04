@@ -42,7 +42,7 @@ const Priority = () =>{
             if (response.data.reply) {
                 const lst = response.data.lst;
                 const lastDate = lst[lst.length - 1]['date'];
-                setDatePriority(response.data.lst[0]['date'])
+                setDatePriority(lastDate)
                 setDatePriorityLst(lst);
             }else{
                 toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
