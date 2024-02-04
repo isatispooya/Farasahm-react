@@ -90,7 +90,7 @@ const InvoceList = () =>{
         <div className="subPage tablePg">
             <ToastContainer autoClose={3000} />
             <div className="tls">
-                <h2 className="titlePage">لیست صورت حساب ها</h2>
+                <h2 className="titlePage"> نتایج </h2>
             </div>
             {df===null?<MiniLoader />:null}
             <div id="data-table"></div>

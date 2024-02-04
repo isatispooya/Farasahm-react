@@ -73,6 +73,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Invoices from './page/subPage/desk/moadian/Invoices';
 
 function App() {
   const queryClient = new QueryClient();
@@ -138,6 +139,7 @@ function App() {
             <Route path='residual' element={<Residual />}/>
             <Route path='calculator' element={<Calculator />}/>
             <Route path='customerremain' element={<CustomerRemain />}/>
+            <Route path='invoices' element={<Invoices />}/>
           </Route>
           <Route path='/printas/:symbol/:nc' element={<AssemblySheetPrint />}/>
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>

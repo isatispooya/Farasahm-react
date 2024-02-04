@@ -1,8 +1,8 @@
-import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard} from "react-icons/md";
-import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye, FaCoins} from "react-icons/fa";
+import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard, MdOutlinePlaylistAddCheck} from "react-icons/md";
+import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye, FaCoins, FaList} from "react-icons/fa";
 import { GiNewShoot, GiTwoCoins } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
-import { VscGroupByRefType , VscSettings} from "react-icons/vsc";
+import { VscGroupByRefType , VscSettings, VscTasklist} from "react-icons/vsc";
 import { HiOutlineDocumentDuplicate , HiOfficeBuilding , HiDocumentReport} from "react-icons/hi";
 import { RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin ,BsPersonBadgeFill, BsDatabaseFillAdd, BsFillPersonVcardFill ,BsPersonFillGear ,BsBarChartFill ,BsFillBuildingsFill, BsPersonFillX , BsFillPeopleFill ,BsFileEarmarkText,BsBuildingFill,BsFillFileEarmarkTextFill, BsPersonFillDown, BsCalculator} from "react-icons/bs";
@@ -60,7 +60,8 @@ export const menuFullList ={
     "invoice":<FaFileInvoiceDollar />,
     "invoicecreate":<RiFileAddFill />,
     "companymoadian":<HiOfficeBuilding />,
-    "invoicelist":<FaListAlt />,
+    "invoicelist":<VscTasklist />,
+    "invoices": <FaList />,
     "dashboardfixincom":<MdSpaceDashboard />,
     "potential":<BsPersonBadgeFill />,
     "reports":<HiDocumentReport />,
