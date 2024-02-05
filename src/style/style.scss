@@ -2936,11 +2936,19 @@ header{
             flex: 1;
         }
         .top{
-            flex: auto;
+            flex: 2;
         }
     }
 }
 
+@media (max-width: 600px) {
+    .fixdash {
+      .row {
+        display: flex;
+        flex-direction: column; 
+      }
+    }
+  }
 
 .dshRnk{
     display: flex;
@@ -3182,33 +3190,65 @@ header{
     
 }
 
-.header-management{
-    background-color:#20409d ;
-  color: white;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  align-items: center;
-  height: 10%;
-  .text-m{
-    font-family: "peydaRegular";
-    padding: 5rem;
-    font-size: 1.5rem;
-  }
-  .logo{
-    padding: 5rem;
-    img{
-    width: 100px;
+.container-manage {
+    max-width: 100%;
+    padding: 10px;
+  
+    .header-management {
+      background-color: #20409d;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      align-items: center;
+      height: 10%;
+  
+      .text-m {
+        font-family: "peydaRegular";
+        font-size: 1.5rem;
+        padding: 1rem;
+  
+        @media (min-width: 768px) {
+          font-size: 2rem;
+          padding: 2rem;
+        }
+      }
+  
+      .logo {
+        padding: 1rem;
+  
+        img {
+          width: 70px;
+  
+          @media (min-width: 768px) {
+            width: 100px;
+          }
+        }
+  
+        .back-logo {
+          border: 2px #fff solid;
+          background-color: white;
+          border-radius: 100%;
+          position: absolute;
+          margin-top: 0;
+  
+        }
+      }
     }
-    .back-logo{
-    border: 2px #fff solid;
-    background-color: white;
-    border-radius: 100%;
-    margin-top: 100px;
+  
+    .dashManag {
+      margin: 10px;
+  
+      @media (min-width: 768px) {
+        margin: 20px;
+      }
     }
+  
+    @media (max-width: 768px) {
+        max-width: 768px;
+        margin: 0 auto;
+      }
+    
   }
-}
-.dashManag{
-    margin: 10px;
-}
+  

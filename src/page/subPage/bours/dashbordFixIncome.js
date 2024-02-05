@@ -39,7 +39,7 @@ const DashboardFixInCome = () => {
         <DashTopFund />
        <DashWorstFund />
       </div>
-      <div className="liner">
+      <div className="liner" >
        <DashAssetValue/>
       </div>
     </div>

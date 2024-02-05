@@ -2867,9 +2867,15 @@ header .btn-bs input:focus {
   flex: 1;
 }
 .fixdash .row .top {
-  flex: auto;
+  flex: 2;
 }
 
+@media (max-width: 600px) {
+  .fixdash .row {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .dshRnk {
   display: flex;
   flex-direction: column;
@@ -3096,7 +3102,11 @@ header .btn-bs input:focus {
   margin: 0px 10px;
 }
 
-.header-management {
+.container-manage {
+  max-width: 100%;
+  padding: 10px;
+}
+.container-manage .header-management {
   background-color: #20409d;
   color: white;
   padding: 10px;
@@ -3106,24 +3116,46 @@ header .btn-bs input:focus {
   align-items: center;
   height: 10%;
 }
-.header-management .text-m {
+.container-manage .header-management .text-m {
   font-family: "peydaRegular";
-  padding: 5rem;
   font-size: 1.5rem;
+  padding: 1rem;
 }
-.header-management .logo {
-  padding: 5rem;
+@media (min-width: 768px) {
+  .container-manage .header-management .text-m {
+    font-size: 2rem;
+    padding: 2rem;
+  }
 }
-.header-management .logo img {
-  width: 100px;
+.container-manage .header-management .logo {
+  padding: 1rem;
 }
-.header-management .logo .back-logo {
+.container-manage .header-management .logo img {
+  width: 70px;
+}
+@media (min-width: 768px) {
+  .container-manage .header-management .logo img {
+    width: 100px;
+  }
+}
+.container-manage .header-management .logo .back-logo {
   border: 2px #fff solid;
   background-color: white;
   border-radius: 100%;
-  margin-top: 100px;
+  position: absolute;
+  margin-top: 0;
 }
-
-.dashManag {
+.container-manage .dashManag {
   margin: 10px;
+}
+@media (min-width: 768px) {
+  .container-manage .dashManag {
+    margin: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .container-manage {
+    max-width: 768px;
+    margin: 0 auto;
+  }
 }/*# sourceMappingURL=style.css.map */

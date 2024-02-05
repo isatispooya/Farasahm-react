@@ -19,7 +19,7 @@ const DashWorstFund = () =>{
 
     const access = useContext(AccessContext)
     const [dic, setDic] = useState([])
-    const [period, setPeriod] = useState('weekly')
+    const [period, setPeriod] = useState('')
 
     const handlePeriod = (e) =>{
         setCookie('dashworstfund',e.target.value,10)

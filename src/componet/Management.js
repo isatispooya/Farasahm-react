@@ -9,17 +9,19 @@ const Management = () =>{
     return(
         <>
     <AccessContext.Provider value={[key,sym]}>
-        <div className="header-management">
+       <div className="container-manage">
+          <div className="header-management">
             <div className="text-m"> 
                 <p>گزارش روزانه خاتم</p>
             </div>
             <div className="logo">
             <img className="back-logo" src={process.env.PUBLIC_URL+'/img/khatam.png'} alt="khatam" />
 
+          </div>
             </div>
-        </div>
         <div className="dashManag">
         <DashboardFixInCome/>
+        </div>
         </div>
     </AccessContext.Provider>
         </>

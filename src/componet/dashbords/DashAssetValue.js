@@ -35,7 +35,7 @@ const DashAssetValue = () =>{
         axios.post(OnRun+'/valuefundinser',{access:access})
         .then(response=>{
             var lab = response.data.df.dateInt
-        console.log(response.data)
+        // console.log(response.data)
             setDif({
                 lab,
                 datasets: [
