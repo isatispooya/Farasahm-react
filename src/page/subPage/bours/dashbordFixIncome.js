@@ -8,6 +8,7 @@ import DashPotential from "../../../componet/dashbords/dashpotential";
 import DashPotentialSymbol from "../../../componet/dashbords/dashpotentialSymbol";
 import DashTopFund from "../../../componet/dashbords/dashTopFund";
 import DashWorstFund from "../../../componet/dashbords/dashWorstFund";
+import DashAssetValue from "../../../componet/dashbords/DashAssetValue";
 const DashboardFixInCome = () => {
   return (
     <div className="fixdash">
@@ -37,6 +38,9 @@ const DashboardFixInCome = () => {
       <div className="row">
         <DashTopFund />
        <DashWorstFund />
+      </div>
+      <div className="liner">
+       <DashAssetValue/>
       </div>
     </div>
   );

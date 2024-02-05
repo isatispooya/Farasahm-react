@@ -9,10 +9,8 @@ const Invoices = () =>{
     const [df, setDf] = useState(null)
     const access = useContext(AccessContext)
     const tableRef = useRef(null);
-    const [isLoading, setIsLoading] = useState(false);
 
     const getDf = () =>{
-        setIsLoading(true)
         axios.post(OnRun+'/moadian/getinvoice',{access:access})
         .then(response=>{
             if (response.data.reply) {
@@ -20,9 +18,7 @@ const Invoices = () =>{
         // console.log(response.data.df)
             }
         })
-        .finally(() => {
-            setIsLoading(false);
-          });
+       
     }
     useEffect(getDf, []);
 

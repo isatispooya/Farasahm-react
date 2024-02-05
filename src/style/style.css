@@ -2866,6 +2866,9 @@ header .btn-bs input:focus {
 .fixdash .row .pie {
   flex: 1;
 }
+.fixdash .row .top {
+  flex: auto;
+}
 
 .dshRnk {
   display: flex;
@@ -3091,4 +3094,36 @@ header .btn-bs input:focus {
   font-size: 15pt;
   color: #5aae40;
   margin: 0px 10px;
+}
+
+.header-management {
+  background-color: #20409d;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: 10%;
+}
+.header-management .text-m {
+  font-family: "peydaRegular";
+  padding: 5rem;
+  font-size: 1.5rem;
+}
+.header-management .logo {
+  padding: 5rem;
+}
+.header-management .logo img {
+  width: 100px;
+}
+.header-management .logo .back-logo {
+  border: 2px #fff solid;
+  background-color: white;
+  border-radius: 100%;
+  margin-top: 100px;
+}
+
+.dashManag {
+  margin: 10px;
 }/*# sourceMappingURL=style.css.map */

@@ -3181,3 +3181,34 @@ header{
     }
     
 }
+
+.header-management{
+    background-color:#20409d ;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
+  height: 10%;
+  .text-m{
+    font-family: "peydaRegular";
+    padding: 5rem;
+    font-size: 1.5rem;
+  }
+  .logo{
+    padding: 5rem;
+    img{
+    width: 100px;
+    }
+    .back-logo{
+    border: 2px #fff solid;
+    background-color: white;
+    border-radius: 100%;
+    margin-top: 100px;
+    }
+  }
+}
+.dashManag{
+    margin: 10px;
+}

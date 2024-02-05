@@ -74,6 +74,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Invoices from './page/subPage/desk/moadian/Invoices';
+import Management from './componet/Management';
 
 function App() {
   const queryClient = new QueryClient();
@@ -145,6 +146,7 @@ function App() {
           <Route path='/printas/sheetvotecontroller/:symbol' element={<SheetVoteController />}/>
           <Route path='/printas/sheetinassembly/:symbol' element={<SheetInAssembly />}/>
           <Route path='/pbl/pc/:sym/:nc' element={<PreemptionCard />}/>
+          <Route path='/pbl/Management/:sym/:key' element={<Management />}/>
           <Route path='/*' element={<NotFound />}/>
         </Routes>
       </BrowserRouter>
