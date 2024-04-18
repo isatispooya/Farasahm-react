@@ -52,6 +52,21 @@ const InvoceList = () =>{
                 
             }
         },
+        {
+            label:"ابطال",
+            action:function(e, row){
+                axios.post(OnRun+'/moadian/cloninvoiceebtal',{access:access,id:row.getData()['_id']})
+                .then(response=>{
+                    if (response.data.reply) {
+                        toast.success('ارسال شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                        getDf()
+                    }else{
+                        toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                    }
+                })
+                
+            }
+        },
     ]
 
     if(df!=null){
