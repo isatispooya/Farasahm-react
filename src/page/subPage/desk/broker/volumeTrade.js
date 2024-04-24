@@ -47,53 +47,53 @@ const VolumeTrade = () =>{
                         {
                             title:'ایساتیس پویا',
                             columns:[
-                                {title:"سهام",headerTooltip:'ارزش معاملات سهام در کارگزاری', field:"سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"سهام کارگزاری",headerTooltip:'ارزش معاملات سهام در کارگزاری', field:"سهام کارگزاری", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات سهام در کارگزاری";
                                     },
                                 },
-                                {title:"صندوق",headerTooltip:'ارزش معاملات صندوق ها در کارگزاری', field:"صندوق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"صندوق کارگزاری",headerTooltip:'ارزش معاملات صندوق ها در کارگزاری', field:"صندوق کارگزاری", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات صندوق ها در کارگزاری";
                                     },
                                 },
-                                {title:"اوراق",headerTooltip:'ارزش معاملات اوراق در کارگزاری', field:"اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"اوراق کارگزاری",headerTooltip:'ارزش معاملات اوراق در کارگزاری', field:"اوراق کارگزاری", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات اوراق در کارگزاری";
                                     },
                                 },
-                                {title:"کل",headerTooltip:'ارزش معاملات کل در کارگزاری', field:"کل", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"کل کارگزاری",headerTooltip:'ارزش معاملات کل در کارگزاری', field:"کل کارگزاری", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات کل در کارگزاری";
@@ -103,55 +103,55 @@ const VolumeTrade = () =>{
                         },
 
                         {
-                            title:'کل بازار',
+                            title:'بازار',
                             columns:[
-                                {title:"سهام",headerTooltip:'ارزش معاملات سهام در کل بازار', field:"کل سهام", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"سهام بازار",headerTooltip:'ارزش معاملات سهام در کل بازار', field:"سهام بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات سهام در کل بازار";
                                     },
                                 },
-                                {title:"صندوق",headerTooltip:'ارزش معاملات صندوق ها در کل بازار', field:"کل صندوق ها", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"صندوق بازار",headerTooltip:'ارزش معاملات صندوق ها در کل بازار', field:"صندوق بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
                                         return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات صندوق ها در کل بازار";
                                     },
                                 },
-                                {title:"اوراق",headerTooltip:'ارزش معاملات اوراق در کل بازار', field:"کل اوراق", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"اوراق بازار",headerTooltip:'ارزش معاملات اوراق در کل بازار', field:"اوراق بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات اوراق در کل بازار";
                                     },
                                 },
-                                {title:"کل",headerTooltip:'ارزش معاملات کل بازار', field:"کل بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
+                                {title:"کل بازار",headerTooltip:'ارزش معاملات کل بازار', field:"کل بازار", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:6,topCalc:"avg",
                                     formatter:function(cell, formatterParams){
                                         var value = cell.getValue();
-                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"B </p></div>")
+                                        return("<div class='StocksTableChartContiner'><p>"+ (value*1).toLocaleString()+"M </p></div>")
                                     },
                                     topCalcFormatter:function (cell, formatterParams){
                                         var value = cell.getValue();
-                                        return (value * 1).toLocaleString() + " B";
+                                        return (value * 1).toLocaleString() + " M";
                                     },
                                     tooltip: function (cell) {
                                         return "ارزش معاملات کل بازار";
@@ -161,7 +161,7 @@ const VolumeTrade = () =>{
                         },
 
                         {
-                            title:'سهم بازار',
+                            title:'سهم از بازار',
                             columns:[
                                 {
                                     title:'سهام',

@@ -4,6 +4,7 @@ import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
+import { ToastContainer, toast } from 'react-toastify'
 
 const Invoices = () =>{
     const [df, setDf] = useState(null)
@@ -20,6 +21,42 @@ const Invoices = () =>{
         })
        
     }
+
+
+    var rowMenu = [
+        {
+            label:"حذف",
+            action:function(e, row){
+                axios.post(OnRun+'/moadian/delinvoice',{access:access,id:row.getData()['_id']})
+                .then(response=>{
+                    if (response.data.reply) {
+                        toast.success('حذف شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                    }else{
+                        toast.success(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                    }
+                })
+
+                
+            }
+        },
+        {
+            label:"چاپ",
+            action:function(e, row){
+
+
+                axios.post(OnRun+'/moadian/print',{access:access,id:row.getData()['_id']},{responseType: 'blob'})
+                .then(response=>{
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'invoice.png');
+                    // افزودن لینک به صفحه و کلیک کردن بر روی آن برای دانلود فایل
+                    document.body.appendChild(link);
+                    link.click();
+                })
+            }
+        },
+    ]
     useEffect(getDf, []);
 
     useEffect(() => {
@@ -38,6 +75,8 @@ const Invoices = () =>{
             autoResize: false,
             dataTree: true,
             dataTreeStartExpanded: true,
+            rowContextMenu: rowMenu,
+
             columns:[
                 {title:"عنوان",  field:"title", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
                 {title:"نوع فروشنده",  field:"buyerType", hozAlign:'center',headerHozAlign:'center',resizable:true, widthGrow:4,headerFilter:"input"},
@@ -57,6 +96,7 @@ const Invoices = () =>{
 
     return(
         <div className="subPage tablePg">
+            <ToastContainer autoClose={3000} />
             
             <div className="tls">
                 <h2 className="titlePage">لیست صورت حساب ها</h2>
