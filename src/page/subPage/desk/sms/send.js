@@ -1,0 +1,360 @@
+import { useContext, useEffect, useRef, useState } from "react";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import axios from "axios";
+import { AccessContext } from "../../../../config/accessContext";
+import { OnRun } from "../../../../config/config";
+import MiniLoader from "../../../../componet/Loader/miniLoader";
+import NoData from "../../../../componet/Loader/NoData";
+import { TabulatorFull as Tabulator } from "tabulator-tables";
+import { toast } from "react-toastify";
+
+const SendSMS = () => {
+  const access = useContext(AccessContext);
+  // const [state, setState] = {
+  //   data: [],
+  //   selectedName: "",
+  // };
+  const [dateSelection, setDateSelection] = useState(Date);
+  const [showModal, setShowModal] = useState(false);
+  const handleOpen = () => setShowModal(!showModal);
+  const [date, setDate] = useState("");
+  const handleDateChange = (e) => {
+    setDate(e);
+  };
+  const [data, setData] = useState(null);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const [selectedData, setSelectedData] = useState([]);
+  const tableRef = useRef(null);
+  const [modalData, setModalData] = useState({
+    title: title,
+    date: date,
+    message: message,
+    selectData: selectedData,
+  });
+
+  const handleSlectedData = () => {
+    handleOpen();
+    setSelectedData(table.getSelectedData());
+  };
+  const handleSendSMS = () => {
+    //   const postSMS = () => {
+    //   axios
+    //     .post(OnRun + "/sendsmsgroup", { access: access, data:modalData })
+    //     .then((response) => {
+    //       setSelectedData(response.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // };
+      if(selectedData.length>0){
+        axios.post(" http://192.168.39.101:5000/sendsmsgroup", {
+          access: access,
+          data:modalData,
+        })
+          .then((response) => {
+          if (response.data) {
+            console.log("klkjkjkjk",response.data);
+
+            toast.success("ارسال شد", { position: toast.POSITION.BOTTOM_RIGHT });
+          setModalData(response.data)
+          }
+    })
+  }
+    // handleOpen();}
+  };
+
+  if (data != null) {
+    var table = new Tabulator("#data-table", {
+      data: data,
+      layout: "fitColumns",
+      responsiveLayout: true,
+      columnHeaderSortMulti: true,
+      pagination: "local",
+      paginationSize: 50,
+      paginationSizeSelector: [10, 20, 50, 100, 200, 500],
+      movableColumns: true,
+      layoutColumnsOnNewData: false,
+      textDirection: "rtl",
+      autoResize: false,
+      dataTree: true,
+      dataTreeStartExpanded: false,
+      selectable: true,
+
+      columns: [
+        {
+          editor: true,
+
+          titleFormatter: "rowSelection",
+          hozAlign: "center",
+          headerSort: false,
+        },
+
+        {
+          title: "نام",
+          field: "نام و نام خانوادگی",
+
+          hozAlign: "center",
+          headerHozAlign: "center",
+          resizable: true,
+          widthGrow: 2,
+          headerFilter: "input",
+        },
+        {
+          title: "کد ملی",
+          field: "کد ملی",
+
+          hozAlign: "center",
+          headerHozAlign: "center",
+          resizable: true,
+          widthGrow: 2,
+          headerFilter: "input",
+        },
+        {
+          title: "شماره تماس",
+          field: "شماره تماس",
+          hozAlign: "center",
+          headerHozAlign: "center",
+          resizable: true,
+          widthGrow: 2,
+          headerFilter: "input",
+        },
+      ],
+      // rowClick: (e, row) => {
+      //   console.log("ref table: ", this.ref.table); // this is the Tabulator table instance
+      //   console.log(`rowClick id: \${row.getData().id}`, row, e);
+      //   this.set({ selectedName: row.getData().name });
+      // },
+
+      // setData: () => {
+      //   setData({ data });
+      // },
+
+      // clearData: () => {
+      //   setData({ data: [] });
+      // },
+    });
+  }
+  const getTable = () => {
+    axios
+      .post(OnRun + "/customerphonebook", { access: access })
+      .then((response) => {
+        if (response.data.reply) {
+          setData(response.data.df);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(getTable, []);
+
+  const selectData = (e) => {
+    setSelectedData(table.getSelectedData(e));
+  };
+
+  return (
+    <>
+      <div className="flex  w-screen px-auto p-10 " dir="rtl">
+        <div className="max-w-full overflow-x-auto shadow-md border border-gray-300 rounded-lg w-full p-5">
+          <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4  m-5">
+            <div>
+              <button
+                onClick={handleSlectedData}
+                className="inline-flex p-2 bg-green-500 hover:bg-green-600 rounded-xl text-white text-base font-semibold px-3"
+              >
+                ارسال پیامک
+              </button>
+            </div>
+          </div>
+          <div className="subPage tablePg">
+            {data === null ? (
+              <MiniLoader />
+            ) : data === false ? (
+              <NoData />
+            ) : null}
+
+            <div id="data-table"></div>
+          </div>
+
+          {showModal === true ? (
+            <div className=" overflow-y-auto overflow-x-hidden fixed top-24 lg:px-52 lg:py-32 z-50 bg-white bg-opacity-65 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div className="relative p-4 w-full max-w-md max-h-full">
+                {/* <!-- Modal content --> */}
+                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                  {/* <!-- Modal header --> */}
+                  <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      ارسال پیامک
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={handleOpen}
+                      className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                      data-modal-toggle="crud-modal"
+                    >
+                      <svg
+                        className="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                      <span className="sr-only">Close modal</span>
+                    </button>
+                  </div>
+                  {/* <!-- Modal body --> */}
+                  <div className="p-4 md:p-5">
+                    <div className="grid gap-4 mb-4 grid-cols-2">
+                      <div className="col-span-2">
+                        <label
+                          for="name"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          عنوان
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          placeholder="عنوان را وارد کنید"
+                          required=""
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <label
+                          for="name"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          تاریخ و زمان
+                        </label>
+                        <DatePicker
+                          // className="p-3"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          format="MM/DD/YYYY HH:mm:ss"
+                          plugins={[<TimePicker position="bottom" />]}
+                          calendar={persian}
+                          locale={persian_fa}
+                          calendarPosition="bottom-right"
+                          onChange={handleDateChange}
+                        />
+                      </div>
+
+                      <div className="col-span-2">
+                        <label
+                          for="description"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          پیام
+                        </label>
+                        <textarea
+                          rows="4"
+                          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          placeholder="متن پیام را وارد کنید"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleSendSMS}
+                      type="submit"
+                      className="text-white inline-flex items-center bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      <svg
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        height="1em"
+                        width="1em"
+                        className="me-1 -ms-1 w-5 h-5"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M20.328 11v2H7.5l3.243 3.243-1.415 1.414L3.672 12l5.656-5.657 1.415 1.414L7.5 11h12.828z"
+                        />
+                      </svg>
+                      ارسال
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            showModal === false
+          )}
+        </div>
+      </div>
+      {/* <div className="col-span-2 sm:col-span-1">
+                      <label
+                        for="price"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Price
+                      </label>
+                      <input
+                        type="number"
+                        name="price"
+                        id="price"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$2999"
+                        required=""
+                      />
+                    </div>
+                    <div className="col-span-2 sm:col-span-1">
+                      <label
+                        for="category"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Category
+                      </label>
+                      <select
+                        id="category"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      >
+                        <option selected="">Select category</option>
+                        <option value="TV">TV/Monitors</option>
+                        <option value="PC">PC</option>
+                        <option value="GA">Gaming/Console</option>
+                        <option value="PH">Phones</option>
+                      </select>
+                    </div> */}
+      {/* search */}
+      {/* <label for="table-search" className="sr-only">
+              Search
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                <svg
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="دنبال چی میگردی؟"
+              />
+            </div> */}
+    </>
+  );
+};
+export default SendSMS;

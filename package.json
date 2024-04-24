@@ -14,6 +14,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "apexcharts": "^3.35.4",
+    "autoprefixer": "^10.4.19",
     "axios": "^0.27.2",
     "axois": "^0.0.1-security",
     "chart.js": "^3.8.0",
@@ -24,6 +25,7 @@
     "jspdf-autotable": "^3.5.25",
     "lightweight-charts": "^4.0.1",
     "net": "^1.0.2",
+    "postcss": "^8.4.38",
     "range-parser": "^1.2.1",
     "react": "^18.1.0",
     "react-chartjs-2": "^4.2.0",
@@ -45,6 +47,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "safe-regex-test": "^1.0.0",
+    "sass": "^1.75.0",
     "styled-components": "^6.1.1",
     "tabulator-tables": "^5.2.7",
     "web-vitals": "^2.1.0",
@@ -77,6 +80,7 @@
   "devDependencies": {
     "@types/node": "^18.0.0",
     "eslint-plugin-import": "^2.27.5",
+    "tailwindcss": "^3.4.3",
     "webpack": "^5.73.0"
   }
 }

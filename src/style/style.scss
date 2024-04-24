@@ -1,3254 +1,3206 @@
-@font-face{
-    font-family: 'peydaRegular';
-    src: url('../../public/Peyda/Peyda-Regular.ttf') format('truetype'),
-    url('../../public/Peyda/PeydaWeb/woff/PeydaWeb-Regular.woff') format('woff'),
-    url('../../public/Peyda/PeydaWeb/woff2/PeydaWeb-Regular.woff2') format('woff2');
-   }
-@import  "../../node_modules/tabulator-tables/dist/css/tabulator.min.css";
+@import "./tailwind.scss";
 
-$colorBlue :#2d41fd;
-$colorPink :#c63ef1;
-$colorTosi :#eae4e4;
-$colorError :#c45151;
-$colorBlueTxt : #384ab4;
-$colorGreen : #5aae40;
-$colorRed : #ae4040;
+@font-face {
+  font-family: "peydaRegular";
+  src: url("../../public/Peyda/Peyda-Regular.ttf") format("truetype"),
+    url("../../public/Peyda/PeydaWeb/woff/PeydaWeb-Regular.woff") format("woff"),
+    url("../../public/Peyda/PeydaWeb/woff2/PeydaWeb-Regular.woff2")
+      format("woff2");
+}
+@import "../../node_modules/tabulator-tables/dist/css/tabulator.min.css";
 
+$colorBlue: #2d41fd;
+$colorPink: #c63ef1;
+$colorTosi: #eae4e4;
+$colorError: #c45151;
+$colorBlueTxt: #384ab4;
+$colorGreen: #5aae40;
+$colorRed: #ae4040;
 
-$colorBDark:#20409d;
-$colorBSemi:#1980c3;
-$colorBLite:#2094d2;
-$colorBUltra:#22c0eb;
-$colorDisable:#636363;
-
+$colorBDark: #20409d;
+$colorBSemi: #1980c3;
+$colorBLite: #2094d2;
+$colorBUltra: #22c0eb;
+$colorDisable: #636363;
 
 @mixin gradiant() {
-    background-image: linear-gradient(to top right,$colorBDark,$colorBUltra);
+  background-image: linear-gradient(to top right, $colorBDark, $colorBUltra);
 }
-
 
 @mixin btn() {
-    background-image: linear-gradient(to top right,$colorBDark,$colorBSemi);
-    width: 100px;
-    height: 25px;
-    border: 0px;
-    border-radius: 8px;
-    color: $colorTosi;
-    font-size: 14pt;
-    cursor: pointer;
+  background-image: linear-gradient(to top right, $colorBDark, $colorBSemi);
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  border-radius: 8px;
+  color: $colorTosi;
+  font-size: 14pt;
+  cursor: pointer;
 }
 
-*{
-    margin: 0px;
-    padding: 0px;
-    font-family: 'peydaRegular';
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "peydaRegular";
 }
 
-html,body,#root{
-    height: 100%;
+html,
+body,
+#root {
+  height: 100%;
 }
-body{
-    background: #fff;
+body {
+  background: #fff;
 }
-.homePage{
-    height: 100vh;
+.homePage {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  justify-content: space-around;
+  align-items: center;
+
+  .login {
     display: flex;
-    flex-direction: row;
-    background-color: #fff;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 350px;
+    background: rgba($colorBSemi, 0.3);
 
-    .login{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 350px;
-        background: rgba($colorBSemi, 0.3);
+    padding: 80px 0px 30px 0px;
+    border-radius: 20px;
+    border: 1px $colorBDark solid;
 
-        padding: 80px 0px 30px 0px;
-        border-radius: 20px;
-        border: 1px $colorBDark solid;
-
-
-        
-        .captcha{
-            width: 200px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            img{
-                width: 200px;
-                cursor: pointer;
-                border-radius: 15px;
-            }
-        }
-        input{
-            border: 0px;
-            width: 200px;
-            background: #fff;
-            height: 30px;
-            margin: 5px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .ent{
-            @include gradiant();
-            border: 0px;
-            height: 30px;
-            width: 80px;
-            border-radius: 10px;
-            color: $colorTosi;
-            margin: 10px;
-            cursor: pointer;
-        }
-        .btnEdt{
-            background: transparent;
-            border: 0px;
-            border-radius: 10px;
-            color: $colorBlue;
-            margin: 10px;
-            cursor: pointer;
-        }
-        .errMsg{
-            background: #fff;
-            color: $colorError;
-            border: 2px $colorError solid;
-            border-right-width: 5px;
-            padding: 3px 8px;
-            width: 200px;
-            text-align: right;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+    .captcha {
+      width: 200px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      img {
+        width: 200px;
+        cursor: pointer;
+        border-radius: 15px;
+      }
     }
-    .brd{
-        z-index: 0;
-        display: flex;
-        flex-direction: column;
-        justify-items: center;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        right: min(250px,20%);
-        .logo{
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 20px;
-            img{
-                position: absolute;
-            }
-            .prt{
-                opacity: 0;
-            }
-            .prt1{
-                animation: pt1 3s 0s alternate infinite forwards;
-            }
-            .prt2{
-                animation: pt1 3s 0.5s alternate infinite forwards;
-            }
-            .prt3{
-                animation: pt1 3s 1s alternate infinite forwards;
-            }
-            .prt4{
-                animation: pt1 3s 1.5s alternate infinite forwards;
-            }
-            @keyframes pt1 {
-                20%{opacity: 0;}
-                35%{opacity: 100;}
-                70%{opacity: 100;}
-                85%{opacity: 0;}
-                
-            }
-        }
-        h1{
-            font-family: 'peydaRegular';
-            width: 270px;
-            text-align: center;
-            font-size: 13pt;
-            color: #fff;
-            background: $colorBlue;
-            padding: 6px;
-            border-radius: 8px;
-            margin: 10px;
-        }
-        a{
-            font-family: 'peydaRegular';
-            font-size: 13pt;
-            text-decoration: none;
-            color: $colorBlue;
-        }
-
+    input {
+      border: 0px;
+      width: 200px;
+      background: #fff;
+      height: 30px;
+      margin: 5px;
+      border-radius: 10px;
+      text-align: center;
     }
-    
-}
-
-.datefromto{
-    input{
-        width: 125px;
-        border-radius: 5px;
-        border: 1px $colorBSemi solid;
-        text-align: center;
-        color: $colorBDark;
+    .ent {
+      @include gradiant();
+      border: 0px;
+      height: 30px;
+      width: 80px;
+      border-radius: 10px;
+      color: $colorTosi;
+      margin: 10px;
+      cursor: pointer;
     }
-    margin: 0px 10px;
+    .btnEdt {
+      background: transparent;
+      border: 0px;
+      border-radius: 10px;
+      color: $colorBlue;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .errMsg {
+      background: #fff;
+      color: $colorError;
+      border: 2px $colorError solid;
+      border-right-width: 5px;
+      padding: 3px 8px;
+      width: 200px;
+      text-align: right;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
+  .brd {
+    z-index: 0;
     display: flex;
-    flex-direction: row;
-    p{
-        margin: 0px 10px;
-        color: $colorBDark;
-    }
-}
-
-.microLoader{
-    display: flex;
-    flex-direction: row;
-    width: 100px;
-    height: 20px;
+    flex-direction: column;
+    justify-items: center;
     align-items: center;
     justify-content: center;
-    margin: 2px 0px;
-    border: 1px $colorBDark solid;
-    background: #fff;
-    border-radius: 5px;
-    >div{
-        width: 5px;
-        height: 9px;
-        margin: 8px;
-        background: $colorBDark;
-        border-radius: 1px;
-        opacity: 0.1;
-    }
-    :nth-child(1){
-        animation: growOpacity 1s 0s alternate-reverse infinite;
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
-    }
-    :nth-child(2){
-        animation: growOpacity 1s ease-in-out 0.2s alternate-reverse infinite;
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
-    }
-    :nth-child(3){
-        animation: growOpacity 1s 0.4s alternate-reverse infinite;
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
-    }
-    :nth-child(4){
-        animation: growOpacity 1s 0.6s alternate-reverse infinite;
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
-    }
-    @keyframes growOpacity {
-        to{
-            height: 13px;
-            opacity: 0.8;
+    align-content: center;
+    right: min(250px, 20%);
+    .logo {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 20px;
+      img {
+        position: absolute;
+      }
+      .prt {
+        opacity: 0;
+      }
+      .prt1 {
+        animation: pt1 3s 0s alternate infinite forwards;
+      }
+      .prt2 {
+        animation: pt1 3s 0.5s alternate infinite forwards;
+      }
+      .prt3 {
+        animation: pt1 3s 1s alternate infinite forwards;
+      }
+      .prt4 {
+        animation: pt1 3s 1.5s alternate infinite forwards;
+      }
+      @keyframes pt1 {
+        20% {
+          opacity: 0;
         }
+        35% {
+          opacity: 100;
+        }
+        70% {
+          opacity: 100;
+        }
+        85% {
+          opacity: 0;
+        }
+      }
     }
+    h1 {
+      font-family: "peydaRegular";
+      width: 270px;
+      text-align: center;
+      font-size: 13pt;
+      color: #fff;
+      background: $colorBlue;
+      padding: 6px;
+      border-radius: 8px;
+      margin: 10px;
+    }
+    a {
+      font-family: "peydaRegular";
+      font-size: 13pt;
+      text-decoration: none;
+      color: $colorBlue;
+    }
+  }
 }
-.LoaderCircle{
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    left: calc((100% - 400px)/2);
-    top: calc((100% - 400px)/2);
-    background: mix($colorBDark,#fff,5);
-    border-radius: 20px;
+
+.datefromto {
+  input {
+    width: 125px;
+    border-radius: 5px;
+    border: 1px $colorBSemi solid;
+    text-align: center;
+    color: $colorBDark;
+  }
+  margin: 0px 10px;
+  display: flex;
+  flex-direction: row;
+  p {
+    margin: 0px 10px;
+    color: $colorBDark;
+  }
+}
+
+.microLoader {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0px;
+  border: 1px $colorBDark solid;
+  background: #fff;
+  border-radius: 5px;
+  > div {
+    width: 5px;
+    height: 9px;
+    margin: 8px;
+    background: $colorBDark;
+    border-radius: 1px;
+    opacity: 0.1;
+  }
+  :nth-child(1) {
+    animation: growOpacity 1s 0s alternate-reverse infinite;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  :nth-child(2) {
+    animation: growOpacity 1s ease-in-out 0.2s alternate-reverse infinite;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  :nth-child(3) {
+    animation: growOpacity 1s 0.4s alternate-reverse infinite;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  :nth-child(4) {
+    animation: growOpacity 1s 0.6s alternate-reverse infinite;
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  @keyframes growOpacity {
+    to {
+      height: 13px;
+      opacity: 0.8;
+    }
+  }
+}
+.LoaderCircle {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  left: calc((100% - 400px) / 2);
+  top: calc((100% - 400px) / 2);
+  background: mix($colorBDark, #fff, 5);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  .imgCntr {
+    background: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    border: 6px mix($colorBDark, $colorTosi, 20) solid;
+    border-left-color: $colorBDark;
+    width: 100px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 3;
-    .imgCntr{
-        background: #fff;
-        border-radius: 50%;
-        padding: 10px;
-        border: 6px mix($colorBDark,$colorTosi,20) solid;
-        border-left-color: $colorBDark;
-        width: 100px;
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        animation: loaderCircle 4s 0s forwards;
-        animation-timing-function: cubic-bezier(0.165, 0.560, 0.69, 1);
-        animation-iteration-count: infinite;
-        overflow: hidden;
-        
-        >img{
-            width: 100px;
-            animation: loaderCircleImg 4s 0s forwards;
-            animation-timing-function: cubic-bezier(0.165, 0.560, 0.69, 1);
-            animation-iteration-count: infinite;
-        }
-    }
-    @keyframes loaderCircle {
-        to{
-            transform: rotate(360deg);
-        }
-    }
-    @keyframes loaderCircleImg {
-        to{
-            transform: rotate(-360deg);
+    animation: loaderCircle 4s 0s forwards;
+    animation-timing-function: cubic-bezier(0.165, 0.56, 0.69, 1);
+    animation-iteration-count: infinite;
+    overflow: hidden;
 
-        }
+    > img {
+      width: 100px;
+      animation: loaderCircleImg 4s 0s forwards;
+      animation-timing-function: cubic-bezier(0.165, 0.56, 0.69, 1);
+      animation-iteration-count: infinite;
     }
-    h4{
-        font-size: 16pt;
-        color: $colorBDark;
-        margin: 15pt;
+  }
+  @keyframes loaderCircle {
+    to {
+      transform: rotate(360deg);
     }
-    
+  }
+  @keyframes loaderCircleImg {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  h4 {
+    font-size: 16pt;
+    color: $colorBDark;
+    margin: 15pt;
+  }
 }
-.sectionPage{
-    height: 100vh;
-    display: flex;
-    @include gradiant();
+.sectionPage {
+  height: 100vh;
+  display: flex;
+  @include gradiant();
+  width: 100vw;
+  .continer {
+    margin: 10px;
+    padding: 10px;
     width: 100vw;
-    .continer{
-        margin: 10px;
-        padding: 10px;
-        width: 100vw;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow-y: scroll;
-        .hdr{
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            width: 100%;
-            span{
-                display: flex;
-                flex-direction: row;
-                margin-right: auto;
-                align-items: center;
-                color: $colorTosi;
-                cursor: pointer;
-            }
-        }
-
-        .row2{
-            flex: 1;
-        }
-        .row{
-            display: flex;
-            flex-direction: row-reverse;
-            width: 100%;
-            flex: 1;
-
-            .culomn{
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                border: 1px $colorTosi solid;
-                background: $colorTosi;
-                border-radius: 20px;
-                margin: 15px;
-                padding: 10px 25px;
-
-                h4{
-                    color: $colorBDark;
-                    text-align: right;
-                    background: $colorTosi;
-                    padding: 3px;
-                    border-radius: 10px;
-                    width: max-content;
-                    align-self: self-end;
-                }
-                .listPart{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                }
-            }
-
-        }
-    }
-    .btnSct{
-        margin: 20px;
-        background: rgba(#fff, 0.5);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba($colorTosi, 0.3);
-        backdrop-filter: blur(3.6px);
-        -webkit-backdrop-filter: blur(3.6px);
-        border: 1px solid rgba(255, 255, 255, 0.68);
-        padding: 10px 15px;
-        height: 90px;
-        width: 180px;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-content: flex-start;
-        transition: 1s;
-        overflow: hidden;
-        cursor: pointer;
-        img{
-            width: 75px;
-            transition: 1s;
-            flex: 1;
-
-        }
-        >div{
-            display: flex;
-            flex-direction: column;
-            margin-right: 10px;
-            flex: 2;
-        }
-        h6{
-            color: $colorBDark;
-            text-align: center;
-            font-size: 18pt;
-            transform: 1s;
-
-        }
-        .fullName{
-            display: none;
-
-        }
-        &:hover{
-            box-shadow: 0px 0px 5px 5px rgba($colorDisable,0.25);
-            h6{
-                text-align: right;
-                font-size: 16pt;
-
-            }
-            img{
-                transform: scale(2.5) rotate(-25deg);
-                z-index: -1;
-                opacity: 0.15;
-            }
-            .fullName{
-                display: flex;
-                text-align: right;
-                color: $colorBDark;
-            }
-        }
-    }
-    .btnSctDis{
-
-        img{
-            filter: grayscale(100%);
-        }
-        h6{
-            color: $colorDisable;
-        }
-        .fullName{
-            color: $colorDisable !important;
-        }
-
-    }
-}
-
-header{
-    display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background: $colorBDark;
-    height: 70px;
-    padding: 0px 15px;
-    >img{
-        margin: 0px 10px;
-        width: 50px;
-        height: 50px;
-        border: 2px #fff solid;
-        background: rgba(#fff, 0.95);
-        border-radius: 50%;
-        box-sizing: border-box;
-        padding: 5px;
-    }
-    .title{
-        margin: 0px 10px;
-        cursor: pointer;
-        h1{
-            color: #fff;
-            font-size: 19pt;
-            text-align: right;
-            
-        }
-        h2{
-            color: #fff;
-            font-size: 12pt;
-            text-align: right;
-        }
-    }
-    .btn-bs{
+    overflow-y: scroll;
+    .hdr {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 100%;
+      span {
         display: flex;
         flex-direction: row;
         margin-right: auto;
         align-items: center;
-        span{
-            color: #fff;
-            font-size: 15pt;
-            margin: 0px 15px;
-            display: flex;
-            flex-direction: row-reverse;
-            cursor: pointer;
-            align-items: center;
-            p{
-                font-size: 11pt;
-                margin: 0px 3px;
-            }
-        }
-
-        input{
-            border: 0px;
-            border-radius: 15px;
-            text-align: center;
-            height: 30px;
-            margin-left: 25px;
-            &:focus{
-                outline: 1px $colorBlueTxt solid;
-            }
-        }
+        color: $colorTosi;
+        cursor: pointer;
+      }
     }
+
+    .row2 {
+      flex: 1;
+    }
+    .row {
+      display: flex;
+      flex-direction: row-reverse;
+      width: 100%;
+      flex: 1;
+
+      .culomn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border: 1px $colorTosi solid;
+        background: $colorTosi;
+        border-radius: 20px;
+        margin: 15px;
+        padding: 10px 25px;
+
+        h4 {
+          color: $colorBDark;
+          text-align: right;
+          background: $colorTosi;
+          padding: 3px;
+          border-radius: 10px;
+          width: max-content;
+          align-self: self-end;
+        }
+        .listPart {
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+  .btnSct {
+    margin: 20px;
+    background: rgba(#fff, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba($colorTosi, 0.3);
+    backdrop-filter: blur(3.6px);
+    -webkit-backdrop-filter: blur(3.6px);
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    padding: 10px 15px;
+    height: 90px;
+    width: 180px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 1s;
+    overflow: hidden;
+    cursor: pointer;
+    img {
+      width: 75px;
+      transition: 1s;
+      flex: 1;
+    }
+    > div {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+      flex: 2;
+    }
+    h6 {
+      color: $colorBDark;
+      text-align: center;
+      font-size: 18pt;
+      transform: 1s;
+    }
+    .fullName {
+      display: none;
+    }
+    &:hover {
+      box-shadow: 0px 0px 5px 5px rgba($colorDisable, 0.25);
+      h6 {
+        text-align: right;
+        font-size: 16pt;
+      }
+      img {
+        transform: scale(2.5) rotate(-25deg);
+        z-index: -1;
+        opacity: 0.15;
+      }
+      .fullName {
+        display: flex;
+        text-align: right;
+        color: $colorBDark;
+      }
+    }
+  }
+  .btnSctDis {
+    img {
+      filter: grayscale(100%);
+    }
+    h6 {
+      color: $colorDisable;
+    }
+    .fullName {
+      color: $colorDisable !important;
+    }
+  }
 }
 
-.desk{
-    height: 100vh;
+header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  background: $colorBDark;
+  height: 70px;
+  padding: 0px 15px;
+  > img {
+    margin: 0px 10px;
+    width: 50px;
+    height: 50px;
+    border: 2px #fff solid;
+    background: rgba(#fff, 0.95);
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  .title {
+    margin: 0px 10px;
+    cursor: pointer;
+    h1 {
+      color: #fff;
+      font-size: 19pt;
+      text-align: right;
+    }
+    h2 {
+      color: #fff;
+      font-size: 12pt;
+      text-align: right;
+    }
+  }
+  .btn-bs {
     display: flex;
-    flex-direction: column;
-    background: #fff;
-    main{
+    flex-direction: row;
+    margin-right: auto;
+    align-items: center;
+    span {
+      color: #fff;
+      font-size: 15pt;
+      margin: 0px 15px;
+      display: flex;
+      flex-direction: row-reverse;
+      cursor: pointer;
+      align-items: center;
+      p {
+        font-size: 11pt;
+        margin: 0px 3px;
+      }
+    }
+
+    input {
+      border: 0px;
+      border-radius: 15px;
+      text-align: center;
+      height: 30px;
+      margin-left: 25px;
+      &:focus {
+        outline: 1px $colorBlueTxt solid;
+      }
+    }
+  }
+}
+
+.desk {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  main {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    .subPage {
+      width: -webkit-fill-available;
+      .tls {
         display: flex;
         flex-direction: row-reverse;
-        align-items: flex-start;
-        .subPage{
-            width: -webkit-fill-available;
-            .tls{
-                display: flex;
-                flex-direction: row-reverse;
-                padding: 0px 15px;
-                align-items: center;
-                height: 25px;
-                background: rgba($colorBDark , 0.2);
-                border-bottom: 1px $colorBDark solid;
-                border-top: 1px $colorBDark solid;
-                .titlePage{
-                    color: $colorBDark;
-                    font-size: 12pt;
-                    margin: 0px 0px 0px 45px;
-                }
-                .datepi{
-                    margin-right: auto;
-                    height: 20px !important;
-                    .rmdp-container {
-                        height: 20px !important;
-                    }
-
-                }
-                .rmdp-button{
-                    margin: 0px 10px;
-                    background: transparent;
-                    border-radius: 0px;
-                    color: $colorBDark;
-                    height: 20px;
-                    padding: 0px;
-
-                }
-
-                .btntls{
-                    margin-right: auto;
-                    display: flex;
-                    flex-direction: row;
-                    select{
-                        height: 20px;
-                        width: 100px;
-                        margin: 2px 10px;
-                        border-radius: 5px;
-                        border: 1px $colorBDark solid;
-                        color: $colorBDark;
-                        text-align: center;
-                        option{
-                            color: $colorBDark;
-                            text-align: center;
-                        }
-                    }
-                    >p{
-                        height: 100%;
-                        color: $colorBlueTxt;
-                        font-size: 13pt;
-                        margin: 0px 10px;
-                        display: flex;
-                        flex-direction: row-reverse;
-                        align-items: center;
-                        cursor: pointer;
-                        padding: 0px 10px;
-                        span{
-                            margin-right: 4px;
-                            font-size: 11pt;
-                            display: flex;
-                            margin: 0px 3px;
-                        }
-                        &:hover{
-                            background: rgba($colorBDark , 0.3);
-                        }
-                        
-                    }
-                    .inp-fld{
-                        display: flex;
-                        flex-direction: row;
-                        margin: 0px 10px;
-                        padding: 1px 9px;
-                        border-radius: 5px;
-                        justify-content: space-between;
-                        p{
-                            color: $colorBDark;
-                        }
-                        input{
-                            width: 40px;
-                            margin: 0px 5px;
-                            border-radius: 5px;
-                            border: 1px $colorBDark solid;
-                            text-align: center;
-                            &::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
-                                display: none;
-                            }
-                        }
-                    }
-    
-                }
-                >p{
-                    height: 100%;
-                    color: $colorBlueTxt;
-                    font-size: 13pt;
-                    margin: 0px 10px;
-                    display: flex;
-                    flex-direction: row-reverse;
-                    align-items: center;
-                    cursor: pointer;
-                    padding: 0px 10px;
-                    span{
-                        margin-right: 4px;
-                        font-size: 11pt;
-                        display: flex;
-                        margin: 0px 3px;
-                    }
-                    &:hover{
-                        background: rgba($colorBDark , 0.3);
-                    }
-                    
-                }
-                label{
-                    display: flex;
-                    flex-direction: row;
-                    width: 110px;
-                    justify-content: space-around;
-                    margin-right: auto;
-                    align-items: center;
-                    background: rgba($colorBlueTxt, 0.1);
-                    border: 1px $colorBlueTxt solid;
-                    border-radius: 8px;
-                    overflow: hidden;
-
-                    p{
-                        color: $colorBlueTxt;
-                    }
-                    input{
-                        width: 50px;
-                        height: 25px;
-                        text-align: center;
-                        border: 0px;
-                        background: transparent;
-                        &:focus{
-                            outline: 0px;
-                        }
-                    }
-                }
-            }
-            .dshbrd{
-                display: flex;
-                flex-direction: column;
-                .revardColumns{
-                    display: flex;
-                    flex-direction: column;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    align-items: center;
-                    .rowRevard{
-                        display: flex;
-                        flex-direction: row-reverse;
-                        width: 100%;
-                        align-items: stretch;
-                        justify-content: space-between;
-                        border-bottom: 1px $colorBDark solid;
-                        height: 250px;
-                        h4{
-                            writing-mode: vertical-rl;
-                            text-orientation: mixed;
-                            color: $colorBDark;
-                            height: 100%;
-                            text-align: center;
-                            vertical-align: middle;
-                            background: rgba($colorBUltra, $alpha: 0.15);
-                        }
-                        .dtl{
-                            display: grid;
-                            grid-template-columns: repeat(2, 1fr);
-                            grid-template-rows: 2fr minmax(0px, 1fr);
-                            flex: 1;
-                            :nth-child(2){border-left: 0px;}
-                            :nth-child(4){border-left: 0px;}
-                            :nth-last-child(2){border-bottom: 0px;}
-                            :nth-last-child(1){border-bottom: 0px;}
-                            ul{
-                                display: flex;
-                                flex-direction: column;
-                                border: 1px $colorBLite solid;
-                                border-top: 0px;
-                                justify-content: center;
-                                li{
-                                    direction: rtl;
-                                    display: grid;
-                                    grid-template-columns: 1fr 3fr 3fr;
-                                    p{
-                                        text-align: center;
-                                    }
-                                }
-                                .BluPrc{p{color: $colorBSemi;}}
-                                .PosPrc{p{color: $colorGreen;}}
-                                .NegPrc{p{color: $colorRed;}}
-                            }
-                        }
-                        .dtlprd{
-                            grid-template-rows: 2fr;
-                        }
-                    }
-                }
-                .gaugeConteiner{
-                    height: 100px;
-                    overflow: hidden;
-                    .gauge{
-                        position: relative;
-                        width: 200px;
-                        height: 200px;
-                        margin: 10px;
-
-
-                        .meter{
-                            display: flex;
-                            flex-direction: row;
-                            border-radius: 100%;
-                            overflow: hidden;
-                            width: 100%;
-                            height: 100%;
-                            background: linear-gradient(90deg,$colorRed,rgb(255, 230, 0),$colorGreen);
-
-                            >li{
-                                height: 50%;
-                                list-style-type: none;
-                            }
-                            .loss{
-                                background: $colorRed;
-                                flex: 2;
-
-                            }
-                            .semiloss{
-                                background: mix($colorRed, #ffd900, 50);
-                                flex: 5;
-
-                            }
-                            .semiprofit{
-                                background: mix($colorGreen, #ffd900, 50);
-                                flex: 5;
-
-                            }
-                            .profit{
-                                background: $colorGreen;
-                                flex: 2;
-
-                            }
-                        }
-                        .value{
-                            top: 5px;
-                            left: 5px;
-                            right: 5px;
-                            bottom: 0px;
-                            background: #fff;
-                            position: absolute;
-                            border-radius: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            padding-top: 45px;
-                            .vrate{
-                                color: $colorBDark;
-                                font-size: 14pt;
-                            }
-                            .vprft{
-                                color: $colorBSemi;
-                                font-size: 12pt;
-                            }
-
-                        }
-                        .dial{
-                            height: 50%;
-                            width: 10px;
-                            position: absolute;
-                            top: 0px;
-                            left: calc(50% - 5px);
-                            right: calc(50% - 5px);
-                            z-index: 1;
-                            transform-origin: 100% 100%;
-                            transition: 3s cubic-bezier(0.075, 0.82, 0.165, 1);
-
-                            .arrow{
-                                margin-top: 15px;
-                                p{
-                                    color: $colorBLite;
-                                    transform: rotate(-40deg);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .AttendeesAssembly{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                .row{
-                    width: 80%;
-                    display: flex;
-                    flex-direction: row-reverse;
-                    align-items: center;
-                    justify-content: space-around;
-                    .idPersonal{
-                        width: 300px;
-                        border: 1px $colorBDark solid;
-                        border-radius: 5px;
-                        text-align: center;
-                        height: 25px;
-                    }
-                    button{
-                        @include btn();
-
-                    }
-                    :last-child{
-                        background: $colorRed;
-                    }
-
-                }
-                .dataPersonal{
-                    width: 80%;
-                    display: flex;
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 50px 0px;
-                    .field{
-                        margin: 5px;
-                        width: 280px;
-                        border: 1px $colorBSemi solid;
-                        border-radius: 5px;
-                        display: flex;
-                        flex-direction: row-reverse;
-                        align-items: center;
-                        :nth-child(1){
-                            background: $colorBSemi;
-                            text-align: right;
-                            color: $colorTosi;
-                            padding-right: 5px;
-                        }
-                        :nth-child(2){
-                            text-align: left;
-                            padding-left: 5px;
-                        }
-                        p{
-                            width: 50%;
-                        }
-                    }
-                }
-                .btns{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: center;
-                    button{
-                        @include btn();
-                        margin: 10px;
-                    }
-
-                }
-            }
-
-            .createassembly{
-                position: absolute;
-                z-index: 10;
-                inset: 10%;
-                background: #fff;
-                border: 1px $colorBDark solid;
-                padding: 30px;
-                border-radius: 10px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                overflow-y: scroll;
-
-                .row1{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                    width: 100%;
-                    align-items: center;
-                    justify-content: center;
-                    .field{
-                        display: flex;
-                        flex-direction: row-reverse;
-                        width: 250px;
-                        margin: 0px 30px;
-                        background: $colorBDark;
-                        border: 1px $colorBDark solid;
-                        border-radius: 10px;
-                        overflow: hidden;
-                        align-items: center;
-                        p{
-                            flex: 1px;
-                            color: $colorTosi;
-                            text-align: center;
-                        }
-                        input{
-                            flex: 3;
-                            border-top-right-radius: 20px;
-                            border-top-left-radius: 10px;
-                            border-bottom-left-radius: 10px;
-                            border-bottom-right-radius: 20px;
-                            height: 30px;
-                            border-style: solid;
-                            border-color: $colorBDark;
-                            padding: 0px 5px;
-                            &:focus{
-                                outline: 0px;
-                            }
-                            &::-webkit-inner-spin-button{
-                                display: none;
-                            }
-                            &::-webkit-outer-spin-button{
-                                display: none;
-                            }
-
-                        }
-                    }
-
-                }
-                .row2{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    margin: 20px;
-                    align-items: center;
-                    justify-content: space-around;
-                    width: 75%;
-                    >div{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        background: $colorBDark;
-                        border: 2px $colorBDark solid;
-                        overflow: hidden;
-                        flex: 1;
-                        margin: 10px 35px;
-                        border-radius: 15px;
-                        p{
-                            font: 16pt;
-                            color: $colorTosi;
-                            padding: 10px;
-                        }
-                        textarea{
-                            width: calc(100% - 40px);
-                            padding: 20px;
-                            border-top-left-radius: 15px;
-                            border-top-right-radius: 15px;
-                            border-bottom-left-radius: 5px;
-                            border-bottom-right-radius: 5px;
-                            height: 250px;
-                            text-align: right;
-                            &:focus{
-                                outline: 0px;
-                            }
-                        }
-
-                    }
-                }
-                .row3{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    width: 100%;
-                    justify-content: space-around;
-                    .prt{
-                        display: flex;
-                        flex-direction: column;
-                        input[type='checkbox']{
-                            display: none;
-                            + label{
-                                background: rgba($colorDisable,0.35);
-                                padding: 3px;
-                                width: 150px;
-                                border-radius: 10px;
-                                text-align: center;
-                                color: $colorBDark;
-                                border: 2px $colorBDark solid;
-                                cursor: pointer;
-                            }
-                            &:checked{
-                                + label{
-                                background: rgba($colorBDark,0.90);
-                                color: $colorTosi;
-                                }
-                            }
-                        }
-                    }
-                    .opt{
-                        display: flex;
-                        flex-direction: column;
-                        margin: 25px 0px;
-                        h3{
-                            text-align: center;
-                            color: $colorBDark;
-                            margin: 10px;
-                        }
-                        >div{
-                            display: flex;
-                            flex-direction: column;
-                            margin: 15px 0px;
-                            span{
-                                margin: 5px;
-                                border: 1px $colorBDark solid;
-                                border-radius: 15px;
-                                text-align: center;
-                                padding: 3px;
-                                color: $colorBDark;
-                            }
-                            .adding{
-                                display: flex;
-                                flex-direction: row;
-                                background: $colorBDark;
-                                border: 1px $colorBDark solid;
-                                overflow: hidden;
-                                border-radius: 5px;
-                                p{
-                                    flex: 1;
-                                    text-align: center;
-                                    color: $colorTosi;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                }
-                                input{
-                                    border: 0px;
-                                    border-radius: 5px;
-                                    padding: 5px;
-                                    border-top-right-radius: 15px;
-                                    border-bottom-right-radius: 15px;
-
-                                    &:focus{
-                                        outline: 0px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .bbtn{
-                    display: flex;
-                    flex-direction: row;
-                    width: 45%;
-                    align-items: center;
-                    justify-content: space-around;
-                    margin: 50px 0px;
-                    button{
-                        @include btn();
-
-                    }
-
-                }
-  
-
-            }
-            .assemblyList{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                .assemblyConteiner{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    width: 100%;
-                    border-bottom: 1px $colorDisable solid;
-                    .assemblyDetail{
-                        display: flex;
-                        flex-direction: column;
-                        width: 100%;
-                        .title{
-                            display: flex;
-                            flex-direction: row-reverse;
-                            justify-content: space-around;
-                            background: rgba($colorBDark , 0.3);
-                            align-items: center;
-                            padding: 15px;
-                            p{
-                                font-size: 18pt;
-                            }
-
-
-                        }
-                        .tad{
-                            display: flex;
-                            flex-direction: row-reverse;
-                            justify-content: space-around;
-                            padding: 15px;
-                            .addr{
-                                width: 370px;
-                            }
-                            .cntnr-tad{
-                                display: flex;
-                                flex-direction: row-reverse;
-                                align-items: center;
-                                justify-content: center;
-                                border: 1px $colorBDark solid;
-                                border-radius: 5px;
-                                width: 240px;
-                                height: 35px;
-                                overflow: hidden;
-
-                                span{
-                                    font-size: 17pt;
-                                    text-align: center;
-                                    padding: 5px;
-                                    color: $colorTosi;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    flex: 1;
-                                    flex-basis: 35px;
-                                    height: 100%;
-                                    background: $colorBDark;
-
-                                }
-                                p{
-                                    font-size: 13pt;
-                                    text-align: center;
-                                    color: $colorBUltra;
-                                    flex: 3;
-                                    text-overflow: clip;
-                                    white-space: nowrap;
-                                }
-                            }
-                        }
-                        .cntnr-dis{
-                            display: flex;
-                            flex-direction: row;
-                            >div{
-                                display: flex;
-                                flex-direction: column;
-                                flex: 1;
-                                margin: 25px 35px;
-                                border: 1px $colorBDark solid;
-                                border-radius: 15px;
-                                overflow: hidden;
-
-                                h6{
-                                    font-size: 16pt;
-                                    color: $colorTosi;
-                                    background: $colorBDark;
-                                    text-align: center;
-                                    padding: 6px;
-                                }
-                            }
-                        }
-                        >p{
-                            text-align: right;
-                            margin-top: 10px;
-                        }
-                        .voteController{
-                            h5{
-                                text-align: right;
-                            }
-                        }
-
-                    }
-                    .delEdit{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        background: $colorBDark;
-                        width: 170px;
-                        .btn{
-                            display: flex;
-                            flex-direction: row-reverse;
-                            width: 90px;
-                            align-items: center;
-                            cursor: pointer;
-                            border: 1px $colorTosi solid;
-                            margin: 5px 0px;
-                            padding: 5px;
-                            border-radius: 10px;
-
-                            span{
-                                font-size: 20pt;
-                                color: $colorTosi;
-                                display: flex;
-                                align-items: center;
-                                width: 55px;
-                                justify-content: end;
-                            }
-                            p{
-                                font-size: 13pt;
-                                color: $colorTosi;
-                            }
-                        }
-                    }
-                }
-            }
+        padding: 0px 15px;
+        align-items: center;
+        height: 25px;
+        background: rgba($colorBDark, 0.2);
+        border-bottom: 1px $colorBDark solid;
+        border-top: 1px $colorBDark solid;
+        .titlePage {
+          color: $colorBDark;
+          font-size: 12pt;
+          margin: 0px 0px 0px 45px;
         }
-    }
-        .update{
-            border: 1px #fff solid;
+        .datepi {
+          margin-right: auto;
+          height: 20px !important;
+          .rmdp-container {
+            height: 20px !important;
+          }
+        }
+        .rmdp-button {
+          margin: 0px 10px;
+          background: transparent;
+          border-radius: 0px;
+          color: $colorBDark;
+          height: 20px;
+          padding: 0px;
+        }
+
+        .btntls {
+          margin-right: auto;
+          display: flex;
+          flex-direction: row;
+          select {
+            height: 20px;
+            width: 100px;
+            margin: 2px 10px;
+            border-radius: 5px;
+            border: 1px $colorBDark solid;
+            color: $colorBDark;
+            text-align: center;
+            option {
+              color: $colorBDark;
+              text-align: center;
+            }
+          }
+          > p {
+            height: 100%;
+            color: $colorBlueTxt;
+            font-size: 13pt;
+            margin: 0px 10px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            cursor: pointer;
+            padding: 0px 10px;
+            span {
+              margin-right: 4px;
+              font-size: 11pt;
+              display: flex;
+              margin: 0px 3px;
+            }
+            &:hover {
+              background: rgba($colorBDark, 0.3);
+            }
+          }
+          .inp-fld {
+            display: flex;
+            flex-direction: row;
+            margin: 0px 10px;
+            padding: 1px 9px;
+            border-radius: 5px;
+            justify-content: space-between;
+            p {
+              color: $colorBDark;
+            }
+            input {
+              width: 40px;
+              margin: 0px 5px;
+              border-radius: 5px;
+              border: 1px $colorBDark solid;
+              text-align: center;
+              &::-webkit-inner-spin-button,
+              &::-webkit-outer-spin-button {
+                display: none;
+              }
+            }
+          }
+        }
+        > p {
+          height: 100%;
+          color: $colorBlueTxt;
+          font-size: 13pt;
+          margin: 0px 10px;
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          cursor: pointer;
+          padding: 0px 10px;
+          span {
+            margin-right: 4px;
+            font-size: 11pt;
+            display: flex;
+            margin: 0px 3px;
+          }
+          &:hover {
+            background: rgba($colorBDark, 0.3);
+          }
+        }
+        label {
+          display: flex;
+          flex-direction: row;
+          width: 110px;
+          justify-content: space-around;
+          margin-right: auto;
+          align-items: center;
+          background: rgba($colorBlueTxt, 0.1);
+          border: 1px $colorBlueTxt solid;
+          border-radius: 8px;
+          overflow: hidden;
+
+          p {
+            color: $colorBlueTxt;
+          }
+          input {
+            width: 50px;
+            height: 25px;
+            text-align: center;
+            border: 0px;
+            background: transparent;
+            &:focus {
+              outline: 0px;
+            }
+          }
+        }
+      }
+      .dshbrd {
+        display: flex;
+        flex-direction: column;
+        .revardColumns {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          .rowRevard {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 100%;
+            align-items: stretch;
+            justify-content: space-between;
+            border-bottom: 1px $colorBDark solid;
+            height: 250px;
+            h4 {
+              writing-mode: vertical-rl;
+              text-orientation: mixed;
+              color: $colorBDark;
+              height: 100%;
+              text-align: center;
+              vertical-align: middle;
+              background: rgba($colorBUltra, $alpha: 0.15);
+            }
+            .dtl {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              grid-template-rows: 2fr minmax(0px, 1fr);
+              flex: 1;
+              :nth-child(2) {
+                border-left: 0px;
+              }
+              :nth-child(4) {
+                border-left: 0px;
+              }
+              :nth-last-child(2) {
+                border-bottom: 0px;
+              }
+              :nth-last-child(1) {
+                border-bottom: 0px;
+              }
+              ul {
+                display: flex;
+                flex-direction: column;
+                border: 1px $colorBLite solid;
+                border-top: 0px;
+                justify-content: center;
+                li {
+                  direction: rtl;
+                  display: grid;
+                  grid-template-columns: 1fr 3fr 3fr;
+                  p {
+                    text-align: center;
+                  }
+                }
+                .BluPrc {
+                  p {
+                    color: $colorBSemi;
+                  }
+                }
+                .PosPrc {
+                  p {
+                    color: $colorGreen;
+                  }
+                }
+                .NegPrc {
+                  p {
+                    color: $colorRed;
+                  }
+                }
+              }
+            }
+            .dtlprd {
+              grid-template-rows: 2fr;
+            }
+          }
+        }
+        .gaugeConteiner {
+          height: 100px;
+          overflow: hidden;
+          .gauge {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+
+            .meter {
+              display: flex;
+              flex-direction: row;
+              border-radius: 100%;
+              overflow: hidden;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(
+                90deg,
+                $colorRed,
+                rgb(255, 230, 0),
+                $colorGreen
+              );
+
+              > li {
+                height: 50%;
+                list-style-type: none;
+              }
+              .loss {
+                background: $colorRed;
+                flex: 2;
+              }
+              .semiloss {
+                background: mix($colorRed, #ffd900, 50);
+                flex: 5;
+              }
+              .semiprofit {
+                background: mix($colorGreen, #ffd900, 50);
+                flex: 5;
+              }
+              .profit {
+                background: $colorGreen;
+                flex: 2;
+              }
+            }
+            .value {
+              top: 5px;
+              left: 5px;
+              right: 5px;
+              bottom: 0px;
+              background: #fff;
+              position: absolute;
+              border-radius: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 45px;
+              .vrate {
+                color: $colorBDark;
+                font-size: 14pt;
+              }
+              .vprft {
+                color: $colorBSemi;
+                font-size: 12pt;
+              }
+            }
+            .dial {
+              height: 50%;
+              width: 10px;
+              position: absolute;
+              top: 0px;
+              left: calc(50% - 5px);
+              right: calc(50% - 5px);
+              z-index: 1;
+              transform-origin: 100% 100%;
+              transition: 3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+              .arrow {
+                margin-top: 15px;
+                p {
+                  color: $colorBLite;
+                  transform: rotate(-40deg);
+                }
+              }
+            }
+          }
+        }
+      }
+      .AttendeesAssembly {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .row {
+          width: 80%;
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          justify-content: space-around;
+          .idPersonal {
+            width: 300px;
+            border: 1px $colorBDark solid;
+            border-radius: 5px;
+            text-align: center;
+            height: 25px;
+          }
+          button {
+            @include btn();
+          }
+          :last-child {
+            background: $colorRed;
+          }
+        }
+        .dataPersonal {
+          width: 80%;
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          margin: 50px 0px;
+          .field {
+            margin: 5px;
+            width: 280px;
+            border: 1px $colorBSemi solid;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            :nth-child(1) {
+              background: $colorBSemi;
+              text-align: right;
+              color: $colorTosi;
+              padding-right: 5px;
+            }
+            :nth-child(2) {
+              text-align: left;
+              padding-left: 5px;
+            }
+            p {
+              width: 50%;
+            }
+          }
+        }
+        .btns {
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          button {
+            @include btn();
+            margin: 10px;
+          }
+        }
+      }
+
+      .createassembly {
+        position: absolute;
+        z-index: 10;
+        inset: 10%;
+        background: #fff;
+        border: 1px $colorBDark solid;
+        padding: 30px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: scroll;
+
+        .row1 {
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          .field {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 250px;
+            margin: 0px 30px;
+            background: $colorBDark;
+            border: 1px $colorBDark solid;
+            border-radius: 10px;
+            overflow: hidden;
+            align-items: center;
+            p {
+              flex: 1px;
+              color: $colorTosi;
+              text-align: center;
+            }
+            input {
+              flex: 3;
+              border-top-right-radius: 20px;
+              border-top-left-radius: 10px;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 20px;
+              height: 30px;
+              border-style: solid;
+              border-color: $colorBDark;
+              padding: 0px 5px;
+              &:focus {
+                outline: 0px;
+              }
+              &::-webkit-inner-spin-button {
+                display: none;
+              }
+              &::-webkit-outer-spin-button {
+                display: none;
+              }
+            }
+          }
+        }
+        .row2 {
+          display: flex;
+          flex-direction: row-reverse;
+          margin: 20px;
+          align-items: center;
+          justify-content: space-around;
+          width: 75%;
+          > div {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            .lastUp{
-                font-size: 14pt;
-                color: $colorBlueTxt;
-                margin-top: 35px;
+            justify-content: center;
+            background: $colorBDark;
+            border: 2px $colorBDark solid;
+            overflow: hidden;
+            flex: 1;
+            margin: 10px 35px;
+            border-radius: 15px;
+            p {
+              font: 16pt;
+              color: $colorTosi;
+              padding: 10px;
             }
-            h2{
-                color: $colorBlueTxt;
-                font-size: 21pt;
-                text-align: center;
+            textarea {
+              width: calc(100% - 40px);
+              padding: 20px;
+              border-top-left-radius: 15px;
+              border-top-right-radius: 15px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+              height: 250px;
+              text-align: right;
+              &:focus {
+                outline: 0px;
+              }
             }
-            section{
-                display: flex;
-                flex-direction: column;
-                margin: 25px;
-                border: 1px #fff solid;
-                padding: 35px;
-                border-radius: 20px;
-                align-items: center;
-                label{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    width: 400px;
-                    justify-content: space-between;
-                    margin: 15px 0px;
-                    >p{
-                        color: $colorBlueTxt;
-                    }
-                }
-                button{
-                    @include btn()
-                }
-            }
-
+          }
         }
-        .dashPg{
-            .TopTrader{
+        .row3 {
+          display: flex;
+          flex-direction: row-reverse;
+          width: 100%;
+          justify-content: space-around;
+          .prt {
+            display: flex;
+            flex-direction: column;
+            input[type="checkbox"] {
+              display: none;
+              + label {
+                background: rgba($colorDisable, 0.35);
+                padding: 3px;
+                width: 150px;
+                border-radius: 10px;
+                text-align: center;
+                color: $colorBDark;
+                border: 2px $colorBDark solid;
+                cursor: pointer;
+              }
+              &:checked {
+                + label {
+                  background: rgba($colorBDark, 0.9);
+                  color: $colorTosi;
+                }
+              }
+            }
+          }
+          .opt {
+            display: flex;
+            flex-direction: column;
+            margin: 25px 0px;
+            h3 {
+              text-align: center;
+              color: $colorBDark;
+              margin: 10px;
+            }
+            > div {
+              display: flex;
+              flex-direction: column;
+              margin: 15px 0px;
+              span {
+                margin: 5px;
+                border: 1px $colorBDark solid;
+                border-radius: 15px;
+                text-align: center;
+                padding: 3px;
+                color: $colorBDark;
+              }
+              .adding {
                 display: flex;
                 flex-direction: row;
-                margin-top: 50px;
-                width: 100%;
-                justify-content: space-around;
-                align-items: center;
-                section{
-                    width: 45%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    h3{
-                        color: $colorBlueTxt;
-                        font-size: 13pt;
-                        align-items: center;
-                    }
-                    .chrNewOut{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        width: -webkit-fill-available;
-                        .chrTtl{
-                            font-size: 11pt;
-                            color: $colorBlueTxt;
-                            text-align: center;
-                            width: -webkit-fill-available;
-                        }
-                        .chrNum{
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            justify-content: space-around;
-                            width: -webkit-fill-available;
-                        }
-                        .chrNewOutChld{
-                            display: flex;
-                            flex-direction: row;
-                            align-items: center;
-                            width: -webkit-fill-available;
-                            border-radius: 5px;
-                            overflow: hidden;
-                            div{
-                                height: 20px;
-                            }
-                            .chrNewOutChldLftGrn{
-                                background: mix($colorGreen, $colorTosi, 50);
-                            }
-                            .chrNewOutChldRghGrn{
-                                background: mix($colorGreen,$colorTosi, 100);
-                            }
-                            .chrNewOutChldLftRed{
-                                background: mix($colorRed, $colorTosi, 50);
-                            }
-                            .chrNewOutChldRghRed{
-                                background: mix($colorRed,$colorTosi, 100);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .tablePg{
-            background: #fff;
-            .setVote{
-                position: absolute;
-                width: 500px;
-                height: 450px;
-                background: #fff;
-                z-index: 5;
-                left: calc(calc(100vw - 500px)/2);
-                top:calc(calc(100vh - 450px)/2);
+                background: $colorBDark;
                 border: 1px $colorBDark solid;
+                overflow: hidden;
+                border-radius: 5px;
+                p {
+                  flex: 1;
+                  text-align: center;
+                  color: $colorTosi;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                }
+                input {
+                  border: 0px;
+                  border-radius: 5px;
+                  padding: 5px;
+                  border-top-right-radius: 15px;
+                  border-bottom-right-radius: 15px;
+
+                  &:focus {
+                    outline: 0px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .bbtn {
+          display: flex;
+          flex-direction: row;
+          width: 45%;
+          align-items: center;
+          justify-content: space-around;
+          margin: 50px 0px;
+          button {
+            @include btn();
+          }
+        }
+      }
+      .assemblyList {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .assemblyConteiner {
+          display: flex;
+          flex-direction: row-reverse;
+          width: 100%;
+          border-bottom: 1px $colorDisable solid;
+          .assemblyDetail {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .title {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-around;
+              background: rgba($colorBDark, 0.3);
+              align-items: center;
+              padding: 15px;
+              p {
+                font-size: 18pt;
+              }
+            }
+            .tad {
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: space-around;
+              padding: 15px;
+              .addr {
+                width: 370px;
+              }
+              .cntnr-tad {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+                justify-content: center;
+                border: 1px $colorBDark solid;
+                border-radius: 5px;
+                width: 240px;
+                height: 35px;
+                overflow: hidden;
+
+                span {
+                  font-size: 17pt;
+                  text-align: center;
+                  padding: 5px;
+                  color: $colorTosi;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  flex: 1;
+                  flex-basis: 35px;
+                  height: 100%;
+                  background: $colorBDark;
+                }
+                p {
+                  font-size: 13pt;
+                  text-align: center;
+                  color: $colorBUltra;
+                  flex: 3;
+                  text-overflow: clip;
+                  white-space: nowrap;
+                }
+              }
+            }
+            .cntnr-dis {
+              display: flex;
+              flex-direction: row;
+              > div {
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                >div{
-                    width: 70%;
-                    background: $colorBDark;
-                    border-radius: 8px;
-                    overflow: hidden;
-                    display: flex;
-                    flex-direction: row-reverse;
-                    margin: 20px;
-                    border: 1px $colorBDark solid;
-                    p{
-                        color: $colorTosi;
-                        flex: 1;
-                    }
-                    select{
-                        flex: 3;
-                        border-top-right-radius: 15px;
-                        border-bottom-right-radius: 15px;
-                        margin-right: 10px;
-                        border: 0px;
-                    }
+                flex: 1;
+                margin: 25px 35px;
+                border: 1px $colorBDark solid;
+                border-radius: 15px;
+                overflow: hidden;
 
+                h6 {
+                  font-size: 16pt;
+                  color: $colorTosi;
+                  background: $colorBDark;
+                  text-align: center;
+                  padding: 6px;
                 }
-                button{
-                    @include btn();
-                    margin: 10px;
-                }
+              }
             }
+            > p {
+              text-align: right;
+              margin-top: 10px;
+            }
+            .voteController {
+              h5 {
+                text-align: right;
+              }
+            }
+          }
+          .delEdit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: $colorBDark;
+            width: 170px;
+            .btn {
+              display: flex;
+              flex-direction: row-reverse;
+              width: 90px;
+              align-items: center;
+              cursor: pointer;
+              border: 1px $colorTosi solid;
+              margin: 5px 0px;
+              padding: 5px;
+              border-radius: 10px;
 
-
+              span {
+                font-size: 20pt;
+                color: $colorTosi;
+                display: flex;
+                align-items: center;
+                width: 55px;
+                justify-content: end;
+              }
+              p {
+                font-size: 13pt;
+                color: $colorTosi;
+              }
+            }
+          }
+        }
+      }
     }
-}
-.loaders{
-    position: fixed;
-    width: 450px;
-    height: 210px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 20px;
+  }
+  .update {
+    border: 1px #fff solid;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    h6{
-        color: $colorBlueTxt;
-        font-size: 16pt;
+    .lastUp {
+      font-size: 14pt;
+      color: $colorBlueTxt;
+      margin-top: 35px;
+    }
+    h2 {
+      color: $colorBlueTxt;
+      font-size: 21pt;
+      text-align: center;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      margin: 25px;
+      border: 1px #fff solid;
+      padding: 35px;
+      border-radius: 20px;
+      align-items: center;
+      label {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 400px;
+        justify-content: space-between;
+        margin: 15px 0px;
+        > p {
+          color: $colorBlueTxt;
+        }
+      }
+      button {
+        @include btn();
+      }
+    }
+  }
+  .dashPg {
+    .TopTrader {
+      display: flex;
+      flex-direction: row;
+      margin-top: 50px;
+      width: 100%;
+      justify-content: space-around;
+      align-items: center;
+      section {
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h3 {
+          color: $colorBlueTxt;
+          font-size: 13pt;
+          align-items: center;
+        }
+        .chrNewOut {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: -webkit-fill-available;
+          .chrTtl {
+            font-size: 11pt;
+            color: $colorBlueTxt;
+            text-align: center;
+            width: -webkit-fill-available;
+          }
+          .chrNum {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            width: -webkit-fill-available;
+          }
+          .chrNewOutChld {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: -webkit-fill-available;
+            border-radius: 5px;
+            overflow: hidden;
+            div {
+              height: 20px;
+            }
+            .chrNewOutChldLftGrn {
+              background: mix($colorGreen, $colorTosi, 50);
+            }
+            .chrNewOutChldRghGrn {
+              background: mix($colorGreen, $colorTosi, 100);
+            }
+            .chrNewOutChldLftRed {
+              background: mix($colorRed, $colorTosi, 50);
+            }
+            .chrNewOutChldRghRed {
+              background: mix($colorRed, $colorTosi, 100);
+            }
+          }
+        }
+      }
+    }
+  }
+  .tablePg {
+    background: #fff;
+    .setVote {
+      position: absolute;
+      width: 500px;
+      height: 450px;
+      background: #fff;
+      z-index: 5;
+      left: calc(calc(100vw - 500px) / 2);
+      top: calc(calc(100vh - 450px) / 2);
+      border: 1px $colorBDark solid;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      > div {
+        width: 70%;
+        background: $colorBDark;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row-reverse;
+        margin: 20px;
+        border: 1px $colorBDark solid;
+        p {
+          color: $colorTosi;
+          flex: 1;
+        }
+        select {
+          flex: 3;
+          border-top-right-radius: 15px;
+          border-bottom-right-radius: 15px;
+          margin-right: 10px;
+          border: 0px;
+        }
+      }
+      button {
+        @include btn();
+        margin: 10px;
+      }
+    }
+  }
+}
+.loaders {
+  position: fixed;
+  width: 450px;
+  height: 210px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h6 {
+    color: $colorBlueTxt;
+    font-size: 16pt;
+  }
+  p {
+    color: mix($colorBlueTxt, $colorPink, 65);
+    font-size: 13pt;
+  }
+  .motion {
+    display: flex;
+    flex-direction: row;
+    margin: 45px;
+    div {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin: 0px 5px;
+      background: $colorBlueTxt;
+      &:nth-child(1) {
+        animation: ldr 1s alternate 0s infinite;
+      }
+      &:nth-child(2) {
+        animation: ldr 1s alternate 0.25s infinite;
+      }
+      &:nth-child(3) {
+        animation: ldr 1s alternate-reverse 0.5s infinite;
+      }
+      &:nth-child(4) {
+        animation: ldr 1s alternate 0.75s infinite;
+      }
+      @keyframes ldr {
+        to {
+          background: mix($colorPink, $colorBlueTxt, 50);
+          transform: translateY(10px);
+        }
+      }
+    }
+  }
+}
+.miniLoader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .oc {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px rgba($colorBlueTxt, 0.3) solid;
+    border-bottom: 10px rgba($colorBlueTxt, 0.75) solid;
+    animation: miniload 1s infinite 0s normal;
+    animation-timing-function: cubic-bezier(1, 1, 1, 1);
+  }
+  h6 {
+    color: rgba($colorBlueTxt, 0.5);
+    font-size: 12pt;
+    margin: 15px;
+  }
+  @keyframes miniload {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+.NoData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: $colorError;
+    font-size: 30pt;
+    margin: 0px;
+    animation: nodate 0.8s infinite 0s alternate;
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  @keyframes nodate {
+    0% {
+      transform: scale(1);
+    }
 
+    30% {
+      transform: scale(1.05);
     }
-    p{
-        color: mix($colorBlueTxt, $colorPink, 65);
-        font-size: 13pt;
+
+    100% {
+      transform: scale(1);
     }
-    .motion{
+  }
+  h6 {
+    color: $colorError;
+    font-size: 11pt;
+    margin: 0px;
+  }
+}
+.Menu {
+  width: 200px;
+  height: max(100%, 100vh);
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  border: 1px $colorBSemi solid;
+  .title {
+    background: rgba($colorBDark, $alpha: 0.2);
+    width: 100%;
+    p {
+      text-align: right;
+      color: $colorBDark;
+      font-size: 11pt;
+    }
+  }
+  .subMenu {
+    display: flex;
+    flex-direction: column !important;
+  }
+  .sub {
+    margin-right: 20px;
+  }
+  .itemMenu {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    padding: 5px 8px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    transition: 0.3s;
+    h3 {
+      color: $colorBDark;
+      font-size: 11pt;
+    }
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $colorBDark;
+      font-size: 15pt;
+      margin: 0px 0px 0px 5px;
+    }
+  }
+  .active {
+    background-color: #dde6fd;
+    width: 91%;
+  }
+}
+
+.infoPopup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  inset: 0px 0px 0px 0px;
+  z-index: 4;
+  .closehide {
+    inset: 0px 0px 0px 0px;
+    position: fixed;
+  }
+  .conteiner {
+    z-index: 5;
+    position: fixed;
+    height: 350px;
+    width: 550px;
+    top: calc((100% - 350px) / 2);
+    left: calc((100% - 550px) / 2);
+    background: mix($colorTosi, #fff, 20);
+    border: 1px $colorBDark solid;
+    border-radius: 10px;
+    padding: 20px;
+    h1 {
+      text-align: center;
+      font-size: 14pt;
+      color: $colorBDark;
+    }
+    .rows {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .row {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0px;
+        h3 {
+          text-align: right;
+          font-size: 12pt;
+          color: $colorBSemi;
+        }
+        p {
+          text-align: right;
+          font-size: 10pt;
+          color: $colorDisable;
+        }
+      }
+    }
+  }
+}
+
+.tabulator {
+  .tabulator-calcs-holder {
+    .tabulator-cell {
+      background: mix($colorBDark, #fff, 15) !important;
+    }
+  }
+  .tabulator-col-title {
+    text-align: center !important;
+  }
+  .tabulator-menu-item {
+    text-align: right !important;
+  }
+  .tabulator-data-tree-control {
+    background: mix($colorBUltra, #fff, 30) !important;
+  }
+
+  .tabulator-data-tree-branch {
+    border-color: mix($colorBUltra, #fff, 40) !important;
+  }
+  .tabulator-selected {
+    background: $colorBSemi !important;
+    color: $colorTosi;
+  }
+  .tabulator-header {
+    color: $colorBDark;
+    .tabulator-col {
+      background: mix($colorBDark, #fff, 20);
+    }
+    input {
+      border-radius: 9px;
+      height: 27px;
+      border: 1px mix($colorBDark, #fff, 50) solid;
+    }
+  }
+  .tabulator-footer {
+    color: $colorBDark;
+    background: mix($colorBDark, #fff, 20);
+  }
+  .tabulator-row {
+    background: mix($colorBDark, #fff, 10);
+  }
+  .tabulator-row-even {
+    background: mix($colorBUltra, #fff, 0);
+  }
+  .holiday {
+    color: $colorError;
+    width: 100%;
+  }
+  .nonHoliday {
+    color: $colorBDark;
+  }
+  .StocksTableChartContiner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    .StocksTableChartPos {
+      background-color: $colorGreen;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      height: 15px;
+    }
+    .StocksTableChartNeg {
+      background-color: $colorRed;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      height: 15px;
+    }
+    .StocksTableChartBlue {
+      background-color: $colorBSemi;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      height: 15px;
+    }
+  }
+  .TableChartBarContiner {
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    .barValue {
+      position: absolute;
+      width: 45px;
+      text-align: center;
+      font-size: 9pt;
+      font-family: "bold";
+      right: 0%;
+    }
+    .barContiner {
+      width: 50%;
+      > div {
+        height: 15px;
+      }
+      .barPos {
+        margin-left: auto;
+        background: rgba($colorGreen, 0.99);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+      .barNeg {
+        margin-right: auto;
+        background: rgba($colorRed, 0.99);
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+  }
+}
+
+.PopUpTransactions {
+  position: fixed;
+  top: 20%;
+  left: 15%;
+  right: 15%;
+  bottom: 20%;
+  border: 1px $colorBSemi solid;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 15px 3px rgba($colorDisable, 0.5);
+  z-index: 1;
+  background: #fff;
+  .prgName {
+    p {
+      font-size: 13pt !important;
+    }
+  }
+  .getinfo {
+    button {
+      width: 150px;
+      height: 25px;
+      border: 0px;
+      border-radius: 5px;
+      color: #fff;
+      background: $colorBDark;
+    }
+  }
+  .trd {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 25px;
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      flex: 4;
+      border: 0px;
+      justify-content: center;
+      align-items: center;
+      span {
+        color: $colorBUltra;
+        text-align: center;
+        margin: 5px;
+        font-size: 10pt;
+      }
+      label {
+        color: $colorBDark;
+        text-align: right;
+        width: 80%;
+      }
+      p {
+        color: $colorBSemi;
+        font-size: 25pt;
         display: flex;
         flex-direction: row;
-        margin: 45px;
-        div{
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 0px 5px;
-            background: $colorBlueTxt;
-            &:nth-child(1){
-                animation: ldr 1s alternate 0s  infinite;
-            }
-            &:nth-child(2){
-                animation: ldr 1s alternate 0.25s  infinite;
-            }
-            &:nth-child(3){
-                animation: ldr 1s alternate-reverse 0.5s  infinite;
-            }
-            &:nth-child(4){
-                animation: ldr 1s alternate 0.75s  infinite;
-            }
-            @keyframes ldr {
-                to{
-                    background: mix($colorPink,$colorBlueTxt,50);
-                    transform: translateY(10px);
-                }
-            }
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      input {
+        width: 80%;
+        border: 1px $colorBDark solid;
+        height: 25px;
+        border-radius: 8px;
+        text-align: center;
+        color: $colorBDark;
+        &:focus {
+          outline: 1px $colorBSemi solid;
         }
+      }
     }
+    .icon {
+      flex: 1;
+    }
+  }
+  .dtl {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 15px 25px;
+    justify-content: space-around;
+    fieldset {
+      display: flex;
+      flex-direction: column;
+      border: 0px;
+      align-items: center;
+      input {
+        width: 100px;
+        height: 20px;
+        border: 1px $colorBSemi solid;
+        border-radius: 5px;
+        text-align: center;
+        color: $colorBDark;
+        &::placeholder {
+          color: $colorBSemi;
+        }
+      }
+      label {
+        color: $colorBSemi;
+        margin: 5px;
+      }
+    }
+  }
+  .btn {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 35px 15%;
+    button {
+      width: 150px;
+      height: 25px;
+      border: 0px;
+      border-radius: 5px;
+      color: #fff;
+    }
+    :nth-child(1) {
+      background: $colorError;
+    }
+    :nth-child(2) {
+      background: $colorGreen;
+    }
+  }
+}
 
-}
-.miniLoader{
+.formFields {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  .btn {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    .oc{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 10px rgba($colorBlueTxt,0.3) solid;
-        border-bottom: 10px rgba($colorBlueTxt,0.75) solid;
-        animation: miniload 1s infinite 0s normal;
-        animation-timing-function: cubic-bezier(1, 1, 1, 1);
+    button {
+      margin: 0px 25px;
+      width: 100px;
+      height: 30px;
+      border: 0px;
+      background: $colorBDark;
+      color: #fff;
+      border-radius: 5px;
     }
-    h6{
-        color: rgba($colorBlueTxt,0.5);
-        font-size: 12pt;
-        margin: 15px;
-    }
-    @keyframes miniload {
-        100%{transform: rotate(360deg);}
-    }
-}
-.NoData{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    p{
-        color: $colorError;
-        font-size: 30pt;
-        margin: 0px;
-        animation: nodate 0.8s infinite 0s alternate;
-        animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    @keyframes nodate {
-        0% {
-            transform: scale(1);
-        }
-        
-        30% {
-            transform: scale(1.05);
-        }
-        
-        100% {
-            transform: scale(1);
-        }
-        
-    }
-    h6{
-        color: $colorError;
-        font-size: 11pt;
-        margin: 0px;
-    }
-}
-.Menu{
-    width: 200px;
-    height: max(100%,100vh);
+  }
+  fieldset {
+    flex-basis: 200px;
+    flex-grow: 2;
     display: flex;
     flex-direction: column;
     align-items: end;
-    border: 1px $colorBSemi solid;
-    .title{
-        background: rgba($colorBDark, $alpha: 0.2);
-        width: 100%;
-        p{
-            text-align: right;
-            color: $colorBDark;
-            font-size: 11pt;
-        }
+    justify-content: center;
+    padding: 10px;
+    border: 0px;
+    label {
+      color: $colorBDark;
     }
-    .subMenu{
-        display: flex;
-        flex-direction: column !important;
+    input {
+      border: 1px $colorBSemi solid;
+      border-radius: 5px;
+      text-align: center;
+      color: $colorBDark;
     }
-    .sub{
-        margin-right: 20px;
+  }
+}
+.formPopUp {
+  position: fixed;
+  top: 15%;
+  bottom: 15%;
+  right: 15%;
+  left: 15%;
+  border: 1px $colorBSemi solid;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 15px 3px rgba($colorDisable, 0.5);
+  overflow: scroll;
+  z-index: 1;
+  background: #fff;
+  .field {
+    border-bottom: 1px $colorBSemi solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 10%;
+    label {
+      color: $colorBDark;
+      font-size: 13pt;
     }
-    .itemMenu{
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        cursor: pointer;
-        width: 100%;
-        padding: 5px 8px;
-        border-top-left-radius: 25px;
-        border-bottom-left-radius: 25px;
-        transition: 0.3s;
-        h3{
-            color: $colorBDark;
-            font-size: 11pt;
-        }
-        p{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: $colorBDark;
-            font-size: 15pt;
-            margin: 0px 0px 0px 5px;
-        } 
+    input {
+      border: 1px $colorBLite solid;
+      height: 25px;
+      border-radius: 5px;
+      text-align: center;
+      color: $colorBDark;
+      &:focus {
+        outline: 1px $colorBlue solid;
+        offset: 1px;
+      }
     }
-    .active{
-        background-color: #dde6fd;
-        width: 91%;
+    button {
+      background: $colorBDark;
+      color: #fff;
+      border: 0px;
+      border-radius: 8px;
+      padding: 5px 10px;
     }
+  }
+
+  .btnfield {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 25% 5px 25%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    button {
+      height: 30px;
+      width: 80px;
+      border: 0px;
+      color: $colorTosi;
+      border-radius: 10px;
+      font-size: 12pt;
+    }
+    .btnfieldpos {
+      background: linear-gradient(45deg, $colorBDark, $colorBLite);
+    }
+    .btnfieldneg {
+      background: linear-gradient(45deg, $colorRed, $colorError);
+    }
+  }
 }
 
-.infoPopup{
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    inset: 0px 0px 0px 0px;
-    z-index: 4;
-    .closehide{
-        inset: 0px 0px 0px 0px;
-        position: fixed;
-    }
-    .conteiner{
-        z-index: 5;
-        position: fixed;
-        height: 350px;
-        width: 550px;
-        top: calc((100% - 350px) / 2);
-        left: calc((100% - 550px) / 2);
-        background: mix($colorTosi ,#fff,20);
-        border: 1px $colorBDark solid;
-        border-radius: 10px;
-        padding: 20px;
-        h1{
-            text-align: center;
-            font-size: 14pt;
-            color: $colorBDark;
-        }
-        .rows{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            .row{
-                display: flex;
-                flex-direction: column;
-                margin: 10px 0px;
-                h3{
-                    text-align: right;
-                    font-size: 12pt;
-                    color: $colorBSemi;
-                }
-                p{
-                    text-align: right;
-                    font-size: 10pt;
-                    color: $colorDisable;
-                }
-            }
-        }
-
-    }
-
-}
-
-
-.tabulator{
-    .tabulator-calcs-holder{
-        .tabulator-cell{
-            background: mix($colorBDark ,#fff, 15) !important;
-        }
-    }
-    .tabulator-col-title{
-        text-align: center !important;
-    }
-    .tabulator-menu-item{
-        text-align: right !important;
-    }
-    .tabulator-data-tree-control{
-        background: mix($colorBUltra,#fff,30) !important;
-    }
-
-    .tabulator-data-tree-branch{
-        border-color: mix($colorBUltra,#fff,40) !important;
-    }
-    .tabulator-selected{
-        background: $colorBSemi !important;
-        color: $colorTosi;
-    }
-    .tabulator-header{
-        color: $colorBDark;
-        .tabulator-col {
-            background: mix($colorBDark, #fff,20);
-        }
-        input{
-            border-radius: 9px;
-            height: 27px;
-            border: 1px mix($colorBDark, #fff,50) solid;
-        }
-    }
-    .tabulator-footer{
-        color: $colorBDark;
-        background: mix($colorBDark, #fff,20);
-
-    }
-    .tabulator-row{
-        background: mix($colorBDark, #fff,10);
-    }
-    .tabulator-row-even{
-        background:mix($colorBUltra, #fff,0);
-    }
-    .holiday{
-        color: $colorError;
-        width: 100%;
-    }
-    .nonHoliday{
-        color: $colorBDark;
-    }
-    .StocksTableChartContiner{
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        justify-content: space-between;
-        .StocksTableChartPos{
-            background-color: $colorGreen;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-            height: 15px;
-        }
-        .StocksTableChartNeg{
-            background-color: $colorRed;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-            height: 15px;
-        }
-        .StocksTableChartBlue{
-            background-color: $colorBSemi;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-            height: 15px;
-        }
-    }
-    .TableChartBarContiner{
-        display: flex;
-        flex-direction: row-reverse;
-        position: relative;
-        .barValue{
-            position: absolute;
-            width: 45px;
-            text-align: center;
-            font-size: 9pt;
-            font-family: 'bold';
-            right: 0%;
-        }
-        .barContiner{
-            width: 50%;
-            >div{
-                height: 15px;
-            }
-            .barPos{
-                margin-left: auto;
-                background: rgba($colorGreen,0.99);
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px;
-            }
-            .barNeg{
-                margin-right: auto;
-                background: rgba($colorRed,0.99);
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
-            }
-        }
-    }
-} 
-
-.PopUpTransactions{
-    position: fixed;
-    top: 20%;
-    left: 15%;
-    right: 15%;
-    bottom: 20%;
-    border: 1px $colorBSemi solid;
+.wellcom {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
+  position: relative;
+  &::after {
+    content: "";
+    height: 300px;
+    width: 10px;
+    background: rgba($colorBDark, 0.3);
+    animation: openCadrr 2s normal forwards;
+  }
+  &::before {
+    content: "";
+    height: 300px;
+    width: 10px;
+    background: rgba($colorBDark, 0.3);
+    animation: openCadrl 2s normal forwards;
+  }
+  .logo {
     display: flex;
     flex-direction: column;
-    box-shadow: 1px 1px 15px 3px rgba($colorDisable,0.5);
-    z-index: 1;
+    width: 350px;
+    height: 350px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    transition: 1s;
+    animation: wllcm 2s 1s normal forwards;
+    opacity: 0;
+
+    h2 {
+      font-size: 13pt;
+      color: $colorBSemi;
+    }
+    h1 {
+      font-size: 19pt;
+      color: $colorBDark;
+      font-weight: bold;
+    }
+  }
+  @keyframes openCadrr {
+    0% {
+      background: rgba($colorBDark, 0.3);
+      transform: translateX(0px);
+    }
+    50% {
+      background: rgba($colorBDark, 0.2);
+    }
+    100% {
+      background: rgba($colorBDark, 0);
+      transform: translateX(-400px);
+    }
+  }
+  @keyframes openCadrl {
+    0% {
+      background: rgba($colorBDark, 0.3);
+      transform: translateX(0px);
+    }
+    50% {
+      background: rgba($colorBDark, 0.2);
+    }
+    100% {
+      background: rgba($colorBDark, 0);
+      transform: translateX(400px);
+    }
+  }
+  @keyframes wllcm {
+    100% {
+      opacity: 1;
+    }
+  }
+}
+.msgDel {
+  position: fixed;
+  width: 350px;
+  top: 25%;
+  right: calc(50% - 75px);
+  border: 1px $colorBDark solid;
+  background: #fff;
+  z-index: 2;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 5px 10px rgba($colorDisable, 0.2);
+  p {
+    text-align: right;
+  }
+  > div {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: space-around;
+    margin: 25px 15px 20px 15px;
+    button {
+      width: 80px;
+      height: 25px;
+      border: 0px;
+      border-radius: 5px;
+      color: $colorTosi;
+    }
+    .pos {
+      background: $colorBDark;
+    }
+    .neg {
+      background: $colorError;
+    }
+  }
+}
+.PopUpToDo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .closer {
+    z-index: 2;
+    inset: 0px;
+    position: fixed;
+  }
+  .win {
+    z-index: 3;
+    position: fixed;
+    width: 600px;
+    height: 700px;
+    top: calc((100vh - 700px) / 2);
+    left: calc((100vw - 600px) / 2);
     background: #fff;
-    .prgName{
-        p{
-            font-size: 13pt !important;
-        }
+    border-radius: 10px;
+    border: 1px $colorBDark solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .fild {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      width: 70%;
+      margin: 15px 0px;
+      p {
+        color: $colorBDark;
+        font-size: 13pt;
+      }
+      input,
+      textarea,
+      select {
+        border: 1px $colorBDark solid;
+        border-radius: 3px;
+        color: $colorBDark;
+        text-align: center;
+        width: 200px;
+      }
+      textarea {
+        height: 150px;
+      }
+      .emptySymbol,
+      .fullSymbol {
+        font-size: 20pt;
+      }
+      .force {
+        color: rgba(32, 141, 204, 0.867);
+      }
+      .important {
+        color: #daad1a;
+      }
     }
-    .getinfo{
-        button{
-            width: 150px;
-            height: 25px;
-            border: 0px;
-            border-radius: 5px;
-            color: #fff;
-            background: $colorBDark;
-        }
+    button {
+      @include btn();
     }
-    .trd{
-        display: flex;
-        flex-direction: row-reverse;
-        padding: 25px;
-
-        fieldset{
-            display: flex;
-            flex-direction: column;
-            flex: 4;
-            border: 0px;
-            justify-content: center;
-            align-items: center;
-            span{
-                color: $colorBUltra;
-                text-align: center;
-                margin: 5px;
-                font-size: 10pt;
-            }
-            label{
-                color: $colorBDark;
-                text-align: right;
-                width: 80%;
-            }
-            p{
-                color: $colorBSemi;
-                font-size: 25pt;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-            input{
-                width: 80%;
-                border: 1px $colorBDark solid;
-                height: 25px;
-                border-radius: 8px;
-                text-align: center;
-                color: $colorBDark;
-                &:focus{
-                    outline: 1px $colorBSemi solid;
-                }
-            }
-        }
-        .icon{
-            flex: 1;
-        }
-
-    }
-    .dtl{
-        display: flex;
-        flex-direction: row-reverse;
-        margin: 15px 25px;
-        justify-content: space-around;
-        fieldset{
-            display: flex;
-            flex-direction: column;
-            border: 0px;
-            align-items: center;
-            input{
-                width: 100px;
-                height: 20px;
-                border: 1px $colorBSemi solid;
-                border-radius: 5px;
-                text-align: center;
-                color: $colorBDark;
-                &::placeholder{
-                    color: $colorBSemi;
-                }
-            }
-            label{
-                color: $colorBSemi;
-                margin: 5px;
-            }
-
-        }
-
-    }
-    .btn{
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-around;
-        margin: 35px 15%;
-        button{
-            width: 150px;
-            height: 25px;
-            border: 0px;
-            border-radius: 5px;
-            color: #fff;
-        }
-        :nth-child(1){
-            background: $colorError;
-        }
-        :nth-child(2){
-            background: $colorGreen;
-        }
-    }
-
-
+  }
 }
 
-.formFields{
+.PopUpInformation {
+  position: fixed;
+  top: 25%;
+  right: 25%;
+  left: 25%;
+  background: #fff;
+  z-index: 1;
+  border: 1px $colorBDark solid;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  .personal {
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
-    .btn{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        button{
-            margin: 0px 25px;
-            width: 100px;
-            height: 30px;
-            border: 0px;
-            background: $colorBDark;
-            color: #fff;
-            border-radius: 5px;
-        }
-    }
-    fieldset{
-        flex-basis: 200px;
-        flex-grow: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        justify-content: center;
-        padding: 10px;
-        border: 0px;
-        label{
-            color: $colorBDark;
-        }
-        input{
-            border: 1px $colorBSemi solid;
-            border-radius: 5px;
-            text-align: center;
-            color: $colorBDark;
-
-        }
-    }
-}
-.formPopUp{
-    position: fixed;
-    top: 15%;
-    bottom: 15%;
-    right: 15%;
-    left: 15%;
-    border: 1px $colorBSemi solid;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 1px 1px 15px 3px rgba($colorDisable,0.5);
-    overflow: scroll;
-    z-index: 1;
-    background: #fff;
-    .field{
-        border-bottom: 1px $colorBSemi solid;
+    .content {
+      display: flex;
+      flex-direction: row;
+      width: 200px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      .bis {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 15px 10%;
-        label{
-            color: $colorBDark;
-            font-size: 13pt;
-        }
-        input{
-            border: 1px $colorBLite solid;
-            height: 25px;
-            border-radius: 5px;
-            text-align: center;
-            color: $colorBDark;
-            &:focus{
-                outline: 1px $colorBlue solid;
-                offset: 1px;
-            }
-        }
-        button{
-            background: $colorBDark;
-            color: #fff;
-            border: 0px;
-            border-radius: 8px;
-            padding: 5px 10px;
-        }
-    }
-
-    .btnfield{
-        display: flex;
-        flex-direction: row;
-        margin: 10px 25% 5px 25%;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        button{
-            height: 30px;
-            width: 80px;
-            border: 0px;
-            color: $colorTosi;
-            border-radius: 10px;
-            font-size: 12pt;
-        }
-        .btnfieldpos{
-            background: linear-gradient(45deg, $colorBDark, $colorBLite);
-        }.btnfieldneg{
-            background: linear-gradient(45deg, $colorRed, $colorError);
-        }
-    }
-
-}
-
-.wellcom{
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
-    padding-top: 50px;
-    position: relative;
-    &::after{
-        content: '';
-        height: 300px;
-        width: 10px;
-        background: rgba($colorBDark,0.3);
-        animation: openCadrr 2s normal forwards;
-    }
-    &::before{
-        content: '';
-        height: 300px;
-        width: 10px;
-        background: rgba($colorBDark,0.3);
-        animation: openCadrl 2s normal forwards;
-    }
-    .logo{
-        display: flex;
-        flex-direction: column;
-        width: 350px;
-        height: 350px;
-        padding: 20px;
-        align-items: center;
-        justify-content: center;
-        transition: 1s;
-        animation: wllcm 2s 1s normal forwards;
-        opacity: 0;
-
-
-
-        h2{
-            font-size: 13pt;
-            color: $colorBSemi;
-        }
-        h1{
-            font-size: 19pt;
-            color: $colorBDark;
-            font-weight: bold;
-        }
-    }
-    @keyframes openCadrr {
-        0%{
-            background: rgba($colorBDark,0.3);
-            transform: translateX(0px);
-        }
-        50%{
-            background: rgba($colorBDark,0.2);
-        }
-        100%{
-            background: rgba($colorBDark,0);
-            transform: translateX(-400px);
-        }
-    }
-    @keyframes openCadrl {
-        0%{
-            background: rgba($colorBDark,0.3);
-            transform: translateX(0px);
-        }
-        50%{
-            background: rgba($colorBDark,0.2);
-        }
-        100%{
-            background: rgba($colorBDark,0);
-            transform: translateX(400px);
-        }
-    }
-    @keyframes wllcm {
-        100%{
-            opacity: 1;
-        }
-        
-    }
-}
-.msgDel{
-    position: fixed;
-    width: 350px;
-    top: 25%;
-    right: calc(50% - 75px);
-    border: 1px $colorBDark solid;
-    background: #fff;
-    z-index: 2;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 5px 10px rgba($colorDisable , 0.2);
-    p{
+      }
+      p {
         text-align: right;
-    }
-    >div{
-        display: flex;
-        flex-direction: row-reverse;
+        color: $colorBSemi;
+        font-size: 13pt;
+      }
+      span {
+        text-align: right;
+        color: $colorBDark;
+        font-size: 15pt;
+        margin-right: 5px;
         width: 100%;
-        justify-content: space-around;
-        margin: 25px 15px 20px 15px;
-        button{
-            width: 80px;
-            height: 25px;
-            border: 0px;
-            border-radius: 5px;
-            color: $colorTosi;
-        }
-        .pos{
-            background: $colorBDark;
-        }
-        .neg{
-            background: $colorError;
-        }
-
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
-}
-.PopUpToDo{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    .closer{
-        z-index: 2;
-        inset: 0px;
-        position: fixed;
-    }
-    .win{
-        z-index: 3;
-        position: fixed;
-        width: 600px;
-        height: 700px;
-        top: calc((100vh - 700px) / 2);
-        left: calc((100vw - 600px) / 2);
-        background: #fff;
-        border-radius: 10px;
-        border: 1px $colorBDark solid;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .fild{
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: space-between;
-            width: 70%;
-            margin: 15px 0px;
-            p{
-                color: $colorBDark;
-                font-size: 13pt;
-            }
-            input, textarea, select{
-                border: 1px $colorBDark solid;
-                border-radius: 3px;
-                color: $colorBDark;
-                text-align: center;
-                width: 200px;
-            }
-            textarea{
-                height: 150px;
-            }
-            .emptySymbol,.fullSymbol{
-                font-size: 20pt;
-            }
-            .force{
-                color: rgba(32, 141, 204, 0.867);
-
-            }
-            .important{
-                color: #daad1a;
-
-            }
-
-
-        }
-        button{
-            @include btn();
-        }
-    }
+  }
+  button {
+    width: 120px;
+    border: 0px;
+    height: 30px;
+    background: $colorBDark;
+    color: $colorTosi;
+    border-radius: 8px;
+    font-size: 15pt;
+  }
 }
 
-.PopUpInformation{
-    position: fixed;
-    top: 25%;
-    right: 25%;
-    left: 25%;
+.Manegment {
+  background: $colorTosi;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .row {
     background: #fff;
-    z-index: 1;
-    border: 1px $colorBDark solid;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    .personal{
-        display: flex;
-        flex-direction: row-reverse;
-        flex-wrap: wrap;
-        .content{
-            display: flex;
-            flex-direction: row;
-            width: 200px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            .bis{
-                display: flex;
-                flex-direction: row;
-            }
-            p{
-                text-align: right;
-                color: $colorBSemi;
-                font-size: 13pt;
-
-            }
-            span{
-                text-align: right;
-                color: $colorBDark;
-                font-size: 15pt;
-                margin-right: 5px;
-                width: 100%;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-        }
-    
-        
+    border-radius: 15px;
+    padding: 15px;
+    h6 {
+      color: $colorBDark;
+      text-align: right;
+      font-size: 15pt;
     }
-    button{
-        width: 120px;
-        border: 0px;
+    .body {
+      display: flex;
+      flex-direction: row;
+      button {
+        width: 130px;
         height: 30px;
         background: $colorBDark;
-        color: $colorTosi;border-radius: 8px;
-        font-size: 15pt;
+        align-items: center;
+        color: #fff;
+        border: 0px;
+        border-radius: 10px;
+        vertical-align: middle;
+        margin: 0px 10px;
+      }
     }
+  }
 }
 
-.Manegment{
-    background: $colorTosi;
-    padding: 10px;
+.print {
+  display: flex;
+  flex-direction: column;
+  width: 550px;
+  margin: 0px auto;
+  direction: rtl;
+  .inpersonal {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    .row{
-        background: #fff;
-        border-radius: 15px;
-        padding: 15px;
-        h6{
-            color: $colorBDark;
-            text-align: right;
-            font-size: 15pt;
-        }
-        .body{
-            display: flex;
-            flex-direction: row;
-            button{
-                width: 130px;
-                height: 30px;
-                background: $colorBDark;
-                align-items: center;
-                color: #fff;
-                border: 0px;
-                border-radius: 10px;
-                vertical-align: middle;
-                margin: 0px 10px;
-            }
-        }
+    margin-top: 25px;
+    .person {
+      width: 600px;
+      border: 1px $colorDisable solid;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
     }
-}
-
-
-.print{
+  }
+  .conteiner {
     display: flex;
     flex-direction: column;
-    width: 550px;
-    margin: 0px auto;
-    direction: rtl;
-    .inpersonal{
+    .results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 25px;
+      width: 100%;
+      border: 1px $colorBDark solid;
+      .result {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 2fr 1fr 1fr;
+        p {
+          text-align: center;
+          border: 1px $colorBDark solid;
+          padding: 5px 0px;
+        }
+      }
+    }
+    .title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 100px;
+      }
+      h1 {
+        font-size: 18pt;
+        margin-top: 5px;
+      }
+      h2 {
+        font-size: 13pt;
+        margin-top: 5px;
+      }
+    }
+    .agade {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px $colorBDark dashed;
+      padding-top: 10px;
+      h1 {
+        font-size: 14pt;
+      }
+    }
+    .text {
+      margin: 15px 0px;
+      display: flex;
+      flex-direction: row;
+      > div {
         display: flex;
         flex-direction: column;
-        margin-top: 25px;
-        .person{
-            width: 600px;
-            border: 1px $colorDisable solid;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
+        align-items: flex-start;
+        justify-content: center;
+        margin: 0px 0px 0px 25px;
+        > p {
+          margin: 0px 0px 0px 10px;
+          flex: 1;
         }
-        
+      }
     }
-    .conteiner{
+    .da {
+      display: flex;
+      flex-direction: row;
+      p {
+        font-size: 12pt;
+      }
+    }
+    .aras {
+      border-top: 1px $colorDisable dashed;
+      padding: 20px;
+      margin-top: 15px;
+      > p {
+        font-size: 12pt;
+        border: 1px $colorBDark solid;
+        padding: 10px 10px;
+        border-radius: 10px;
+      }
+      .opt {
         display: flex;
         flex-direction: column;
-        .results{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 25px;
-            width: 100%;
-            border: 1px $colorBDark solid;
-            .result{
-                display: grid;
-                width: 100%;
-                grid-template-columns: 2fr 1fr 1fr;
-                p{
-                    text-align: center;
-                    border: 1px $colorBDark solid;
-                    padding: 5px 0px;
-                }
+        flex-wrap: wrap;
+        margin: 10px 0px;
+        h1 {
+          font-size: 13pt;
+          margin-left: 20px;
+        }
 
-            }
+        span {
+          margin: 0px 0px 0px 25px;
         }
-        .title{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            img{
-                width: 100px;
-            }
-            h1{
-                font-size: 18pt;
-                margin-top: 5px;
-            }
-            h2{
-                font-size: 13pt;
-                margin-top: 5px;
-            }
-        }
-        .agade{
-            display: flex;
-            flex-direction: column;
-            border-top: 1px $colorBDark dashed;
-            padding-top: 10px;
-            h1{
-                font-size: 14pt;
-            }
-        }
-        .text{
-            margin: 15px 0px;
-            display: flex;
-            flex-direction: row;
-            >div{
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                margin: 0px 0px 0px 25px;
-                >p{
-                    margin: 0px 0px 0px 10px;
-                    flex: 1;
-                }
-            }
-        }
-        .da{
-            display: flex;
-            flex-direction: row;
-            p{
-
-                font-size: 12pt;
-            }
-        }
-        .aras{
-            border-top: 1px $colorDisable dashed;
-            padding: 20px;
-            margin-top: 15px;
-            >p{
-                font-size: 12pt;
-                border: 1px $colorBDark solid;
-                padding: 10px 10px;
-                border-radius: 10px;
-            }
-            .opt{
-                display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
-                margin: 10px 0px;
-                h1{
-                    font-size: 13pt;
-                    margin-left: 20px;
-                }
-
-                span{
-                    margin: 0px 0px 0px 25px;
-                }
-            }
-        }
-        .singer{
-            width: 150px;
-            align-self: flex-end;
-            margin-top: 30px;
-        }
+      }
     }
+    .singer {
+      width: 150px;
+      align-self: flex-end;
+      margin-top: 30px;
+    }
+  }
 }
 
-.popUpCapitalIncrease{
-    position: absolute;
-    z-index: 2;
-    inset: 10%;
+.popUpCapitalIncrease {
+  position: absolute;
+  z-index: 2;
+  inset: 10%;
+  border: 1px $colorBDark solid;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  background: #fff;
+  .field {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 250px;
+    margin: 0px 30px;
+    background: $colorBDark;
     border: 1px $colorBDark solid;
     border-radius: 10px;
+    overflow: hidden;
+    align-items: center;
+    p {
+      flex: 2;
+      color: $colorTosi;
+      text-align: center;
+    }
+    input,
+    select {
+      flex: 3;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 20px;
+      height: 30px;
+      border-style: solid;
+      border-color: $colorBDark;
+      padding: 0px 5px;
+      &:focus {
+        outline: 0px;
+      }
+      &::-webkit-inner-spin-button {
+        display: none;
+      }
+      &::-webkit-outer-spin-button {
+        display: none;
+      }
+    }
+  }
+  .bbtn {
+    display: flex;
+    flex-direction: row;
+    width: 45%;
+    align-items: center;
+    justify-content: space-around;
+    margin: 50px 0px;
+    button {
+      @include btn();
+    }
+  }
+}
+
+.capInc-Card {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  border: 1px $colorBDark solid;
+  padding: 10px;
+  border-radius: 10px;
+  .fld {
+    display: flex;
+    flex-direction: column;
+    background: $colorBDark;
+    border: 1px $colorBDark solid;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 220px;
+    p {
+      text-align: center;
+      padding: 2px 5px;
+    }
+    :nth-child(1) {
+      color: $colorTosi;
+    }
+    :nth-child(2) {
+      background: #fff;
+    }
+  }
+  .act {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    span {
+      border-radius: 10px;
+      background: $colorBLite;
+      font-size: 15pt;
+      padding: 5px;
+
+      margin: 5px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      color: $colorTosi;
+    }
+  }
+}
+
+.popupchartsClose {
+  position: absolute;
+  inset: 0px;
+  z-index: 3;
+}
+.popupcharts {
+  position: absolute;
+  width: 900px;
+  height: 500px;
+  z-index: 4;
+  background: #fff;
+  top: calc((100% - 500px) / 2);
+  left: calc((100% - 900px) / 2);
+  border: 1px $colorBDark solid;
+  border-radius: 10px;
+}
+
+.gtstcsht {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+  input {
+    width: 200px;
+    border: $colorBDark 1px solid;
+    border-radius: 5px;
+    text-align: center;
+  }
+  button {
+    @include btn();
+    margin: 20px;
+    width: 200px;
+  }
+}
+
+.PreemptionCard {
+  background: linear-gradient(45deg, $colorBDark, $colorBUltra);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .br {
+    border: 2px rgba(#fff, 0.7) solid;
+    background: rgba(#fff, 0.4);
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 20px;
+    button {
+      margin: 10px;
+      @include btn();
+    }
+  }
+}
+
+.todoListConteiner {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  .noTask {
+    background: mix($colorBUltra, $colorTosi, 10) !important;
+    &:hover {
+      background: mix($colorBUltra, $colorTosi, 10) !important;
+      .titles {
+        color: #000 !important;
+      }
+    }
+  }
+  .todoDate {
+    display: flex;
+    flex-direction: column;
+    background: mix($colorBUltra, $colorTosi, 40);
+    width: 200px;
+    padding: 15px 20px;
+    margin: 15px;
+    border-radius: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+
+    .titles {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      h1 {
+        font-size: 15pt;
+        text-align: center;
+      }
+    }
+    &:hover {
+      background: $colorBUltra;
+
+      .conteinerTask {
+        display: flex;
+      }
+      .titles {
+        color: #fff;
+      }
+    }
+    .conteinerTask {
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      top: 40px;
+      background: $colorBUltra;
+      z-index: 3;
+      width: 100%;
+      border-radius: 10px;
+      padding: 10px 0px;
+
+      .todoTask {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        width: 80%;
+        padding: 5px;
+        margin: 5px;
+        border: 1px $colorBSemi solid;
+        border-radius: 5px;
+        transition: 0.5s;
+
+        .todoHide {
+          height: 0px;
+          opacity: 0;
+          overflow: hidden;
+          transform: 1s;
+        }
+        &:hover {
+          border: 1px $colorDisable solid;
+          transform: scale(1.05);
+          .todoHide {
+            height: auto !important;
+            opacity: 1;
+          }
+        }
+        .ttl {
+          display: flex;
+          flex-direction: row;
+          h2 {
+            font-size: 12pt;
+            text-align: center;
+            flex: 1;
+          }
+          .flSts,
+          .trSts {
+            width: 7px;
+            height: 7px;
+            border-radius: 4px;
+          }
+          .trSts {
+            background: $colorError;
+          }
+          .flSts {
+            background: $colorGreen;
+          }
+        }
+        .imFrc {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          > div {
+            display: flex;
+            flex-direction: row-reverse;
+            span {
+              font-size: 13pt;
+              color: $colorBUltra;
+              margin: 0px 5px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            p {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 10;
+              color: $colorBDark;
+            }
+          }
+        }
+        .prRd {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          width: 100%;
+          transform: 1s;
+          p {
+            font-size: 9pt;
+            color: $colorBSemi;
+          }
+        }
+
+        .dtRp {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          transform: 1s;
+          > div {
+            display: flex;
+            flex-direction: row;
+            p {
+              font-size: 9pt;
+              color: $colorBSemi;
+            }
+            span {
+              font-size: 13pr;
+              color: $colorBDark;
+            }
+          }
+        }
+        .act {
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-around;
+          button {
+            flex: 1;
+            margin: 0px 7px;
+            font-size: 12pt;
+            border-radius: 5px;
+            height: 20px;
+            padding: 1px 0px;
+            cursor: pointer;
+          }
+          > :nth-child(1) {
+            background: mix($colorGreen, #fff, 25);
+            border: 1px mix($colorGreen, #fff, 90) solid;
+          }
+          > :nth-child(2) {
+            background: mix(#daad1a, #fff, 25);
+            border: 1px mix(#daad1a, #fff, 90) solid;
+          }
+          > :nth-child(3) {
+            background: mix($colorError, #fff, 25);
+            border: 1px mix($colorError, #fff, 90) solid;
+          }
+        }
+      }
+    }
+  }
+}
+
+.popupInp {
+  position: fixed;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  .soul {
+    width: 100%;
+    height: 100%;
+  }
+  .win {
+    position: absolute;
+    z-index: 4;
+    width: 750px;
+    height: 500px;
+    top: calc((100% - 500px) / 4);
+    left: calc((100% - 750px) / 2);
+    background: #fff;
+    border: 1px $colorBDark solid;
+    border-radius: 15px;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    fieldset {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 35px;
+      border: 0px;
+      margin: 5px 0px;
+      border-radius: 20px;
+      input,
+      select {
+        width: 240px;
+        padding: 4px 0px;
+        border: 1px rgba($colorDisable, 0.3) solid;
+        border-radius: 5px;
+        text-align: center;
+      }
+    }
+    > :nth-child(odd) {
+      background: rgba($colorBDark, 0.05);
+    }
+    > :nth-child(even) {
+      background: rgba($colorBUltra, 0.05);
+    }
+    button {
+      width: 50%;
+      border: 0px;
+      padding: 1px 0px;
+      border-radius: 10px;
+      background: $colorGreen !important;
+      color: #fff;
+      margin: 0px auto;
+      font-size: 20pt;
+      margin-top: 15px;
+    }
+  }
+}
+
+.invoce {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+    &::-webkit-outer-spin-button {
+      display: none;
+    }
+  }
+  section {
+    width: 96%;
+    display: flex;
+    flex-direction: column;
+    border: 1px rgba($colorBDark, 0.2) solid;
+    margin: 10px 20px;
+    border-radius: 10px;
+    .header-section {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 20px;
+      h3 {
+        font-size: 20pt;
+        color: $colorBDark;
+      }
+      .btn {
+        span {
+          font-size: 25pt;
+          cursor: pointer;
+          color: $colorGreen;
+        }
+      }
+    }
+    .body-section {
+      display: flex;
+      flex-direction: row-reverse;
+      margin: 20px;
+      justify-content: space-around;
+      > :nth-child(odd) {
+        background: rgba($colorBDark, 0.1);
+      }
+      > :nth-child(even) {
+        background: rgba($colorDisable, 0.1);
+      }
+      fieldset {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        border: 1px rgba($colorBSemi, 0.2) solid;
+        margin: 5px 10px;
+        align-items: flex-end;
+        justify-content: center;
+        border-radius: 10px;
+        width: 170px;
+        justify-content: center;
+        align-self: center;
+        flex: 1;
+        label {
+          text-align: right;
+        }
+        > input,
+        select,
+        > .rmdp-container {
+          width: 100%;
+          height: 30px;
+          text-align: center;
+          border: 1px rgba($colorDisable, 0.2) solid;
+          border-radius: 5px;
+        }
+        .rmdp-container {
+          border: 0px;
+        }
+      }
+    }
+    .body-section-row {
+      flex-direction: column;
+      > :nth-child(odd) {
+        background: rgba($colorBlueTxt, 0.05);
+      }
+      > :nth-child(even) {
+        background: rgba($colorBlueTxt, 0.15);
+      }
+      .row {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: nowrap;
+        justify-content: center;
+        width: 90%;
+        margin: 10px 5%;
+        padding: 5px 10px;
+        border-radius: 10px;
+        .inx {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          margin: 0px 10px;
+          h6 {
+            font-size: 20pt;
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          span {
+            font-size: 25pt;
+            color: $colorError;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .fild {
+          display: flex;
+          flex-direction: row-reverse;
+          flex-wrap: wrap;
+          fieldset {
+            padding: 5px 10px;
+            display: flex;
+            flex-direction: column;
+            border: 1px rgba($colorBSemi, 0.25) solid;
+            margin: 5px 10px;
+            align-items: flex-end;
+            justify-content: center;
+            border-radius: 10px;
+            width: 170px;
+            justify-content: center;
+            align-self: center;
+            width: 150px;
+            background: rgba(#fff, 0.5);
+            label {
+              text-align: right;
+              font-size: 9pt;
+            }
+            input,
+            select {
+              width: 100%;
+              height: 20px;
+              text-align: center;
+              border: 1px rgba($colorDisable, 0.2) solid;
+              border-radius: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+  button {
+    width: 200px;
+    background: $colorGreen;
+    border: 0px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 15pt;
+    color: #fff;
+  }
+}
+
+.fixdash {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .liner {
+    h1 {
+      font-size: 15pt;
+      text-align: center;
+      width: 100%;
+      color: $colorBDark;
+    }
+    width: 100%;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    > div {
+      h1 {
+        font-size: 15pt;
+        text-align: center;
+        width: 100%;
+        color: $colorBDark;
+      }
+      flex: 2;
+      margin-top: 20px;
+    }
+    .pie {
+      flex: 1;
+    }
+    .top {
+      flex: 2;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .fixdash {
+    .row {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.dshRnk {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lineGauge {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  .rank {
+    flex: 2;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 10px;
+    h1 {
+      font-size: 18pt;
+      color: $colorBDark;
+    }
+    h2 {
+      font-size: 22pt;
+      color: $colorBDark;
+    }
+    h3 {
+      font-size: 13pt;
+      color: $colorBUltra;
+    }
+  }
+  .meter {
+    flex: 5;
+    height: 10px;
+    background: linear-gradient(
+      90deg,
+      $colorRed,
+      rgb(255, 243, 68),
+      $colorGreen
+    );
+    border: 1px $colorDisable solid;
+    border-radius: 10px;
+    p {
+      color: $colorDisable;
+      font-size: 25pt;
+      margin-top: -10px;
+    }
+  }
+}
+
+.formInpPanel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  .row {
+    width: 90%;
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
-    background: #fff;
-    .field{
-        display: flex;
-        flex-direction: row-reverse;
-        width: 250px;
-        margin: 0px 30px;
-        background: $colorBDark;
-        border: 1px $colorBDark solid;
-        border-radius: 10px;
-        overflow: hidden;
-        align-items: center;
-        p{
-            flex: 2;
-            color: $colorTosi;
-            text-align: center;
-        }
-        input,select{
-            flex: 3;
-            border-top-right-radius: 20px;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 20px;
-            height: 30px;
-            border-style: solid;
-            border-color: $colorBDark;
-            padding: 0px 5px;
-            &:focus{
-                outline: 0px;
-            }
-            &::-webkit-inner-spin-button{
-                display: none;
-            }
-            &::-webkit-outer-spin-button{
-                display: none;
-            }
-
-        }
-
+    margin: 20px 0px;
+    border: 1px rgba($colorDisable, 0.3) solid;
+    border-radius: 20px;
+    padding: 15px 0px;
+    > h1 {
+      font-size: 18pt;
+      color: $colorBDark;
     }
-    .bbtn{
-        display: flex;
-        flex-direction: row;
-        width: 45%;
-        align-items: center;
-        justify-content: space-around;
-        margin: 50px 0px;
-        button{
-            @include btn();
-
-        }
-
+    > :nth-child(odd) {
+      background: rgba($colorBDark, 0.1);
     }
-}
-
-
-.capInc-Card{
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin: 15px;
-    border: 1px $colorBDark solid;
-    padding: 10px;
-    border-radius: 10px;
-    .fld{
-        display: flex;
-        flex-direction: column;
-        background: $colorBDark;
-        border:1px $colorBDark solid;
-        border-radius: 10px;
-        overflow: hidden;
-        width: 220px;
-        p{
-            text-align: center;
-            padding: 2px 5px;
-        }
-        :nth-child(1){
-            color: $colorTosi;
-        }
-        :nth-child(2){
-            background: #fff;
-        }
+    > :nth-child(even) {
+      background: rgba($colorDisable, 0.1);
     }
-    .act{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        span{
-            border-radius: 10px;
-            background: $colorBLite;
-            font-size: 15pt;
-            padding:5px;
 
-            margin: 5px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            color: $colorTosi;
-        }
-    }
-}
-
-.popupchartsClose{
-    position: absolute;
-    inset: 0px;
-    z-index: 3;
-}
-.popupcharts{
-    position: absolute;
-    width: 900px;
-    height: 500px;
-    z-index: 4;
-    background: #fff;
-    top: calc((100% - 500px) /2);
-    left: calc((100% - 900px) /2);
-    border: 1px $colorBDark solid;
-    border-radius: 10px;
-}
-
-.gtstcsht{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 50px;
-    input{
+    fieldset {
+      border: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 15px 25px;
+      border-radius: 15px;
+      label {
+        font-size: 12pt;
+        color: $colorBDark;
+      }
+      select,
+      input {
         width: 200px;
-        border: $colorBDark 1px solid;
-        border-radius: 5px;
+        height: 30px;
         text-align: center;
-    }
-    button{
-        @include btn();
-        margin: 20px;
-        width: 200px;
-    }
-}
-
-.PreemptionCard{
-    background: linear-gradient(45deg,$colorBDark,$colorBUltra);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    .br{
-        border: 2px rgba(#fff, 0.7) solid;
-        background: rgba(#fff, 0.4);
-        width: 350px;
-        height: 350px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        border-radius: 20px;
-        button{
-            margin: 10px;
-            @include btn();
-        }
-    }
-}
-
-.todoListConteiner{
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    .noTask{
-        background: mix($colorBUltra, $colorTosi, 10) !important;
-        &:hover{
-            background: mix($colorBUltra, $colorTosi, 10) !important;
-            .titles{
-                color: #000 !important;
-            }
-        }
-    }
-    .todoDate{
-        display: flex;
-        flex-direction: column;
-        background: mix($colorBUltra, $colorTosi, 40);
-        width: 200px;
-        padding: 15px 20px;
-        margin: 15px;
-        border-radius: 10px;
-        justify-content: flex-start;
-        align-items: center;
-        position: relative;
-
-        .titles{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 100%;
-            h1{
-                font-size: 15pt;
-                text-align: center;
-            }
-        }
-        &:hover{
-            background: $colorBUltra;
-
-            .conteinerTask{
-                display: flex;
-            }
-            .titles{
-                color: #fff;
-            }
-        }
-        .conteinerTask{
-            position: absolute;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            top: 40px;
-            background: $colorBUltra;
-            z-index: 3;
-            width: 100%;
-            border-radius: 10px;
-            padding: 10px 0px;
-
-            .todoTask{
-                display: flex;
-                flex-direction: column;
-                background: #fff;
-                width: 80%;
-                padding: 5px;
-                margin: 5px;
-                border: 1px $colorBSemi solid;
-                border-radius: 5px;
-                transition: 0.5s;
-                
-                .todoHide {
-                    height: 0px;
-                    opacity: 0;
-                    overflow: hidden;
-                    transform: 1s;
-                }
-                &:hover{
-                    border: 1px $colorDisable solid;
-                    transform: scale(1.05);
-                    .todoHide{
-                        height: auto !important;
-                        opacity: 1;
-                    }
-                }
-                .ttl{
-                    display: flex;
-                    flex-direction: row;
-                    h2{
-                        font-size: 12pt;
-                        text-align: center;
-                        flex: 1;
-                    }
-                    .flSts,.trSts{
-                        width: 7px;
-                        height: 7px;
-                        border-radius: 4px;
-                    }
-                    .trSts{
-                        background: $colorError;
-                    }
-                    .flSts{
-                        background: $colorGreen;
-                    }
-                }
-                .imFrc{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-around;
-                    >div{
-                        display: flex;
-                        flex-direction: row-reverse;
-                        span{
-                            font-size: 13pt;
-                            color: $colorBUltra;
-                            margin: 0px 5px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
-                        p{
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 10;
-                            color: $colorBDark;
-                        }
-                    }
-                }
-                .prRd{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    justify-content: space-between;
-                    width: 100%;
-                    transform: 1s;
-                    p{
-                        font-size: 9pt;
-                        color: $colorBSemi;
-                    }
-                }
-                
-                .dtRp{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    width: 100%;
-                    transform: 1s;
-                    >div{
-                        display: flex;
-                        flex-direction: row;
-                        p{
-                            font-size: 9pt;
-                            color: $colorBSemi;
-                        }
-                        span{
-                            font-size: 13pr;
-                            color: $colorBDark;
-                        }
-                    }
-    
-                }
-                .act{
-                    display: flex;
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: space-around;
-                    button{
-                        flex: 1;
-                        margin: 0px 7px;
-                        font-size: 12pt;
-                        border-radius: 5px;
-                        height: 20px;
-                        padding: 1px 0px;
-                        cursor: pointer;
-                    }
-                    >:nth-child(1){
-                        background: mix($colorGreen,#fff,25);
-                        border: 1px mix($colorGreen,#fff,90) solid;
-                
-                    }
-                    >:nth-child(2){
-                        background: mix(#daad1a,#fff,25);
-                        border: 1px mix(#daad1a,#fff,90) solid;
-                    }
-                    >:nth-child(3){
-                        background: mix($colorError,#fff,25);
-                        border: 1px mix($colorError,#fff,90) solid;
-                    }
-                }
-            }
-
-        }
-    }
-
-}
-
-
-.popupInp{
-    position: fixed;
-    z-index: 3;
-    width: 100vw;
-    height: 100vh;
-    .soul{
-        width: 100%;
-        height: 100%;
-    }
-    .win{
-        position: absolute;
-        z-index: 4;
-        width: 750px;
-        height: 500px;
-        top: calc((100% - 500px) / 4);
-        left: calc((100% - 750px) / 2);
-        background: #fff;
         border: 1px $colorBDark solid;
-        border-radius: 15px;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        fieldset{
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 35px;
-            border: 0px;
-            margin: 5px 0px;
-            border-radius: 20px;
-            input,select{
-                width: 240px;
-                padding: 4px 0px;
-                border: 1px rgba($colorDisable,0.3) solid;
-                border-radius: 5px;
-                text-align: center;
-            }
-        }
-        >:nth-child(odd){
-            background: rgba($colorBDark , 0.05);
-        }
-        >:nth-child(even){
-            background: rgba($colorBUltra , 0.05);
-        }
-        button{
-            width: 50%;
-            border: 0px;
-            padding: 1px 0px;
-            border-radius: 10px;
-            background: $colorGreen !important;
-            color: #fff;
-            margin: 0px auto;
-            font-size: 20pt;
-            margin-top: 15px;
-        }
-    }
-}
-
-.invoce{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    input{
-        &::-webkit-inner-spin-button{
-            display: none;
-        }
-        &::-webkit-outer-spin-button{
-            display: none;
-        }
-    }
-    section{
-        width: 96%;
-        display: flex;
-        flex-direction: column;
-        border: 1px rgba($colorBDark,0.2) solid;
-        margin: 10px 20px;
         border-radius: 10px;
-        .header-section{
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: space-between;
-            margin: 10px 20px;
-            h3{
-                font-size: 20pt;
-                color: $colorBDark;
-            }
-            .btn{
-                span{
-                    font-size: 25pt;
-                    cursor: pointer;
-                    color: $colorGreen;
-                }
-
-            }
-        }
-        .body-section{
-            display: flex;
-            flex-direction: row-reverse;
-            margin: 20px;
-            justify-content: space-around;
-            >:nth-child(odd){
-                background: rgba($colorBDark , 0.1);
-            }
-            >:nth-child(even){
-                background: rgba($colorDisable , 0.1);
-            }
-            fieldset{
-                padding: 10px 20px;
-                display: flex;
-                flex-direction: column;
-                border: 1px rgba($colorBSemi,0.2) solid;
-                margin: 5px 10px;
-                align-items: flex-end;
-                justify-content: center;
-                border-radius: 10px;
-                width: 170px;
-                justify-content: center;
-                align-self: center;
-                flex:1;
-                label{
-                    text-align: right;
-                }
-                >input,select,>.rmdp-container{
-                    width: 100%;
-                    height: 30px;
-                    text-align: center;
-                    border: 1px rgba($colorDisable, 0.2) solid;
-                    border-radius: 5px;
-                }
-                .rmdp-container{
-                    border: 0px;
-                }
-
-                
-                
-            }
-        }
-        .body-section-row{
-            flex-direction: column;
-            >:nth-child(odd){
-                background: rgba($colorBlueTxt , 0.05);
-            }
-            >:nth-child(even){
-                background: rgba($colorBlueTxt , 0.15);
-            }
-            .row{
-                display: flex;
-                flex-direction: row-reverse;
-                flex-wrap: nowrap;
-                justify-content: center;
-                width: 90%;
-                margin: 10px 5%;
-                padding: 5px 10px;
-                border-radius: 10px;
-                .inx{
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0px 10px;
-                    h6{
-                        font-size: 20pt;
-                        margin: 0px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                    span{
-                        font-size: 25pt;
-                        color: $colorError;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-                .fild{
-                    display: flex;                    
-                    flex-direction: row-reverse;
-                    flex-wrap: wrap;
-                    fieldset{
-                        padding: 5px 10px;
-                        display: flex;
-                        flex-direction: column;
-                        border: 1px rgba($colorBSemi,0.25) solid;
-                        margin: 5px 10px;
-                        align-items: flex-end;
-                        justify-content: center;
-                        border-radius: 10px;
-                        width: 170px;
-                        justify-content: center;
-                        align-self: center;
-                        width: 150px;
-                        background: rgba(#fff,0.5);
-                        label{
-                            text-align: right;
-                            font-size: 9pt;
-                        }
-                        input,select{
-                            width: 100%;
-                            height: 20px;
-                            text-align: center;
-                            border: 1px rgba($colorDisable, 0.2) solid;
-                            border-radius: 5px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    button{
-        width: 200px;
-        background: $colorGreen;
-        border: 0px;
-        height: 35px;
-        border-radius: 10px;
-        font-size: 15pt;
-        color: #fff;
-
-    }
-}
-
-.fixdash{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    .liner{
-        h1{
-            font-size: 15pt;
-            text-align: center;
-            width: 100%;
-            color: $colorBDark;
-        }
-        width: 100%;
-    }
-    .row{
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        >div{
-            h1{
-                font-size: 15pt;
-                text-align: center;
-                width: 100%;
-                color: $colorBDark;
-            }
-            flex: 2;
-            margin-top: 20px;
-        }
-        .pie{
-            flex: 1;
-        }
-        .top{
-            flex: 2;
-        }
-    }
-}
-
-@media (max-width: 600px) {
-    .fixdash {
-      .row {
-        display: flex;
-        flex-direction: column; 
       }
     }
   }
-
-.dshRnk{
+  .inuComRow {
+    width: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-.lineGauge{
-    width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
+    flex-wrap: wrap;
     align-items: center;
-    .rank{
-        flex: 2;
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0px 10px;
-        h1{
-            font-size: 18pt;
-            color: $colorBDark;
-        }
-        h2{
-            font-size: 22pt;
-            color: $colorBDark;
-        }
-        h3{
-            font-size: 13pt;
-            color: $colorBUltra;
-        }
-    }
-    .meter{
-        flex: 5;
-        height: 10px;
-        background: linear-gradient(90deg,$colorRed,rgb(255, 243, 68),$colorGreen);
-        border: 1px $colorDisable solid;
-        border-radius: 10px;
-        p{
-            color: $colorDisable;
-            font-size: 25pt;
-            margin-top: -10px;
-        }
-    }
-}
-
-
-.formInpPanel{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    .row{
-        width: 90%;
-        display: flex;
-        flex-direction: row-reverse;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-around;
-        margin: 20px 0px;
-        border: 1px rgba($colorDisable, 0.3) solid;
-        border-radius: 20px;
-        padding: 15px 0px;
-        >h1{
-            font-size: 18pt;
-            color: $colorBDark;
-        }
-        >:nth-child(odd){
-            background: rgba($colorBDark , 0.1);
-        }
-        >:nth-child(even){
-            background: rgba($colorDisable , 0.1);
-        }
-
-        fieldset{
-            border: 0px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding: 15px 25px;
-            border-radius: 15px;
-            label{
-                font-size: 12pt;
-                color: $colorBDark;
-            }
-            select, input{
-                width: 200px;
-                height: 30px;
-                text-align: center;
-                border: 1px $colorBDark solid;
-                border-radius: 10px;
-            }
-
-        }
-
-    }
-    .inuComRow{
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-around;
-        margin: 20px 0px;
-        border: 1px rgba($colorDisable, 0.3) solid;
-        border-radius: 20px;
-        padding: 15px 0px;
-        >:nth-child(odd){
-            background: rgba($colorBDark , 0.1);
-        }
-        >:nth-child(even){
-            background: rgba($colorDisable , 0.1);
-        }
-        fieldset{
-            border: 0px;
-            display: grid;
-            grid-template-columns: 25% 15% 60%;
-            grid-template-rows: 1fr;
-            flex-direction: row-reverse;
-            width: 60%;
-            border-radius: 15px;
-            margin: 5px 0px;
-            padding: 5px 20px;
-            label{
-                font-size: 12pt;
-                color: $colorBDark;
-                text-align: right;
-            }
-            select, input{
-                width: 100px;
-                height: 30px;
-                text-align: center;
-                border: 1px $colorBDark solid;
-                border-radius: 10px;
-                margin-right: auto;
-            }
-
-        }
-
-    }
-}
-
-
-.incresrow{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-around;
     margin: 20px 0px;
-    .row{
-        width: 85%;
-        border: 1px rgba($colorBDark , 0.1) solid;
-        background: rgba($colorBDark , 0.05);
-        border-radius: 25px;
-        padding: 20px;
-        display: flex;
-        justify-content: space-around;
-        flex-direction: row-reverse;
-        .asscls{
-            display: flex;
-            flex-direction: column;
-            h3{
-                font-size: 15pt;
-                color: $colorDisable;
-                text-align: center;
-            }
-            .vlap{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                p{
-                    color: $colorBDark;
-                    font-size: 15pt;
-                    text-align: center;
-                }
-            }
-            .vlft{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-around;
-                p{
-                    font-size: 12pt;
-                    color: $colorDisable;
-                }
-                span{
-                    font-size: 16pt;
-                    color: $colorDisable;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-between;
-                }
-            }
-
-            
-        }
-
-
+    border: 1px rgba($colorDisable, 0.3) solid;
+    border-radius: 20px;
+    padding: 15px 0px;
+    > :nth-child(odd) {
+      background: rgba($colorBDark, 0.1);
     }
+    > :nth-child(even) {
+      background: rgba($colorDisable, 0.1);
+    }
+    fieldset {
+      border: 0px;
+      display: grid;
+      grid-template-columns: 25% 15% 60%;
+      grid-template-rows: 1fr;
+      flex-direction: row-reverse;
+      width: 60%;
+      border-radius: 15px;
+      margin: 5px 0px;
+      padding: 5px 20px;
+      label {
+        font-size: 12pt;
+        color: $colorBDark;
+        text-align: right;
+      }
+      select,
+      input {
+        width: 100px;
+        height: 30px;
+        text-align: center;
+        border: 1px $colorBDark solid;
+        border-radius: 10px;
+        margin-right: auto;
+      }
+    }
+  }
 }
 
-
-.dshfixdv{
+.incresrow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0px;
+  .row {
+    width: 85%;
+    border: 1px rgba($colorBDark, 0.1) solid;
+    background: rgba($colorBDark, 0.05);
+    border-radius: 25px;
+    padding: 20px;
     display: flex;
-    flex-direction: column;
-    border: 1px rgba($colorDisable, 0.25) solid;
-    border-left: 0px;
-    border-right: 0px;
-    padding: 10px 0px;
-    .opt{
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    .asscls {
+      display: flex;
+      flex-direction: column;
+      h3 {
+        font-size: 15pt;
+        color: $colorDisable;
+        text-align: center;
+      }
+      .vlap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p {
+          color: $colorBDark;
+          font-size: 15pt;
+          text-align: center;
+        }
+      }
+      .vlft {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        select{
-            border: 0px;
-            border-bottom: 2px $colorBDark solid;
+        p {
+          font-size: 12pt;
+          color: $colorDisable;
         }
+        span {
+          font-size: 16pt;
+          color: $colorDisable;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
     }
+  }
 }
 
-
-.retnasst{
+.dshfixdv {
+  display: flex;
+  flex-direction: column;
+  border: 1px rgba($colorDisable, 0.25) solid;
+  border-left: 0px;
+  border-right: 0px;
+  padding: 10px 0px;
+  .opt {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    h4{
-        color: $colorBDark;
-        font-size: 10pt;
-        margin: 0px 10px;
+    justify-content: space-around;
+    select {
+      border: 0px;
+      border-bottom: 2px $colorBDark solid;
     }
-    h3{
-        font-size: 15pt;
-        color: $colorGreen;
-        margin: 0px 10px;
-    }
-    
+  }
+}
+
+.retnasst {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  h4 {
+    color: $colorBDark;
+    font-size: 10pt;
+    margin: 0px 10px;
+  }
+  h3 {
+    font-size: 15pt;
+    color: $colorGreen;
+    margin: 0px 10px;
+  }
 }
 
 .container-manage {
-    max-width: 100%;
+  max-width: 100%;
+  padding: 10px;
+
+  .header-management {
+    background-color: #20409d;
+    color: white;
     padding: 10px;
-  
-    .header-management {
-      background-color: #20409d;
-      color: white;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row-reverse;
-      align-items: center;
-      height: 10%;
-  
-      .text-m {
-        font-family: "peydaRegular";
-        font-size: 1.5rem;
-        padding: 1rem;
-  
-        @media (min-width: 768px) {
-          font-size: 2rem;
-          padding: 2rem;
-        }
-      }
-  
-      .logo {
-        padding: 1rem;
-  
-        img {
-          width: 70px;
-  
-          @media (min-width: 768px) {
-            width: 100px;
-          }
-        }
-  
-        .back-logo {
-          border: 2px #fff solid;
-          background-color: white;
-          border-radius: 100%;
-          position: absolute;
-          margin-top: 0;
-  
-        }
-      }
-    }
-  
-    .dashManag {
-      margin: 10px;
-  
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 10%;
+
+    .text-m {
+      font-family: "peydaRegular";
+      font-size: 1.5rem;
+      padding: 1rem;
+
       @media (min-width: 768px) {
-        margin: 20px;
+        font-size: 2rem;
+        padding: 2rem;
       }
     }
-  
-    @media (max-width: 768px) {
-        max-width: 768px;
-        margin: 0 auto;
+
+    .logo {
+      padding: 1rem;
+
+      img {
+        width: 70px;
+
+        @media (min-width: 768px) {
+          width: 100px;
+        }
       }
-    
+
+      .back-logo {
+        border: 2px #fff solid;
+        background-color: white;
+        border-radius: 100%;
+        position: absolute;
+        margin-top: 0;
+      }
+    }
   }
-  
+
+  .dashManag {
+    margin: 10px;
+
+    @media (min-width: 768px) {
+      margin: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+}

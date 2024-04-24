@@ -9,6 +9,10 @@ import DashPotentialSymbol from "../../../componet/dashbords/dashpotentialSymbol
 import DashTopFund from "../../../componet/dashbords/dashTopFund";
 import DashWorstFund from "../../../componet/dashbords/dashWorstFund";
 import DashAssetValue from "../../../componet/dashbords/DashAssetValue";
+import CombineBankAccount from "../../../componet/dashbords/combinationBankAccounts";
+import CombineGovernment from "../../../componet/dashbords/combinationGovernmentBonds";
+import CombineCompony from "../../../componet/dashbords/combinationComponyBonds";
+import CombineStocks from "../../../componet/dashbords/combinationStocks";
 const DashboardFixInCome = () => {
   return (
     <div className="fixdash">
@@ -41,6 +45,18 @@ const DashboardFixInCome = () => {
       </div>
       <div className="liner" >
        <DashAssetValue/>
+      </div>
+      <div className="liner" >
+       <CombineBankAccount/>
+      </div>
+      <div className="liner" >
+       <CombineGovernment/>
+      </div>
+      <div className="liner" >
+       <CombineCompony/>
+      </div>
+      <div className="liner" >
+       <CombineStocks/>
       </div>
     </div>
   );

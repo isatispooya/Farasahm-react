@@ -57,7 +57,7 @@ const DashAssetValue = () =>{
         plugins: {
             legend: {
                 display:true,
-                title: {display: true,text:'ارزش دارایی ها'},
+                title: {display: true,text:'ارزش اوراق سهام '},
                 tooltip:{backgroundColor:'#273bb0'}
             },
         },
