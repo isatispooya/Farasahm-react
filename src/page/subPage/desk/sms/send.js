@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
@@ -17,7 +17,6 @@ const SendSMS = () => {
   //   data: [],
   //   selectedName: "",
   // };
-  const [dateSelection, setDateSelection] = useState(Date);
   const [showModal, setShowModal] = useState(false);
   const handleOpen = () => setShowModal(!showModal);
   const [date, setDate] = useState("");
@@ -28,44 +27,37 @@ const SendSMS = () => {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [selectedData, setSelectedData] = useState([]);
-  const tableRef = useRef(null);
-  const [modalData, setModalData] = useState({
-    title: title,
-    date: date,
-    message: message,
-    selectData: selectedData,
-  });
 
   const handleSlectedData = () => {
     handleOpen();
     setSelectedData(table.getSelectedData());
   };
   const handleSendSMS = () => {
-    //   const postSMS = () => {
-    //   axios
-    //     .post(OnRun + "/sendsmsgroup", { access: access, data:modalData })
-    //     .then((response) => {
-    //       setSelectedData(response.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // };
-      if(selectedData.length>0){
-        axios.post(" http://192.168.39.101:5000/sendsmsgroup", {
-          access: access,
-          data:modalData,
-        })
-          .then((response) => {
-          if (response.data) {
-            console.log("klkjkjkjk",response.data);
-
-            toast.success("ارسال شد", { position: toast.POSITION.BOTTOM_RIGHT });
-          setModalData(response.data)
-          }
-    })
-  }
-    // handleOpen();}
+    axios
+      .post(`${OnRun}/sendsmsgroup`, {
+        access: access,
+        data: {
+          title: title,
+          date: date,
+          message: message,
+          selectData: selectedData,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          toast.success("ارسال شد", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+        }
+        if (response.replay === true) {
+          setDate(null);
+          setMessage(null);
+          setTitle(null);
+          setSelectedData(null);
+        }
+      });
+    // }
+    handleOpen();
   };
 
   if (data != null) {
@@ -226,6 +218,8 @@ const SendSMS = () => {
                           عنوان
                         </label>
                         <input
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
                           type="text"
                           name="name"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -241,12 +235,12 @@ const SendSMS = () => {
                           تاریخ و زمان
                         </label>
                         <DatePicker
-                          // className="p-3"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           format="MM/DD/YYYY HH:mm:ss"
                           plugins={[<TimePicker position="bottom" />]}
                           calendar={persian}
                           locale={persian_fa}
+                          value={date}
                           calendarPosition="bottom-right"
                           onChange={handleDateChange}
                         />
@@ -260,6 +254,8 @@ const SendSMS = () => {
                           پیام
                         </label>
                         <textarea
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
                           rows="4"
                           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="متن پیام را وارد کنید"
