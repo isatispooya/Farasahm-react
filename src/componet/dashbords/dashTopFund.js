@@ -66,7 +66,6 @@ const DashTopFund = () =>{
                 labels,
                 datasets:[
                 {
-                    label: 'ارزش',
                     data: dataset,
                     backgroundColor: 'rgb(18, 148, 18, 1)',
                     borderColor: 'rgb(18, 148, 18, 0.5)',

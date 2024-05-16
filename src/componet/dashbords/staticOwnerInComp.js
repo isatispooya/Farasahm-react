@@ -76,7 +76,7 @@ const StaticOwnerInComp = () =>{
         plugins: {
             legend: {
                 display:true,
-                title: {display: true,text:'ارزش دارایی ها'},
+                title: {display: true,text:'ارزش پورتو بورسی'},
                 tooltip:{backgroundColor:'#273bb0'}
             },
         },

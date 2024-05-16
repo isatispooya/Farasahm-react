@@ -42,7 +42,7 @@ const DashPotentialSymbol = () =>{
         plugins: {
             legend: {
                 display:true,
-                title: {display: true,text:'مشتریان بالقوه به لحاظ ارزش'},
+                title: {display: true,text:'دارایی مشتریان بالقوه'},
                 tooltip:{backgroundColor:'#273bb0'}
             },
         },
