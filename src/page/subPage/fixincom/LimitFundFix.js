@@ -29,6 +29,21 @@ const LimitFundFix = () =>{
                 })
             }
         },
+        {
+            label:"ویرایش",
+            action:function(e, row){
+                console.log("kjkjkjkjkj",row.getData());
+                // axios.post(OnRun+'/delbankassetfund',{access:access,row:row.getData()})
+                // .then(response=>{
+                //     if (response.data.reply) {
+                //         toast.success('حذف شد',{position: toast.POSITION.BOTTOM_RIGHT})
+                //         getAsset()
+                //     }else{
+                //         toast.warning(response.data.msg,{position: toast.POSITION.BOTTOM_RIGHT})
+                //     }
+                // })
+            }
+        },
     ]
 
 
