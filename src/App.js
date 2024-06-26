@@ -66,6 +66,7 @@ import Residual from "./page/subPage/bours/Residual";
 import NotFound from "./page/notFound";
 import Calculator from "./page/subPage/fixincom/CalculatorFixincom";
 import CustomerRemain from "./page/subPage/fixincom/CustomerRemain";
+import './style/tailwind.css'
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -74,6 +75,12 @@ import Invoices from "./page/subPage/desk/moadian/Invoices";
 import Management from "./componet/Management";
 import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
+import Bank from "./page/subPage/desk/accounting/bank";
+import CalendarCom from "./componet/dashbords/Calendar";
+
+// import "@tailwindcss/base";
+// import "tailwindcss/components";
+// import "tailwindcss/utilities";
 
 function App() {
   const queryClient = new QueryClient();
@@ -91,6 +98,7 @@ function App() {
             <Route path="runaway" element={<Runaway />} />
             <Route path="stockman" element={<Stockman />} />
             <Route path="formerstockman" element={<FormerStockman />} />
+            <Route path="calendar" element={<CalendarCom />} />
             <Route path="metric" element={<Metric />} />
             <Route path="details/:code" element={<Details />} />
             <Route path="balancetrader/:code" element={<BalanceTrader />} />
@@ -166,6 +174,7 @@ function App() {
             <Route path="invoices" element={<Invoices />} />
             <Route path="sendsms" element={<SendSMS />} />
             <Route path="analizsms" element={<ReportAnalyze />} />
+            <Route path="bank" element={<Bank/>} />
 
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />

@@ -26,10 +26,10 @@ const Home = () =>{
         }else if(inputPhone.captcha.length==0){
             setErrMsg('کد تصویر صحیح نیست')
         }else{
+            setPhase(true)
             axios({method:'POST',url:OnRun+'/applyphone',data:{inputPhone:inputPhone,captchaCode:CaptchaCode}
             }).then(response=>{
                 if(response.data.replay){
-                    setPhase(true)
                     setErrMsg('')
                 }else{
                     setErrMsg(response.data.msg)

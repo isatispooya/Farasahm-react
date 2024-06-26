@@ -39,9 +39,11 @@ const StaticOwnerInComp = () =>{
       
 
     const get = () =>{
+        console.log(1000)
         axios.post(OnRun+'/staticownerincomp',{access:access})
         .then(response=>{
             var lab = response.data.df.dateInt
+            console.log(2000)
             setDf({
                 lab,
                 datasets: [

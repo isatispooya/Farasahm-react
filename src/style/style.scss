@@ -1,4 +1,6 @@
-@import "./tailwind.scss";
+// @import "./tailwind.scss";
+
+
 
 @font-face {
   font-family: "peydaRegular";
@@ -41,7 +43,7 @@ $colorDisable: #636363;
 * {
   margin: 0px;
   padding: 0px;
-  font-family: "peydaRegular";
+  font-family: "peydaRegular" !important;
 }
 
 html,
@@ -170,7 +172,7 @@ body {
       }
     }
     h1 {
-      font-family: "peydaRegular";
+      font-family: "peydaRegular" !important;
       width: 270px;
       text-align: center;
       font-size: 13pt;
@@ -181,7 +183,7 @@ body {
       margin: 10px;
     }
     a {
-      font-family: "peydaRegular";
+      font-family: "peydaRegular" !important;
       font-size: 13pt;
       text-decoration: none;
       color: $colorBlue;
@@ -249,6 +251,7 @@ body {
   }
 }
 .LoaderCircle {
+
   position: fixed;
   width: 400px;
   height: 400px;
@@ -260,7 +263,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 3;
+  z-index: 10;
   .imgCntr {
     background: #fff;
     border-radius: 50%;
@@ -3160,7 +3163,7 @@ header {
     height: 10%;
 
     .text-m {
-      font-family: "peydaRegular";
+      font-family: "peydaRegular" !important;
       font-size: 1.5rem;
       padding: 1rem;
 
@@ -3204,3 +3207,5 @@ header {
     margin: 0 auto;
   }
 }
+
+

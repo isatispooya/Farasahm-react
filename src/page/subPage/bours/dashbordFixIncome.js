@@ -13,11 +13,14 @@ import CombineBankAccount from "../../../componet/dashbords/combinationBankAccou
 import CombineGovernment from "../../../componet/dashbords/combinationGovernmentBonds";
 import CombineCompony from "../../../componet/dashbords/combinationComponyBonds";
 import CombineStocks from "../../../componet/dashbords/combinationStocks";
+import ComporePrice from "../../../componet/dashbords/ComporePrice";
+
 const DashboardFixInCome = () => {
   return (
     <div className="fixdash">
       <div className="row">
         <DashFixAsset />
+        <ComporePrice />
         <DashRatFixAsset />
         <DashRnkFixIn />
       </div>
@@ -27,12 +30,7 @@ const DashboardFixInCome = () => {
       <div className="liner">
         <DashDifNavPrc />
       </div>
-      {/* <div className="liner">
-                <DashRtnPrc />
-            </div> */}
-      <div className="row">
-        <StaticOwnerInComp />
-      </div>
+
       <div className="liner">
         <DashPotential />
       </div>

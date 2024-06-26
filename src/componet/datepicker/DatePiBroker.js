@@ -53,17 +53,17 @@ const DatePiBroker = (props) =>{
                 }else{
                     dateInt = dateInt + String(date.day)
                 }
-                if (dateAvalibale.includes(dateInt)){
+                // if (dateAvalibale.includes(dateInt)){
 
-                    return {
-                        style: { color: "#000" },
-                    }
-                }else{
-                    return {
-                        disabled: true,
-                        style: { color: "red" },
-                    }
-                }
+                //     return {
+                //         style: { color: "#000" },
+                //     }
+                // }else{
+                //     return {
+                //         disabled: true,
+                //         style: { color: "red" },
+                //     }
+                // }
                 
               }}
              render={<Button/>} value={dateSelection} calendar={persian} locale={persian_fa} className="purple" inputClass="custom-input" onChange={handle}/>

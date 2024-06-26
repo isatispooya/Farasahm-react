@@ -1,4 +1,4 @@
-import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard, MdOutlinePlaylistAddCheck} from "react-icons/md";
+import { MdDashboard , MdNewLabel , MdOutlineCategory , MdHowToVote, MdSpaceDashboard, MdOutlineSettingsAccessibility } from "react-icons/md";
 import { FaPeopleArrows , FaHandHoldingUsd , FaRunning , FaChartPie, FaRegEye, FaCoins, FaList} from "react-icons/fa";
 import { GiNewShoot, GiTwoCoins } from "react-icons/gi";
 import { IoSpeedometer ,IoSettingsSharp} from "react-icons/io5";
@@ -12,10 +12,12 @@ import { BiTransfer,BiTransferAlt} from "react-icons/bi";
 import { RiCalendarTodoLine, RiFileAddFill, RiTableFill} from "react-icons/ri";
 import { CgArrowsShrinkV} from "react-icons/cg";
 import { HiReceiptPercent } from "react-icons/hi2";
-import { FaFileInvoiceDollar , FaListAlt } from "react-icons/fa";
+import { FaFileInvoiceDollar , FaCalendarAlt  } from "react-icons/fa";
 import { FaPercentage } from "react-icons/fa";
 import { MdRemoveRedEye } from "react-icons/md";
 import { MdGroups2 } from "react-icons/md";
+import { AiFillBank } from "react-icons/ai";
+
 
 export const menuFullList ={
     'dashboard':<MdDashboard/>,
@@ -72,8 +74,11 @@ export const menuFullList ={
     'managementcommittee':<MdGroups2 />,
     'residual':<BsPersonFillDown />,
     'calculator':<BsCalculator />,
-    'customerremain':<GiTwoCoins />
-    ,
+    'customerremain':<GiTwoCoins />,
+    'accounting':<GiTwoCoins />,
+    'bank':<AiFillBank/>,
+    'Setting':<MdOutlineSettingsAccessibility />,
+    'calendar':<FaCalendarAlt />,
 
 
 }
