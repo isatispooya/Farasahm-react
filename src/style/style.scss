@@ -317,16 +317,24 @@ body {
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
+    
     .hdr {
-      display: flex;
+      display:inline-flex;
       flex-direction: row;
       justify-content: flex-start;
       width: 100%;
+      
       span {
         display: flex;
         flex-direction: row;
         margin-right: auto;
         align-items: center;
+        border: 2px solid white;
+        border-width: 6px;
+        border-radius: 10px;
+        padding: 6px;
+        font-size: 20px;
+        
         color: $colorTosi;
         cursor: pointer;
       }
@@ -359,6 +367,9 @@ body {
           border-radius: 10px;
           width: max-content;
           align-self: self-end;
+          font-size: 25px;
+          
+          
         }
         .listPart {
           display: flex;
@@ -377,18 +388,19 @@ body {
     -webkit-backdrop-filter: blur(3.6px);
     border: 1px solid rgba(255, 255, 255, 0.68);
     padding: 10px 15px;
-    height: 90px;
-    width: 180px;
+    height: 120px;
+    width: 210px;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-start;
+    transition: transform 0.3s ease;
     transition: 1s;
     overflow: hidden;
     cursor: pointer;
     img {
-      width: 75px;
-      transition: 1s;
+      width: 65px;
+      
       flex: 1;
     }
     > div {
@@ -396,31 +408,37 @@ body {
       flex-direction: column;
       margin-right: 10px;
       flex: 2;
+      
     }
     h6 {
       color: $colorBDark;
       text-align: center;
       font-size: 18pt;
       transform: 1s;
+      
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: font-size 0.3s ease;
     }
     .fullName {
       display: none;
     }
     &:hover {
       box-shadow: 0px 0px 5px 5px rgba($colorDisable, 0.25);
+      transition: transform 0.3s ease;
+      
       h6 {
         text-align: right;
-        font-size: 16pt;
+        font-size: 20px;
       }
-      img {
-        transform: scale(2.5) rotate(-25deg);
-        z-index: -1;
-        opacity: 0.15;
-      }
+
       .fullName {
         display: flex;
         text-align: right;
         color: $colorBDark;
+        font-size: 15px;
+
       }
     }
   }
