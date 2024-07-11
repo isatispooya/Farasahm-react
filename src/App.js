@@ -66,7 +66,7 @@ import Residual from "./page/subPage/bours/Residual";
 import NotFound from "./page/notFound";
 import Calculator from "./page/subPage/fixincom/CalculatorFixincom";
 import CustomerRemain from "./page/subPage/fixincom/CustomerRemain";
-import './style/tailwind.css'
+import "./style/tailwind.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -77,13 +77,7 @@ import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import "@tailwindcss/base";
 // import "tailwindcss/components";
 // import "tailwindcss/utilities";
@@ -180,8 +174,7 @@ function App() {
             <Route path="invoices" element={<Invoices />} />
             <Route path="sendsms" element={<SendSMS />} />
             <Route path="analizsms" element={<ReportAnalyze />} />
-            <Route path="bank" element={<Bank/>} />
-
+            <Route path="bank" element={<Bank />} />
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />
           <Route
