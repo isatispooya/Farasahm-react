@@ -2137,6 +2137,18 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@tanstack/query-core@5.50.1":
+  version "5.50.1"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.50.1.tgz"
+  integrity sha512-lpfhKPrJlyV2DSVcQb/HuozH3Av3kws4ge22agx+lNGpFkS4vLZ7St0l3GLwlAD+bqB+qXGex3JdRKUNtMviEQ==
+
+"@tanstack/react-query@^5.50.1":
+  version "5.50.1"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.50.1.tgz"
+  integrity sha512-s0DW3rVBDPReDDovUjVqItVa3R2nPfUANK9nqGvarO2DwTiY9U4EBTsqizMxItRCoGgK5apeM7D3mxlHrSKpdQ==
+  dependencies:
+    "@tanstack/query-core" "5.50.1"
+
 "@testing-library/dom@^8.5.0", "@testing-library/dom@>=7.21.4":
   version "8.13.0"
   resolved "https://registry.npmjs.org/@testing-library/dom/-/dom-8.13.0.tgz"

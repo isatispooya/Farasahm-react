@@ -23,7 +23,7 @@ const Manegment = () =>{
         axios({method:'POST',url:OnRun+'/syncboursi',data:{id:id}
         }).then(response=>{
             if(response.data.replay){
-                alert('همگام سازی با سرده گذاری انجام شد')
+                alert('همگام سازی با سپرده گذاری انجام شد')
             }
         })
     }

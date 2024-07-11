@@ -48,7 +48,7 @@ import TraderCodes from "./page/subPage/desk/sabad/tradercodes";
 import Todo from "./page/subPage/desk/todo";
 import TodoControl from "./page/subPage/desk/todocontrol";
 import CompareReturnSample from "./page/subPage/fixincom/analysis/CompareReturnSample";
-import { QueryClient, QueryClientProvider } from "react-query";
+// import { QueryClient, QueryClientProvider } from "react-query";
 import LimitFundFix from "./page/subPage/fixincom/LimitFundFix";
 import CompareReturnPeriod from "./page/subPage/fixincom/analysis/CompareReturnPeriod";
 import OraghYTM from "./page/subPage/fixincom/oraghytm";
@@ -77,7 +77,13 @@ import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
-
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 // import "@tailwindcss/base";
 // import "tailwindcss/components";
 // import "tailwindcss/utilities";

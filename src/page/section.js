@@ -198,7 +198,7 @@ const Section = () => {
                           key={i["name"]}
                           className="btnSct"
                         >
-                          <img src={img} />
+                          <img src={img} alt="error" />
                           <div>
                             <h6>{i["symbol"]}</h6>
                             <p className="fullName">{i["fullName"]}</p>
@@ -214,7 +214,7 @@ const Section = () => {
                       var img = "/img/" + i["icon"];
                       return (
                         <div key={i["name"]} className="btnSct btnSctDis">
-                          <img src={img} />
+                          <img src={img} alt="error" />
                           <div>
                             <h6>{i["symbol"]}</h6>
                             <p className="fullName">{i["fullName"]}</p>
