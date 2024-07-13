@@ -138,7 +138,7 @@ const InvoiceDetail = ({ invoiceDetail, onClose }) => {
           {inquiry.data.error && inquiry.data.error.length > 0 && (
             <div className="mt-4">
               <button
-                onClick={toggleWarnings}
+                onClick={toggleError}
                 className=" flex items-center bg-red-500 text-black px-2 py-2 rounded hover:scale-110 duration-300 focus:outline-none"
               >
                 خطاها
