@@ -72,7 +72,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Invoices from "./page/subPage/desk/moadian/Invoices";
-import AccessHome from "./componet/access/accessHome";
+
 import Management from "./componet/Management";
 import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
@@ -89,7 +89,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-        <Route path="/access" element={<AccessHome/>}/>
+        
           <Route path="/" element={<Home />} />
           <Route path="/section" element={<Section />} />
           <Route path="/desk" element={<Desk />}>
