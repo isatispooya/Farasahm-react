@@ -2230,6 +2230,7 @@ header .btn-bs input:focus {
   border: 1px #20409d solid;
   padding: 10px 10px;
   border-radius: 10px;
+  margin-top: 10px;
 }
 .print .conteiner .aras .opt {
   display: flex;

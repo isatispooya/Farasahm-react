@@ -13,7 +13,9 @@ const SheetInAssembly = () =>{
     const personalInAssembly = () =>{
         axios.post(OnRun+'/personalinassembly',{access:['',symbol]})
         .then(response=>{
+            console.log(response.data);
             if(response.data.replay){
+
                 setDf(response.data.df)
             }
         })

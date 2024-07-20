@@ -23,7 +23,9 @@ const CreateAssembly = () =>{
     const [dateSelection, setDateSelection] = useState(new DateObject)
     const [dict, setDict] = useState({time:'',address:'',agenda:'',description:'',title:'',controller:false,managers:false})
     const [controllerInput, setControllerInput] = useState('')
+    const [managersInput, setManagersInput] = useState('')
     const [controller, setController] = useState([])
+    const [managers, setManagers] = useState([])
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
 
@@ -31,7 +33,7 @@ const CreateAssembly = () =>{
     const [df, setDf] = useState([])
  
     const apply = () =>{
-        axios.post(OnRun+'/createassembly',{date:dateSelection,dict:dict,access:access,controller:controller})
+        axios.post(OnRun+'/createassembly',{date:dateSelection,dict:dict,access:access,controller:controller,managers:managers})
             .then(response=>{
                 if (response.data.replay) {
                     toast.success("ثبت شد",{position: toast.POSITION.BOTTOM_RIGHT})
@@ -48,6 +50,13 @@ const CreateAssembly = () =>{
         if (controllerInput!='') {
             var c = controller.concat([controllerInput])
             setController(c)
+        }
+    }
+    const handleAddManagers =()=>{
+        console.log(0);
+        if (managersInput!='') {
+            var c = managers.concat([managersInput])
+            setManagers(c)
         }
     }
 
@@ -154,6 +163,26 @@ const CreateAssembly = () =>{
                         <div className="prt">
                             <input type="checkbox" id="managers" checked={dict.managers} onChange={()=>setDict({...dict,managers:!dict.managers})}></input>
                             <label htmlFor="managers">انتخاب هیئت مدیره</label>
+                            {
+                                dict.managers?
+                                    <div className="opt">
+                                        <h3>کاندیدا ها هیئت مدیره</h3>
+                                        <div>
+                                            {
+                                                managers.map(i=>{
+                                                    return(
+                                                        <span key={i}>{i}</span>
+                                                    )
+                                                })
+                                            }
+                                            <div className="adding">
+                                                <input value={managersInput} onChange={(e)=>setManagersInput(e.target.value)} />
+                                                <p onClick={handleAddManagers}><BiAddToQueue/></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    :null
+                            }
                         </div>
 
                     </div>
