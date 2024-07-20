@@ -26,7 +26,7 @@ const Home = () => {
   const applyPhone = () => {
     if (inputPhone.phone.length != 11) {
       setErrMsg("شماره همراه میبایست 11 رقم باشد");
-    } else if (inputPhone.captcha.length == 0) {
+    } else if (inputPhone.captcha.length === 0) {
       setErrMsg("کد تصویر صحیح نیست");
     } else {
       setPhase(true);
@@ -117,6 +117,7 @@ const Home = () => {
                 <img
                   onClick={getCaptcha}
                   src={`data:image/png;base64,${CaptchaImg}`}
+                  alt="404"
                 ></img>
               )}
             </div>
@@ -133,13 +134,13 @@ const Home = () => {
       </div>
       <div className="brd">
         <div className="logo">
-          <img src="./img/fidiplogo.png" />
-          <img className="prt1 prt" src="./img/logopart1.png" />
-          <img className="prt2 prt" src="./img/logopart2.png" />
-          <img className="prt3 prt" src="./img/logopart3.png" />
-          <img className="prt4 prt" src="./img/logopart4.png" />
+          <img src="./img/fidiplogo.png" alt="404" />
+          <img className="prt1 prt" src="./img/logopart1.png" alt="404"/>
+          <img className="prt2 prt" src="./img/logopart2.png" alt="404"/>
+          <img className="prt3 prt" src="./img/logopart3.png" alt="404"/>
+          <img className="prt4 prt" src="./img/logopart4.png" alt="404"/>
         </div>
-        <img src="./img/fidiptype.png" />
+        <img src="./img/fidiptype.png" alt="404" />
         <h1>سامانه مدیریت امور سهام</h1>
         <a href="https://fidip.ir">www.fidip.ir</a>
       </div>

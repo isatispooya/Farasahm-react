@@ -1,4 +1,3 @@
-
 import { useState , useContext, useEffect} from "react";
 import { IoMdAddCircle } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify'
@@ -131,4 +130,4 @@ const CompanyMoadian = () =>{
     )
 }
 
-export default CompanyMoadian
+export default CompanyMoadian;
