@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FaCheck } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { MdArrowDropDown } from "react-icons/md";
 
@@ -67,7 +66,7 @@ const InvoiceDetail = ({ invoiceDetail, onClose }) => {
             <p>
               <strong className="flex items-center">
                 وضعیت: موفق
-                <FaCheck />
+                <IoMdClose />
               </strong>
             </p>
           ) : (

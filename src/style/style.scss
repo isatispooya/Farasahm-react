@@ -2178,7 +2178,7 @@ header {
 .print {
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   margin: 0px auto;
   direction: rtl;
   .inpersonal {
@@ -2266,14 +2266,14 @@ header {
     }
     .aras {
       border-top: 1px $colorDisable dashed;
-      padding: 20px;
+      padding: 4px;
       margin-top: 15px;
       > p {
         font-size: 12pt;
         border: 1px $colorBDark solid;
-        padding: 10px 10px;
+        padding: 5px 10px;
         border-radius: 10px;
-        margin-top: 10px;
+        margin-top: 5px;
       }
       .opt {
         display: flex;

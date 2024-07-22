@@ -30,9 +30,9 @@ const AssemblySheetPrint = () => {
                 res == null ? null :
                     <div className="conteiner">
                         <div className="title">
-                            <img src={"/img/" + symbol + '.png'}></img>
+                            {/* <img src={"/img/" + symbol + '.png'}></img> */}
                             <h1>{res.company.fullname}</h1>
-                            <h2>برگه رای</h2>
+                            {/* <h2>برگه رای</h2> */}
                         </div>
 
                         <div className="text">
@@ -43,11 +43,11 @@ const AssemblySheetPrint = () => {
                                         :
                                         <p>خانم / آقای</p>
                                 }
-                                <p>{res.register['نام'] + ' ' + res.register["نام خانوادگی "]}</p>
+                                <p>{  res.register["fullName"]}</p>
                             </div>
                             <div>
-                                <p>شماره/شناسه ملی</p>
-                                <p>{res.register['شناسه ملی'] + res.register["کد ملی"]}</p>
+                                <p>ش. ملی</p>
+                                <p>{res.register['شناسه ملی'] || res.register["کد ملی"]}</p>
                             </div>
                             <div>
                                 <p>سهام کل</p>
@@ -66,13 +66,15 @@ const AssemblySheetPrint = () => {
 
                             <div className="opt">
                                 <h1>کاندیدا های انتخابات حسابرسی و بازرس:</h1>
-                                {
-                                    res.assembly.controller.map(i => {
-                                        return (
-                                            <span key={i}>{i}</span>
-                                        )
-                                    })
-                                }
+                                <div className="grid grid-cols-2">
+                                    {
+                                        res.assembly.controller.map(i => {
+                                            return (
+                                                <span key={i}>{i}</span>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                             <p>بازرس منتخب:</p>
                         </div>
@@ -81,6 +83,8 @@ const AssemblySheetPrint = () => {
 
                             <div className="opt">
                                 <h1>کاندیدا های انتخابات هیئت مدیره:</h1>
+                                <div className="grid grid-cols-2">
+
                                 {
                                     res.assembly.managers.map(i => {
                                         return (
@@ -89,18 +93,23 @@ const AssemblySheetPrint = () => {
                                     })
                                 }
                             </div>
-                         <div className="aras  grid grid-cols-2 gap-2">
-                         <p className="flex justify-between">1 منتخب:</p>
-                         <p className="flex justify-between">تعداد:</p>
-                         <p className="flex justify-between">2 منتخب:</p>
-                         <p className="flex justify-between">تعداد:</p>
-                         <p className="flex justify-between">3 منتخب:</p>
-                         <p className="flex justify-between">تعداد:</p>
-                         <p className="flex justify-between">4 منتخب:</p>
-                         <p className="flex justify-between">تعداد:</p>
-                         <p className="flex justify-between">5 منتخب:</p>
-                         <p className="flex justify-between">تعداد:</p>
-                         </div>
+                            </div>
+                            <div className="aras  grid grid-cols-2 gap-2">
+                                <p className="flex justify-between">1 منتخب:</p>
+                                <p className="flex justify-between">تعداد:</p>
+                                <p className="flex justify-between">2 منتخب:</p>
+                                <p className="flex justify-between">تعداد:</p>
+                                <p className="flex justify-between">3 منتخب:</p>
+                                <p className="flex justify-between">تعداد:</p>
+                                <p className="flex justify-between">4 منتخب:</p>
+                                <p className="flex justify-between">تعداد:</p>
+                                <p className="flex justify-between">5 منتخب:</p>
+                                <p className="flex justify-between">تعداد:</p>
+                                <p className="flex opacity-0 justify-between ">مجموع آراء:</p>
+                                <p className="flex justify-between">
+                                مجموع آراء: <span>{(res.register['سهام کل'] * 5).toLocaleString('en-US')}</span>
+                            </p>
+                            </div>
 
                         </div>
                         <div className="singer">
