@@ -2132,7 +2132,7 @@ header .btn-bs input:focus {
 .print {
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   margin: 0px auto;
   direction: rtl;
 }
@@ -2222,14 +2222,15 @@ header .btn-bs input:focus {
 }
 .print .conteiner .aras {
   border-top: 1px #636363 dashed;
-  padding: 20px;
+  padding: 4px;
   margin-top: 15px;
 }
 .print .conteiner .aras > p {
   font-size: 12pt;
   border: 1px #20409d solid;
-  padding: 10px 10px;
+  padding: 5px 10px;
   border-radius: 10px;
+  margin-top: 5px;
 }
 .print .conteiner .aras .opt {
   display: flex;
