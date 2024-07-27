@@ -11,6 +11,8 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import LoaderCircle from "../../../../componet/Loader/LoadingCircle";
 import { BsArrowRepeat } from "react-icons/bs";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const InvoiceCreate = () => {
   const access = useContext(AccessContext);
@@ -56,6 +58,7 @@ const InvoiceCreate = () => {
         }
       });
   };
+
   useEffect(() => {
     getListCompanyMoadian();
     setTimeout(() => {
@@ -64,35 +67,34 @@ const InvoiceCreate = () => {
   }, []);
 
   const handleIdBodyChange = (event, index, key) => {
-    // Copy the existing state
     const newInvoiceData = { ...invoceData };
-
-    // Update the idProduct of the second element in the body array
     newInvoiceData.body[index][key] = event.target.value;
-
-    // Set the updated state
     setInvoiceData(newInvoiceData);
   };
 
   const addBody = () => {
-    var body = invoceData.body;
-    body.push({
-      idProduct: "",
-      discription: "",
-      count: "1",
-      sumBeforOff: "0",
-      off: "0",
-      taxRate: "10",
-      cash: "0",
-    });
-    setInvoiceData({ ...invoceData, body: body });
+    setInvoiceData((prevState) => ({
+      ...prevState,
+      body: [
+        ...prevState.body,
+        {
+          idProduct: "",
+          discription: "",
+          count: "1",
+          sumBeforOff: "0",
+          off: "0",
+          taxRate: "10",
+          cash: "0",
+        },
+      ],
+    }));
   };
 
-  const delbody = (inx) => {
+  const delbody = (index) => {
     if (invoceData.body.length > 1) {
       setInvoiceData((prevState) => ({
         ...prevState,
-        body: prevState.body.filter((_, index) => index !== inx),
+        body: prevState.body.filter((_, i) => i !== index),
       }));
     }
   };
@@ -100,6 +102,7 @@ const InvoiceCreate = () => {
   const handlecreatedate = (data) => {
     setInvoiceData({ ...invoceData, createDate: data });
   };
+
   const handleadddate = (data) => {
     setInvoiceData({ ...invoceData, addDate: data });
   };
@@ -169,6 +172,11 @@ const InvoiceCreate = () => {
               position: toast.POSITION.BOTTOM_RIGHT,
             });
           }
+        })
+        .catch(() => {
+          toast.error("خطا در سرور, لطفا مجددا تلاش کنید", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         });
     }
   };
@@ -236,7 +244,7 @@ const InvoiceCreate = () => {
                     ></input>
                   </fieldset>
                   <fieldset>
-                    <label>نام فروشنده</label>
+                    <label>نام خریدار</label>
                     <input
                       value={invoceData.buyerName}
                       onChange={(e) =>
@@ -250,7 +258,7 @@ const InvoiceCreate = () => {
                 </div>
                 <div className="body-section">
                   <fieldset>
-                    <label>آدرس فروشنده</label>
+                    <label>آدرس خریدار</label>
                     <input
                       value={invoceData.buyerAddress}
                       onChange={(e) =>
@@ -262,7 +270,7 @@ const InvoiceCreate = () => {
                     ></input>
                   </fieldset>
                   <fieldset>
-                    <label>تماس فروشنده</label>
+                    <label>تماس خریدار</label>
                     <input
                       type="number"
                       value={invoceData.buyerTel}
@@ -275,7 +283,7 @@ const InvoiceCreate = () => {
                     ></input>
                   </fieldset>
                   <fieldset>
-                    <label>کد پستی فروشنده</label>
+                    <label>کد پستی خریدار</label>
                     <input
                       type="number"
                       value={invoceData.buyerPost}
@@ -462,3 +470,4 @@ const InvoiceCreate = () => {
 };
 
 export default InvoiceCreate;
+
