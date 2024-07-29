@@ -1,4 +1,5 @@
 import React from 'react'
+import Date from '../componet/date';
 
 const Marketing = () => {
     console.log("hello world")
@@ -6,7 +7,7 @@ const Marketing = () => {
 
         <div className='bg-red-700'>
             hello
-            
+            <Date/>
         </div>
     </> );
 }
