@@ -6,7 +6,7 @@ import { TabulatorFull as Tabulator } from "tabulator-tables";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { AccessContext } from "../../../../config/accessContext";
 import { OnRun } from "../../../../config/config";
-import InvoiceDetail from "./InvoiceDetail"; // Import the InvoiceDetail component
+import InvoiceDetail from "./InvoiceDetail";
 
 const Invoices = () => {
   const [df, setDf] = useState(null);
@@ -53,7 +53,6 @@ const Invoices = () => {
             if (response.data.reply) {
               setInvoiceDetail(response.data.df);
               setShowInvoiceDetail(true); // Show the InvoiceDetail component
-              console.log(response.data.df) 
             } else {
               toast.warning(response.data.msg, {
                 position: toast.POSITION.BOTTOM_RIGHT,
@@ -362,3 +361,4 @@ const Invoices = () => {
 };
 
 export default Invoices;
+

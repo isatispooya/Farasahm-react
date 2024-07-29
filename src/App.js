@@ -79,6 +79,7 @@ import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Marketing from "./page/marketing";
 // import "@tailwindcss/base";
 // import "tailwindcss/components";
 // import "tailwindcss/utilities";
@@ -183,6 +184,7 @@ function App() {
             path="/printas/sheetvotecontroller/:symbol"
             element={<SheetVoteController />}
           />
+<Route path="/marketing" element={<Marketing />}/>
           <Route
             path="/printas/sheetinassembly/:symbol"
             element={<SheetInAssembly />}
