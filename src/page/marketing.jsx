@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalFilter from "../componet/modalFilter";
 
-import SliderComponent from "../componet/saham";
+import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
 
 const Marketing = () => {
@@ -16,8 +16,8 @@ const Marketing = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100 z-50">
         {isModalOpen && <ModalFilter toggleModal={toggleModal} />}
         <div>
-          <Date />
           <SliderComponent />
+          <Date />
         </div>
       </div>
     </>
