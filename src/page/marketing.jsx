@@ -1,12 +1,13 @@
 import React from 'react'
-import Date from '../componet/date';
+import SliderComponent from '../componet/saham';   
+import Date from '../componet/date';   
 
 const Marketing = () => {
-    console.log("hello world")
+
     return ( <>
 
-        <div className='bg-red-700'>
-            hello
+        <div >
+         <SliderComponent/>
             <Date/>
         </div>
     </> );
