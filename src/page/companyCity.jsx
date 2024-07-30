@@ -20,7 +20,9 @@ const CompanyCity = () => {
       ],
     },
   });
-  const [searchQuery, setSearchQuery] = useState("");
+
+  const [citySearchQuery, setCitySearchQuery] = useState("");
+  const [companySearchQuery, setCompanySearchQuery] = useState("");
   const [openAccordion, setOpenAccordion] = useState(null);
 
   const handleAccordionToggle = (type) => {
@@ -39,8 +41,12 @@ const CompanyCity = () => {
     }));
   };
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+  const handleCitySearchChange = (event) => {
+    setCitySearchQuery(event.target.value);
+  };
+
+  const handleCompanySearchChange = (event) => {
+    setCompanySearchQuery(event.target.value);
   };
 
   return (
@@ -49,8 +55,8 @@ const CompanyCity = () => {
         items={accordions.city.items}
         checkedItems={accordions.city.checkedItems}
         onCheckboxChange={(index) => handleCheckboxChange(index, "city")}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
+        searchQuery={citySearchQuery}
+        onSearchChange={handleCitySearchChange}
         buttonText="انتخاب شهر"
         isOpen={openAccordion === "city"}
         onToggle={() => handleAccordionToggle("city")}
@@ -59,8 +65,8 @@ const CompanyCity = () => {
         items={accordions.company.items}
         checkedItems={accordions.company.checkedItems}
         onCheckboxChange={(index) => handleCheckboxChange(index, "company")}
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
+        searchQuery={companySearchQuery}
+        onSearchChange={handleCompanySearchChange}
         buttonText="انتخاب شرکت ها"
         isOpen={openAccordion === "company"}
         onToggle={() => handleAccordionToggle("company")}

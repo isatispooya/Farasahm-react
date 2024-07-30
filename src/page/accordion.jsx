@@ -17,7 +17,7 @@ const Accordion = ({
   return (
     <div
       dir="rtl"
-      className="border border-gray-300 rounded-md  mx-auto w-full max-w-md"
+      className="border border-gray-300 rounded-md mx-auto w-full max-w-md"
     >
       <button
         type="button"
