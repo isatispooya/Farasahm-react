@@ -10,7 +10,7 @@ const SliderComponent = () => {
 
   return (
     <div className="w-72 mx-auto my-5 text-center">
-      <div className="mb-2 text-lg font-bold">محدوده تعداد سهام</div>
+      <div className=" mb-2 text-lg font-bold">محدوده تعداد سهام</div>
       <div className="flex justify-center mb-5">
         <div className="relative">
           <input
@@ -22,8 +22,8 @@ const SliderComponent = () => {
         </div>
       </div>
       <Slider
-        className="w-full h-2 mt-2"
-        thumbClassName="h-5 w-5 bg-blue-500 rounded-full cursor-pointer"
+        className="w-full h-2 "
+        thumbClassName="h-3 w-3 mb-5 bg-blue-500 rounded-full cursor-pointer"
         value={value}
         onChange={handleSliderChange}
         min={0}
@@ -41,8 +41,8 @@ const SliderComponent = () => {
             }}
           />
         )}
-        renderThumb={(props, state) => (
-          <div {...props} className="h-5 w-5 bg-blue-500 rounded-full cursor-pointer" />
+        renderThumb={(props) => (
+          <div {...props} className="h-5 w-5 z-10 bg-blue-500 rounded-full cursor-pointer" />
         )}
       />
     </div>

@@ -17,9 +17,6 @@ const DateComponent = () => {
             const startFormatted = startDate.format("YYYY/MM/DD");
             const endFormatted = endDate.format("YYYY/MM/DD");
             setDateRange(`${startFormatted} - ${endFormatted}`);
-            setTimeout(() => {
-                setModalIsOpen(false);
-            }, 2000); // Close modal after 2 seconds
         }
     }, [startDate, endDate]);
 
@@ -35,7 +32,7 @@ const DateComponent = () => {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 contentLabel="Date Picker Modal"
-                className="fixed inset-0 flex items-center justify-center"
+                className="fixed inset-0 z-30 flex items-center justify-center"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50"
             >
                 <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
@@ -73,7 +70,6 @@ const DateComponent = () => {
                             )}
                             header={({ date, ...props }) => (
                                 <div className="flex items-center justify-between p-2">
-                                    <span>{date.year} / {date.month.name}</span>
                                     <button onClick={props.openCalendar} className="text-blue-500">انتخاب تاریخ</button>
                                 </div>
                             )}
