@@ -90,7 +90,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-        
           <Route path="/" element={<Home />} />
           <Route path="/section" element={<Section />} />
           <Route path="/desk" element={<Desk />}>
@@ -184,7 +183,7 @@ function App() {
             path="/printas/sheetvotecontroller/:symbol"
             element={<SheetVoteController />}
           />
-<Route path="/marketing" element={<Marketing />}/>
+          <Route path="/marketing" element={<Marketing />} />
           <Route
             path="/printas/sheetinassembly/:symbol"
             element={<SheetInAssembly />}

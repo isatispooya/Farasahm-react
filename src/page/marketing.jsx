@@ -7,8 +7,8 @@ const Marketing = () => {
     return ( <>
 
         <div >
-         <SliderComponent/>
             <Date/>
+         <SliderComponent/>
         </div>
     </> );
 }
