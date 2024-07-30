@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import ModalFilter from '../componet/modalFilter';
 
 const Marketing = () => {
-    console.log("hello world")
-    return ( <>
+  const [isModalOpen, setIsModalOpen] = useState(true); // Set modal to open on page load
 
-        <div className='bg-red-700'>
-            hello
-            
-        </div>
-    </> );
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      {isModalOpen && <ModalFilter toggleModal={toggleModal} />}
+    </div>
+  );
 }
- 
+
 export default Marketing;
