@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Accordion from "./accordion";
 
-const Marketing = () => {
+const CompanyCity = () => {
   const [accordions, setAccordions] = useState({
     city: {
       checkedItems: Array(7).fill(false),
@@ -69,4 +69,4 @@ const Marketing = () => {
   );
 };
 
-export default Marketing;
+export default CompanyCity;
