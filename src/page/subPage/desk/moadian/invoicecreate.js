@@ -381,7 +381,7 @@ const InvoiceCreate = () => {
                       <h3>جزئیات صورت حساب</h3>
                       <div className="btn" onClick={addBody}>
                         <span>
-                          
+                          +
                         </span>
                       </div>
                     </div>
