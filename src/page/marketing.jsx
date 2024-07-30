@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import ModalFilter from "../componet/modalFilter";
-// import CompanyCity from "./companyCity";
+import React from 'react'
+import SliderComponent from '../componet/saham';   
+import Date from '../componet/date';   
 
 const Marketing = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+    return ( <>
 
-  return (
-    <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        {isModalOpen && <ModalFilter toggleModal={toggleModal} />}
-        
-      </div>
-
-      
-    </>
-  );
-};
+        <div >
+            <Date/>
+         <SliderComponent/>
+        </div>
+    </> );
+}
+ 
 export default Marketing;
