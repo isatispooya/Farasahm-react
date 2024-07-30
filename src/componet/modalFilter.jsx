@@ -1,18 +1,19 @@
 import React from 'react';
+import NationalIdSearch from './nationalFilter';
 
 const ModalFilter = ({ toggleModal }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
-      <div className="bg-white rounded-lg p-8 shadow-lg w-full max-w-md">
-        <h2 className="text-2xl mb-4">Modal Content</h2>
-        <div className="space-y-4">
-
-        </div>
+      <div className="bg-white w-full h-full rounded-lg p-8 shadow-lg  ">
+        <h2 className="text-2xl mb-4">فیلتر </h2>
+        
+         <NationalIdSearch/>
+        
         <button
           onClick={toggleModal}
           className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700"
         >
-          Close
+          بستن
         </button>
       </div>
     </div>
