@@ -80,6 +80,7 @@ import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Marketing from "./page/marketing";
+import CreateList from "./page/subPage/desk/marketing/createlist";
 // import "@tailwindcss/base";
 // import "tailwindcss/components";
 // import "tailwindcss/utilities";
@@ -177,13 +178,14 @@ function App() {
             <Route path="sendsms" element={<SendSMS />} />
             <Route path="analizsms" element={<ReportAnalyze />} />
             <Route path="bank" element={<Bank />} />
+            <Route path="createlist" element={<CreateList />} />
+
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />
           <Route
             path="/printas/sheetvotecontroller/:symbol"
             element={<SheetVoteController />}
           />
-          <Route path="/marketing" element={<Marketing />} />
           <Route
             path="/printas/sheetinassembly/:symbol"
             element={<SheetInAssembly />}
