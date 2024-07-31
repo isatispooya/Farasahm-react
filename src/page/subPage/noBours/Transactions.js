@@ -18,7 +18,7 @@ const Transactions = () =>{
     const [balanceSell, setBalanceSell] = useState(0)
     const [balanceBuy, setBalanceBuy] = useState(0)
     const [dataTrade, setDataTrade] = useState({id:Math.round(Math.random()*100000000),sell:'',buy:'',volume:0,price:0,value:0})
-    
+
 
         var rowMenu = [
         {
