@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const SliderComponent = () => {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [input3, setInput3] = useState("");
+  const [input4, setInput4] = useState("");
 
   const handleInput1Change = (e) => {
     setInput1(e.target.value);
@@ -12,59 +14,89 @@ const SliderComponent = () => {
     setInput2(e.target.value);
   };
 
+  const handleInput3Change = (e) => {
+    setInput3(e.target.value);
+  };
+
+  const handleInput4Change = (e) => {
+    setInput4(e.target.value);
+  };
+
   const handleSetValues = () => {
-    // Convert input values to numbers
     const num1 = parseInt(input1);
     const num2 = parseInt(input2);
-    
-    // Check if both inputs are valid numbers
-    if (!isNaN(num1) && !isNaN(num2)) {
-      // Example logic: You can perform any action you want with num1 and num2
+    const num3 = parseInt(input3);
+    const num4 = parseInt(input4);
+
+    if (!isNaN(num1) && !isNaN(num2) && !isNaN(num3) && !isNaN(num4)) {
       console.log("Input 1:", num1);
       console.log("Input 2:", num2);
+      console.log("Input 3:", num3);
+      console.log("Input 4:", num4);
     } else {
-      // Handle invalid inputs (e.g., show an error message)
-      alert('Please enter valid numbers in both fields.');
+      alert("Please enter valid numbers in all fields.");
     }
   };
 
   return (
-    <div className="w-72 mx-auto my-5 text-center p-4 bg-gray-100 rounded-lg">
-      <div className="mb-2 text-lg font-bold">محدوده تعداد سهام</div>
+    <div
+      dir="rtl"
+      className="w-full mx-auto my-2 text-center p-2 bg-gray-100 rounded-lg"
+    >
+      <div className="text-center text-xl mb-2 font-bold w-full"> سهام</div>
+      <div className="flex justify-between items-center mb-2 bg-gray-200 shadow-md p-2">
+        <div className="text-right text-lg font-bold w-full"> تعداد سهام</div>
 
-      {/* First input */}
-      <div className="mb-4">
-        <div className="text-right">
-          <span className="text-sm">از</span>
+        <div className="flex justify-between space-x-2 w-full ">
+          <div className="text-right w-1/4">
+            <span className="text-sm block">از</span>
+            <input
+              type="text"
+              value={input1}
+              onChange={handleInput1Change}
+              className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
+            />
+          </div>
+          <div className="text-right w-1/4">
+            <span className="text-sm block">تا</span>
+            <input
+              type="text"
+              value={input2}
+              onChange={handleInput2Change}
+              className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
+            />
+          </div>
         </div>
-        <input
-          type="text"
-          value={input1}
-          onChange={handleInput1Change}
-          className="w-full p-2 text-center border border-gray-300 rounded"
-        />
       </div>
 
-      {/* Second input */}
-      <div className="mb-5">
-        <div className="text-right">
-          <span className="text-sm">تا</span>
+      <div className="flex justify-between items-center mb-5 bg-gray-200 shadow-md p-2">
+        <div className="text-right text-lg font-bold w-full">
+          مقدار درصد سهام
         </div>
-        <input
-          type="text"
-          value={input2}
-          onChange={handleInput2Change}
-          className="w-full p-2 text-center border border-gray-300 rounded"
-        />
+
+        <div className="flex justify-between space-x-2 w-full">
+          <div className="text-right w-1/4">
+            <span className="text-sm block"> از</span>
+            <input
+              type="text"
+              value={input3}
+              onChange={handleInput3Change}
+              className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
+            />
+          </div>
+          <div className="text-right w-1/4">
+            <span className="text-sm block"> تا</span>
+            <input
+              type="text"
+              value={input4}
+              onChange={handleInput4Change}
+              className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Button to set values */}
-      <button
-        onClick={handleSetValues}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-      >
-        ثبت
-      </button>
     </div>
   );
 };

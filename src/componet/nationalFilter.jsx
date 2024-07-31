@@ -26,14 +26,14 @@ const NationalIdSearch = () => {
   };
 
   return (
-    <div dir='rtl' className="p-6 max-w-3xl mx-auto bg-white shadow-md rounded-lg">
-      <div className="mb-6 flex items-center space-x-4">
+    <div dir='rtl' className="p-1 max-w-3xl mx-auto bg-gray-100 shadow-md rounded-lg">
+      <div className="mb-2 mt-2 flex items-center space-x-4">
         <input
           type="text"
           placeholder="جستجو کد ملی"
           value={searchTerm}
           onChange={handleSearch}
-          onKeyDown={handleKeyDown}  // Listen for the Enter key
+          onKeyDown={handleKeyDown}  
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
         />
         <button

@@ -3,25 +3,29 @@ import NationalIdSearch from './nationalFilter';
 import CompanyCity from '../page/companyCity';
 import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
+import PhoneSearch from './phoneFilter';
 
 const ModalFilter = ({ toggleModal }) => {
   const [nobours, setNobours]  = useState({enabled : true})
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
       <div className="bg-white w-full max-w-3xl h-auto rounded-lg p-8 shadow-lg overflow-y-auto max-h-screen">
-        <h2 className="text-2xl mb-4 text-center">فیلتر</h2>
+        <h2 className="text-2xl mb-4 text-center">سهامداران غیر بورسی</h2>
 
         <div className="space-y-6">
           <div className="bg-gray-100 rounded-lg">
             <NationalIdSearch />
           </div>
           <div className="bg-gray-100 rounded-lg">
+            <PhoneSearch/>
+          </div>
+          <div className="bg-gray-100 rounded-lg shadow-md">
             <CompanyCity />
           </div>
-          <div className="bg-gray-100 rounded-lg">
+          <div className="bg-gray-100 rounded-lg shadow-md">
             <SliderComponent />
           </div>
-          <div className="bg-gray-100 rounded-lg">
+          <div className="bg-gray-100 rounded-lg shadow-md">
             <Date />
           </div>
         </div>
