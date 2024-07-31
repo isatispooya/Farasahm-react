@@ -7,17 +7,11 @@ import ModalFilter from "../componet/modalFilter";
 const Marketing = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
 
   return (
     <>
       <div> 
-        {isModalOpen && <ModalFilter toggleModal={toggleModal} />}
-        <div>
 
-        </div>
       </div>
     </>
   );

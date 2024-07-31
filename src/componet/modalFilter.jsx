@@ -3,8 +3,10 @@ import NationalIdSearch from './nationalFilter';
 import CompanyCity from '../page/companyCity';
 import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
+import PropTypes from 'prop-types';
 
-const ModalFilter = ({ toggleModal }) => {
+
+const ModalFilter = ({ toggleModal , access}) => {
   const [nobours, setNobours]  = useState({enabled : true})
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
@@ -16,7 +18,7 @@ const ModalFilter = ({ toggleModal }) => {
             <NationalIdSearch />
           </div>
           <div className="bg-gray-100 rounded-lg">
-            <CompanyCity />
+            <CompanyCity access={access} />
           </div>
           <div className="bg-gray-100 rounded-lg">
             <SliderComponent />
@@ -35,6 +37,11 @@ const ModalFilter = ({ toggleModal }) => {
       </div>
     </div>
   );
+};
+
+ModalFilter.propTypes = {
+  toggleModal: PropTypes.bool, 
+
 };
 
 export default ModalFilter;
