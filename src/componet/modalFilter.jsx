@@ -1,6 +1,7 @@
 import React from 'react';
 import NationalIdSearch from './nationalFilter';
-import CompanyCity from '../page/companyCity';
+import CompanyCity from './companyCity';
+
 
 const ModalFilter = ({ toggleModal }) => {
   return (

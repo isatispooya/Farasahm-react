@@ -59,21 +59,21 @@ const Home = () => {
     });
   };
 
-  // const AccessCheck = () => {
-  //   const id = getCookie("id");
-  //   if (id) {
-  //     axios({ method: "POST", url: OnRun + "/access", data: { id: id } }).then(
-  //       (response) => {
-  //         if (response.data.replay) {
-  //           Navigate("/section");
-  //         }
-  //       }
-  //     );
-  //   }
-  // };
+  const AccessCheck = () => {
+    const id = getCookie("id");
+    if (id) {
+      axios({ method: "POST", url: OnRun + "/access", data: { id: id } }).then(
+        (response) => {
+          if (response.data.replay) {
+            Navigate("/section");
+          }
+        }
+      );
+    }
+  };
 
-  // useEffect(getCaptcha, []);
-  // useEffect(AccessCheck, []);
+  useEffect(getCaptcha, []);
+  useEffect(AccessCheck, []);
   return (
     <div className="homePage">
       <div className="login">
