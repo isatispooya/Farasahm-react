@@ -7,8 +7,8 @@ const CompanyCity = ({ access }) => {
   const [cityList, setCityList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
 
-  const [cityInput, setCityInput] = useState(""); // State to hold the input value
-  const [companyInput, setCompanyInput] = useState(""); // State to hold the input value
+  const [cityInput, setCityInput] = useState("");
+  const [companyInput, setCompanyInput] = useState("");
 
   const [citySelected, setCitySelected] = useState([]);
   const [companySelected, setCompanySelected] = useState([]);
@@ -19,7 +19,6 @@ const CompanyCity = ({ access }) => {
       url: `${OnRun}/marketing/cityregisternobours`,
       data: { access },
     }).then((response) => {
-      console.log("City List:", response.data);
       setCityList(response.data);
     });
   };
@@ -30,7 +29,6 @@ const CompanyCity = ({ access }) => {
       url: `${OnRun}/marketing/symbolregisternobours`,
       data: { access },
     }).then((response) => {
-      console.log("Company List:", response.data);
       setCompanyList(response.data);
     });
   };
@@ -46,14 +44,14 @@ const CompanyCity = ({ access }) => {
   const handleAddCity = () => {
     if (cityInput && !citySelected.includes(cityInput)) {
       setCitySelected((prev) => [...prev, cityInput]);
-      setCityInput(""); // Clear the input field
+      setCityInput("");
     }
   };
 
   const handleAddCompany = () => {
     if (companyInput && !companySelected.includes(companyInput)) {
       setCompanySelected((prev) => [...prev, companyInput]);
-      setCompanyInput(""); // Clear the input field
+      setCompanyInput("");
     }
   };
 
@@ -76,30 +74,41 @@ const CompanyCity = ({ access }) => {
     .filter((company) => !companySelected.includes(company));
 
   return (
-    <div style={{ textAlign: "right", padding: '20px' }}>
-      <div style={{ marginBottom: 16 }} dir="rtl">
+    <div style={{ textAlign: "right", padding: "20px" }}>
+      <div
+        style={{
+          marginBottom: 16,
+          display: "flex",
+          gap: "10px",
+          alignItems: "center",
+        }}
+        dir="rtl"
+      >
         <Autocomplete
           value={cityInput}
           options={availableCities}
           onChange={handleCityChange}
+          onInputChange={(event, newInputValue) => {
+            setCityInput(newInputValue);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              handleAddCity();
+            }
+          }}
           renderInput={(params) => (
-            <TextField
-              dir="rtl"
-              {...params}
-              label="انتخاب شهر"
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
-              }}
-              fullWidth
-            />
+            <TextField dir="rtl" {...params} label="انتخاب شهر" fullWidth />
           )}
+          style={{ flex: 1 }}
         />
         <Button
           onClick={handleAddCity}
           variant="contained"
           color="primary"
-          style={{ marginTop: '10px' }}
+          style={{
+            backgroundColor: "#22c55e",
+            height: "56px", // Align button height with TextField
+          }}
         >
           اضافه کردن شهر
         </Button>
@@ -118,7 +127,10 @@ const CompanyCity = ({ access }) => {
             label={city || "Unknown City"}
             onDelete={() => handleDelete(city, "city")}
             deleteIcon={
-              <button style={{ color: 'white' }} className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg">
+              <button
+                style={{ color: "white" }}
+                className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -147,11 +159,28 @@ const CompanyCity = ({ access }) => {
         ))}
       </Stack>
 
-      <div style={{ marginBottom: 16, marginTop: 16 }}>
+      <div
+        style={{
+          marginBottom: 16,
+          marginTop: 16,
+          display: "flex",
+          gap: "10px",
+          alignItems: "center",
+        }}
+        dir="rtl"
+      >
         <Autocomplete
           value={companyInput}
           options={availableCompanies}
           onChange={handleCompanyChange}
+          onInputChange={(event, newInputValue) => {
+            setCompanyInput(newInputValue);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              handleAddCompany();
+            }
+          }}
           renderInput={(params) => (
             <TextField
               dir="rtl"
@@ -164,13 +193,15 @@ const CompanyCity = ({ access }) => {
               fullWidth
             />
           )}
+          style={{ flex: 1 }}
         />
         <Button
           onClick={handleAddCompany}
           variant="contained"
-          color="primary"
-
-          style={{ marginTop: '10px' }}
+          style={{
+            backgroundColor: "#22c55e",
+            height: "56px",
+          }}
         >
           اضافه کردن شرکت
         </Button>
@@ -189,7 +220,10 @@ const CompanyCity = ({ access }) => {
             label={company || "Unknown Company"}
             onDelete={() => handleDelete(company, "company")}
             deleteIcon={
-              <button style={{ color: 'white' }} className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg">
+              <button
+                style={{ color: "white" }}
+                className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"

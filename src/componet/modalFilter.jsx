@@ -22,7 +22,7 @@ const ModalFilter = ({ toggleModal , access}) => {
             <PhoneSearch/>
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
-            <CompanyCity />
+            {/* <CompanyCity /> */}
             <CompanyCity access={access} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
