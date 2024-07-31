@@ -1,93 +1,41 @@
-import React from "react";
-import Modal from "react-modal";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
+import React, { useState } from "react"
+import DatePicker from "react-multi-date-picker"
+import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
 
-Modal.setAppElement("#root"); // Ensure to set the app element for accessibility
+export default function Example() {
+    const [from, setFrom] = useState(null)
+    const [to, setTo] = useState(null)
 
-const DateComponent = () => {
-  const [startDate, setStartDate] = React.useState(null);
-  const [endDate, setEndDate] = React.useState(null);
-  const [dateRange, setDateRange] = React.useState("");
-  const [modalIsOpen, setModalIsOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    if (startDate && endDate) {
-      const startFormatted = startDate.format("YYYY/MM/DD");
-      const endFormatted = endDate.format("YYYY/MM/DD");
-      setDateRange(`${startFormatted} - ${endFormatted}`);
-    }
-  }, [startDate, endDate]);
-
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
-
-  return (
-    <div dir="rtl" className="container mx-auto p-4 flex flex-col items-center">
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Date Picker Modal"
-        className="fixed inset-0 z-30 flex items-center justify-center"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50"
-      >
-        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md mx-auto">
-          <div className="flex justify-evenly items-center mb-4">
-            <DatePicker
-              value={startDate}
-              onChange={setStartDate}
-              calendar={persian}
-              locale={persian_fa}
-              format="YYYY/MM/DD"
-              render={(value, openCalendar) => (
-                <div
-                  onClick={openCalendar}
-                  className="p-2 bg-blue-500 text-white rounded cursor-pointer flex justify-center items-center"
-                >
-                  {value || "انتخاب تاریخ شروع"}
+    return (
+        <div className="flex flex-col items-center">
+            <button className="bg-blue-600 flex items-center justify-center text-white rounded-md p-2 mt-4 mb-4">
+                انتخاب تاریخ
+            </button>
+            <div style={{ direction: "rtl" }} className="flex justify-center gap-4">
+                <div>
+                    <p className="text-center">از تاریخ</p>
+                    <DatePicker
+                        calendar={persian}
+                        value={to}
+                        onChange={(date) => {
+                            setTo(date)
+                        }}
+                        locale={persian_fa}
+                        calendarPosition="bottom-left"
+                    />
                 </div>
-              )}
-            />
-            <DatePicker
-              value={endDate}
-              onChange={setEndDate}
-              calendar={persian}
-              locale={persian_fa}
-              format="YYYY/MM/DD"
-              render={(value, openCalendar) => (
-                <div
-                  onClick={openCalendar}
-                  className="p-2 bg-blue-500 text-white rounded cursor-pointer flex justify-center items-center"
-                >
-                  {value || "انتخاب تاریخ پایان"}
+                <div>
+                    <p className="text-center">تا تاریخ</p>
+                    <DatePicker
+                        calendar={persian}
+                        value={from}
+                        onChange={setFrom}
+                        locale={persian_fa}
+                        calendarPosition="bottom-right"
+                    />
                 </div>
-              )}
-            />
-          </div>
-          <button
-            onClick={closeModal}
-            className="mt-4 p-2 bg-red-500 text-white rounded mx-auto"
-          >
-            بستن
-          </button>
+            </div>
         </div>
-      </Modal>
-      <input
-        type="text"
-        placeholder="زمان"
-        value={dateRange}
-        readOnly
-        className="border p-2 w-96 mt-4"
-      />
-      <button
-        onClick={openModal}
-        className="p-2 bg-blue-500 text-white rounded mb-4 mt-4"
-      >
-        انتخاب تاریخ
-      </button>
-    </div>
-  );
-};
-
-export default DateComponent;
+    )
+}
