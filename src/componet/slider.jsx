@@ -24,7 +24,7 @@ const SliderComponent = () => {
       console.log("Input 2:", num2);
     } else {
       // Handle invalid inputs (e.g., show an error message)
-      alert('Please enter valid numbers in both fields.');
+      alert('لطفا مقدار عددی و مناسب وارد کنید');
     }
   };
 
