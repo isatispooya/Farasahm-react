@@ -50,7 +50,7 @@ const CompanyCity = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 min-h-screen p-4">
+    <div className="flex flex-col gap-2">
       <Accordion
         items={accordions.city.items}
         checkedItems={accordions.city.checkedItems}
@@ -76,3 +76,4 @@ const CompanyCity = () => {
 };
 
 export default CompanyCity;
+
