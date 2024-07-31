@@ -23,7 +23,7 @@ const SliderComponent = () => {
       </div>
       <Slider
         className="w-full h-2 "
-        thumbClassName="h-3 w-3 mb-5 bg-blue-500 rounded-full cursor-pointer"
+        thumbClassName="h-3 w-3  bg-blue-500 rounded-full  cursor-pointer"
         value={value}
         onChange={handleSliderChange}
         min={0}
@@ -42,7 +42,7 @@ const SliderComponent = () => {
           />
         )}
         renderThumb={(props) => (
-          <div {...props} className="h-5 w-5 z-10 bg-blue-500 rounded-full cursor-pointer" />
+          <div {...props} className="h-3 w-3  z-10 bg-blue-500  rounded-full cursor-pointer" />
         )}
       />
     </div>
