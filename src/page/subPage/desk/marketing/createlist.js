@@ -5,6 +5,9 @@ import NoData from "../../../../componet/Loader/NoData";
 import { exportPdf } from "../../../../config/exportPdf";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 
+import { MdOutlineCreateNewFolder } from "react-icons/md";
+
+
 const CreateList = () => {
   const [df, setDf] = useState(null);
 
@@ -46,8 +49,8 @@ const CreateList = () => {
         <div className="btntls">
           <button className="inp-fld">
             ایجاد
-            <BsArrowRepeat />
-          </button>
+            <MdOutlineCreateNewFolder />
+            </button>
         </div>
       </div>
 

@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import NationalIdSearch from './nationalFilter';
-<<<<<<< HEAD
-import CompanyCity from './companyCity';
-
-=======
 import CompanyCity from '../page/companyCity';
 import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
->>>>>>> 45b59ae817e1f096ec9fe1c1f471c2b196633141
 
 const ModalFilter = ({ toggleModal }) => {
   const [nobours, setNobours]  = useState({enabled : true})
