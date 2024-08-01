@@ -107,10 +107,12 @@ const CompanyCity = ({ access }) => {
           color="primary"
           style={{
             backgroundColor: "#22c55e",
-            height: "56px", // Align button height with TextField
+            borderRadius: "10px",
+            fontSize: "15px",
+            height: "45px",
           }}
         >
-          اضافه کردن شهر
+          افزودن
         </Button>
       </div>
 
@@ -183,7 +185,7 @@ const CompanyCity = ({ access }) => {
           }}
           renderInput={(params) => (
             <TextField
-              dir="rtl"
+              style={{direction:'rtl'}}
               {...params}
               label="انتخاب شرکت"
               InputProps={{
@@ -200,10 +202,12 @@ const CompanyCity = ({ access }) => {
           variant="contained"
           style={{
             backgroundColor: "#22c55e",
-            height: "56px",
+            borderRadius: "10px",
+            fontSize: "15px",
+            height: "45px",
           }}
         >
-          اضافه کردن شرکت
+          افزودن
         </Button>
       </div>
 
