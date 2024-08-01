@@ -86,10 +86,10 @@ const ModalFilter = ({ toggleModal, access }) => {
 
         <button
           onClick={() => {
-            PostData(); // Trigger the POST request on click
-            toggleModal(); // Close the modal
+            PostData(); 
+            toggleModal(); 
           }}
-          className="mt-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 w-full"
+          className="mt-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 justify-center"
         >
           ارسال
         </button>
