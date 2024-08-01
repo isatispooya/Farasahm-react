@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const CompanyCity = ({ access, nobours, setNobours }) => {
   const [cityList, setCityList] = useState([]);
@@ -182,7 +182,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
             spacing={2}
             mt={2}
             justifyContent="flex-end"
-            sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }} 
+            sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
             {citySelected.map((city, index) => (
               <Chip

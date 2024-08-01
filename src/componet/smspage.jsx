@@ -25,6 +25,9 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
 
   const handleSend = () => {
     send();
+    setTimeout(()=>{
+      handleClose()
+    },4000)
   };
 
   const sendMessageToBackend = () => {

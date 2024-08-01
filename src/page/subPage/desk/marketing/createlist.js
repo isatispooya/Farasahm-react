@@ -125,7 +125,7 @@ const CreateList = () => {
 
       {/* {df === null ? <MiniLoader /> : df === false ? <NoData /> : null} */}
 
-      <div>{isOpenFilter && <ModalFilter toggleModal={toggleModal} access={access}/>}</div>
+      <div>{isOpenFilter && <ModalFilter toggleModal={toggleModal} getDf={getDf}  access={access}/>}</div>
       <div>{isOpenSender && <Smspage toggleModal={toggleModalSender} len={len} Config={Config} columns={columns} access={access}/>}</div>
       <div id="data-table"></div>
     </div>
