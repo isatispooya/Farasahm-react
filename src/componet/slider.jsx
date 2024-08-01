@@ -71,7 +71,7 @@ const SliderComponent = () => {
 
       <div className="flex justify-between items-center mb-5 bg-gray-200 shadow-md p-2">
         <div className="text-right text-lg font-bold w-full">
-          مقدار درصد سهام
+           درصد سهام
         </div>
 
         <div className="flex justify-between space-x-2 w-full">
