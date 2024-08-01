@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CompanyCity = ({ access, nobours, setNobours }) => {
   const [cityList, setCityList] = useState([]);
@@ -19,17 +21,17 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
   }, [citySelected]);
 
   useEffect(() => {
-
-    const symbols = companySelected.map((selectedCompany) => {
-      const foundCompany = companyList.find(
-        (company) => company.fullname === selectedCompany
-      );
-      return foundCompany ? foundCompany.symbol : null;
-    }).filter(symbol => symbol !== null); 
+    const symbols = companySelected
+      .map((selectedCompany) => {
+        const foundCompany = companyList.find(
+          (company) => company.fullname === selectedCompany
+        );
+        return foundCompany ? foundCompany.symbol : null;
+      })
+      .filter((symbol) => symbol !== null);
 
     setNobours({ ...nobours, symbol: symbols });
   }, [companySelected, companyList]);
-
 
   console.log(nobours);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -63,16 +65,28 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
   };
 
   const handleAddCity = () => {
-    if (cityInput && !citySelected.includes(cityInput)) {
+    if (
+      cityInput &&
+      availableCities.includes(cityInput) &&
+      !citySelected.includes(cityInput)
+    ) {
       setCitySelected((prev) => [...prev, cityInput]);
       setCityInput("");
+    } else {
+      toast.error("لطفا یک شهر معتبر انتخاب کنید");
     }
   };
 
   const handleAddCompany = () => {
-    if (companyInput && !companySelected.includes(companyInput)) {
+    if (
+      companyInput &&
+      availableCompanies.includes(companyInput) &&
+      !companySelected.includes(companyInput)
+    ) {
       setCompanySelected((prev) => [...prev, companyInput]);
       setCompanyInput("");
+    } else {
+      toast.error("لطفا یک شرکت معتبر انتخاب کنید");
     }
   };
 
@@ -99,10 +113,8 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
     .filter((company) => !companySelected.includes(company));
 
   return (
-    <div
-      dir="rtl"
-      className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg"
-    >
+    <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
+      <ToastContainer />
       <button
         onClick={toggleDropdown}
         className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
@@ -170,7 +182,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
             spacing={2}
             mt={2}
             justifyContent="flex-end"
-            sx={{ flexWrap: "wrap", gap: 1 }}
+            sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }} 
           >
             {citySelected.map((city, index) => (
               <Chip
@@ -179,7 +191,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
                 onDelete={() => handleDelete(city, "city")}
                 deleteIcon={
                   <button
-                    style={{ color: "white" }}
+                    style={{ color: "white", marginRight: "5px" }}
                     className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                   >
                     <svg
@@ -205,7 +217,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
                   fontSize: "0.875rem",
                   fontWeight: "bold",
                 }}
-                className="flex items-center px-4 py-2 mb-20 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
               />
             ))}
           </Stack>
@@ -253,7 +265,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
             spacing={2}
             mt={2}
             justifyContent="flex-end"
-            sx={{ flexWrap: "wrap", gap: 1 }}
+            sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
             {companySelected.map((company, index) => (
               <Chip
@@ -262,7 +274,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
                 onDelete={() => handleDelete(company, "company")}
                 deleteIcon={
                   <button
-                    style={{ color: "white" }}
+                    style={{ color: "white", marginRight: "5px" }}
                     className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                   >
                     <svg
@@ -299,5 +311,3 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
 };
 
 export default CompanyCity;
-
-
