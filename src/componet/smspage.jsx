@@ -4,25 +4,25 @@ import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const Smspage = ({ toggleModal, access, columns, Config , len }) => {
   const [message, setMessage] = useState("");
   const [context, setContext] = useState("");
   const [sendMessage, setSendMessage] = useState("");
   const textareaRef = useRef(null);
-  
+
   const handleWordSelect = (word) => {
     setMessage((prevMessage) => prevMessage + " " + word + " ");
     textareaRef.current.focus();
   };
-  
+
   const handleClose = () => {
     toggleModal(false);
   };
-  
+
   const handlePreview = () => {
     sendMessageToBackend();
   };
+
   const handleSend = () => {
     send();
   };
@@ -41,7 +41,6 @@ const Smspage = ({ toggleModal, access, columns, Config , len }) => {
       });
   };
 
-
   const send= () => {
     axios({
       method: "POST",
@@ -50,7 +49,7 @@ const Smspage = ({ toggleModal, access, columns, Config , len }) => {
     })
       .then((response) => {
         setSendMessage(response.data);
-        console.log("esponse",response.data);
+        console.log("response", response.data);
         if (response.data.reply) {
           toast.success("پیام با موفقیت ارسال شد!", {
             position: "top-right",
@@ -70,15 +69,13 @@ const Smspage = ({ toggleModal, access, columns, Config , len }) => {
           autoClose: 3000,
         });
       });
-      
-    };
-    
-    return (
-      <div dir="rtl" className="flex flex-col fixed inset-0 z-50  items-center justify-center min-h-screen bg-gray-100 p-4">
-      <p className="
-       mb-2">تعداد پیام ها:{len}</p>
+  };
+
+  return (
+    <div dir="rtl" className="flex flex-col fixed inset-0 z-50 items-center overflow-y-scroll justify-center min-h-screen bg-gray-100 p-4">
+      <p className="mb-2">تعداد پیام ها: {len}</p>
       <ToastContainer />
-      <div className="flex w-full max-w-7xl items-center justify-center  space-x-4">
+      <div className="flex w-full max-w-7xl items-center  justify-center space-x-4">
         <div className="w-1/5 bg-white rounded-lg shadow-lg p-4 overflow-y-auto max-h-96">
           <div className="flex flex-col space-y-2">
             {columns.map((word, index) => (
