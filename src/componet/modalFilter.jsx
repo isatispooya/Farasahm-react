@@ -94,10 +94,10 @@ console.log(title);
 
         <button
           onClick={() => {
-            PostData();
-            toggleModal();
+            PostData(); 
+            toggleModal(); 
           }}
-          className="mt-8 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300 w-full"
+          className="mt-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 justify-center"
         >
           ارسال
         </button>
