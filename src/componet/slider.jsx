@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const SliderComponent = () => {
+const SliderComponent = ({nobours,setNobours}) => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
@@ -37,6 +37,14 @@ const SliderComponent = () => {
       alert("Please enter valid numbers in all fields.");
     }
   };
+
+  useEffect(()=>{
+    setNobours({...nobours,amount:{from:input1,to:input2}})
+  },[input1,input2])
+
+  useEffect(()=>{
+    setNobours({...nobours,rate:{from:input3,to:input4}})
+  },[input1,input2])
 
   return (
     <div

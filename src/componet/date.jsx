@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-export default function Example() {
+export default function Example({nobours,setNobours}) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
+
+  useEffect(()=>{
+    setNobours({...nobours,mobile:{from:from,to:to}})
+  },[from,to])
+
 
   return (
     <div className="flex flex-col items-center">

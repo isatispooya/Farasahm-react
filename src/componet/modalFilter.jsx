@@ -10,9 +10,13 @@ const ModalFilter = ({ toggleModal, access }) => {
   const [nobours, setNobours] = useState({
     enabled: true,
     national_id:[],
-    mobile:{num1:null,num2:null}
+    mobile:{num1:null,num2:null},
+    city:[],
+    symbol:[],
+    amount:{from:null,to:null},
+    rate:{form:null,to:null},
+    birthday:{from:null,to:null}
   });
-
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
@@ -27,13 +31,13 @@ const ModalFilter = ({ toggleModal, access }) => {
             <PhoneSearch nobours={nobours} setNobours={setNobours} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
-            <CompanyCity access={access} />
+            <CompanyCity access={access} nobours={nobours} setNobours={setNobours} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
-            <SliderComponent />
+            <SliderComponent nobours={nobours} setNobours={setNobours}/>
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
-            <Date />
+            <Date  nobours={nobours} setNobours={setNobours}/>
           </div>
         </div>
 
@@ -48,9 +52,5 @@ const ModalFilter = ({ toggleModal, access }) => {
   );
 };
 
-ModalFilter.propTypes = {
-  toggleModal: PropTypes.func.isRequired, // Ensure toggleModal is a function
-  access: PropTypes.string.isRequired, // Adjust type if access is not a string
-};
 
 export default ModalFilter;

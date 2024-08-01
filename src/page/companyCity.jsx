@@ -3,7 +3,7 @@ import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 
-const CompanyCity = ({ access }) => {
+const CompanyCity = ({ access, nobours, setNobours }) => {
   const [cityList, setCityList] = useState([]);
   const [companyList, setCompanyList] = useState([]);
 
@@ -12,6 +12,25 @@ const CompanyCity = ({ access }) => {
 
   const [citySelected, setCitySelected] = useState([]);
   const [companySelected, setCompanySelected] = useState([]);
+
+  useEffect(() => {
+    setNobours({ ...nobours, city: citySelected });
+  }, [citySelected]);
+
+  useEffect(() => {
+
+    const symbols = companySelected.map((selectedCompany) => {
+      const foundCompany = companyList.find(
+        (company) => company.fullname === selectedCompany
+      );
+      return foundCompany ? foundCompany.symbol : null;
+    }).filter(symbol => symbol !== null); 
+
+    setNobours({ ...nobours, symbol: symbols });
+  }, [companySelected, companyList]);
+
+
+  console.log(nobours);
 
   const getCityList = () => {
     axios({
@@ -97,17 +116,16 @@ const CompanyCity = ({ access }) => {
             }
           }}
           renderInput={(params) => (
-            <div >
-            <TextField
-              style={{ dir: "rtl", backgroundColor: "white" }}
-              {...params}
-              label="انتخاب شهر"
-              fullWidth
-            />
+            <div>
+              <TextField
+                style={{ dir: "rtl", backgroundColor: "white" }}
+                {...params}
+                label="انتخاب شهر"
+                fullWidth
+              />
             </div>
-            
           )}
-          style={{ flex: 1,dir:'rtl' }}
+          style={{ flex: 1, dir: "rtl" }}
         />
         <Button
           onClick={handleAddCity}
@@ -138,8 +156,8 @@ const CompanyCity = ({ access }) => {
             onDelete={() => handleDelete(city, "city")}
             deleteIcon={
               <button
-                style={{ color: "white" }}
-                className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                style={{ color: "white", marginRight: "5px " }}
+                className=" text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,8 +251,8 @@ const CompanyCity = ({ access }) => {
             onDelete={() => handleDelete(company, "company")}
             deleteIcon={
               <button
-                style={{ color: "white" }}
-                className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                style={{ color: "white", marginRight: "5px " }}
+                className=" text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
