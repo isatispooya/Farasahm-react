@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const Smspage = ({ toggleModal, access, columns, Config }) => {
+const Smspage = ({ toggleModal, access, columns, Config , len }) => {
   const [message, setMessage] = useState("");
   const [context, setContext] = useState("");
   const [sendMessage, setSendMessage] = useState("");
@@ -71,10 +71,12 @@ const Smspage = ({ toggleModal, access, columns, Config }) => {
         });
       });
       
-  };
-
-  return (
-    <div dir="rtl" className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    };
+    
+    return (
+      <div dir="rtl" className="flex flex-col fixed inset-0 z-50  items-center justify-center min-h-screen bg-gray-100 p-4">
+      <p className="
+       mb-2">تعداد پیام ها:{len}</p>
       <ToastContainer />
       <div className="flex w-full max-w-7xl items-center justify-center  space-x-4">
         <div className="w-1/5 bg-white rounded-lg shadow-lg p-4 overflow-y-auto max-h-96">

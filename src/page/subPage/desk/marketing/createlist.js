@@ -19,13 +19,13 @@ const CreateList = () => {
   const [columns, setcolumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
-
+  const [len, setLen] = useState(0);
   const getConfigList = () =>{
     axios({method:"POST", url:OnRun+'/marketing/marketinglist',data:{access:access}})
     .then(response=>{
 
       setListConfig(response.data);
-      setConfig(response.data[0])
+      setConfig(response.data[0]._id)
     })
   }
 
@@ -35,11 +35,13 @@ const CreateList = () => {
     if(Config){
       axios({method:"POST", url:OnRun+'/marketing/columnmarketing',data:{access:access,_id:Config}})
       .then(response=>{
-        console.log(response.data)
-        setDf(response.data.df)
+        console.log("log",response)
+        setDf(response.data.dic)
         setcolumns(response.data.columns)
+        setLen(response.data.len)
       })
 
+      
     }
   }
 
@@ -62,7 +64,8 @@ const CreateList = () => {
         autoResize: false,
         dataTree: true,
         dataTreeStartExpanded: false,
-        columns: [],
+        autoColumns:true,
+
       });
 
       return () => {
@@ -123,7 +126,7 @@ const CreateList = () => {
       {/* {df === null ? <MiniLoader /> : df === false ? <NoData /> : null} */}
 
       <div>{isOpenFilter && <ModalFilter toggleModal={toggleModal} access={access}/>}</div>
-      <div>{isOpenSender && <Smspage toggleModal={toggleModalSender} Config={Config} columns={columns} access={access}/>}</div>
+      <div>{isOpenSender && <Smspage toggleModal={toggleModalSender} len={len} Config={Config} columns={columns} access={access}/>}</div>
       <div id="data-table"></div>
     </div>
   );
