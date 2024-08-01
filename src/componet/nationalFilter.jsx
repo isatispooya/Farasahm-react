@@ -7,7 +7,10 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) { // Allow only numbers
+      setSearchTerm(value);
+    }
   };
 
   const handleAdd = () => {
@@ -71,6 +74,7 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
                 onKeyDown={handleKeyDown}
                 label="جستجو کد ملی"
                 variant="outlined"
+                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} // Limit to numbers only
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
               <button
