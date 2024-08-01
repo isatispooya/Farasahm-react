@@ -79,7 +79,7 @@ import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Marketing from "./page/marketing";
+
 import CreateList from "./page/subPage/desk/marketing/createlist";
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';

@@ -94,7 +94,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
           ref={textareaRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-2/3 h-64 p-2 text-base border rounded-lg shadow-lg"
+          className="w-2/3 h-96 p-2 text-base border rounded-lg shadow-lg"
           placeholder="پیام خود را بنویسید..."
           style={{ direction: "rtl" }}
         />
@@ -102,7 +102,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
       <div className="flex gap-5 mt-2">
         <button
           onClick={handleSend}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded-md text-sm"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md text-sm"
         >
           ارسال
         </button>
@@ -122,7 +122,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
 
       {context.dict && context.dict.map((item, index) => (
         <div key={index} className="mt-4 p-2 w-full max-w-4xl bg-white rounded-lg shadow-lg">
-          <h3 className="text-lg mb-1">پیش‌ نمایش پیام:</h3>
+          <h3 className="text-xl mb-1">پیش‌ نمایش پیام:</h3>
           <p className="text-gray-700 text-sm" style={{ whiteSpace: "pre-wrap", direction: "rtl" }}>
             {item.result}
           </p>

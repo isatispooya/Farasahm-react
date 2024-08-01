@@ -45,12 +45,12 @@ const CreateList = () => {
     }
   }
 
-
+  var table;
 
 
   useEffect(() => {
     if (df) {
-      const table = new Tabulator("#data-table", {
+      table = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
         responsiveLayout: true,
@@ -91,16 +91,8 @@ const CreateList = () => {
           <BsFiletypePdf />
           <span>خروجی PDF</span>
         </p>
-        <p
-          onClick={() => {
-            if (df) {
-              new Tabulator("#data-table").download("csv", "data.csv");
-            }
-          }}
-        >
-          <BsFiletypeCsv />
-          <span>خروجی CSV</span>
-        </p>
+        <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
+
         <div className="btntls">
           <button className="inp-fld" onClick={toggleModalSender}>
             ارسال
