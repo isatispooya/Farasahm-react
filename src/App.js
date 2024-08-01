@@ -81,14 +81,24 @@ import CalendarCom from "./componet/dashbords/Calendar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Marketing from "./page/marketing";
 import CreateList from "./page/subPage/desk/marketing/createlist";
-// import "@tailwindcss/base";
-// import "tailwindcss/components";
-// import "tailwindcss/utilities";
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
 
 function App() {
+  const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
+  
+  function Rtl(props) {
+    return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
+  }
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
+    <CacheProvider value={cacheRtl}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -195,6 +205,7 @@ function App() {
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </CacheProvider>
     </QueryClientProvider>
   );
 }
