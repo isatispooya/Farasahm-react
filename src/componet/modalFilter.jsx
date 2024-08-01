@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import NationalIdSearch from './nationalFilter';
-import CompanyCity from '../page/companyCity';
+import React, { useState } from "react";
+import NationalIdSearch from "./nationalFilter";
+import CompanyCity from "../page/companyCity";
 import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
-import PhoneSearch from './phoneFilter';
-import PropTypes from 'prop-types';
+import PhoneSearch from "./phoneFilter";
+import PropTypes from "prop-types";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const [nobours, setNobours] = useState({
@@ -24,10 +24,9 @@ const ModalFilter = ({ toggleModal, access }) => {
         <h2 className="text-2xl mb-4 text-center">سهامداران غیر بورسی</h2>
 
         <div className="space-y-6">
-          <div className="bg-gray-100 rounded-lg">
-            <NationalIdSearch nobours={nobours} setNobours={setNobours}/>
-          </div>
-          <div className="bg-gray-100 rounded-lg">
+          <div className="bg-white rounded-lg">
+            <NationalIdSearch nobours={nobours} setNobours={setNobours} />
+
             <PhoneSearch nobours={nobours} setNobours={setNobours} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
