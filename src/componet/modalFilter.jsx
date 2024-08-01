@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NationalIdSearch from "./nationalFilter";
 import CompanyCity from "../page/companyCity";
 import SliderComponent from "../componet/slider";
@@ -10,7 +10,7 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { TextField } from "@mui/material";
 
-const ModalFilter = ({ toggleModal, access }) => {
+const ModalFilter = ({ toggleModal, access,getDf }) => {
   const [title,setTitle]=useState('')
   const [nobours, setNobours] = useState({
     enabled: true,
@@ -34,7 +34,7 @@ const ModalFilter = ({ toggleModal, access }) => {
       num2: []
     }
   });
-
+console.log(title);
   const PostData = () => {
     axios({
       method: "POST",
@@ -48,16 +48,20 @@ const ModalFilter = ({ toggleModal, access }) => {
         }
       }
     })
+
       .then((response) => {
         console.log(response.data, 23353464);
+        getDf()
       })
+
       .catch((error) => {
         console.error("There was an error!", error);
       });
   };
+  
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-80 backdrop-blur-sm">
       <div className="relative bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 w-full max-w-4xl max-h-screen rounded-xl p-10 shadow-2xl overflow-y-auto">
         <button
           onClick={toggleModal}
