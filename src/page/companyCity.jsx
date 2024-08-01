@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
