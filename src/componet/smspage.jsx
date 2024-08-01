@@ -76,7 +76,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
       <p className="mb-1 text-sm">تعداد پیام ها: {len}</p>
       <ToastContainer />
       <div className="flex w-full max-w-7xl items-center justify-center space-x-2">
-        <div className="w-1/5 bg-white rounded-lg shadow-lg p-2 overflow-y-auto max-h-80">
+        <div className="w-1/5 bg-white rounded-lg shadow-lg p-2 overflow-y-auto max-h-96">
           <div className="flex flex-col space-y-1">
             {columns.map((word, index) => (
               <button
