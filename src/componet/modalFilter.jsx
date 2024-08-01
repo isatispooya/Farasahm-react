@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import NationalIdSearch from './nationalFilter';
-import CompanyCity from '../page/companyCity';
+import React, { useState } from "react";
+import NationalIdSearch from "./nationalFilter";
+import CompanyCity from "../page/companyCity";
 import SliderComponent from "../componet/slider";
 import Date from "../componet/date";
-import PhoneSearch from './phoneFilter';
-import PropTypes from 'prop-types';
+import PhoneSearch from "./phoneFilter";
+import PropTypes from "prop-types";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const [nobours, setNobours] = useState({
     enabled: true,
-    national_id:[],
-    mobile:{num1:null,num2:null}
+    national_id: [],
+    mobile: { num1: null, num2: null },
   });
-
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
@@ -20,19 +19,15 @@ const ModalFilter = ({ toggleModal, access }) => {
         <h2 className="text-2xl mb-4 text-center">سهامداران غیر بورسی</h2>
 
         <div className="space-y-6">
-          <div className="bg-gray-100 rounded-lg">
-            <NationalIdSearch nobours={nobours} setNobours={setNobours}/>
-          </div>
-          <div className="bg-gray-100 rounded-lg">
+          <div className="bg-white rounded-lg">
+            <NationalIdSearch nobours={nobours} setNobours={setNobours} />
+
             <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
+
             <CompanyCity access={access} />
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
+
             <SliderComponent />
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
+
             <Date />
           </div>
         </div>
