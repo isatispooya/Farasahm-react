@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
-const NationalIdSearch = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+const NationalIdSearch = ({nobours, setNobours}) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [ids, setIds] = useState([]);
 
   const handleSearch = (e) => {
@@ -10,8 +11,9 @@ const NationalIdSearch = () => {
 
   const handleAdd = () => {
     if (searchTerm && !ids.includes(searchTerm)) {
+
       setIds([...ids, searchTerm]);
-      setSearchTerm(''); // Clear the search input after adding
+      setSearchTerm(""); // Clear the search input after adding
     }
   };
 
@@ -20,25 +22,40 @@ const NationalIdSearch = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleAdd();
     }
   };
+  useEffect(()=>{
+    setNobours({...nobours, national_id:ids})
+  },ids)
 
   return (
-    <div dir='rtl' className="p-1 max-w-3xl mx-auto bg-gray-100 shadow-md rounded-lg">
+    <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <div className="mb-2 mt-2 flex items-center space-x-4">
-        <input
+        {/* <input
           type="text"
           placeholder="جستجو کد ملی"
           value={searchTerm}
           onChange={handleSearch}
-          onKeyDown={handleKeyDown}  
+          onKeyDown={handleKeyDown}
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+        /> */}
+        <TextField
+        style={{backgroundColor:'white',marginLeft:'20px'}}
+          id="outlined-basic"
+          value={searchTerm}
+          onChange={handleSearch}
+          onKeyDown={handleKeyDown}
+          label="جستجو کد ملی"
+          variant="outlined"
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+
         />
+
         <button
           onClick={handleAdd}
-          className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+          className="px-6 py-3  bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
         >
           افزودن
         </button>
@@ -66,7 +83,11 @@ const NationalIdSearch = () => {
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
@@ -79,8 +100,3 @@ const NationalIdSearch = () => {
 };
 
 export default NationalIdSearch;
-
-
-
-
-
