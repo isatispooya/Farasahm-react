@@ -6,23 +6,27 @@ import Date from "../componet/date";
 import PhoneSearch from './phoneFilter';
 import PropTypes from 'prop-types';
 
+const ModalFilter = ({ toggleModal, access }) => {
+  const [nobours, setNobours] = useState({
+    enabled: true,
+    national_id:[],
+    mobile:{num1:null,num2:null}
+  });
 
-const ModalFilter = ({ toggleModal , access}) => {
-  const [nobours, setNobours]  = useState({enabled : true})
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-      <div className="bg-white w-full max-w-3xl h-auto rounded-lg p-8 shadow-lg overflow-y-auto max-h-screen">
+      <div className="bg-white w-full max-w-6xl max-h-screen rounded-lg p-8 shadow-lg overflow-y-auto">
         <h2 className="text-2xl mb-4 text-center">سهامداران غیر بورسی</h2>
 
         <div className="space-y-6">
           <div className="bg-gray-100 rounded-lg">
-            <NationalIdSearch />
+            <NationalIdSearch nobours={nobours} setNobours={setNobours}/>
           </div>
           <div className="bg-gray-100 rounded-lg">
-            <PhoneSearch/>
+            <PhoneSearch nobours={nobours} setNobours={setNobours} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
-            {/* <CompanyCity /> */}
             <CompanyCity access={access} />
           </div>
           <div className="bg-gray-100 rounded-lg shadow-md">
@@ -45,11 +49,8 @@ const ModalFilter = ({ toggleModal , access}) => {
 };
 
 ModalFilter.propTypes = {
-  toggleModal: PropTypes.bool, 
-
+  toggleModal: PropTypes.func.isRequired, // Ensure toggleModal is a function
+  access: PropTypes.string.isRequired, // Adjust type if access is not a string
 };
 
 export default ModalFilter;
-
-
-

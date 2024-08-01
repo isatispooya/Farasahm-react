@@ -97,9 +97,17 @@ const CompanyCity = ({ access }) => {
             }
           }}
           renderInput={(params) => (
-            <TextField dir="rtl" {...params} label="انتخاب شهر" fullWidth />
+            <div >
+            <TextField
+              style={{ dir: "rtl", backgroundColor: "white" }}
+              {...params}
+              label="انتخاب شهر"
+              fullWidth
+            />
+            </div>
+            
           )}
-          style={{ flex: 1 }}
+          style={{ flex: 1,dir:'rtl' }}
         />
         <Button
           onClick={handleAddCity}
@@ -185,7 +193,7 @@ const CompanyCity = ({ access }) => {
           }}
           renderInput={(params) => (
             <TextField
-              style={{direction:'rtl'}}
+              style={{ direction: "rtl", backgroundColor: "white" }}
               {...params}
               label="انتخاب شرکت"
               InputProps={{
