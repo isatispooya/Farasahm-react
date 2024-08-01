@@ -9,13 +9,13 @@ import PropTypes from "prop-types";
 const ModalFilter = ({ toggleModal, access }) => {
   const [nobours, setNobours] = useState({
     enabled: true,
-    national_id:[],
-    mobile:{num1:null,num2:null},
-    city:[],
-    symbol:[],
-    amount:{from:null,to:null},
-    rate:{form:null,to:null},
-    birthday:{from:null,to:null}
+    national_id: [],
+    mobile: { num1: null, num2: null },
+    city: [],
+    symbol: [],
+    amount: { from: null, to: null },
+    rate: { form: null, to: null },
+    birthday: { from: null, to: null },
   });
 
   return (
@@ -28,15 +28,16 @@ const ModalFilter = ({ toggleModal, access }) => {
             <NationalIdSearch nobours={nobours} setNobours={setNobours} />
 
             <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
-            <CompanyCity access={access} nobours={nobours} setNobours={setNobours} />
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
-            <SliderComponent nobours={nobours} setNobours={setNobours}/>
-          </div>
-          <div className="bg-gray-100 rounded-lg shadow-md">
-            <Date  nobours={nobours} setNobours={setNobours}/>
+
+            <CompanyCity
+              access={access}
+              nobours={nobours}
+              setNobours={setNobours}
+            />
+
+            <SliderComponent nobours={nobours} setNobours={setNobours} />
+
+            <Date nobours={nobours} setNobours={setNobours} />
           </div>
         </div>
 
@@ -50,6 +51,5 @@ const ModalFilter = ({ toggleModal, access }) => {
     </div>
   );
 };
-
 
 export default ModalFilter;
