@@ -3,7 +3,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-export default function Example({nobours,setNobours}) {
+export default function Example({ nobours, setNobours }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,16 +12,12 @@ export default function Example({nobours,setNobours}) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  useEffect(()=>{
-    setNobours({...nobours,mobile:{from:from,to:to}})
-  },[from,to])
-
+  useEffect(() => {
+    setNobours({ ...nobours, birthday: { from: from, to: to } });
+  }, [from, to]);
 
   return (
-    <div
-      dir="rtl"
-      className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg"
-    >
+    <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
         onClick={toggleDropdown}
         className="w-full text-xl font-bold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"

@@ -30,10 +30,10 @@ const SliderComponent = ({nobours,setNobours}) => {
     const num4 = parseInt(input4);
 
     if (!isNaN(num1) && !isNaN(num2) && !isNaN(num3) && !isNaN(num4)) {
-      console.log("Input 1:", num1);
-      console.log("Input 2:", num2);
-      console.log("Input 3:", num3);
-      console.log("Input 4:", num4);
+      // console.log("Input 1:", num1);
+      // console.log("Input 2:", num2);
+      // console.log("Input 3:", num3);
+      // console.log("Input 4:", num4);
     } else {
       alert("Please enter valid numbers in all fields.");
     }
@@ -44,8 +44,8 @@ const SliderComponent = ({nobours,setNobours}) => {
   },[input1,input2])
 
   useEffect(()=>{
-    setNobours({...nobours,rate:{from:input3,to:input4}})
-  },[input1,input2])
+    setNobours({...nobours,rate:{min:input3,max:input4}})
+  },[input3,input4])
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
@@ -79,8 +79,8 @@ const SliderComponent = ({nobours,setNobours}) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-2 bg-gray-200 shadow-md p-2">
+        <div className="mt-2 bg-gray-200 p-4 rounded-lg ">
+          <div className="flex justify-between items-center mb-2 bg-gray-200  p-2">
             <div className="text-right text-lg font-bold w-full"> تعداد سهام</div>
 
             <div className="flex justify-between space-x-4 w-full">
