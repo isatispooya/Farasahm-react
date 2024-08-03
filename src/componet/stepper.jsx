@@ -12,7 +12,6 @@ import Title from "./title";
 import { styled } from "@mui/system";
 import { AccessContext } from "../config/accessContext";
 
-
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -44,25 +43,30 @@ const CustomButton = styled(Button)(({ theme }) => ({
 }));
 
 const StepperSlide = ({ toggleModal }) => {
-  const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: فیلتر داده‌ها", "قدم 2: مشاهده و ایجاد"];
   const access = useContext(AccessContext);
-
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = [
+    "قدم 1: لیست‌ها",
+    "قدم 2: مشاهده و ایجاد",
+    "قدم 3: نهایی کردن",
+  ];
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === steps.length - 1) {
+      // If it's the last step, close the modal
+      toggleModal();
+    } else {
+      // Otherwise, go to the next step
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
     if (activeStep === 0) {
-      toggleModal(); // Close the modal on the first step
+      toggleModal();
     } else {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1); // Go to the previous step
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (
@@ -91,67 +95,47 @@ const StepperSlide = ({ toggleModal }) => {
         </CustomStepper>
 
         <div>
-          {activeStep === steps.length ? (
-            <div>
-              <Typography variant="h6" align="center" gutterBottom>
-                همه مراحل تکمیل شد - شما به پایان رسیدید!
-              </Typography>
-              <Box sx={{ textAlign: "center" }}>
-                <CustomButton
-                  onClick={handleReset}
-                  variant="contained"
-                  color="primary"
-                >
-                  تنظیم مجدد
-                </CustomButton>
-              </Box>
-            </div>
-          ) : (
-            <div>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                {activeStep === 0 ? (
-                  <ModalFilter
-                    onSubmit={handleNext}
-                    access={access}
-                    getDf={() => console.log("Data fetched and Modal closed")}
-                  />
-                ) : activeStep === 1 ? (
-                  <Title
-                    selectedItem={"defaultItem"}
-                    handleDeleteItem={() => console.log("Item deleted")}
-                    handleOptionClick={() => console.log("Option clicked")}
-                    addNewItem={() => console.log("New item added")}
-                  />
-                ) : (
-                  "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
-                )}
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  pt: 2,
-                  justifyContent: "space-between",
-                }}
-              >
-                <CustomButton
-                  color="inherit"
-                  onClick={handleBack}
-                  variant="outlined"
-                >
-                  {activeStep === 0 ? "بستن" : "بازگشت"}
-                </CustomButton>
-                <CustomButton
-                  onClick={handleNext}
-                  variant="contained"
-                  color="primary"
-                  disabled={activeStep === 0}
-                >
-                  {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
-                </CustomButton>
-              </Box>
-            </div>
-          )}
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {activeStep === 0 ? (
+              <Title
+                listConfig={["لیست 1", "لیست 2", "لیست 3"]}
+                selectedItem={"لیست 1"}
+                handleDeleteItem={(item) => console.log(`Deleted: ${item}`)}
+                handleOptionClick={(item) => console.log(`Selected: ${item}`)}
+              />
+            ) : activeStep === 1 ? (
+              <ModalFilter
+                onSubmit={handleNext}
+                access={access}
+                getDf={() => console.log("Data fetched and Modal closed")}
+              />
+            ) : (
+              "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
+            )}
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              pt: 2,
+              justifyContent: "space-between",
+            }}
+          >
+            <CustomButton
+              color="inherit"
+              onClick={handleBack}
+              variant="outlined"
+            >
+              {activeStep === 0 ? "بستن" : "بازگشت"}
+            </CustomButton>
+            <CustomButton
+              onClick={handleNext}
+              variant="contained"
+              color="primary"
+            >
+              {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
+            </CustomButton>
+          </Box>
         </div>
       </Box>
     </div>
@@ -159,3 +143,8 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
+
+
+
+
+
