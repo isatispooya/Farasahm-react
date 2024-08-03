@@ -15,14 +15,14 @@ const CustomStepper = styled(Stepper)(({ theme }) => ({
   backgroundColor: "transparent",
   padding: theme.spacing(3),
   "& .MuiStepLabel-label": {
-    color: theme.palette.grey[600] || "#757575",
+    color: theme.palette.grey?.[600] || "#757575",
     "&.Mui-active": {
       fontWeight: "bold",
-      color: theme.palette.primary.main || "#1976d2",
+      color: theme.palette.primary?.main || "#1976d2",
     },
     "&.Mui-completed": {
       textDecoration: "line-through",
-      color: theme.palette.primary.light || "#64b5f6",
+      color: theme.palette.primary?.light || "#64b5f6",
     },
   },
 }));
@@ -34,7 +34,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
   fontSize: "1rem",
   fontWeight: "bold",
   "&:hover": {
-    backgroundColor: theme.palette.primary.dark || "#115293",
+    backgroundColor: theme.palette.primary?.dark || "#115293",
     transform: "scale(1.05)",
     transition: "all 0.3s ease-in-out",
   },
@@ -146,5 +146,6 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
+
 
 
