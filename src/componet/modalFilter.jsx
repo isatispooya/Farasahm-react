@@ -43,7 +43,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   });
 
 
-  console.log(nobours);
+  // console.log(nobours);
   
   const PostData = () => {
     if (title.trim() === "") {
