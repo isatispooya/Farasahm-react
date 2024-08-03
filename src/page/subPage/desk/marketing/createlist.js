@@ -102,7 +102,7 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper); // Toggle StepperSlide visibility
+    setIsOpenStepper(!isOpenStepper); 
   };
 
   return (

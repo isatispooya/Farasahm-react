@@ -58,7 +58,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       .then((response) => {
         getDf();
         toast.success("Data submitted successfully!");
-        onSubmit(); // Proceed to the next step after submission
+        onSubmit(); 
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -67,9 +67,9 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10  overflow-y-auto">
+    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
       <ToastContainer />
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+      <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
       </h2>
 
@@ -84,7 +84,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         />
       </div>
 
-      <div className="space-y-8">
+      <div className="overflow-y-auto max-h-[calc(50vh-100px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
           <PhoneSearch nobours={nobours} setNobours={setNobours} />
@@ -105,7 +105,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
 
       <button
         onClick={PostData}
-        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
+        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
       >
         ایجاد
       </button>
