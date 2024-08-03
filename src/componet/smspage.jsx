@@ -27,7 +27,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
     send();
     setTimeout(()=>{
       handleClose()
-    },4000)
+    },5000)
   };
 
   const sendMessageToBackend = () => {
@@ -75,7 +75,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
   };
 
   return (
-    <div dir="rtl" className="flex flex-col fixed inset-0 z-50 items-center justify-center min-h-screen bg-gray-100 p-2">
+    <div dir="rtl" className="flex flex-col fixed inset-0 z-50 items-center overflow-y-scroll justify-center min-h-screen bg-gray-100 p-2">
       <p className="mb-1 text-sm">تعداد پیام ها: {len}</p>
       <ToastContainer />
       <div className="flex w-full max-w-7xl items-center justify-center space-x-2">
@@ -103,12 +103,7 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
         />
       </div>
       <div className="flex gap-5 mt-2">
-        <button
-          onClick={handleSend}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md text-sm"
-        >
-          ارسال
-        </button>
+     
         <button
           onClick={handlePreview}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-md text-sm"
@@ -131,6 +126,12 @@ const Smspage = ({ toggleModal, access, columns, Config, len }) => {
           </p>
         </div>
       ))}
+         <button
+          onClick={handleSend}
+          className="bg-green-500 mt-4 hover:bg-green-700 text-white font-bold py-1 px-6 rounded-md text-sm"
+        >
+          ارسال
+        </button>
     </div>
   );
 };
