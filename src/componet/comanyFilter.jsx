@@ -121,19 +121,7 @@ const CompanyFilter = ({ access, nobours, setNobours }) => {
               )}
               style={{ flex: 1 }}
             />
-            <Button
-              onClick={handleAddCompany}
-              variant="contained"
-              color="primary"
-              style={{
-                backgroundColor: "#22c55e",
-                borderRadius: "10px",
-                fontSize: "15px",
-                height: "45px",
-              }}
-            >
-              افزودن
-            </Button>
+            <Button  onClick={handleAddCompany} sx={{borderRadius:2}} variant="contained">افزودن</Button>
           </div>
 
           <Stack

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 const NationalIdSearch = ({ nobours, setNobours }) => {
@@ -28,7 +28,6 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
 
   const handleSearchSecondary = (e) => {
     const value = e.target.value;
-    // Allow only Persian, English alphabetic characters, and spaces
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
       setSearchTermSecondary(value);
     }
@@ -96,7 +95,6 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
         </button>
         {isDropdownOpen && (
           <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-            {/* Primary National ID Search */}
             <div className="mb-4 mt-2 flex items-center space-x-4">
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
@@ -109,12 +107,8 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
-              <button
-                onClick={handleAddPrimary}
-                className="px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200 transform hover:scale-105"
-              >
-                افزودن
-              </button>
+              <Button sx={{borderRadius:2}} onClick={handleAddPrimary} variant="contained">افزودن</Button>
+
             </div>
 
             {primaryIds.length > 0 && (
@@ -149,7 +143,6 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
               </div>
             )}
 
-            {/* Secondary National ID Search */}
             <div className="mb-2 mt-8 flex items-center space-x-4">
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
@@ -165,12 +158,9 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
                 }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
-              <button
-                onClick={handleAddSecondary}
-                className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
-              >
-                افزودن
-              </button>
+            
+              <Button onClick={handleAddSecondary} sx={{borderRadius:2}} variant="contained">افزودن</Button>
+
             </div>
 
             {secondaryIds.length > 0 && (

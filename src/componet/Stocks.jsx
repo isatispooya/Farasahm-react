@@ -142,12 +142,13 @@ const Stocks = ({ nobours, setNobours }) => {
             </div>
           </div>
           <div className="flex justify-center">
-            <button
+            <Button
               onClick={handleButtonClick}
-              className=" bg-green-500 rounded-md shadow-lg py-2 px-3 text-white hover:bg-green-600 duration-200 "
+              sx={{ borderRadius: 2 }}
+              variant="contained"
             >
-              تأیید انتخاب
-            </button>
+              تایید انتخاب
+            </Button>
           </div>
 
           {selectedValues && (
