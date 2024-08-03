@@ -108,7 +108,7 @@ const CreateList = () => {
       setConfig(updatedList[0]?._id || null);
     }
 
-    deletTime(item); // فراخوانی تابع حذف برای هماهنگی با بک‌اند
+    deletTime(item);
   };
 
   const handleOptionClick = (item) => {
@@ -136,10 +136,10 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); // Set the table instance in state
+
 
       return () => {
-        newTable.destroy(); // Clean up the table instance on unmount
+        newTable.destroy(); 
       };
     }
   }, [df]);
