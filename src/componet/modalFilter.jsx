@@ -19,7 +19,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [nobours, setNobours] = useState({
     enabled: true,
     name: null,
-
     birthday: {
       from: null,
       to: null,
@@ -41,9 +40,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       num2: [],
     },
   });
-
-
-  console.log(nobours);
   
   const PostData = () => {
     if (title.trim() === "") {
