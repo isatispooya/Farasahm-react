@@ -19,7 +19,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [nobours, setNobours] = useState({
     enabled: true,
     name: null,
-
     birthday: {
       from: null,
       to: null,
