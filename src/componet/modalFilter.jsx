@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NationalIdSearch from "./nationalFilter";
-import CompanyCity from "../page/companyCity";
+import CompanyFilter from "./comanyFilter";
+import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
@@ -87,7 +88,16 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
           <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          <CompanyCity access={access} nobours={nobours} setNobours={setNobours} />
+          <CityFilter
+            access={access}
+            nobours={nobours}
+            setNobours={setNobours}
+          />
+          <CompanyFilter
+            access={access}
+            nobours={nobours}
+            setNobours={setNobours}
+          />
           <Stocks nobours={nobours} setNobours={setNobours} />
           <Date nobours={nobours} setNobours={setNobours} />
         </div>
