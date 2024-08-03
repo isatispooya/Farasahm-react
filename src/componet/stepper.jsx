@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   Stepper,
   Step,
@@ -10,7 +10,6 @@ import {
 import ModalFilter from "./modalFilter";
 import Title from "./title";
 import { styled } from "@mui/system";
-import { AccessContext } from "../config/accessContext";
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -44,8 +43,11 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: لیست ها", "قدم 2: مشاهده و ایجاد", "قدم 3: پایان"];
-  const access = useContext(AccessContext);
+  const steps = [
+    "قدم 1: لیست‌ها",
+    "قدم 2: مشاهده و ایجاد",
+    "قدم 3: نهایی کردن",
+  ];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

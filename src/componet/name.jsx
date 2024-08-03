@@ -36,7 +36,7 @@ const NameSearch = ({ nobours, setNobours }) => {
   };
 
   useEffect(() => {
-    setNobours({ ...nobours, name_id: nameIds });
+    setNobours({ ...nobours, name: nameIds });
   }, [nameIds]);
 
   return (

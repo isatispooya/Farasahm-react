@@ -18,6 +18,8 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [title, setTitle] = useState("");
   const [nobours, setNobours] = useState({
     enabled: true,
+    name: null,
+
     birthday: {
       from: null,
       to: null,
@@ -40,6 +42,9 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
     },
   });
 
+
+  console.log(nobours);
+  
   const PostData = () => {
     if (title.trim() === "") {
       toast.error("عنوان را پر کنید");
@@ -55,13 +60,15 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         title: title,
         config: {
           nobours: nobours,
+          send_time: "1722681000000",
+          period: "daily",
         },
       },
     })
       .then((response) => {
         getDf();
         toast.success("Data submitted successfully!");
-        onSubmit(); 
+        onSubmit();
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -70,7 +77,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
-
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
       <ToastContainer />
       <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
@@ -108,7 +114,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         </div>
       </div>
 
-  
       {<ConfirmationModal /> && (
         <button
           onClick={PostData}
