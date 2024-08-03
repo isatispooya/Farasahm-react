@@ -62,7 +62,11 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
   };
 
   useEffect(() => {
-    setNobours({ ...nobours, national_id: primaryIds, secondary_id: secondaryIds });
+    setNobours({
+      ...nobours,
+      national_id: primaryIds,
+      secondary_id: secondaryIds,
+    });
   }, [primaryIds, secondaryIds]);
 
   return (
@@ -107,7 +111,7 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
               />
               <button
                 onClick={handleAddPrimary}
-                className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+                className="px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg shadow-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200 transform hover:scale-105"
               >
                 افزودن
               </button>
@@ -155,12 +159,15 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
                 onKeyDown={handleKeyDownSecondary}
                 label="جستجو کد ملی براساس شهر"
                 variant="outlined"
-                inputProps={{ inputMode: "text", pattern: "[\u0600-\u06FFa-zA-Z\s]*" }}
+                inputProps={{
+                  inputMode: "text",
+                  pattern: "[\u0600-\u06FFa-zA-Zs]*",
+                }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
               <button
                 onClick={handleAddSecondary}
-                className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+                className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
               >
                 افزودن
               </button>
@@ -205,6 +212,3 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
 };
 
 export default NationalIdSearch;
-
-
-

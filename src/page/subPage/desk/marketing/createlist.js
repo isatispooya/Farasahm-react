@@ -289,7 +289,7 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper);
+    setIsOpenStepper(!isOpenStepper); 
   };
 
   return (

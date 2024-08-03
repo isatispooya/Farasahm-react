@@ -60,7 +60,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       .then((response) => {
         getDf();
         toast.success("Data submitted successfully!");
-        onSubmit(); // Proceed to the next step after submission
+        onSubmit(); 
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -69,9 +69,13 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10 overflow-y-auto">
+=======
+    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
+>>>>>>> 0f5f6f5066a8b4f753a82fff8eb6132165531ddb
       <ToastContainer />
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+      <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
       </h2>
 
@@ -86,7 +90,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         />
       </div>
 
-      <div className="space-y-8">
+      <div className="overflow-y-auto max-h-[calc(50vh-100px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
           <NameSearch nobours={nobours} setNobours={setNobours} />
@@ -106,6 +110,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         </div>
       </div>
 
+  
       {<ConfirmationModal /> && (
         <button
           onClick={PostData}
