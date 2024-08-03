@@ -42,7 +42,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: فیلتر داده‌ها", "مرحله 2: مشاهده و ایجاد"];
+  const steps = ["قدم 1: فیلتر داده‌ها", "قدم 2: مشاهده و ایجاد"];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
