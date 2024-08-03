@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import ModalFilter from "./modalFilter";
+import Title from "./title";
 import { styled } from "@mui/system";
 import { AccessContext } from "../config/accessContext";
 
@@ -114,6 +115,13 @@ const StepperSlide = ({ toggleModal }) => {
                     access={access}
                     getDf={() => console.log("Data fetched and Modal closed")}
                   />
+                ) : activeStep === 1 ? (
+                  <Title
+                    selectedItem={"defaultItem"}
+                    handleDeleteItem={() => console.log("Item deleted")}
+                    handleOptionClick={() => console.log("Option clicked")}
+                    addNewItem={() => console.log("New item added")}
+                  />
                 ) : (
                   "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
                 )}
@@ -137,6 +145,7 @@ const StepperSlide = ({ toggleModal }) => {
                   onClick={handleNext}
                   variant="contained"
                   color="primary"
+                  disabled={activeStep === 0}
                 >
                   {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
                 </CustomButton>
@@ -150,6 +159,3 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
-
-
-

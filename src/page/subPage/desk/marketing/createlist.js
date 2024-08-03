@@ -11,14 +11,13 @@ import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
 import Title from "../../../../componet/title";
+import StepperSlide from "../../../../componet/stepper";
 import { ThemeProvider } from "styled-components";
-import StepperSlide from "../../../../componet/stepper.jsx"; // Make sure the path is correct
-
 
 const CreateList = () => {
   const access = useContext(AccessContext);
   const [listConfig, setListConfig] = useState([]);
-  const [IsOpenStepper, setIsOpenStepper] = useState(false);
+  const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [Config, setConfig] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [df, setDf] = useState(null);
@@ -27,7 +26,7 @@ const CreateList = () => {
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [len, setLen] = useState(0);
-  const [table, setTable] = useState(null);  // State for storing the table instance
+  const [table, setTable] = useState(null); // تعریف متغیر table
 
   const getConfigList = () => {
     axios({
@@ -65,11 +64,11 @@ const CreateList = () => {
 
     axios({
       method: "POST",
-      url: OnRun + "/marketing/addconfig",
+      url: OnRun + "/marketing/marketinglist",
       data: requestData,
     })
       .then((response) => {
-        getConfigList(); // بروزرسانی لیست پس از افزودن آیتم جدید
+        getConfigList();
         setSelectedItem(newItemTitle);
         setConfig(response.data._id);
       })
@@ -88,7 +87,6 @@ const CreateList = () => {
     axios({
       method: "DELETE",
       url: OnRun + "/marketing/deleteconfig",
-      headers: { Authorization: `Bearer ${access}` },
       data: requestData,
     })
       .then((response) => {
@@ -138,7 +136,7 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); 
+
 
       return () => {
         newTable.destroy(); 
@@ -161,7 +159,7 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!IsOpenStepper);
+    setIsOpenStepper(!isOpenStepper); // تغییر به isOpenStepper
   };
 
   const theme = {
@@ -187,7 +185,13 @@ const CreateList = () => {
           <BsFiletypePdf />
           <span>خروجی PDF</span>
         </p>
-        <p onClick={() => table.download("csv", "data.csv")}>
+        <p
+          onClick={() => {
+            if (table) {
+              table.download("csv", "data.csv");
+            }
+          }}
+        >
           <BsFiletypeCsv />
           <span>خروجی CSV</span>
         </p>
@@ -252,7 +256,7 @@ const CreateList = () => {
         )}
       </div>
       <div>
-        {IsOpenStepper && (
+        {isOpenStepper && (
           <ThemeProvider theme={theme}>
             <StepperSlide
               toggleModal={toggleStepperSlide}
