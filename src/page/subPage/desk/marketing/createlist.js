@@ -31,20 +31,20 @@
 //     });
 //   };
 
-  // const getDf = () => {
-  //   if (Config) {
-  //     axios({
-  //       method: "POST",
-  //       url: OnRun + "/marketing/columnmarketing",
-  //       data: { access: access, _id: Config },
-  //     }).then((response) => {
-  //       console.log("log", response);
-  //       setDf(response.data.dic);
-  //       setcolumns(response.data.columns);
-  //       setLen(response.data.len);
-  //     });
-  //   }
-  // };
+//   const getDf = () => {
+//     if (Config) {
+//       axios({
+//         method: "POST",
+//         url: OnRun + "/marketing/columnmarketing",
+//         data: { access: access, _id: Config },
+//       }).then((response) => {
+//         console.log("log", response);
+//         setDf(response.data.dic);
+//         setcolumns(response.data.columns);
+//         setLen(response.data.len);
+//       });
+//     }
+//   };
 
 //   var table;
 
@@ -144,6 +144,7 @@
 // };
 
 // export default CreateList;
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useContext } from "react";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
@@ -157,12 +158,12 @@ import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
 import Title from "../../../../componet/title";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import StepperSlide from '../../../../componet/stepper';
+import { ThemeProvider } from "styled-components";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
   const [listConfig, setListConfig] = useState([]);
+  const [IsOpenStepper, setIsOpenStepper] = useState(false);
   const [Config, setConfig] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [df, setDf] = useState(null);
@@ -172,11 +173,6 @@ const CreateList = () => {
   const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [len, setLen] = useState(0);
-  const [table, setTable] = useState(null);
-
-  const theme = createTheme({
-    // تنظیمات تم
-  });
 
   const getConfigList = () => {
     axios({
@@ -237,6 +233,7 @@ const CreateList = () => {
     axios({
       method: "DELETE",
       url: OnRun + "/marketing/deleteconfig",
+      headers: { Authorization: `Bearer ${token}` },
       data: requestData,
     })
       .then((response) => {
@@ -286,10 +283,10 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); // Set the table instance in state
+      setTable(newTable); // Set the table instance in the state
 
       return () => {
-        newTable.destroy(); // Clean up the table instance on unmount
+        newTable.destroy(); // Cleanup the table instance on unmount
       };
     }
   }, [df]);
@@ -309,7 +306,22 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper);
+    setIsOpenStepper(!IsOpenStepper);
+  };
+
+  const theme = {
+    colors: {
+      primary: "#6200ee",
+      background: "#ffffff",
+      surface: "#ffffff",
+      error: "#B00020",
+      text: "#000000",
+      onPrimary: "#ffffff",
+      onSecondary: "#000000",
+      onBackground: "#000000",
+      onSurface: "#000000",
+      onError: "#ffffff",
+    },
   };
 
   return (
@@ -391,7 +403,7 @@ const CreateList = () => {
         )}
       </div>
       <div>
-        {isOpenStepper && (
+        {IsOpenStepper && (
           <ThemeProvider theme={theme}>
             <StepperSlide
               toggleModal={toggleStepperSlide}
@@ -405,3 +417,4 @@ const CreateList = () => {
 };
 
 export default CreateList;
+
