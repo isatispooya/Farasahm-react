@@ -1,12 +1,13 @@
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const SliderComponent = ({ nobours, setNobours }) => {
+const Stocks = ({ nobours, setNobours }) => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   const [input4, setInput4] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedValues, setSelectedValues] = useState(null);
 
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
@@ -25,6 +26,13 @@ const SliderComponent = ({ nobours, setNobours }) => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleButtonClick = () => {
+    setSelectedValues({
+      amount: { from: input1, to: input2 },
+      rate: { min: input3, max: input4 },
+    });
   };
 
   return (
@@ -133,10 +141,34 @@ const SliderComponent = ({ nobours, setNobours }) => {
               </div>
             </div>
           </div>
+          <div className="flex justify-center">
+            <button
+              onClick={handleButtonClick}
+              className=" bg-green-500 rounded-md shadow-lg py-2 px-3 text-white hover:bg-green-600 duration-200 "
+            >
+              تأیید انتخاب
+            </button>
+          </div>
+
+          {selectedValues && (
+            <div className="mt-4 p-4 bg-white rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold text-gray-800">
+                مقادیر انتخاب شده:
+              </h3>
+              <p className="mt-2">
+                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
+                {selectedValues.amount.to}
+              </p>
+              <p className="mt-2">
+                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
+                {selectedValues.rate.max}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>
   );
 };
 
-export default SliderComponent;
+export default Stocks;

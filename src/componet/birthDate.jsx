@@ -3,7 +3,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-export default function Example({ nobours, setNobours }) {
+export default function Date({ nobours, setNobours }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Example({ nobours, setNobours }) {
       {isDropdownOpen && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md flex justify-between gap-4">
           <div className="flex-1">
-            <p className="text-center font-semibold mb-2">از تاریخ</p>
+            <p className="text-right font-semibold mb-2">از تاریخ</p>
             <DatePicker
               calendar={persian}
               value={from}
@@ -55,7 +55,7 @@ export default function Example({ nobours, setNobours }) {
             />
           </div>
           <div className="flex-1">
-            <p className="text-center font-semibold mb-2">تا تاریخ</p>
+            <p className="text-right font-semibold mb-2">تا تاریخ</p>
             <DatePicker
               calendar={persian}
               value={to}

@@ -33,7 +33,7 @@ const CompanyCity = ({ access, nobours, setNobours }) => {
     setNobours({ ...nobours, symbol: symbols });
   }, [companySelected, companyList]);
 
-  console.log(nobours);
+  // console.log(nobours);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const getCityList = () => {

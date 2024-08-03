@@ -113,9 +113,7 @@ const PhoneSearch = ({ nobours, setNobours }) => {
 
           {phones1.length > 0 && (
             <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-4 text-gray-700">
-                پیش شماره
-              </h3>
+
               <div className="flex flex-wrap gap-4">
                 {phones1.map((id) => (
                   <div
@@ -149,7 +147,7 @@ const PhoneSearch = ({ nobours, setNobours }) => {
 
             <button
               onClick={handleAdd2}
-              className="ml-4 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+              className="ml-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
             >
               افزودن
             </button>

@@ -85,6 +85,7 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
+import Example from "./page/example";
 
 function App() {
   const cacheRtl = createCache({
@@ -158,6 +159,7 @@ function App() {
             <Route path="tradercodes" element={<TraderCodes />} />
             <Route path="todo" element={<Todo />} />
             <Route path="todocontrol" element={<TodoControl />} />
+            
             <Route
               path="comparereturnsample"
               element={<CompareReturnSample />}
@@ -189,6 +191,7 @@ function App() {
             <Route path="analizsms" element={<ReportAnalyze />} />
             <Route path="bank" element={<Bank />} />
             <Route path="createlist" element={<CreateList />} />
+            
 
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />
@@ -203,6 +206,7 @@ function App() {
           <Route path="/pbl/pc/:sym/:nc" element={<PreemptionCard />} />
           <Route path="/pbl/Management/:sym/:key" element={<Management />} />
           <Route path="/*" element={<NotFound />} />
+          <Route path="/example" element={<Example />}/>
         </Routes>
       </BrowserRouter>
       </CacheProvider>

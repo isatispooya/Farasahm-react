@@ -13,40 +13,40 @@ import Smspage from "../../../../componet/smspage";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
-  const [listConfig, setListConfig] = useState([])
-  const [Config, setConfig] = useState(null)
+  const [listConfig, setListConfig] = useState([]);
+  const [Config, setConfig] = useState(null);
   const [df, setDf] = useState(null);
   const [columns, setcolumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [len, setLen] = useState(0);
-  const getConfigList = () =>{
-    axios({method:"POST", url:OnRun+'/marketing/marketinglist',data:{access:access}})
-    .then(response=>{
-
+  const getConfigList = () => {
+    axios({
+      method: "POST",
+      url: OnRun + "/marketing/marketinglist",
+      data: { access: access },
+    }).then((response) => {
       setListConfig(response.data);
-      setConfig(response.data[0]._id)
-    })
-  }
+      setConfig(response.data[0]._id);
+    });
+  };
 
-
-  const getDf = () =>{
-
-    if(Config){
-      axios({method:"POST", url:OnRun+'/marketing/columnmarketing',data:{access:access,_id:Config}})
-      .then(response=>{
-        console.log("log",response)
-        setDf(response.data.dic)
-        setcolumns(response.data.columns)
-        setLen(response.data.len)
-      })
-
-      
+  const getDf = () => {
+    if (Config) {
+      axios({
+        method: "POST",
+        url: OnRun + "/marketing/columnmarketing",
+        data: { access: access, _id: Config },
+      }).then((response) => {
+        console.log("log", response);
+        setDf(response.data.dic);
+        setcolumns(response.data.columns);
+        setLen(response.data.len);
+      });
     }
-  }
+  };
 
   var table;
-
 
   useEffect(() => {
     if (df) {
@@ -64,8 +64,7 @@ const CreateList = () => {
         autoResize: false,
         dataTree: true,
         dataTreeStartExpanded: false,
-        autoColumns:true,
-
+        autoColumns: true,
       });
 
       return () => {
@@ -73,8 +72,8 @@ const CreateList = () => {
       };
     }
   }, [df]);
-  useEffect(getConfigList,[])
-  useEffect(getDf,[Config])
+  useEffect(getConfigList, []);
+  useEffect(getDf, [Config]);
 
   const toggleModal = () => {
     setIsOpenFilter(!isOpenFilter);
@@ -91,7 +90,14 @@ const CreateList = () => {
           <BsFiletypePdf />
           <span>خروجی PDF</span>
         </p>
-        <p onClick={()=>{table.download("csv", "data.csv")}}><BsFiletypeCsv/><span>خروجی CSV</span></p>
+        <p
+          onClick={() => {
+            table.download("csv", "data.csv");
+          }}
+        >
+          <BsFiletypeCsv />
+          <span>خروجی CSV</span>
+        </p>
 
         <div className="btntls">
           <button className="inp-fld" onClick={toggleModalSender}>
@@ -102,10 +108,7 @@ const CreateList = () => {
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <select
-            value={Config}
-            onChange={(e) => setConfig(e.target.value)}
-          >
+          <select value={Config} onChange={(e) => setConfig(e.target.value)}>
             {listConfig.map((i) => (
               <option key={i._id} value={i._id}>
                 {i.title}
@@ -115,10 +118,26 @@ const CreateList = () => {
         </div>
       </div>
 
-      {/* {df === null ? <MiniLoader /> : df === false ? <NoData /> : null} */}
-
-      <div>{isOpenFilter && <ModalFilter toggleModal={toggleModal} getDf={getDf}  access={access}/>}</div>
-      <div>{isOpenSender && <Smspage toggleModal={toggleModalSender} len={len} Config={Config} columns={columns} access={access}/>}</div>
+      <div>
+        {isOpenFilter && (
+          <ModalFilter
+            toggleModal={toggleModal}
+            getDf={getDf}
+            access={access}
+          />
+        )}
+      </div>
+      <div>
+        {isOpenSender && (
+          <Smspage
+            toggleModal={toggleModalSender}
+            len={len}
+            Config={Config}
+            columns={columns}
+            access={access}
+          />
+        )}
+      </div>
       <div id="data-table"></div>
     </div>
   );
