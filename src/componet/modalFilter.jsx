@@ -5,6 +5,7 @@ import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
+import NameSearch from "./name";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { OnRun } from "../config/config";
@@ -87,6 +88,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       <div className="space-y-8">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
+          <NameSearch nobours={nobours} setNobours={setNobours}  />
           <PhoneSearch nobours={nobours} setNobours={setNobours} />
           <CityFilter
             access={access}
