@@ -40,6 +40,9 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       num2: [],
     },
   });
+
+
+
   
   const PostData = () => {
     if (title.trim() === "") {
