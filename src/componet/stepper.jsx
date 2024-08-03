@@ -43,7 +43,11 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: لیست‌ها", "قدم 2: مشاهده و ایجاد", "قدم 3: نهایی کردن"];
+  const steps = [
+    "قدم 1: لیست‌ها",
+    "قدم 2: مشاهده و ایجاد",
+    "قدم 3: نهایی کردن",
+  ];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -106,18 +110,17 @@ const StepperSlide = ({ toggleModal }) => {
             <div>
               <Typography variant="h6" sx={{ mb: 2 }}>
                 {activeStep === 0 ? (
-                  <Title 
-                    // Pass required props to Title component
-                    selectedItem={"defaultItem"}
-                    handleDeleteItem={() => console.log("Item deleted")}
-                    handleOptionClick={() => console.log("Option clicked")}
-                    addNewItem={() => console.log("New item added")}
-                  />
-                ) : activeStep === 1 ? (
                   <ModalFilter
                     onSubmit={handleNext}
                     access={{}}
                     getDf={() => console.log("Data fetched and Modal closed")}
+                  />
+                ) : activeStep === 1 ? (
+                  <Title
+                    selectedItem={"defaultItem"}
+                    handleDeleteItem={() => console.log("Item deleted")}
+                    handleOptionClick={() => console.log("Option clicked")}
+                    addNewItem={() => console.log("New item added")}
                   />
                 ) : (
                   "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
@@ -156,6 +159,3 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
-
-
-
