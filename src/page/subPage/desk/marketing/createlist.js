@@ -31,20 +31,20 @@
 //     });
 //   };
 
-//   const getDf = () => {
-//     if (Config) {
-//       axios({
-//         method: "POST",
-//         url: OnRun + "/marketing/columnmarketing",
-//         data: { access: access, _id: Config },
-//       }).then((response) => {
-//         console.log("log", response);
-//         setDf(response.data.dic);
-//         setcolumns(response.data.columns);
-//         setLen(response.data.len);
-//       });
-//     }
-//   };
+  // const getDf = () => {
+  //   if (Config) {
+  //     axios({
+  //       method: "POST",
+  //       url: OnRun + "/marketing/columnmarketing",
+  //       data: { access: access, _id: Config },
+  //     }).then((response) => {
+  //       console.log("log", response);
+  //       setDf(response.data.dic);
+  //       setcolumns(response.data.columns);
+  //       setLen(response.data.len);
+  //     });
+  //   }
+  // };
 
 //   var table;
 
@@ -144,7 +144,6 @@
 // };
 
 // export default CreateList;
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useContext } from "react";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
@@ -158,7 +157,8 @@ import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
 import Title from "../../../../componet/title";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import StepperSlide from '../../../../componet/stepper';
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -170,7 +170,13 @@ const CreateList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [isOpenTitle, setIsOpenTitle] = useState(false);
+  const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [len, setLen] = useState(0);
+  const [table, setTable] = useState(null);
+
+  const theme = createTheme({
+    // تنظیمات تم
+  });
 
   const getConfigList = () => {
     axios({
@@ -231,7 +237,6 @@ const CreateList = () => {
     axios({
       method: "DELETE",
       url: OnRun + "/marketing/deleteconfig",
-      headers: { Authorization: `Bearer ${token}` },
       data: requestData,
     })
       .then((response) => {
@@ -261,8 +266,6 @@ const CreateList = () => {
     setSelectedItem(item);
     setConfig(selectedConfig?._id || null);
   };
-
-  var table;
 
   useEffect(() => {
     if (df) {
@@ -317,7 +320,13 @@ const CreateList = () => {
           <BsFiletypePdf />
           <span>خروجی PDF</span>
         </p>
-        <p onClick={() => table.download("csv", "data.csv")}>
+        <p
+          onClick={() => {
+            if (table) {
+              table.download("csv", "data.csv");
+            }
+          }}
+        >
           <BsFiletypeCsv />
           <span>خروجی CSV</span>
         </p>
