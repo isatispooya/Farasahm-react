@@ -4,10 +4,11 @@ import ModalFilter from "./modalFilter";
 import { styled } from "@mui/system";
 
 const CustomStepper = styled(Stepper)(({ theme }) => ({
+
+
   backgroundColor: "transparent",
   padding: theme.spacing(3),
   "& .MuiStepLabel-label": {
-    fontSize: "1.25rem",
     color: theme.palette.grey[600] || "#757575",
     "&.Mui-active": {
       fontWeight: "bold",
@@ -50,7 +51,8 @@ const StepperSlide = () => {
   };
 
   return (
-    <Box
+    <div dir="rtl">
+         <Box
       sx={{
         width: "100%",
         maxWidth: "800px",
@@ -72,7 +74,7 @@ const StepperSlide = () => {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography variant="h5" align="center" gutterBottom>
+            <Typography variant="h6" align="center" gutterBottom>
               All steps completed - you're finished!
             </Typography>
             <Box sx={{ textAlign: "center" }}>
@@ -86,8 +88,8 @@ const StepperSlide = () => {
             <Typography variant="h6" sx={{ mb: 2 }}>
               {activeStep === 0 ? (
                 <ModalFilter
-                  onSubmit={handleNext} // Proceed to the next step after modal submission
-                  access={{}} // Pass the required access object
+                  onSubmit={handleNext} 
+                  access={{}} 
                   getDf={() => console.log("Data fetched and Modal closed")}
                 />
               ) : (
@@ -122,6 +124,8 @@ const StepperSlide = () => {
         )}
       </div>
     </Box>
+    </div>
+ 
   );
 };
 
