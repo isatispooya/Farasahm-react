@@ -69,6 +69,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
+
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
       <ToastContainer />
       <h2 className="text-xl font-bold mb-6 text-center text-gray-800">

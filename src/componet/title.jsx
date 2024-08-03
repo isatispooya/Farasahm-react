@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { FaCheck } from 'react-icons/fa';
-import { FaWindowClose } from 'react-icons/fa';
+import { FaCheck, FaWindowClose } from 'react-icons/fa';
 
-const Title = ({ listConfig = [], selectedItem, handleDeleteItem, handleOptionClick }) => {
+const Title = ({ listConfig , selectedItem, handleDeleteItem, handleOptionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -29,7 +28,7 @@ const Title = ({ listConfig = [], selectedItem, handleDeleteItem, handleOptionCl
               {listConfig.map((item, index) => (
                 <li
                   key={index}
-                  className='px-4 py-2 hover:bg-slate-200 flex items-center justify-between cursor-pointer'
+                  className='px-4 py-2 hover:bg-slate-200 flex items-center justify-between cursor-pointer '
                 >
                   <span
                     onClick={() => {
