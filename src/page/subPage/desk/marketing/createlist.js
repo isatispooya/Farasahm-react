@@ -28,6 +28,7 @@ const CreateList = () => {
   const [len, setLen] = useState(0);
   const [table, setTable] = useState(null); // تعریف متغیر table
 
+
   const getConfigList = () => {
     axios({
       method: "POST",
