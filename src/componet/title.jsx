@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { FaWindowClose } from 'react-icons/fa';
 
-const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }) => {
+const Title = ({ listConfig = [], selectedItem, handleDeleteItem, handleOptionClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -28,8 +28,8 @@ const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }
             <ul className="py-1">
               {listConfig.map((item, index) => (
                 <li
-                  key={item}
-                  className='px-4 py-2 hover:bg-slate-200 flex items-center justify-between cursor-pointer '
+                  key={index}
+                  className='px-4 py-2 hover:bg-slate-200 flex items-center justify-between cursor-pointer'
                 >
                   <span
                     onClick={() => {
@@ -39,21 +39,19 @@ const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }
                   >
                     {item}
                   </span>
-                  {(
-                    <div className="flex space-x-8 gap-2">
-                      <FaCheck
-                        onClick={() => {
-                          handleOptionClick(item);
-                          closeDropdown();
-                        }}
-                        className="text-green-500 hover:text-green-700 cursor-pointer"
-                      />
-                      <FaWindowClose
-                        onClick={() => handleDeleteItem(item)}
-                        className="text-red-500 hover:text-red-700 cursor-pointer"
-                      />
-                    </div>
-                  )}
+                  <div className="flex space-x-8 gap-2">
+                    <FaCheck
+                      onClick={() => {
+                        handleOptionClick(item);
+                        closeDropdown();
+                      }}
+                      className="text-green-500 hover:text-green-700 cursor-pointer"
+                    />
+                    <FaWindowClose
+                      onClick={() => handleDeleteItem(item)}
+                      className="text-red-500 hover:text-red-700 cursor-pointer"
+                    />
+                  </div>
                 </li>
               ))}
             </ul>
@@ -65,3 +63,4 @@ const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }
 };
 
 export default Title;
+

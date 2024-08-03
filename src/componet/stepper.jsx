@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import ModalFilter from "./modalFilter";
+import Title from "./title";
 import { styled } from "@mui/system";
 
 // Custom styles
@@ -42,7 +43,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: فیلتر داده‌ها", "قدم 2: مشاهده و ایجاد"];
+  const steps = ["قدم 1: لیست‌ها", "قدم 2: مشاهده و ایجاد", "قدم 3: نهایی کردن"];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -105,6 +106,14 @@ const StepperSlide = ({ toggleModal }) => {
             <div>
               <Typography variant="h6" sx={{ mb: 2 }}>
                 {activeStep === 0 ? (
+                  <Title 
+                    // Pass required props to Title component
+                    selectedItem={"defaultItem"}
+                    handleDeleteItem={() => console.log("Item deleted")}
+                    handleOptionClick={() => console.log("Option clicked")}
+                    addNewItem={() => console.log("New item added")}
+                  />
+                ) : activeStep === 1 ? (
                   <ModalFilter
                     onSubmit={handleNext}
                     access={{}}
@@ -133,6 +142,7 @@ const StepperSlide = ({ toggleModal }) => {
                   onClick={handleNext}
                   variant="contained"
                   color="primary"
+                  disabled={activeStep === 0}
                 >
                   {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
                 </CustomButton>
