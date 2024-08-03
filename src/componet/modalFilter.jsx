@@ -67,9 +67,9 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10 shadow-2xl overflow-y-auto">
+    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10  overflow-y-auto">
       <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
       </h2>
 
@@ -105,7 +105,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
 
       <button
         onClick={PostData}
-        className="mt-6 bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 justify-center"
+        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
       >
         ایجاد
       </button>

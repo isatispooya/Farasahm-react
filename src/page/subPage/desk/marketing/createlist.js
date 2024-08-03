@@ -10,6 +10,8 @@ import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
+import StepperSlide from "../../../../componet/stepper";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -19,7 +21,22 @@ const CreateList = () => {
   const [columns, setcolumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
+  const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [len, setLen] = useState(0);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1976d2",
+        light: "#64b5f6",
+        dark: "#115293",
+      },
+      grey: {
+        600: "#757575",
+      },
+    },
+  });
+
   const getConfigList = () => {
     axios({
       method: "POST",
@@ -72,14 +89,20 @@ const CreateList = () => {
       };
     }
   }, [df]);
+
   useEffect(getConfigList, []);
   useEffect(getDf, [Config]);
 
   const toggleModal = () => {
     setIsOpenFilter(!isOpenFilter);
   };
+
   const toggleModalSender = () => {
     setIsOpenSender(!isOpenSender);
+  };
+
+  const toggleStepperSlide = () => {
+    setIsOpenStepper(!isOpenStepper); // Toggle StepperSlide visibility
   };
 
   return (
@@ -104,7 +127,7 @@ const CreateList = () => {
             ارسال
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <button className="inp-fld" onClick={toggleModal}>
+          <button className="inp-fld" onClick={toggleStepperSlide}>
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
@@ -136,6 +159,16 @@ const CreateList = () => {
             columns={columns}
             access={access}
           />
+        )}
+      </div>
+      <div>
+        {isOpenStepper && (
+          <ThemeProvider theme={theme}>
+            <StepperSlide
+              toggleModal={toggleStepperSlide}
+              // Pass any other required props to StepperSlide here
+            />
+          </ThemeProvider>
         )}
       </div>
       <div id="data-table"></div>
