@@ -126,7 +126,7 @@ const CombineGovernment = () => {
           </div>{" "}
         </div>
       </div>
-      <div className=" border-b-2 border-gray-200"/>
+      <div className=" border-b-2 border-gray-200" />
     </div>
   );
 };

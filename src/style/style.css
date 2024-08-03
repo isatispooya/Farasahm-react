@@ -282,7 +282,7 @@ body {
   overflow-y: scroll;
 }
 .sectionPage .continer .hdr {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
@@ -292,6 +292,11 @@ body {
   flex-direction: row;
   margin-right: auto;
   align-items: center;
+  border: 2px solid white;
+  border-width: 6px;
+  border-radius: 10px;
+  padding: 6px;
+  font-size: 20px;
   color: #eae4e4;
   cursor: pointer;
 }
@@ -323,6 +328,7 @@ body {
   width: -moz-max-content;
   width: max-content;
   align-self: self-end;
+  font-size: 25px;
 }
 .sectionPage .continer .row .culomn .listPart {
   display: flex;
@@ -338,19 +344,19 @@ body {
   -webkit-backdrop-filter: blur(3.6px);
   border: 1px solid rgba(255, 255, 255, 0.68);
   padding: 10px 15px;
-  height: 90px;
-  width: 180px;
+  height: 120px;
+  width: 210px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: flex-start;
+  transition: transform 0.3s ease;
   transition: 1s;
   overflow: hidden;
   cursor: pointer;
 }
 .sectionPage .btnSct img {
-  width: 75px;
-  transition: 1s;
+  width: 65px;
   flex: 1;
 }
 .sectionPage .btnSct > div {
@@ -364,26 +370,27 @@ body {
   text-align: center;
   font-size: 18pt;
   transform: 1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: font-size 0.3s ease;
 }
 .sectionPage .btnSct .fullName {
   display: none;
 }
 .sectionPage .btnSct:hover {
   box-shadow: 0px 0px 5px 5px rgba(99, 99, 99, 0.25);
+  transition: transform 0.3s ease;
 }
 .sectionPage .btnSct:hover h6 {
   text-align: right;
-  font-size: 16pt;
-}
-.sectionPage .btnSct:hover img {
-  transform: scale(2.5) rotate(-25deg);
-  z-index: -1;
-  opacity: 0.15;
+  font-size: 20px;
 }
 .sectionPage .btnSct:hover .fullName {
   display: flex;
   text-align: right;
   color: #20409d;
+  font-size: 15px;
 }
 .sectionPage .btnSctDis img {
   filter: grayscale(100%);
@@ -2125,7 +2132,7 @@ header .btn-bs input:focus {
 .print {
   display: flex;
   flex-direction: column;
-  width: 550px;
+  width: 600px;
   margin: 0px auto;
   direction: rtl;
 }
@@ -2215,14 +2222,15 @@ header .btn-bs input:focus {
 }
 .print .conteiner .aras {
   border-top: 1px #636363 dashed;
-  padding: 20px;
+  padding: 4px;
   margin-top: 15px;
 }
 .print .conteiner .aras > p {
   font-size: 12pt;
   border: 1px #20409d solid;
-  padding: 10px 10px;
+  padding: 5px 10px;
   border-radius: 10px;
+  margin-top: 5px;
 }
 .print .conteiner .aras .opt {
   display: flex;

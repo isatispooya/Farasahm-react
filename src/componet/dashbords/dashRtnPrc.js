@@ -31,7 +31,7 @@ const DashRtnPrc = () => {
     setCookie("dashrtnmthdls", e.target.value, 10);
     setMethod(e.target.value);
   };
-  
+
   useEffect(() => {
     ChartJS.register(
       CategoryScale,
@@ -41,12 +41,9 @@ const DashRtnPrc = () => {
       Title,
       Tooltip,
       Legend,
-      BarElement 
+      BarElement
     );
   }, []);
-  
-
-
 
   const get = () => {
     axios
@@ -92,16 +89,16 @@ const DashRtnPrc = () => {
     if (per.length > 0) {
       setPeriod(per);
     } else {
-        setPeriod("ماهانه");
+      setPeriod("ماهانه");
     }
-}, []);
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     var per = getCookie("dashrtnmthdls");
     if (per.length > 0) {
-        setMethod(per);
+      setMethod(per);
     } else {
-        setMethod("مرکب");
+      setMethod("مرکب");
     }
   }, []);
   return (

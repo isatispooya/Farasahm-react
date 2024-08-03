@@ -48,7 +48,7 @@ import TraderCodes from "./page/subPage/desk/sabad/tradercodes";
 import Todo from "./page/subPage/desk/todo";
 import TodoControl from "./page/subPage/desk/todocontrol";
 import CompareReturnSample from "./page/subPage/fixincom/analysis/CompareReturnSample";
-import { QueryClient, QueryClientProvider } from "react-query";
+// import { QueryClient, QueryClientProvider } from "react-query";
 import LimitFundFix from "./page/subPage/fixincom/LimitFundFix";
 import CompareReturnPeriod from "./page/subPage/fixincom/analysis/CompareReturnPeriod";
 import OraghYTM from "./page/subPage/fixincom/oraghytm";
@@ -66,26 +66,39 @@ import Residual from "./page/subPage/bours/Residual";
 import NotFound from "./page/notFound";
 import Calculator from "./page/subPage/fixincom/CalculatorFixincom";
 import CustomerRemain from "./page/subPage/fixincom/CustomerRemain";
-import './style/tailwind.css'
+import "./style/tailwind.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Invoices from "./page/subPage/desk/moadian/Invoices";
+
 import Management from "./componet/Management";
 import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// import "@tailwindcss/base";
-// import "tailwindcss/components";
-// import "tailwindcss/utilities";
+import CreateList from "./page/subPage/desk/marketing/createlist";
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
 
 function App() {
+  const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
+  
+  function Rtl(props) {
+    return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
+  }
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
+    <CacheProvider value={cacheRtl}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -145,6 +158,7 @@ function App() {
             <Route path="tradercodes" element={<TraderCodes />} />
             <Route path="todo" element={<Todo />} />
             <Route path="todocontrol" element={<TodoControl />} />
+            
             <Route
               path="comparereturnsample"
               element={<CompareReturnSample />}
@@ -174,7 +188,9 @@ function App() {
             <Route path="invoices" element={<Invoices />} />
             <Route path="sendsms" element={<SendSMS />} />
             <Route path="analizsms" element={<ReportAnalyze />} />
-            <Route path="bank" element={<Bank/>} />
+            <Route path="bank" element={<Bank />} />
+            <Route path="createlist" element={<CreateList />} />
+            
 
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />
@@ -191,6 +207,7 @@ function App() {
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      </CacheProvider>
     </QueryClientProvider>
   );
 }

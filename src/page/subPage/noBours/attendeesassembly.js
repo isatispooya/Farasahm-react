@@ -76,6 +76,7 @@ const AttendeesAssembly = () =>{
         if (idPersonal!='') {
             axios.post(OnRun+'/getpersonaldata',{idPersonal:idPersonal,access:access})
             .then(response =>{
+                console.log(response.data);
                 if(response.data.replay){
                     setDataPersonal(response.data.df)
                 }else{
