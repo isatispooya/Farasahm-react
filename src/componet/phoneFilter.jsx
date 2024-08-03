@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
@@ -65,7 +65,6 @@ const PhoneSearch = ({ nobours, setNobours }) => {
     setNobours({ ...nobours, mobile: { num1: phones1, num2: phones2 } });
   }, [phones1, phones2]);
 
-  
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
@@ -104,12 +103,13 @@ const PhoneSearch = ({ nobours, setNobours }) => {
               variant="outlined"
             />
 
-            <button
+            <Button
               onClick={handleAdd1}
-              className="ml-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+              sx={{ borderRadius: 2 }}
+              variant="contained"
             >
               افزودن
-            </button>
+            </Button>
           </div>
 
           {phones1.length > 0 && (
@@ -145,12 +145,13 @@ const PhoneSearch = ({ nobours, setNobours }) => {
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
 
-            <button
+            <Button
               onClick={handleAdd2}
-              className="ml-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-nnoe focus:ring-2 focus:ring-green-400 transition duration-200"
+              sx={{ borderRadius: 2 }}
+              variant="contained"
             >
               افزودن
-            </button>
+            </Button>
           </div>
 
           {phones2.length > 0 && (

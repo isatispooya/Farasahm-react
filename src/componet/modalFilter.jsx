@@ -69,11 +69,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
-<<<<<<< HEAD
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10 overflow-y-auto">
-=======
-    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
->>>>>>> 0f5f6f5066a8b4f753a82fff8eb6132165531ddb
       <ToastContainer />
       <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی

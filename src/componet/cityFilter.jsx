@@ -112,14 +112,8 @@ const CityFilter = ({ access, nobours, setNobours }) => {
             />
             <Button
               onClick={handleAddCity}
+              sx={{ borderRadius: 2 }}
               variant="contained"
-              color="primary"
-              style={{
-                backgroundColor: "#22c55e",
-                borderRadius: "10px",
-                fontSize: "15px",
-                height: "45px",
-              }}
             >
               افزودن
             </Button>

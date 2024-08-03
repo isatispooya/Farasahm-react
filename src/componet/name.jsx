@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 const NameSearch = ({ nobours, setNobours }) => {
@@ -81,12 +81,9 @@ const NameSearch = ({ nobours, setNobours }) => {
                 }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
-              <button
-                onClick={handleAddName}
-                className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
-              >
-                افزودن
-              </button>
+            
+              <Button  onClick={handleAddName} sx={{borderRadius:2}} variant="contained">افزودن</Button>
+
             </div>
 
             {nameIds.length > 0 && (
