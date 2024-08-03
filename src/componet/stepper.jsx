@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Stepper,
   Step,
@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import ModalFilter from "./modalFilter";
 import { styled } from "@mui/system";
+import { AccessContext } from "../config/accessContext";
+
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -43,6 +45,8 @@ const CustomButton = styled(Button)(({ theme }) => ({
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["قدم 1: فیلتر داده‌ها", "قدم 2: مشاهده و ایجاد"];
+  const access = useContext(AccessContext);
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -107,7 +111,7 @@ const StepperSlide = ({ toggleModal }) => {
                 {activeStep === 0 ? (
                   <ModalFilter
                     onSubmit={handleNext}
-                    access={{}}
+                    access={access}
                     getDf={() => console.log("Data fetched and Modal closed")}
                   />
                 ) : (

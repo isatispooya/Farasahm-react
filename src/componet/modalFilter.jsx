@@ -18,6 +18,8 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [title, setTitle] = useState("");
   const [nobours, setNobours] = useState({
     enabled: true,
+  name: null,
+
     birthday: {
       from: null,
       to: null,
@@ -39,6 +41,11 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
     },
   });
 
+
+
+  console.log('access',access);
+  
+
   const PostData = () => {
     if (title.trim() === "") {
       toast.error("عنوان را پر کنید");
@@ -54,6 +61,10 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         title: title,
         config: {
           nobours: nobours,
+          send_time :"1722681000000",
+          period :"daily",
+
+
         },
       },
     })
