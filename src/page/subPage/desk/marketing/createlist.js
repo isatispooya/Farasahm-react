@@ -158,6 +158,7 @@ import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
 import Title from "../../../../componet/title";
+import { ThemeProvider } from "styled-components";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -178,14 +179,11 @@ const CreateList = () => {
       data: { access: access },
     }).then((response) => {
       setListConfig(response.data);
-      console.log("getConfigList",response.data);
-      
+      console.log("getConfigList", response.data);
       setConfig(response.data[0]?._id);
       setSelectedItem(response.data[0]?.title);
     });
-    
   };
-;
 
   const getDf = () => {
     if (Config) {
@@ -195,39 +193,56 @@ const CreateList = () => {
         data: { access: access, _id: Config },
       }).then((response) => {
         setDf(response.data.dic);
-        setcolumns(response.data.columns);
-        console.log("getDf",getDf);
-        
+        setColumns(response.data.columns);
+        console.log("getDf", getDf);
         setLen(response.data.len);
       });
     }
   };
-  const deletTime = async (date, time) => {
-    console.log(date, time);
-    
+
+  const addNewItem = async (newItemTitle) => {
     const requestData = {
-        access: access,
-        title: title,
-      
+      access: access,
+      title: newItemTitle,
     };
 
     axios({
-        method: "DELETE",
-        url: OnRun + "/marketing/deleteconfig",
-        headers: { Authorization: `Bearer ${token}` },
-        data: requestData
+      method: "POST",
+      url: OnRun + "/marketing/addconfig",
+      data: requestData,
     })
-    .then(response => {
-        getTime();
-        console.log(response.data);
-    })
-    .catch(error => {
+      .then((response) => {
+        getConfigList(); // بروزرسانی لیست پس از افزودن آیتم جدید
+        setSelectedItem(newItemTitle);
+        setConfig(response.data._id);
+      })
+      .catch((error) => {
         console.log(error);
-    });
-}
+      });
+  };
 
-}
+  const deletTime = async (item) => {
+    console.log(item);
+    const requestData = {
+      access: access,
+      title: item,
+    };
 
+    axios({
+      method: "DELETE",
+      url: OnRun + "/marketing/deleteconfig",
+      headers: { Authorization: `Bearer ${token}` },
+      data: requestData,
+    })
+      .then((response) => {
+        getConfigList(); // بروزرسانی لیست پس از حذف آیتم
+        setSelectedItem(null);
+        setConfig(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleDeleteItem = (item) => {
     const updatedList = listConfig.filter((config) => config.title !== item);
@@ -237,6 +252,8 @@ const CreateList = () => {
       setSelectedItem(updatedList[0]?.title || null);
       setConfig(updatedList[0]?._id || null);
     }
+
+    deletTime(item); // فراخوانی تابع حذف برای هماهنگی با بک‌اند
   };
 
   const handleOptionClick = (item) => {
@@ -289,7 +306,7 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper); 
+    setIsOpenStepper(!isOpenStepper);
   };
 
   return (
@@ -301,13 +318,6 @@ const CreateList = () => {
           <span>خروجی PDF</span>
         </p>
         <p onClick={() => table.download("csv", "data.csv")}>
-        <p
-          onClick={() => {
-            if (table) {
-              table.download("csv", "data.csv");
-            }
-          }}
-        >
           <BsFiletypeCsv />
           <span>خروجی CSV</span>
         </p>
@@ -356,6 +366,7 @@ const CreateList = () => {
             selectedItem={selectedItem}
             handleDeleteItem={handleDeleteItem}
             handleOptionClick={handleOptionClick}   
+            addNewItem={addNewItem} // تابع افزودن آیتم جدید
           />
         )}
       </div>
