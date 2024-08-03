@@ -158,6 +158,7 @@ function App() {
             <Route path="tradercodes" element={<TraderCodes />} />
             <Route path="todo" element={<Todo />} />
             <Route path="todocontrol" element={<TodoControl />} />
+            
             <Route
               path="comparereturnsample"
               element={<CompareReturnSample />}
@@ -189,6 +190,7 @@ function App() {
             <Route path="analizsms" element={<ReportAnalyze />} />
             <Route path="bank" element={<Bank />} />
             <Route path="createlist" element={<CreateList />} />
+            
 
           </Route>
           <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />

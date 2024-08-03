@@ -165,7 +165,7 @@ const CreateList = () => {
   const [Config, setConfig] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [df, setDf] = useState(null);
-  const [columns, setcolumns] = useState([]);
+  const [columns, setColumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [isOpenTitle, setIsOpenTitle] = useState(false);
@@ -222,7 +222,7 @@ const CreateList = () => {
 
   useEffect(() => {
     if (df) {
-      table = new Tabulator("#data-table", {
+      const newTable = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
         responsiveLayout: true,
@@ -239,8 +239,10 @@ const CreateList = () => {
         autoColumns: true,
       });
 
+      setTable(newTable); // Set the table instance in state
+
       return () => {
-        table.destroy();
+        newTable.destroy(); // Clean up the table instance on unmount
       };
     }
   }, [df]);
@@ -251,11 +253,16 @@ const CreateList = () => {
   const toggleModal = () => {
     setIsOpenFilter(!isOpenFilter);
   };
+
   const toggleModalSender = () => {
     setIsOpenSender(!isOpenSender);
   };
   const toggleTitleModal = () => {
     setIsOpenTitle(!isOpenTitle);
+  };
+
+  const toggleStepperSlide = () => {
+    setIsOpenStepper(!isOpenStepper);
   };
 
   return (
@@ -267,6 +274,13 @@ const CreateList = () => {
           <span>خروجی PDF</span>
         </p>
         <p onClick={() => table.download("csv", "data.csv")}>
+        <p
+          onClick={() => {
+            if (table) {
+              table.download("csv", "data.csv");
+            }
+          }}
+        >
           <BsFiletypeCsv />
           <span>خروجی CSV</span>
         </p>
@@ -276,7 +290,7 @@ const CreateList = () => {
             ارسال
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <button className="inp-fld" onClick={toggleModal}>
+          <button className="inp-fld" onClick={toggleStepperSlide}>
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
@@ -327,6 +341,15 @@ const CreateList = () => {
             columns={columns}
             access={access}
           />
+        )}
+      </div>
+      <div>
+        {isOpenStepper && (
+          <ThemeProvider theme={theme}>
+            <StepperSlide
+              toggleModal={toggleStepperSlide}
+            />
+          </ThemeProvider>
         )}
       </div>
       <div id="data-table"></div>
