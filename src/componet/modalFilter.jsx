@@ -22,6 +22,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       from: null,
       to: null,
     },
+    
     city: [],
     symbol: [],
     national_id: [],

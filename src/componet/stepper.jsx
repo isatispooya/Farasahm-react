@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Stepper,
   Step,
@@ -10,6 +10,7 @@ import {
 import ModalFilter from "./modalFilter";
 import Title from "./title";
 import { styled } from "@mui/system";
+import { AccessContext } from "../config/accessContext";
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -43,11 +44,8 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = [
-    "قدم 1: لیست‌ها",
-    "قدم 2: مشاهده و ایجاد",
-    "قدم 3: نهایی کردن",
-  ];
+  const steps = ["قدم 1: لیست ها", "قدم 2: مشاهده و ایجاد", "قدم 3: پایان"];
+  const access = useContext(AccessContext);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -55,9 +53,9 @@ const StepperSlide = ({ toggleModal }) => {
 
   const handleBack = () => {
     if (activeStep === 0) {
-      toggleModal(); // Close the modal on the first step
+      toggleModal(); 
     } else {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1); // Go to the previous step
+      setActiveStep((prevActiveStep) => prevActiveStep - 1); 
     }
   };
 
@@ -110,17 +108,17 @@ const StepperSlide = ({ toggleModal }) => {
             <div>
               <Typography variant="h6" sx={{ mb: 2 }}>
                 {activeStep === 0 ? (
-                  <ModalFilter
-                    onSubmit={handleNext}
-                    access={{}}
-                    getDf={() => console.log("Data fetched and Modal closed")}
+                  <Title
+                    listConfig={["لیست 1", "لیست 2", "لیست 3"]}
+                    selectedItem={"لیست 1"}
+                    handleDeleteItem={(item) => console.log(`Deleted: ${item}`)}
+                    handleOptionClick={(item) => console.log(`Selected: ${item}`)}
                   />
                 ) : activeStep === 1 ? (
-                  <Title
-                    selectedItem={"defaultItem"}
-                    handleDeleteItem={() => console.log("Item deleted")}
-                    handleOptionClick={() => console.log("Option clicked")}
-                    addNewItem={() => console.log("New item added")}
+                  <ModalFilter
+                    onSubmit={handleNext}
+                    access={access}
+                    getDf={() => console.log("Data fetched and Modal closed")}
                   />
                 ) : (
                   "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
@@ -145,7 +143,6 @@ const StepperSlide = ({ toggleModal }) => {
                   onClick={handleNext}
                   variant="contained"
                   color="primary"
-                  disabled={activeStep === 0}
                 >
                   {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
                 </CustomButton>
@@ -159,3 +156,7 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
+
+
+
+
