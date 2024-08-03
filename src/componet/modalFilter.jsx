@@ -5,12 +5,14 @@ import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
+import NameSearch from "./name";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { TextField } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ConfirmationModal from "./confirmation";
 
 const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [title, setTitle] = useState("");
@@ -36,6 +38,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       num2: [],
     },
   });
+  // console.log(nobours)
 
   const PostData = () => {
     if (title.trim() === "") {
@@ -87,6 +90,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       <div className="overflow-y-auto max-h-[calc(50vh-100px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
+          <NameSearch nobours={nobours} setNobours={setNobours} />
           <PhoneSearch nobours={nobours} setNobours={setNobours} />
           <CityFilter
             access={access}
@@ -103,12 +107,15 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         </div>
       </div>
 
-      <button
-        onClick={PostData}
-        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
-      >
-        ایجاد
-      </button>
+  
+      {<ConfirmationModal /> && (
+        <button
+          onClick={PostData}
+          className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
+        >
+          ایجاد
+        </button>
+      )}
     </div>
   );
 };

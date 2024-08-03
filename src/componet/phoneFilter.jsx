@@ -65,6 +65,7 @@ const PhoneSearch = ({ nobours, setNobours }) => {
     setNobours({ ...nobours, mobile: { num1: phones1, num2: phones2 } });
   }, [phones1, phones2]);
 
+  
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
@@ -113,7 +114,6 @@ const PhoneSearch = ({ nobours, setNobours }) => {
 
           {phones1.length > 0 && (
             <div className="mb-4">
-
               <div className="flex flex-wrap gap-4">
                 {phones1.map((id) => (
                   <div
@@ -147,7 +147,7 @@ const PhoneSearch = ({ nobours, setNobours }) => {
 
             <button
               onClick={handleAdd2}
-              className="ml-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-200"
+              className="ml-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-nnoe focus:ring-2 focus:ring-green-400 transition duration-200"
             >
               افزودن
             </button>
@@ -180,4 +180,3 @@ const PhoneSearch = ({ nobours, setNobours }) => {
 };
 
 export default PhoneSearch;
-

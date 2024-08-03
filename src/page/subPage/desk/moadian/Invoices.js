@@ -62,6 +62,27 @@ const Invoices = () => {
       },
     },
     {
+      label: "کپی گرفتن",
+      action: function (e, row) {
+        axios
+          .post(OnRun + "/moadian/cloninvoce", {
+            access: access,
+            id: row.getData()["_id"],
+          })
+          .then((response) => {
+            if (response.data.reply) {
+              toast.success("کپی گرفته شد", {
+                position: toast.POSITION.BOTTOM_RIGHT,
+              });
+            } else {
+              toast.warning(response.data.msg, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+              });
+            }
+          });
+      },
+    },
+    {
       label: "چاپ",
       action: function (e, row) {
         axios
