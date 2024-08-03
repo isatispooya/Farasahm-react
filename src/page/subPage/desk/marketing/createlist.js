@@ -185,6 +185,7 @@ const CreateList = () => {
     });
     
   };
+;
 
   const getDf = () => {
     if (Config) {
@@ -201,6 +202,32 @@ const CreateList = () => {
       });
     }
   };
+  const deletTime = async (date, time) => {
+    console.log(date, time);
+    
+    const requestData = {
+        access: access,
+        title: title,
+      
+    };
+
+    axios({
+        method: "DELETE",
+        url: OnRun + "/marketing/deleteconfig",
+        headers: { Authorization: `Bearer ${token}` },
+        data: requestData
+    })
+    .then(response => {
+        getTime();
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+}
+
+}
+
 
   const handleDeleteItem = (item) => {
     const updatedList = listConfig.filter((config) => config.title !== item);

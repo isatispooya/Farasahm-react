@@ -14,9 +14,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "./confirmation";
 
-
-const ModalFilter = ({ toggleModal, access,getDf }) => {
-  const [title,setTitle]=useState('')
 const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [title, setTitle] = useState("");
   const [nobours, setNobours] = useState({
@@ -41,7 +38,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
       num2: [],
     },
   });
-  // console.log(nobours)
 
   const PostData = () => {
     if (title.trim() === "") {
@@ -73,7 +69,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10  overflow-y-auto">
+    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-10 overflow-y-auto">
       <ToastContainer />
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
