@@ -136,10 +136,10 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-
+      setTable(newTable); // Set the table instance in state
 
       return () => {
-        newTable.destroy(); 
+        newTable.destroy(); // Clean up the table instance on unmount
       };
     }
   }, [df]);
