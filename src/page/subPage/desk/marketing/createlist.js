@@ -18,11 +18,12 @@ const CreateList = () => {
   const [listConfig, setListConfig] = useState([]);
   const [Config, setConfig] = useState(null);
   const [df, setDf] = useState(null);
-  const [columns, setcolumns] = useState([]);
+  const [columns, setColumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(false);
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [len, setLen] = useState(0);
+  const [table, setTable] = useState(null); // New state for table
 
   const theme = createTheme({
     palette: {
@@ -40,7 +41,7 @@ const CreateList = () => {
   const getConfigList = () => {
     axios({
       method: "POST",
-      url: OnRun + "/marketing/marketinglist",
+      url: `${OnRun}/marketing/marketinglist`,
       data: { access: access },
     }).then((response) => {
       setListConfig(response.data);
@@ -52,22 +53,20 @@ const CreateList = () => {
     if (Config) {
       axios({
         method: "POST",
-        url: OnRun + "/marketing/columnmarketing",
+        url: `${OnRun}/marketing/columnmarketing`,
         data: { access: access, _id: Config },
       }).then((response) => {
         console.log("log", response);
         setDf(response.data.dic);
-        setcolumns(response.data.columns);
+        setColumns(response.data.columns);
         setLen(response.data.len);
       });
     }
   };
 
-  var table;
-
   useEffect(() => {
     if (df) {
-      table = new Tabulator("#data-table", {
+      const newTable = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
         responsiveLayout: true,
@@ -84,8 +83,10 @@ const CreateList = () => {
         autoColumns: true,
       });
 
+      setTable(newTable); // Set the table instance in state
+
       return () => {
-        table.destroy();
+        newTable.destroy(); // Clean up the table instance on unmount
       };
     }
   }, [df]);
@@ -102,7 +103,7 @@ const CreateList = () => {
   };
 
   const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper); // Toggle StepperSlide visibility
+    setIsOpenStepper(!isOpenStepper);
   };
 
   return (
@@ -115,7 +116,9 @@ const CreateList = () => {
         </p>
         <p
           onClick={() => {
-            table.download("csv", "data.csv");
+            if (table) {
+              table.download("csv", "data.csv");
+            }
           }}
         >
           <BsFiletypeCsv />
@@ -166,7 +169,6 @@ const CreateList = () => {
           <ThemeProvider theme={theme}>
             <StepperSlide
               toggleModal={toggleStepperSlide}
-              // Pass any other required props to StepperSlide here
             />
           </ThemeProvider>
         )}

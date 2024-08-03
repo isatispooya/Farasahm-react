@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Stepper, Step, StepLabel, Button, Typography, Box } from "@mui/material";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
 import ModalFilter from "./modalFilter";
 import { styled } from "@mui/system";
 
+// Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
-
-
   backgroundColor: "transparent",
   padding: theme.spacing(3),
   "& .MuiStepLabel-label": {
@@ -34,16 +40,20 @@ const CustomButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StepperSlide = () => {
+const StepperSlide = ({ toggleModal }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = ["قدم 1: فیلتر داده ها", "مرحله 2: مشاهده و ایجاد"];
+  const steps = ["قدم 1: فیلتر داده‌ها", "مرحله 2: مشاهده و ایجاد"];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if (activeStep === 0) {
+      toggleModal(); // Close the modal on the first step
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1); // Go to the previous step
+    }
   };
 
   const handleReset = () => {
@@ -51,87 +61,90 @@ const StepperSlide = () => {
   };
 
   return (
-    <div dir="rtl">
-         <Box
-      sx={{
-        width: "100%",
-        maxWidth: "800px",
-        mx: "auto",
-        mt: 4,
-        p: 3,
-        boxShadow: 3,
-        borderRadius: 2,
-        backgroundColor: "white",
-      }}
+    <div
+      dir="rtl"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-80 backdrop-blur-sm"
     >
-      <CustomStepper activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </CustomStepper>
-      <div>
-        {activeStep === steps.length ? (
-          <div>
-            <Typography variant="h6" align="center" gutterBottom>
-              All steps completed - you're finished!
-            </Typography>
-            <Box sx={{ textAlign: "center" }}>
-              <CustomButton onClick={handleReset} variant="contained" color="primary">
-                Reset
-              </CustomButton>
-            </Box>
-          </div>
-        ) : (
-          <div>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              {activeStep === 0 ? (
-                <ModalFilter
-                  onSubmit={handleNext} 
-                  access={{}} 
-                  getDf={() => console.log("Data fetched and Modal closed")}
-                />
-              ) : (
-                "گزینه های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
-              )}
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                pt: 2,
-                justifyContent: "space-between",
-              }}
-            >
-              <CustomButton
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                variant="outlined"
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: "800px",
+          mx: "auto",
+          mt: 4,
+          p: 3,
+          boxShadow: 3,
+          borderRadius: 2,
+          backgroundColor: "white",
+        }}
+      >
+        <CustomStepper activeStep={activeStep}>
+          {steps.map((label, index) => (
+            <Step key={index}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </CustomStepper>
+
+        <div>
+          {activeStep === steps.length ? (
+            <div>
+              <Typography variant="h6" align="center" gutterBottom>
+                همه مراحل تکمیل شد - شما به پایان رسیدید!
+              </Typography>
+              <Box sx={{ textAlign: "center" }}>
+                <CustomButton
+                  onClick={handleReset}
+                  variant="contained"
+                  color="primary"
+                >
+                  تنظیم مجدد
+                </CustomButton>
+              </Box>
+            </div>
+          ) : (
+            <div>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                {activeStep === 0 ? (
+                  <ModalFilter
+                    onSubmit={handleNext}
+                    access={{}}
+                    getDf={() => console.log("Data fetched and Modal closed")}
+                  />
+                ) : (
+                  "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
+                )}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  pt: 2,
+                  justifyContent: "space-between",
+                }}
               >
-                بازگشت
-              </CustomButton>
-              <CustomButton
-                onClick={handleNext}
-                variant="contained"
-                color="primary"
-              >
-                {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد "}
-              </CustomButton>
-            </Box>
-          </div>
-        )}
-      </div>
-    </Box>
+                <CustomButton
+                  color="inherit"
+                  onClick={handleBack}
+                  variant="outlined"
+                >
+                  {activeStep === 0 ? "بستن" : "بازگشت"}
+                </CustomButton>
+                <CustomButton
+                  onClick={handleNext}
+                  variant="contained"
+                  color="primary"
+                >
+                  {activeStep === steps.length - 1 ? "اتمام" : "مرحله بعد"}
+                </CustomButton>
+              </Box>
+            </div>
+          )}
+        </div>
+      </Box>
     </div>
- 
   );
 };
 
 export default StepperSlide;
-
-
-
 
 

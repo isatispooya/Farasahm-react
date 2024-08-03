@@ -8,7 +8,7 @@ const NameSearch = ({ nobours, setNobours }) => {
 
   const handleSearchName = (e) => {
     const value = e.target.value;
-    // Allow only Persian, English alphabetic characters, and spaces
+    
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
       setSearchTermName(value);
     }
@@ -50,7 +50,7 @@ const NameSearch = ({ nobours, setNobours }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen ? "rotate-180" : "rotate-0"
+              isDropdownOpen ? "rotate-180 duration-500" : "rotate-0 duration-500"
             }`}
             fill="none"
             viewBox="0 0 24 24"
