@@ -56,15 +56,23 @@ const CardConfigMarketing = ({
   title,
   id,
   setConfig,
-  index,
+  nextStep,
   setConfigSelected,
 }) => {
+
   const access = useContext(AccessContext);
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleDeleteClick = () => {
     setOpenDialog(true);
   };
+
+
+  const handleSelect = () =>{
+    nextStep()
+    setConfigSelected(id)
+
+  }
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -83,7 +91,6 @@ const CardConfigMarketing = ({
         }),
       });
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         setConfig((prevConfig) => {
@@ -136,7 +143,7 @@ const CardConfigMarketing = ({
             sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}
           >
             <Button
-              onClick={() => setConfigSelected(id)}
+              onClick={handleSelect}
               variant="contained"
               color="primary"
             >

@@ -136,7 +136,6 @@ const ModalFilter = ({ toggleModal, access }) => {
         },
       });
     }
-    nextStep();
   };
 
   // const dateFromTimestamp = new Date(parseInt(config.send_time));
@@ -199,19 +198,19 @@ const ModalFilter = ({ toggleModal, access }) => {
     </>
   );
 
-  const sendingOptions = () => {
+
+  const sendingOptions = () => {    
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
             disabled
-            label="عنوان"
-            defaultValue={config.title}
+            label="عنوان" // This will be the label above the input field
+            value={config.title} // Use defaultValue if it's static
             variant="outlined"
           />
         </FormControl>
-
         <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
@@ -228,7 +227,6 @@ const ModalFilter = ({ toggleModal, access }) => {
             />
           </div>
         </div>
-
         <FormControl fullWidth style={{ marginTop: "40px" }}>
           <InputLabel id="frequency-select-label">
             انتخاب تعداد ارسال
@@ -271,6 +269,7 @@ const ModalFilter = ({ toggleModal, access }) => {
             title={"جدید"}
             id={null}
             setConfigSelected={setConfigSelected}
+            nextStep={nextStep}
           />
           {listConfig.map((i) => (
             <CardConfigMarketing
@@ -279,6 +278,8 @@ const ModalFilter = ({ toggleModal, access }) => {
               title={i.title}
               id={i._id}
               setConfigSelected={setConfigSelected}
+              nextStep={nextStep}
+
             />
           ))}
         </>
