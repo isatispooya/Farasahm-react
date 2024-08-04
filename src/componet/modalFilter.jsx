@@ -10,50 +10,47 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Button, Step, StepLabel, Stepper } from "@mui/material";
-import CardConfigMarketing from "./CardConfigMarketing"
+import { Button, Step, StepLabel, Stepper, TextField } from "@mui/material";
+import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-const ModalFilter = ({ toggleModal, access  }) => {
+const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
-  const [configSelected, setConfigSelected] = useState(null)
+  const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
-  const [config, setConfig] = useState(
-    {
-      "send_time": null,
-        "context": "",
-        "period": "ones",
-        "nobours": {
-            "enabled": true,
-            "name": null,
-            "birthday": {
-                "from": null,
-                "to": null
-            },
-            "city": [],
-            "symbol": [],
-            "national_id": [],
-            "amount": {
-                "from": null,
-                "to": null
-            },
-            "rate": {
-                "min": null,
-                "max": null
-            },
-            "mobile": {
-                "num1": [],
-                "num2": []
-            }
-        }
-      }
-      )
-  const [listConfig, setListConfig] = useState([])
-
+  const [config, setConfig] = useState({
+    send_time: null,
+    context: "",
+    period: "ones",
+    nobours: {
+      enabled: true,
+      name: null,
+      birthday: {
+        from: null,
+        to: null,
+      },
+      city: [],
+      symbol: [],
+      national_id: [],
+      amount: {
+        from: null,
+        to: null,
+      },
+      rate: {
+        min: null,
+        max: null,
+      },
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+    },
+  });
+  const [listConfig, setListConfig] = useState([]);
 
   const getConfigList = () => {
     axios({
@@ -62,16 +59,11 @@ const ModalFilter = ({ toggleModal, access  }) => {
       data: { access: access },
     }).then((response) => {
       setListConfig(response.data);
-
     });
   };
 
-
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
-
-
-
 
   const PostData = () => {
     axios({
@@ -87,59 +79,57 @@ const ModalFilter = ({ toggleModal, access  }) => {
       .catch(() => toast.error("An error occurred while submitting data!"));
   };
 
-
   const getConfig = () => {
     if (configSelected) {
       axios({
         method: "POST",
         url: `${OnRun}/marketing/perviewcontext`,
-        data: { access: access, context: '', _id: configSelected },
+        data: { access: access, context: "", _id: configSelected },
       })
         .then((response) => {
           setConfig(response.data.config);
-          
-              })
+        })
         .catch((error) => {
           console.error("error:", error);
         });
-    }else{
-      setConfig(    {
-        "send_time": null,
-          "context": "",
-          "period": "ones",
-          "nobours": {
-              "enabled": true,
-              "name": null,
-              "birthday": {
-                  "from": null,
-                  "to": null
-              },
-              "city": [],
-              "symbol": [],
-              "national_id": [],
-              "amount": {
-                  "from": null,
-                  "to": null
-              },
-              "rate": {
-                  "min": null,
-                  "max": null
-              },
-              "mobile": {
-                  "num1": [],
-                  "num2": []
-              }
-          }
-        })
+    } else {
+      setConfig({
+        title: null,
+        send_time: null,
+        period: null,
+        context: "",
+        period: "ones",
+        nobours: {
+          enabled: true,
+          name: null,
+          birthday: {
+            from: null,
+            to: null,
+          },
+          city: [],
+          symbol: [],
+          national_id: [],
+          amount: {
+            from: null,
+            to: null,
+          },
+          rate: {
+            min: null,
+            max: null,
+          },
+          mobile: {
+            num1: [],
+            num2: [],
+          },
+        },
+      });
     }
-    nextStep()
-
+    nextStep();
   };
 
 
-  useEffect(getConfig,[configSelected])
-  useEffect(getConfigList,[])
-
+  useEffect(getConfig, [configSelected]);
+  useEffect(getConfigList, []);
 
   const renderFilters = () => (
     <>
@@ -151,20 +141,24 @@ const ModalFilter = ({ toggleModal, access  }) => {
           <NationalIdSearch nobours={config} setNobours={setConfig} />
           <NameSearch nobours={config} setNobours={setConfig} />
           <PhoneSearch nobours={config} setNobours={setConfig} />
-          <CityFilter access={access} config={config} setC={setConfig} />
-          <CompanyFilter access={access} nobours={config} setNobours={setConfig} />
+          <CityFilter access={access} config={config} setConfig={setConfig} />
+          <CompanyFilter
+            access={access}
+            nobours={config}
+            setNobours={setConfig}
+          />
           <Stocks nobours={config} setNobours={setConfig} />
           <Date nobours={config} setNobours={setConfig} />
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
-      <button
-        onClick={PostData}
-        className="bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
-      >
-        ایجاد
-      </button>
-    </div>
+        <button
+          onClick={PostData}
+          className="bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
+        >
+          ایجاد
+        </button>
+      </div>
     </>
   );
   const sendingOptions = () => {
@@ -172,20 +166,14 @@ const ModalFilter = ({ toggleModal, access  }) => {
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         {/* عنوان */}
         <FormControl fullWidth className="mt-4">
-          <InputLabel id="title-select-label"> عنوان</InputLabel>
-          <Select
-            labelId="title-select-label"
-            id="title-select"
-            // value={Title || "هیچ آیتمی انتخاب نشده"}
-            label="انتخاب عنوان"
-            // onChange={handleTitle}
-            className="bg-white"
-          >
-            {/* <MenuItem value={title}>{title}</MenuItem> */}
-  
-          </Select>
+          <TextField
+            id="outlined-basic"
+            label={config.title}
+            variant="outlined"
+            disabled
+          />
         </FormControl>
-  
+
         {/* تاریخ و زمان */}
         <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
@@ -202,19 +190,22 @@ const ModalFilter = ({ toggleModal, access  }) => {
             />
           </div>
         </div>
-  
+
         {/* زمان ارسال */}
-        <FormControl fullWidth style={{marginTop:"40px"}}>
-          <InputLabel id="frequency-select-label">انتخاب تعداد ارسال</InputLabel>
+        <FormControl fullWidth style={{ marginTop: "40px" }}>
+          <InputLabel id="frequency-select-label">
+            انتخاب تعداد ارسال
+          </InputLabel>
           <Select
             labelId="frequency-select-label"
             id="frequency-select"
             // value={time}
             label="انتخاب تعداد ارسال"
-            // onChange={handleChange}
+            onChange={((e)=>e.target.value)}
             className="bg-white"
+            value={config.period}
           >
-            <MenuItem value="oneTime">یکبار</MenuItem>
+            <MenuItem value="ones">یکبار</MenuItem>
             <MenuItem value="daily">روزانه</MenuItem>
             <MenuItem value="weekly">هفتگی</MenuItem>
             <MenuItem value="monthly">ماهانه</MenuItem>
@@ -222,10 +213,13 @@ const ModalFilter = ({ toggleModal, access  }) => {
         </FormControl>
       </div>
     );
-  }
+  };
 
   return (
-    <div dir="rtl" className="relative w-full max-w-6xl max-h-screen rounded-xl p-6 overflow-y-auto">
+    <div
+      dir="rtl"
+      className="relative w-full max-w-6xl max-h-screen rounded-xl p-6 overflow-y-auto"
+    >
       <ToastContainer />
       <Stepper activeStep={stepNumber}>
         {steps.map((label) => (
@@ -237,21 +231,35 @@ const ModalFilter = ({ toggleModal, access  }) => {
 
       {stepNumber === 0 && (
         <>
-          <CardConfigMarketing profil={"+"} title={"جدید"} id={null} setConfigSelected={setConfigSelected} />
+          <CardConfigMarketing
+            profil={"+"}
+            title={"جدید"}
+            id={null}
+            setConfigSelected={setConfigSelected}
+          />
           {listConfig.map((i) => (
-            <CardConfigMarketing key={i._id} profil={"*"} title={i.title} id={i._id} setConfigSelected={setConfigSelected} />
+            <CardConfigMarketing
+              key={i._id}
+              profil={"*"}
+              title={i.title}
+              id={i._id}
+              setConfigSelected={setConfigSelected}
+            />
           ))}
         </>
       )}
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
-      <Button disabled={stepNumber==0} onClick={nextStep}>بعدی</Button>
-      <Button disabled={stepNumber==0} onClick={backStep}>قبلی</Button>
+        <Button disabled={stepNumber == 0} onClick={nextStep}>
+          بعدی
+        </Button>
+        <Button disabled={stepNumber == 0} onClick={backStep}>
+          قبلی
+        </Button>
       </div>
     </div>
   );
 };
 
 export default ModalFilter;
-
