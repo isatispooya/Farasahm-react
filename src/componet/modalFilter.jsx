@@ -130,7 +130,8 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   useEffect(getConfig,[configSelected])
   useEffect(getConfigList,[])
-
+  console.log("log",config);
+  
 
   const renderFilters = () => (
     <>
