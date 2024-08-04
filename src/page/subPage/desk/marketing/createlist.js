@@ -86,14 +86,13 @@ const CreateList = () => {
     };
 
     axios({
-      method: "DELETE",
+      method: "Post",
       url: OnRun + "/marketing/deleteconfig",
       data: requestData,
     })
       .then((response) => {
-        getConfigList(); // بروزرسانی لیست پس از حذف آیتم
-        setSelectedItem(null);
-        setConfig(null);
+        getConfigList(); 
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
@@ -241,7 +240,7 @@ const CreateList = () => {
             selectedItem={selectedItem}
             handleDeleteItem={handleDeleteItem}
             handleOptionClick={handleOptionClick}   
-            addNewItem={addNewItem} // تابع افزودن آیتم جدید
+            addNewItem={addNewItem}    
           />
         )}
       </div>
