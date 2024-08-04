@@ -147,7 +147,7 @@ const ModalFilter = ({ toggleModal, access  }) => {
           <NationalIdSearch nobours={nobours} setNobours={setNobours} />
           <NameSearch nobours={nobours} setNobours={setNobours} />
           <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          <CityFilter access={access} config={config} setConfig={setConfig} />
+          <CityFilter access={access} config={config} setC={setNobours} />
           <CompanyFilter access={access} nobours={nobours} setNobours={setNobours} />
           <Stocks nobours={nobours} setNobours={setNobours} />
           <Date nobours={nobours} setNobours={setNobours} />
