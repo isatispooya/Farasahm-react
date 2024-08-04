@@ -46,7 +46,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
 
 const StepperSlide = ({ toggleModal, titleList }) => {
   const access = useContext(AccessContext);
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(0); // Ensure default step is 0
   const [listConfig, setListConfig] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const steps = [
@@ -56,15 +56,23 @@ const StepperSlide = ({ toggleModal, titleList }) => {
   ];
 
   useEffect(() => {
-    const fetchListConfig = () => {
-      axios({
-        method: "POST",
-        url: OnRun + "/marketing/marketinglist",
-        data: { access: access },
-      }).then((response) => {
-        setListConfig(response.data);
-        setSelectedItem(response.data[0]?.title || null);
-      });
+    const fetchListConfig = async () => {
+      try {
+        const response = await axios({
+          method: "POST",
+          url: OnRun + "/marketing/marketinglist",
+          data: { access: access },
+        });
+        const data = response.data;
+        setListConfig(data);
+        if (data.length > 0) {
+          setSelectedItem(data[0]?.title || null);
+        } else {
+          setSelectedItem(null); // Clear selected item if no data
+        }
+      } catch (error) {
+        console.error("Error fetching list config:", error);
+      }
     };
 
     fetchListConfig();
@@ -183,5 +191,3 @@ const StepperSlide = ({ toggleModal, titleList }) => {
 };
 
 export default StepperSlide;
-
-
