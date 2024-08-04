@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import NoData from "../../../../componet/Loader/NoData";
@@ -27,13 +27,7 @@ const CreateList = () => {
   const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [len, setLen] = useState(0);
   const [titleList,setTitleList]=useState('');
-  const [table, setTable] = useState(null); 
-  const [message, setMessage] = useState("");
-  const textareaRef = useRef(null);
-
-
-  // تعریف متغیر table
-console.log('message',message);
+  const [table, setTable] = useState(null); // تعریف متغیر table
 
 
   const getConfigList = () => {
@@ -47,6 +41,7 @@ console.log('message',message);
       setTitleList(response.data)
       setConfig(response.data[0]?._id);
       setSelectedItem(response.data[0]?.title);
+
     });
   };
 
@@ -59,8 +54,9 @@ console.log('message',message);
       }).then((response) => {
         setDf(response.data.dic);
         setColumns(response.data.columns);
-        console.log("getDf", getDf);
+        console.log("getDf", response.data.dic);
         setLen(response.data.len);
+       
       });
     }
   };
@@ -170,11 +166,6 @@ console.log('message',message);
     setIsOpenStepper(!isOpenStepper); // تغییر به isOpenStepper
   };
 
-  const handleWordSelect = (word) => {
-    setMessage((prevMessage) => prevMessage + " " + word + " ");
-    textareaRef.current.focus();
-  };
-
   const theme = {
     colors: {
       primary: "#6200ee",
@@ -263,10 +254,6 @@ console.log('message',message);
             Config={Config}
             columns={columns}
             access={access}
-            message={message}
-            setMessage={setMessage}
-            handleWordSelect={handleWordSelect}
-            textareaRef={textareaRef}
           />
         )}
       </div>
