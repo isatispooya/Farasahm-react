@@ -152,6 +152,9 @@ console.log('message',message);
     }
   }, [df]);
 
+  console.log('createList',Config);
+  
+
   useEffect(getConfigList, []);
   useEffect(getDf, [Config]);
 

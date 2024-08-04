@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
@@ -16,9 +16,6 @@ import ConfirmationModal from "./confirmation";
 
 const ModalFilter = ({ onSubmit, access,getDf,message,Config}) => {
   const [title, setTitle] = useState("");
-
-
-
   const [nobours, setNobours] = useState({
     enabled: true,
     name: null,
@@ -82,13 +79,19 @@ const ModalFilter = ({ onSubmit, access,getDf,message,Config}) => {
     axios({
       method: "POST",
       url: OnRun + "/marketing/perviewcontext",
-      data: { access: access, context: message, _id: Config },
+      data: {access:access,context:'سلام {{نام و نام خانوادگی}} حالتون چطوره {{صادره}}',_id:Config },
     }).then((response) => {
-   console.log(response);
+   console.log('grtfgf',response.data);
    
     });
   };
 
+  useEffect(()=>{
+    getList()
+  })
+
+  console.log(Config);
+  
 
   return (
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
