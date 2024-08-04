@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const NameSearch = ({ nobours, setNobours }) => {
+const NameSearch = ({ config, setConfig }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [nameIds, setNameIds] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -35,8 +35,12 @@ const NameSearch = ({ nobours, setNobours }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // useEffect(() => {
+  //   setNobours({ ...nobours, name: nameIds });
+  // }, [nameIds]);
   useEffect(() => {
-    setNobours({ ...nobours, name: nameIds });
+    var nobours = {...config.nobours, name:nameIds}
+    setConfig({ ...config, nobours: nobours });
   }, [nameIds]);
 
   return (

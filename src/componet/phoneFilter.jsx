@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-const PhoneSearch = ({ nobours, setNobours }) => {
+const PhoneSearch = ({config, setConfig }) => {
   const [searchTerm1, setSearchTerm1] = useState("");
   const [searchTerm2, setSearchTerm2] = useState("");
   const [phones1, setPhones1] = useState([]);
@@ -60,10 +60,12 @@ const PhoneSearch = ({ nobours, setNobours }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
   useEffect(() => {
-    setNobours({ ...nobours, mobile: { num1: phones1, num2: phones2 } });
+    var mobile = { num1: phones1, num2: phones2 }
+    var nobours = {...config.nobours, mobile: mobile }
+    setConfig({ ...config, nobours: nobours });
   }, [phones1, phones2]);
+
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

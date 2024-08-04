@@ -3,7 +3,7 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-export default function Date({ nobours, setNobours }) {
+export default function Date({ config, setConfig }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,8 +12,13 @@ export default function Date({ nobours, setNobours }) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // useEffect(() => {
+  //   setNobours({ ...nobours, birthday: { from: from, to: to } });
+  // }, [from, to]);
   useEffect(() => {
-    setNobours({ ...nobours, birthday: { from: from, to: to } });
+    var birthday = { from: from, to: to }
+    var nobours = {...config.nobours, birthday: birthday }
+    setConfig({ ...config, nobours: nobours });
   }, [from, to]);
 
   return (

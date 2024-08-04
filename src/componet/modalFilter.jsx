@@ -94,7 +94,9 @@ const ModalFilter = ({ toggleModal, access }) => {
         });
     } else {
       setConfig({
+        title: null,
         send_time: null,
+        period: null,
         context: "",
         period: "ones",
         nobours: {
@@ -203,10 +205,11 @@ const ModalFilter = ({ toggleModal, access }) => {
             id="frequency-select"
             // value={time}
             label="انتخاب تعداد ارسال"
-            // onChange={handleChange}
+            onChange={((e)=>e.target.value)}
             className="bg-white"
+            value={config.period}
           >
-            <MenuItem value="oneTime">یکبار</MenuItem>
+            <MenuItem value="ones">یکبار</MenuItem>
             <MenuItem value="daily">روزانه</MenuItem>
             <MenuItem value="weekly">هفتگی</MenuItem>
             <MenuItem value="monthly">ماهانه</MenuItem>
@@ -249,6 +252,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           ))}
         </>
       )}
+     
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">

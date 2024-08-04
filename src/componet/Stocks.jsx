@@ -1,7 +1,7 @@
 import { TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const Stocks = ({ nobours, setNobours }) => {
+const Stocks = ({ config, setConfig }) => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
@@ -15,14 +15,23 @@ const Stocks = ({ nobours, setNobours }) => {
       setter(value);
     }
   };
-
   useEffect(() => {
-    setNobours({ ...nobours, amount: { from: input1, to: input2 } });
+    var amount = { from: input1, to: input2 }
+    var nobours = {...config.nobours, amount: amount }
+    setConfig({ ...config, nobours: nobours });
   }, [input1, input2]);
-
   useEffect(() => {
-    setNobours({ ...nobours, rate: { min: input3, max: input4 } });
+    var rate = { from: input3, to: input4 }
+    var nobours = {...config.nobours, rate: rate }
+    setConfig({ ...config, nobours: nobours });
   }, [input3, input4]);
+  // useEffect(() => {
+  //   setNobours({ ...nobours, amount: { from: input1, to: input2 } });
+  // }, [input1, input2]);
+
+  // useEffect(() => {
+  //   setNobours({ ...nobours, rate: { min: input3, max: input4 } });
+  // }, [input3, input4]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
