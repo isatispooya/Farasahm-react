@@ -6,13 +6,14 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CityFilter = ({ access, nobours, setNobours }) => {
+const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
   const [cityInput, setCityInput] = useState("");
   const [citySelected, setCitySelected] = useState([]);
 
   useEffect(() => {
-    setNobours({ ...nobours, city: citySelected });
+    var nobours = {...config.nobours, city:citySelected}
+    setConfig({ ...config, nobours: nobours });
   }, [citySelected]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

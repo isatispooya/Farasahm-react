@@ -14,7 +14,6 @@ import Smspage from "../../../../componet/smspage";
 const CreateList = () => {
   const access = useContext(AccessContext);
   const [listConfig, setListConfig] = useState([]);
-  const [Config, setConfig] = useState(null);
   const [df, setDf] = useState(null);
   const [table, setTable] = useState(null);
   const [columns, setColumns] = useState([]);
@@ -22,56 +21,23 @@ const CreateList = () => {
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [len, setLen] = useState(0);
 
-  console.log(isOpenFilter);
-  
 
 
-  const getConfigList = () => {
-    axios({
-      method: "POST",
-      url: OnRun + "/marketing/marketinglist",
-      data: { access: access },
-    }).then((response) => {
-      setListConfig(response.data);
-      console.log("getConfigList", response.data);
-      setConfig(response.data[0]?._id);
 
-    });
-  };
-
-  const getDf = () => {
-    if (Config) {
-      axios({
-        method: "POST",
-        url: OnRun + "/marketing/columnmarketing",
-        data: { access: access, _id: Config },
-      }).then((response) => {
-        setDf(response.data.dic);
-        setColumns(response.data.columns);
-        setLen(response.data.len);
+  // const getDf = () => {
+  //   if (Config) {
+  //     axios({
+  //       method: "POST",
+  //       url: OnRun + "/marketing/columnmarketing",
+  //       data: { access: access, _id: Config },
+  //     }).then((response) => {
+  //       setDf(response.data.dic);
+  //       setColumns(response.data.columns);
+  //       setLen(response.data.len);
        
-      });
-    }
-  };
-
-  const handlerDel = async (newItemTitle) => {
-    const requestData = {
-      access: access,
-      title: newItemTitle,
-    };
-
-    axios({
-      method: "Post",
-      url: OnRun + "/marketing/deleteconfig",
-      data: requestData,
-    })
-      .then((response) => {
-        getConfigList(); 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //     });
+  //   }
+  // };
 
 
 
@@ -105,7 +71,7 @@ const CreateList = () => {
 
   
 
-  useEffect(getConfigList, []);
+
 
 
 
@@ -150,7 +116,6 @@ const CreateList = () => {
           <ModalFilter
             toggleModal={setIsOpenFilter}
             access={access}
-            setConfig={setConfig}
             listConfig={listConfig}
           />
         )}
