@@ -32,11 +32,7 @@ const theme = createTheme({
   },
 });
 
-const CardConfigMarketing = ({ profil, title, id, setConfig, onSelect }) => {
-  const handleSelect = () => {
-    onSelect(title);  // Trigger the callback to set the selected title
-  };
-
+const CardConfigMarketing = ({ profil, title, id, setConfigSelected }) => {
   return (
     <div dir="rtl">
       <ThemeProvider theme={theme}>
