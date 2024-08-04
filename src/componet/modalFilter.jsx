@@ -107,7 +107,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     } else {
       setConfig({
         title: "",
-        send_time: "",
+        send_time: null,
         period: null,
         context: "",
         period: "ones",
@@ -198,6 +198,9 @@ const ModalFilter = ({ toggleModal, access }) => {
     </>
   );
 
+  console.log(config);
+  
+
 
   const sendingOptions = () => {    
     return (
@@ -215,7 +218,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
-              // value={dateFromTimestamp}
+              value={config.send_time}
               // onChange={(e)=>e.target.value = dateFromTimestamp}
 
               format="MM/DD/YYYY HH:mm:ss"
