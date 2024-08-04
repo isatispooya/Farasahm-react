@@ -14,7 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "./confirmation";
 
-const ModalFilter = ({ onSubmit, access, getDf }) => {
+const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
   const [title, setTitle] = useState("");
   const [nobours, setNobours] = useState({
     enabled: true,
@@ -42,8 +42,6 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
   });
 
 
-
-  
   const PostData = () => {
     if (title.trim() === "") {
       toast.error("عنوان را پر کنید");
@@ -74,6 +72,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
         toast.error("An error occurred while submitting data!");
       });
   };
+
 
   return (
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">

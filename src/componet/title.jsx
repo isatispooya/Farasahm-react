@@ -76,6 +76,7 @@ const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }
   // اضافه کردن آیتم "جدید" به ابتدای لیست
   const updatedListConfig = ['جدید', ...listConfig];
 
+
   return (
     <div dir="rtl" className="space-y-2">
       <div className="flex justify-center mb-8">
