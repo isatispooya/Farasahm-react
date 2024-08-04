@@ -1,4 +1,3 @@
-
 import React, { useContext, useState, useEffect } from "react";
 import {
   Stepper,
@@ -12,6 +11,9 @@ import ModalFilter from "./modalFilter";
 import Title from "./title";
 import { styled } from "@mui/system";
 import { AccessContext } from "../config/accessContext";
+import { OnRun } from "../config/config";
+import axios from "axios";
+import Sending from "./sending";
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -43,7 +45,7 @@ const CustomButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StepperSlide = ({ toggleModal }) => {
+const StepperSlide = ({ toggleModal, titleList }) => {
   const access = useContext(AccessContext);
   const [activeStep, setActiveStep] = useState(0);
   const [listConfig, setListConfig] = useState([]);
@@ -145,6 +147,7 @@ const StepperSlide = ({ toggleModal }) => {
               <Sending />
             ) : (
               <ModalFilter
+                titleList={titleList}
                 onSubmit={handleNext}
                 access={access}
                 getDf={() => console.log("Data fetched and Modal closed")}
@@ -181,8 +184,3 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
-
-
-
-
-

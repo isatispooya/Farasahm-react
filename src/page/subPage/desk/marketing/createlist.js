@@ -26,6 +26,7 @@ const CreateList = () => {
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [len, setLen] = useState(0);
+  const [titleList,setTitleList]=useState('');
   const [table, setTable] = useState(null); // تعریف متغیر table
 
 
@@ -37,6 +38,7 @@ const CreateList = () => {
     }).then((response) => {
       setListConfig(response.data);
       console.log("getConfigList", response.data);
+      setTitleList(response.data)
       setConfig(response.data[0]?._id);
       setSelectedItem(response.data[0]?.title);
     });
@@ -259,6 +261,7 @@ const CreateList = () => {
         {isOpenStepper && (
           <ThemeProvider theme={theme}>
             <StepperSlide
+            titleList={titleList}
               toggleModal={toggleStepperSlide}
             />
           </ThemeProvider>
