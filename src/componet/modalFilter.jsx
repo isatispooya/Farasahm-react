@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing"
-import Sending from "./sending";
+
 
 const ModalFilter = ({ toggleModal, access  }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -135,6 +135,7 @@ const ModalFilter = ({ toggleModal, access  }) => {
 
   useEffect(getConfig,[configSelected])
   useEffect(getConfigList,[])
+console.log("log",config);
 
 
   const renderFilters = () => (
@@ -183,7 +184,7 @@ const ModalFilter = ({ toggleModal, access  }) => {
           ))}
         </>
       )}
-      {stepNumber === 1 && <Sending/>}
+      {stepNumber === 1 && <p></p>}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
       <Button disabled={stepNumber==0} onClick={nextStep}>بعدی</Button>
