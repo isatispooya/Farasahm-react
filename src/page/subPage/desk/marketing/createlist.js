@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import NoData from "../../../../componet/Loader/NoData";
@@ -27,7 +27,13 @@ const CreateList = () => {
   const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [len, setLen] = useState(0);
   const [titleList,setTitleList]=useState('');
-  const [table, setTable] = useState(null); // تعریف متغیر table
+  const [table, setTable] = useState(null); 
+  const [message, setMessage] = useState("");
+  const textareaRef = useRef(null);
+
+
+  // تعریف متغیر table
+console.log('message',message);
 
 
   const getConfigList = () => {
@@ -164,6 +170,11 @@ const CreateList = () => {
     setIsOpenStepper(!isOpenStepper); // تغییر به isOpenStepper
   };
 
+  const handleWordSelect = (word) => {
+    setMessage((prevMessage) => prevMessage + " " + word + " ");
+    textareaRef.current.focus();
+  };
+
   const theme = {
     colors: {
       primary: "#6200ee",
@@ -254,6 +265,10 @@ const CreateList = () => {
             Config={Config}
             columns={columns}
             access={access}
+            message={message}
+            setMessage={setMessage}
+            handleWordSelect={handleWordSelect}
+            textareaRef={textareaRef}
           />
         )}
       </div>
