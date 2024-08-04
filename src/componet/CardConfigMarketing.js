@@ -96,6 +96,7 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index }) => {
     }
   };
 
+
   return (
     <div dir="rtl">
       <ThemeProvider theme={theme}>
@@ -122,11 +123,10 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index }) => {
               },
             }}
           />
-          <CardActions
-            sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}
-          >
-            <Button variant="contained" color="primary">
-              انتخاب
+          <CardActions sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}>
+            <Button variant="contained" color="primary" onClick={handleSelect}>انتخاب</Button>
+            <Button variant="outlined" color="error">
+              حذف
             </Button>
             {title !== "جدید" && (
               <Button
@@ -174,3 +174,4 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index }) => {
 };
 
 export default CardConfigMarketing;
+
