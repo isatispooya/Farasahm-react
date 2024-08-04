@@ -11,12 +11,24 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import CardConfigMarketing from "./CardConfigMarketing";
 
-const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
-  const [title, setTitle] = useState("");
+const ModalFilter = ({ toggleModal, access, setConfig, listConfig }) => {
+  const steps = ["لیست", "تنظیمات", "فیلتر"];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stepNumber, setStepNumber] = useState(0);
 
+  const nextStep = () => {
+    if (stepNumber < 2) {
+      setStepNumber(stepNumber + 1);
+    }
+  };
+  const backStep = () => {
+    if (stepNumber > 0) {
+      setStepNumber(stepNumber - 1);
+    }
+  };
 
   const [nobours, setNobours] = useState({
     enabled: true,
@@ -43,6 +55,8 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
     },
   });
 
+  console.log('listConfig',listConfig);
+  
   const PostData = () => {
     axios({
       method: "POST",
@@ -58,30 +72,50 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
       },
     })
       .then((response) => {
-        getDf();
         toast.success("Data submitted successfully!");
-        onSubmit();
       })
       .catch((error) => {
-        console.error("There was an error!", error);
         toast.error("An error occurred while submitting data!");
       });
-  };
-
-  const getList = () => {
-    axios({
-      method: "POST",
-      url: OnRun + "/marketing/perviewcontext",
-      data: {access:access,context:'سلام {{نام و نام خانوادگی}} حالتون چطوره {{صادره}}',_id:Config },
-    }).then((response) => {
-      console.log(response);
-    });
   };
 
   return (
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
       <ToastContainer />
-      <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
+      <Stepper activeStep={stepNumber}>
+        {steps.map((label, index) => {
+          return (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {
+        stepNumber==0?
+        <>
+          <CardConfigMarketing profil={"+"} title={"جدید"} id={'0000'} setConfig={setConfig}/>
+          {
+            listConfig.map(i=>{
+              return(
+                <CardConfigMarketing profil={"*"} title={i.title} id={i._id} setConfig={setConfig}/>
+
+              )
+            })
+          }
+        
+        </>
+        :stepNumber==1?
+        <p>
+          عنوان و تاریخ و ...
+        </p>
+        :stepNumber==2?
+        <p>کانفیگ ها</p>
+        :null
+      }
+      <Button onClick={nextStep}>بعدی</Button>
+      <Button onClick={backStep}>قبلی</Button>
+      {/* <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
       </h2>
 
@@ -110,18 +144,9 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
         className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
       >
         ایجاد
-      </button>
+      </button> */}
     </div>
   );
 };
 
-ModalFilter.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  access: PropTypes.object.isRequired,
-  getDf: PropTypes.func.isRequired,
-};
-
 export default ModalFilter;
-
-
-

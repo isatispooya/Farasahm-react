@@ -10,24 +10,20 @@ import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
 import { OnRun } from "../../../../config/config";
 import Smspage from "../../../../componet/smspage";
-import Title from "../../../../componet/title";
-import StepperSlide from "../../../../componet/stepper";
-import { ThemeProvider } from "styled-components";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
   const [listConfig, setListConfig] = useState([]);
-  const [isOpenStepper, setIsOpenStepper] = useState(false);
   const [Config, setConfig] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
   const [df, setDf] = useState(null);
+  const [table, setTable] = useState(null);
   const [columns, setColumns] = useState([]);
-  const [isOpenFilter, setIsOpenFilter] = useState(false);
+  const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [isOpenSender, setIsOpenSender] = useState(false);
-  const [isOpenTitle, setIsOpenTitle] = useState(false);
   const [len, setLen] = useState(0);
-  const [titleList,setTitleList]=useState('');
-  const [table, setTable] = useState(null); // تعریف متغیر table
+
+  console.log(isOpenFilter);
+  
 
 
   const getConfigList = () => {
@@ -38,9 +34,7 @@ const CreateList = () => {
     }).then((response) => {
       setListConfig(response.data);
       console.log("getConfigList", response.data);
-      setTitleList(response.data)
       setConfig(response.data[0]?._id);
-      setSelectedItem(response.data[0]?.title);
 
     });
   };
@@ -54,39 +48,16 @@ const CreateList = () => {
       }).then((response) => {
         setDf(response.data.dic);
         setColumns(response.data.columns);
-        console.log("getDf", response.data.dic);
         setLen(response.data.len);
        
       });
     }
   };
 
-  const addNewItem = async (newItemTitle) => {
+  const handlerDel = async (newItemTitle) => {
     const requestData = {
       access: access,
       title: newItemTitle,
-    };
-
-    axios({
-      method: "POST",
-      url: OnRun + "/marketing/marketinglist",
-      data: requestData,
-    })
-      .then((response) => {
-        getConfigList();
-        setSelectedItem(newItemTitle);
-        setConfig(response.data._id);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const deletTime = async (item) => {
-    console.log(item);
-    const requestData = {
-      access: access,
-      title: item,
     };
 
     axios({
@@ -96,30 +67,14 @@ const CreateList = () => {
     })
       .then((response) => {
         getConfigList(); 
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const handleDeleteItem = (item) => {
-    const updatedList = listConfig.filter((config) => config.title !== item);
-    setListConfig(updatedList);
 
-    if (item === selectedItem) {
-      setSelectedItem(updatedList[0]?.title || null);
-      setConfig(updatedList[0]?._id || null);
-    }
 
-    deletTime(item);
-  };
-
-  const handleOptionClick = (item) => {
-    const selectedConfig = listConfig.find((config) => config.title === item);
-    setSelectedItem(item);
-    setConfig(selectedConfig?._id || null);
-  };
 
   useEffect(() => {
     if (df) {
@@ -148,43 +103,16 @@ const CreateList = () => {
     }
   }, [df]);
 
-  console.log('createList',Config);
   
 
   useEffect(getConfigList, []);
-  useEffect(getDf, [Config]);
 
-  const toggleModal = () => {
-    setIsOpenFilter(!isOpenFilter);
-  };
 
-  const toggleModalSender = () => {
-    setIsOpenSender(!isOpenSender);
-  };
-  const toggleTitleModal = () => {
-    setIsOpenTitle(!isOpenTitle);
-  };
 
-  const toggleStepperSlide = () => {
-    setIsOpenStepper(!isOpenStepper); // تغییر به isOpenStepper
-  };
 
-  const theme = {
-    colors: {
-      primary: "#6200ee",
-      background: "#ffffff",
-      surface: "#ffffff",
-      error: "#B00020",
-      text: "#000000",
-      onPrimary: "#ffffff",
-      onSecondary: "#000000",
-      onBackground: "#000000",
-      onSurface: "#000000",
-      onError: "#ffffff",
-    },
-  };
 
   return (
+
     <div className="subPage tablePg">
       <div className="tls">
         <h2 className="titlePage">لیست</h2>
@@ -204,53 +132,34 @@ const CreateList = () => {
         </p>
 
         <div className="btntls">
-          <button className="inp-fld" onClick={toggleModalSender}>
+          <button className="inp-fld" onClick={()=>setIsOpenSender(true)}>
             ارسال
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <button className="inp-fld" onClick={toggleStepperSlide}>
+          <button className="inp-fld" onClick={()=>setIsOpenFilter(true)}>
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <select
-            value={Config}
-            onChange={(e) => handleOptionClick(e.target.options[e.target.selectedIndex].text)}
-          >
-            {listConfig.map((i) => (
-              <option key={i._id} value={i._id}>
-                {i.title}
-              </option>
-            ))}
-          </select>
+
         </div>
       </div>
 
-      {df === null ? <MiniLoader /> : df === false ? <NoData /> : null}
 
       <div>
         {isOpenFilter && (
           <ModalFilter
-            toggleModal={toggleModal}
-            getDf={getDf}
+            toggleModal={setIsOpenFilter}
             access={access}
-            message={message}
-            Config={Config}
+            setConfig={setConfig}
+            listConfig={listConfig}
           />
         )}
       </div>
       <div>
-        {isOpenTitle && (
-          <Title
-            listConfig={listConfig.map((i) => i.title)} 
-            selectedItem={selectedItem}
-            handleDeleteItem={handleDeleteItem}
-            handleOptionClick={handleOptionClick}   
-            addNewItem={addNewItem}    
-          />
-        )}
+
       </div>
       <div>
-        {isOpenSender && (
+        {/* {isOpenSender && (
           <Smspage
             toggleModal={toggleModalSender}
             len={len}
@@ -258,17 +167,10 @@ const CreateList = () => {
             columns={columns}
             access={access}
           />
-        )}
+        )} */}
       </div>
       <div>
-        {isOpenStepper && (
-          <ThemeProvider theme={theme}>
-            <StepperSlide
-            titleList={titleList}
-              toggleModal={toggleStepperSlide}
-            />
-          </ThemeProvider>
-        )}
+
       </div>
       <div id="data-table"></div>
     </div>
