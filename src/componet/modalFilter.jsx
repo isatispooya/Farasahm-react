@@ -16,6 +16,9 @@ import ConfirmationModal from "./confirmation";
 
 const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
   const [title, setTitle] = useState("");
+
+
+
   const [nobours, setNobours] = useState({
     enabled: true,
     name: null,
@@ -72,6 +75,9 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
         toast.error("An error occurred while submitting data!");
       });
   };
+
+
+
 
 
   return (
