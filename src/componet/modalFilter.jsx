@@ -9,10 +9,8 @@ import NameSearch from "./name";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { OnRun } from "../config/config";
-import { TextField } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ConfirmationModal from "./confirmation";
 
 const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
   const [title, setTitle] = useState("");
@@ -45,31 +43,13 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
     },
   });
 
-  const handleConfirm = () => {
-    // Close the modal
-    setIsModalOpen(false);
-    // Proceed with submitting the data
-    PostData();
-  };
-
-  const handleCancel = () => {
-    // Close the modal without submitting the data
-    setIsModalOpen(false);
-  };
-
   const PostData = () => {
-    if (title.trim() === "") {
-      toast.error("عنوان را پر کنید");
-      return;
-    }
-
     axios({
       method: "POST",
       url: `${OnRun}/marketing/fillter`,
       headers: { "content-type": "application/json" },
       data: {
         access: access,
-        title: title,
         config: {
           nobours: nobours,
           send_time: "1722681000000",
@@ -98,19 +78,12 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
     });
   };
 
-  const handleCreateButtonClick = () => {
-    // Open the confirmation modal when the create button is clicked
-    setIsModalOpen(true);
-  };
-
   return (
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
       <ToastContainer />
       <h2 className="text-xl font-bold mb-6 text-center text-gray-800">
         سهامداران غیر بورسی
       </h2>
-
-
 
       <div className="overflow-y-auto max-h-[calc(50vh-100px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
@@ -133,18 +106,11 @@ const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
       </div>
 
       <button
-        onClick={handleCreateButtonClick}
+        onClick={PostData}
         className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
       >
         ایجاد
       </button>
-
-      <ConfirmationModal
-        isOpen={isModalOpen}
-        message="آیا از ایجاد این فیلتر مطمئن هستید؟"
-        onConfirm={handleConfirm}
-        onCancel={handleCancel}
-      />
     </div>
   );
 };
@@ -156,4 +122,6 @@ ModalFilter.propTypes = {
 };
 
 export default ModalFilter;
+
+
 
