@@ -14,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "./confirmation";
 
+
 const ModalFilter = ({ onSubmit, access, getDf }) => {
   const [title, setTitle] = useState("");
   const [nobours, setNobours] = useState({
@@ -110,6 +111,7 @@ const ModalFilter = ({ onSubmit, access, getDf }) => {
           />
           <Stocks nobours={nobours} setNobours={setNobours} />
           <Date nobours={nobours} setNobours={setNobours} />
+         
         </div>
       </div>
 
