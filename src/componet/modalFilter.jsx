@@ -12,15 +12,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing"
-<<<<<<< HEAD
 
-=======
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
->>>>>>> 069f214de2cfa8451eceb3c9b6d9faa06dfb19eb
 
 const ModalFilter = ({ toggleModal, access  }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
