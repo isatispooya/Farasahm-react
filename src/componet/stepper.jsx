@@ -15,7 +15,6 @@ import { OnRun } from "../config/config";
 import axios from "axios";
 import Sending from "./sending";
 
-// Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
   backgroundColor: "transparent",
   padding: theme.spacing(3),
@@ -52,12 +51,11 @@ const StepperSlide = ({ toggleModal, titleList }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const steps = [
     "قدم 1: لیست‌ها",
-    "قدم 2:انتخاب تاریخ و زمان ارسال ",
+    "قدم 2: انتخاب تاریخ و زمان ارسال ",
     "قدم 3: مشاهده و فیلتر ",
   ];
 
   useEffect(() => {
-    // Fetch the list configurations
     const fetchListConfig = () => {
       axios({
         method: "POST",
@@ -74,10 +72,8 @@ const StepperSlide = ({ toggleModal, titleList }) => {
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      // If it's the last step, close the modal
       toggleModal();
     } else {
-      // Otherwise, go to the next step
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
@@ -99,13 +95,17 @@ const StepperSlide = ({ toggleModal, titleList }) => {
   };
 
   const handleOptionClick = (item) => {
-    setSelectedItem(item);
-  };
-
-  const addNewItem = (newItemTitle) => {
-    const newItem = { title: newItemTitle, _id: Date.now().toString() };
-    setListConfig([newItem, ...listConfig]);
-    setSelectedItem(newItemTitle);
+    if (item === "جدید") {
+      const newItemTitle = prompt("لطفاً عنوان جدید را وارد کنید:");
+      if (newItemTitle) {
+        const newItem = { title: newItemTitle, _id: Date.now().toString() };
+        setListConfig([newItem, ...listConfig]);
+        setSelectedItem(newItemTitle);
+      }
+    } else {
+      setSelectedItem(item);
+    }
+    console.log("Selected Item:", item);  // Debugging: Check selected item
   };
 
   return (
@@ -141,10 +141,9 @@ const StepperSlide = ({ toggleModal, titleList }) => {
                 selectedItem={selectedItem}
                 handleDeleteItem={handleDeleteItem}
                 handleOptionClick={handleOptionClick}
-                addNewItem={addNewItem}
               />
             ) : activeStep === 1 ? (
-              <Sending />
+              <Sending selectedTitle={selectedItem} />
             ) : (
               <ModalFilter
                 titleList={titleList}
@@ -184,3 +183,5 @@ const StepperSlide = ({ toggleModal, titleList }) => {
 };
 
 export default StepperSlide;
+
+

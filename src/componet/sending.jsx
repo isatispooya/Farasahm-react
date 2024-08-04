@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-const Sending = () => {
+const Sending = ({ selectedTitle }) => {
   const [time, setTime] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(null);
 
+  useEffect(() => {
+    if (selectedTitle) {
+      setTitle(selectedTitle); // Set the title from the selected item in Step 1
+    }
+    console.log("Selected Title in Sending:", selectedTitle);  // Debugging: Check selected title in Sending component
+  }, [selectedTitle]);
+
   const handleChange = (event) => {
     setTime(event.target.value);
   };
+
   const handleTitle = (event) => {
     setTitle(event.target.value);
   };
@@ -25,15 +33,13 @@ const Sending = () => {
         <Select
           labelId="title-select-label"
           id="title-select"
-          value={title}
+          value={title || "هیچ آیتمی انتخاب نشده"}
           label="انتخاب عنوان"
           onChange={handleTitle}
           className="bg-white"
         >
-          <MenuItem value="تولد">تولد</MenuItem>
-          <MenuItem value="فلان">فلان</MenuItem>
-          <MenuItem value="...">...</MenuItem>
-          <MenuItem value="...بلیب">...بلیب</MenuItem>
+          <MenuItem value={title}>{title}</MenuItem>
+
         </Select>
       </FormControl>
 
@@ -55,7 +61,7 @@ const Sending = () => {
       </div>
 
       {/* زمان ارسال */}
-      <FormControl fullWidth className="mt-8" style={{marginTop:"40px"}}>
+      <FormControl fullWidth style={{marginTop:"40px"}}>
         <InputLabel id="frequency-select-label">انتخاب تعداد ارسال</InputLabel>
         <Select
           labelId="frequency-select-label"
@@ -76,4 +82,6 @@ const Sending = () => {
 };
 
 export default Sending;
+
+
 
