@@ -124,10 +124,8 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index }) => {
             }}
           />
           <CardActions sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}>
-            <Button variant="contained" color="primary" onClick={handleSelect}>انتخاب</Button>
-            <Button variant="outlined" color="error">
-              حذف
-            </Button>
+            <Button variant="contained" color="primary">انتخاب</Button>
+
             {title !== "جدید" && (
               <Button
                 variant="outlined"
