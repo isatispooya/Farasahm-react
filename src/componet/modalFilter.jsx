@@ -140,13 +140,13 @@ const ModalFilter = ({ toggleModal, access }) => {
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch nobours={config} setNobours={setConfig} />
-          <NameSearch nobours={config} setNobours={setConfig} />
-          <PhoneSearch nobours={config} setNobours={setConfig} />
-          <CityFilter access={access} config={config} setC={setConfig} />
-          <CompanyFilter access={access} nobours={config} setNobours={setConfig} />
-          <Stocks nobours={config} setNobours={setConfig} />
-          <Date nobours={config} setNobours={setConfig} />
+          <NationalIdSearch config={config} setConfig={setConfig} />
+          <NameSearch config={config} setConfig={setConfig} />
+          <PhoneSearch config={config} setConfig={setConfig} />
+          <CityFilter access={access} config={config} setConfig={setConfig} />
+          <CompanyFilter access={access} config={config} setConfig={setConfig} />
+          <Stocks config={config} setConfig={setConfig} />
+          <Date config={config} setConfig={setConfig} />
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
@@ -252,11 +252,11 @@ const ModalFilter = ({ toggleModal, access }) => {
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
-        <Button disabled={stepNumber == 0} onClick={nextStep}>
-          بعدی
-        </Button>
-        <Button disabled={stepNumber == 0} onClick={backStep}>
+        <Button disabled={stepNumber === 0} onClick={backStep}>
           قبلی
+        </Button>
+        <Button disabled={stepNumber === 0} onClick={nextStep}>
+          بعدی
         </Button>
       </div>
     </div>
