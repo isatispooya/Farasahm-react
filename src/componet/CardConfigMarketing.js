@@ -107,7 +107,7 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index }) => {
             title={<Typography variant="h6" sx={{ fontWeight: "bold" }}>{title}</Typography>}
             sx={{
               textAlign: "left",
-              "& .MuiCardHeader-root": {
+              "& .MuiCardHeader-root": { 
                 display: "flex",
                 alignItems: "center",
                 padding: 1,
