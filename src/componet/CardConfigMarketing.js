@@ -1,6 +1,6 @@
 import { Avatar, Button, Card, CardActions, CardHeader } from "@mui/material";
 
-const CardConfigMarketing = ({ profil, title, id, setConfig }) => {
+const CardConfigMarketing = ({ profil, title, id, setConfigSelected }) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
