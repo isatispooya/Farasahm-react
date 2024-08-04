@@ -5,6 +5,7 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { getConfig } from "@testing-library/react";
 
 const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
@@ -13,7 +14,7 @@ const CityFilter = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     var nobours = {...config.nobours, city:citySelected}
-    setConfig({ ...config, nobours: config });
+    setConfig({ ...config, nobours: nobours });
   }, [citySelected]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
