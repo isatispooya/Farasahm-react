@@ -12,7 +12,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing"
-import Sending from "./sending";
+<<<<<<< HEAD
+
+=======
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+>>>>>>> 069f214de2cfa8451eceb3c9b6d9faa06dfb19eb
 
 const ModalFilter = ({ toggleModal, access  }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -145,13 +153,13 @@ console.log("log",config);
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch nobours={nobours} setNobours={setNobours} />
-          <NameSearch nobours={nobours} setNobours={setNobours} />
-          <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          <CityFilter access={access} config={config} setC={setNobours} />
-          <CompanyFilter access={access} nobours={nobours} setNobours={setNobours} />
-          <Stocks nobours={nobours} setNobours={setNobours} />
-          <Date nobours={nobours} setNobours={setNobours} />
+          <NationalIdSearch config={config} setConfig={setConfig}  />
+          <NameSearch config={config} setConfig={setConfig}  />
+          <PhoneSearch config={config} setConfig={setConfig} />
+          <CityFilter access={access} config={config} setConfig={setConfig} />
+          <CompanyFilter access={access} config={config} setConfig={setConfig}  />
+          <Stocks config={config} setConfig={setConfig}  />
+          <Date config={config} setConfig={setConfig} />
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
@@ -240,7 +248,8 @@ console.log("log",config);
           ))}
         </>
       )}
-      {stepNumber === 1 && <Sending/>}
+     
+      {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
       <Button disabled={stepNumber==0} onClick={nextStep}>بعدی</Button>
