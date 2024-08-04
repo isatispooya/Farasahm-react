@@ -144,13 +144,13 @@ const ModalFilter = ({ toggleModal, access  }) => {
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch nobours={nobours} setNobours={setNobours} />
-          <NameSearch nobours={nobours} setNobours={setNobours} />
-          <PhoneSearch nobours={nobours} setNobours={setNobours} />
-          <CityFilter access={access} config={config} setC={setNobours} />
-          <CompanyFilter access={access} nobours={nobours} setNobours={setNobours} />
-          <Stocks nobours={nobours} setNobours={setNobours} />
-          <Date nobours={nobours} setNobours={setNobours} />
+          <NationalIdSearch config={config} setConfig={setConfig}  />
+          <NameSearch config={config} setConfig={setConfig}  />
+          <PhoneSearch config={config} setConfig={setConfig} />
+          <CityFilter access={access} config={config} setConfig={setConfig} />
+          <CompanyFilter access={access} config={config} setConfig={setConfig}  />
+          <Stocks config={config} setConfig={setConfig}  />
+          <Date config={config} setConfig={setConfig} />
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
