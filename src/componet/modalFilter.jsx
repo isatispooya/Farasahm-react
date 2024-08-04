@@ -31,7 +31,7 @@ const ModalFilter = ({ toggleModal, access }) => {
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState({
-    title:'',
+    title: "",
     send_time: null,
     context: "",
     period: "ones",
@@ -97,7 +97,7 @@ const ModalFilter = ({ toggleModal, access }) => {
         data: { access: access, context: "", _id: configSelected },
       })
         .then((response) => {
-          response.data.config['title'] = response.data['title']
+          response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
         })
         .catch((error) => {
@@ -105,7 +105,7 @@ const ModalFilter = ({ toggleModal, access }) => {
         });
     } else {
       setConfig({
-        title: '',
+        title: "",
         send_time: null,
         period: null,
         context: "",
@@ -137,7 +137,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     }
     nextStep();
   };
-console.log(config);
+  console.log(config);
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
@@ -198,18 +198,18 @@ console.log(config);
   );
 
   const sendingOptions = () => {
-    console.log(config)
+    console.log(config);
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
-        <TextField
-          id="outlined-basic"
-          disabled
-          label="عنوان" // This will be the label above the input field
-          defaultValue={config.title} // Use defaultValue if it's static
-          variant="outlined"
-        />
-
-        <FormControl fullWidth className="mt-4"></FormControl>
+        <FormControl fullWidth className="mt-4">
+          <TextField
+            id="outlined-basic"
+            disabled
+            label="عنوان" // This will be the label above the input field
+            defaultValue={config.title} // Use defaultValue if it's static
+            variant="outlined"
+          />
+        </FormControl>
 
         <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
