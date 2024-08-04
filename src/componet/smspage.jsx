@@ -4,16 +4,11 @@ import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-const Smspage = ({ toggleModal, access, columns, Config, len }) => {
-  const [message, setMessage] = useState("");
+const Smspage = ({textareaRef,setMessage,message,toggleModal, access, columns, Config,len,handleWordSelect }) => {
   const [context, setContext] = useState("");
   const [sendMessage, setSendMessage] = useState("");
-  const textareaRef = useRef(null);
 
-  const handleWordSelect = (word) => {
-    setMessage((prevMessage) => prevMessage + " " + word + " ");
-    textareaRef.current.focus();
-  };
+  
 
   const handleClose = () => {
     toggleModal(false);
