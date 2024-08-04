@@ -230,6 +230,8 @@ const CreateList = () => {
             toggleModal={toggleModal}
             getDf={getDf}
             access={access}
+            message={message}
+            Config={Config}
           />
         )}
       </div>

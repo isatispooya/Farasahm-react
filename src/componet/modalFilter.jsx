@@ -14,10 +14,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "./confirmation";
 
-const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
+const ModalFilter = ({ onSubmit, access, getDf, message, Config }) => {
   const [title, setTitle] = useState("");
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [nobours, setNobours] = useState({
     enabled: true,
@@ -26,7 +25,7 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
       from: null,
       to: null,
     },
-    
+
     city: [],
     symbol: [],
     national_id: [],
@@ -44,6 +43,17 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
     },
   });
 
+  const handleConfirm = () => {
+    // Close the modal
+    setIsModalOpen(false);
+    // Proceed with submitting the data
+    PostData();
+  };
+
+  const handleCancel = () => {
+    // Close the modal without submitting the data
+    setIsModalOpen(false);
+  };
 
   const PostData = () => {
     if (title.trim() === "") {
@@ -76,9 +86,20 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
       });
   };
 
+  const getList = () => {
+    axios({
+      method: "POST",
+      url: OnRun + "/marketing/perviewcontext",
+      data: { access: access, context: message, _id: Config },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
-
-
+  const handleCreateButtonClick = () => {
+    // Open the confirmation modal when the create button is clicked
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
@@ -87,16 +108,7 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
         سهامداران غیر بورسی
       </h2>
 
-      <div className="flex justify-center mb-8">
-        <TextField
-          id="outlined-basic"
-          className="p-1 w-96 mx-auto text-gray-700 bg-white rounded-lg"
-          label="عنوان را وارد کنید"
-          variant="outlined"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
+
 
       <div className="overflow-y-auto max-h-[calc(50vh-100px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
@@ -115,18 +127,22 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
           />
           <Stocks nobours={nobours} setNobours={setNobours} />
           <Date nobours={nobours} setNobours={setNobours} />
-         
         </div>
       </div>
 
-      {<ConfirmationModal /> && (
-        <button
-          onClick={PostData}
-          className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
-        >
-          ایجاد
-        </button>
-      )}
+      <button
+        onClick={handleCreateButtonClick}
+        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
+      >
+        ایجاد
+      </button>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        message="آیا از ایجاد این فیلتر مطمئن هستید؟"
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
     </div>
   );
 };
@@ -138,3 +154,4 @@ ModalFilter.propTypes = {
 };
 
 export default ModalFilter;
+

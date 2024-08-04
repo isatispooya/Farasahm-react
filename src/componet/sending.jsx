@@ -12,9 +12,9 @@ const Sending = ({ selectedTitle }) => {
 
   useEffect(() => {
     if (selectedTitle) {
-      setTitle(selectedTitle); // Set the title from the selected item in Step 1
+      setTitle(selectedTitle); 
     }
-    console.log("Selected Title in Sending:", selectedTitle);  // Debugging: Check selected title in Sending component
+   
   }, [selectedTitle]);
 
   const handleChange = (event) => {
@@ -29,7 +29,7 @@ const Sending = ({ selectedTitle }) => {
     <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
       {/* عنوان */}
       <FormControl fullWidth className="mt-4">
-        <InputLabel id="title-select-label">انتخاب عنوان</InputLabel>
+        <InputLabel id="title-select-label"> عنوان</InputLabel>
         <Select
           labelId="title-select-label"
           id="title-select"
