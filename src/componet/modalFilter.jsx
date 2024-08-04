@@ -30,9 +30,10 @@ const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
+
   const [config, setConfig] = useState({
     title: "",
-    send_time: null,
+    send_time: "",
     context: "",
     period: "ones",
     nobours: {
@@ -106,7 +107,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     } else {
       setConfig({
         title: "",
-        send_time: null,
+        send_time: "",
         period: null,
         context: "",
         period: "ones",
@@ -137,7 +138,8 @@ const ModalFilter = ({ toggleModal, access }) => {
     }
     nextStep();
   };
-  console.log(config);
+
+  // const dateFromTimestamp = new Date(parseInt(config.send_time));
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
@@ -152,7 +154,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setFiltersOpen(!filtersOpen)} // Toggle dropdown state
+            onClick={() => setFiltersOpen(!filtersOpen)}
             fullWidth
             endIcon={
               <ExpandMoreIcon
@@ -198,15 +200,14 @@ const ModalFilter = ({ toggleModal, access }) => {
   );
 
   const sendingOptions = () => {
-    console.log(config);
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
             disabled
-            label="عنوان" // This will be the label above the input field
-            defaultValue={config.title} // Use defaultValue if it's static
+            label="عنوان"
+            defaultValue={config.title}
             variant="outlined"
           />
         </FormControl>
@@ -215,6 +216,9 @@ const ModalFilter = ({ toggleModal, access }) => {
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
+              // value={dateFromTimestamp}
+              // onChange={(e)=>e.target.value = dateFromTimestamp}
+
               format="MM/DD/YYYY HH:mm:ss"
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
