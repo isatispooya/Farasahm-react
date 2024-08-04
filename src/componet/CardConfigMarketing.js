@@ -32,7 +32,11 @@ const theme = createTheme({
   },
 });
 
-const CardConfigMarketing = ({ profil, title, id, setConfig }) => {
+const CardConfigMarketing = ({ profil, title, id, setConfig, onSelect }) => {
+  const handleSelect = () => {
+    onSelect(title);  // Trigger the callback to set the selected title
+  };
+
   return (
     <div dir="rtl">
       <ThemeProvider theme={theme}>
@@ -60,7 +64,7 @@ const CardConfigMarketing = ({ profil, title, id, setConfig }) => {
             }}
           />
           <CardActions sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}>
-            <Button variant="contained" color="primary">انتخاب</Button>
+            <Button variant="contained" color="primary" onClick={handleSelect}>انتخاب</Button>
             <Button variant="outlined" color="error">
               حذف
             </Button>
@@ -72,3 +76,4 @@ const CardConfigMarketing = ({ profil, title, id, setConfig }) => {
 };
 
 export default CardConfigMarketing;
+
