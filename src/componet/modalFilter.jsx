@@ -69,7 +69,7 @@ const ModalFilter = ({ toggleModal, access, setConfig, listConfig  }) => {
       </div>
       <button
         onClick={PostData}
-        className="mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
+        className="flex self-center mt-6 bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700 justify-center"
       >
         ایجاد
       </button>
@@ -77,7 +77,7 @@ const ModalFilter = ({ toggleModal, access, setConfig, listConfig  }) => {
   );
 
   return (
-    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-hidden">
+    <div className="relative w-full max-w-4xl max-h-screen rounded-xl p-6 overflow-y-auto">
       <ToastContainer />
       <Stepper activeStep={stepNumber}>
         {steps.map((label) => (
@@ -97,9 +97,10 @@ const ModalFilter = ({ toggleModal, access, setConfig, listConfig  }) => {
       )}
       {stepNumber === 1 && <Sending/>}
       {stepNumber === 2 && renderFilters()}
-
+      <div className="flex justify-between">
       <Button onClick={nextStep}>بعدی</Button>
       <Button onClick={backStep}>قبلی</Button>
+      </div>
     </div>
   );
 };
