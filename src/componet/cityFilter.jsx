@@ -13,7 +13,7 @@ const CityFilter = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     var nobours = {...config.nobours, city:citySelected}
-    setConfig({ ...config, nobours: nobours });
+    setConfig({ ...config, nobours: config });
   }, [citySelected]);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
