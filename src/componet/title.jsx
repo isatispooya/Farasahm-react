@@ -4,6 +4,7 @@ import { FaCheck, FaWindowClose, FaPlus } from 'react-icons/fa';
 const Title = ({ listConfig, selectedItem, handleDeleteItem, handleOptionClick }) => {
   const updatedListConfig = ['جدید', ...listConfig];
 
+
   return (
     <div dir="rtl" className="space-y-4 p-4">
       {updatedListConfig.map((item, index) => (
