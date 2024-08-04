@@ -10,8 +10,8 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Button, Step, StepLabel, Stepper, TextField } from "@mui/material";
-import CardConfigMarketing from "./CardConfigMarketing";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import CardConfigMarketing from "./CardConfigMarketing"
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
@@ -128,8 +128,9 @@ const ModalFilter = ({ toggleModal, access }) => {
   };
 
 
-  useEffect(getConfig, [configSelected]);
-  useEffect(getConfigList, []);
+  useEffect(getConfig,[configSelected])
+  useEffect(getConfigList,[])
+
 
   const renderFilters = () => (
     <>
@@ -138,15 +139,11 @@ const ModalFilter = ({ toggleModal, access }) => {
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch  config={config} setConfig={setConfig} />
-          <NameSearch config={config} setConfig={setConfig} />
-          <PhoneSearch config={config} setConfig={setConfig} />
-          <CityFilter access={access} config={config} setConfig={setConfig} />
-          <CompanyFilter
-            access={access}
-            nobours={config}
-            setNobours={setConfig}
-          />
+          <NationalIdSearch nobours={config} setNobours={setConfig} />
+          <NameSearch nobours={config} setNobours={setConfig} />
+          <PhoneSearch nobours={config} setNobours={setConfig} />
+          <CityFilter access={access} config={config} setC={setConfig} />
+          <CompanyFilter access={access} nobours={config} setNobours={setConfig} />
           <Stocks nobours={config} setNobours={setConfig} />
           <Date nobours={config} setNobours={setConfig} />
         </div>
@@ -248,6 +245,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           ))}
         </>
       )}
+     
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">

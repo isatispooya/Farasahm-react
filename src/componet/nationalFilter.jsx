@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const NationalIdSearch = ({ nobours, setNobours }) => {
+const NationalIdSearch = ({ config, setConfig }) => {
   const [searchTermPrimary, setSearchTermPrimary] = useState("");
   const [primaryIds, setPrimaryIds] = useState([]);
   const [searchTermSecondary, setSearchTermSecondary] = useState("");
@@ -59,14 +59,17 @@ const NationalIdSearch = ({ nobours, setNobours }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
   useEffect(() => {
-    setNobours({
-      ...nobours,
-      national_id: primaryIds,
-      secondary_id: secondaryIds,
-    });
-  }, [primaryIds, secondaryIds]);
+    var nobours = {...config.nobours, national_id:primaryIds,secondary_id:secondaryIds}
+    setConfig({ ...config, nobours: nobours });
+  }, [primaryIds,secondaryIds]);
+  // useEffect(() => {
+  //   setNobours({
+  //     ...nobours,
+  //     national_id: primaryIds,
+  //     secondary_id: secondaryIds,
+  //   });
+  // }, [primaryIds, secondaryIds]);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
