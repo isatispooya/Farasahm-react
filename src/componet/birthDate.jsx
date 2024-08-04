@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-
+import { CiCalendarDate } from "react-icons/ci";
 export default function Date({ config, setConfig }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
@@ -12,12 +12,9 @@ export default function Date({ config, setConfig }) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // useEffect(() => {
-  //   setNobours({ ...nobours, birthday: { from: from, to: to } });
-  // }, [from, to]);
   useEffect(() => {
-    var birthday = { from: from, to: to }
-    var nobours = {...config.nobours, birthday: birthday }
+    var birthday = { from: from, to: to };
+    var nobours = { ...config.nobours, birthday: birthday };
     setConfig({ ...config, nobours: nobours });
   }, [from, to]);
 
@@ -49,26 +46,37 @@ export default function Date({ config, setConfig }) {
       {isDropdownOpen && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md flex justify-between gap-4">
           <div className="flex-1">
-            <p className="text-right font-semibold mb-2">از تاریخ</p>
-            <DatePicker
-              calendar={persian}
-              value={from}
-              onChange={setFrom}
-              locale={persian_fa}
-              calendarPosition="bottom-right"
-              className="w-full bg-white p-2 rounded shadow-md"
-            />
+            <div className="flex  items-center mb-2 mr-8">
+              <CiCalendarDate />
+              <p className="text-center">تاریخ شروع</p>
+            </div>
+            <div>
+              <DatePicker
+                calendar={persian}
+                value={from}
+                onChange={setFrom}
+                locale={persian_fa}
+                calendarPosition="bottom-right"
+                className="w-full bg-white p-2 rounded shadow-md"
+              />
+            </div>
           </div>
+
           <div className="flex-1">
-            <p className="text-right font-semibold mb-2">تا تاریخ</p>
-            <DatePicker
-              calendar={persian}
-              value={to}
-              onChange={setTo}
-              locale={persian_fa}
-              calendarPosition="bottom-left"
-              className="w-full bg-white p-2 rounded shadow-md"
-            />
+            <div className="flex  items-center mb-2 mr-8">
+              <CiCalendarDate />
+              <p className="text-center">تاریخ پایان</p>
+            </div>
+            <div>
+              <DatePicker
+                calendar={persian}
+                value={from}
+                onChange={setFrom}
+                locale={persian_fa}
+                calendarPosition="bottom-right"
+                className="w-full bg-white p-2 rounded shadow-md"
+              />
+            </div>
           </div>
         </div>
       )}
