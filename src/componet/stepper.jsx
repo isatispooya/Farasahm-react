@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+
+import React, { useContext, useState, useEffect } from "react";
 import {
   Stepper,
   Step,
@@ -11,7 +12,6 @@ import ModalFilter from "./modalFilter";
 import Title from "./title";
 import { styled } from "@mui/system";
 import { AccessContext } from "../config/accessContext";
-import Sending from "./sending";
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -46,11 +46,29 @@ const CustomButton = styled(Button)(({ theme }) => ({
 const StepperSlide = ({ toggleModal }) => {
   const access = useContext(AccessContext);
   const [activeStep, setActiveStep] = useState(0);
+  const [listConfig, setListConfig] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const steps = [
     "قدم 1: لیست‌ها",
     "قدم 2:انتخاب تاریخ و زمان ارسال ",
     "قدم 3: مشاهده و فیلتر ",
   ];
+
+  useEffect(() => {
+    // Fetch the list configurations
+    const fetchListConfig = () => {
+      axios({
+        method: "POST",
+        url: OnRun + "/marketing/marketinglist",
+        data: { access: access },
+      }).then((response) => {
+        setListConfig(response.data);
+        setSelectedItem(response.data[0]?.title || null);
+      });
+    };
+
+    fetchListConfig();
+  }, [access]);
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
@@ -68,6 +86,24 @@ const StepperSlide = ({ toggleModal }) => {
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     }
+  };
+
+  const handleDeleteItem = (item) => {
+    const updatedList = listConfig.filter((config) => config.title !== item);
+    setListConfig(updatedList);
+    if (item === selectedItem) {
+      setSelectedItem(updatedList[0]?.title || null);
+    }
+  };
+
+  const handleOptionClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  const addNewItem = (newItemTitle) => {
+    const newItem = { title: newItemTitle, _id: Date.now().toString() };
+    setListConfig([newItem, ...listConfig]);
+    setSelectedItem(newItemTitle);
   };
 
   return (
@@ -99,10 +135,11 @@ const StepperSlide = ({ toggleModal }) => {
           <Typography variant="h6" sx={{ mb: 2 }}>
             {activeStep === 0 ? (
               <Title
-                listConfig={["لیست 1", "لیست 2", "لیست 3"]}
-                selectedItem={"لیست 1"}
-                handleDeleteItem={(item) => console.log(`Deleted: ${item}`)}
-                handleOptionClick={(item) => console.log(`Selected: ${item}`)}
+                listConfig={listConfig.map((i) => i.title)}
+                selectedItem={selectedItem}
+                handleDeleteItem={handleDeleteItem}
+                handleOptionClick={handleOptionClick}
+                addNewItem={addNewItem}
               />
             ) : activeStep === 1 ? (
               <Sending />
@@ -144,7 +181,6 @@ const StepperSlide = ({ toggleModal }) => {
 };
 
 export default StepperSlide;
-
 
 
 
