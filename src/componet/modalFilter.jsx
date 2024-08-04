@@ -94,11 +94,12 @@ const ModalFilter = ({ toggleModal, access }) => {
         });
     } else {
       setConfig({
-        title: null,
+        title: "",
         send_time: null,
         period: null,
         context: "",
-        period: "ones",
+        // eslint-disable-next-line no-dupe-keys
+        period: "",
         nobours: {
           enabled: true,
           name: null,
@@ -161,6 +162,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     </>
   );
   const sendingOptions = () => {
+
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         {/* عنوان */}
