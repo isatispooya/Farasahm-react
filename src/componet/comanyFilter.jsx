@@ -6,25 +6,28 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CompanyFilter = ({ access, nobours, setNobours }) => {
+const CompanyFilter = ({ access, config,setConfig}) => {
   const [companyList, setCompanyList] = useState([]);
 
   const [companyInput, setCompanyInput] = useState("");
 
   const [companySelected, setCompanySelected] = useState([]);
-
   useEffect(() => {
-    const symbols = companySelected
-      .map((selectedCompany) => {
-        const foundCompany = companyList.find(
-          (company) => company.fullname === selectedCompany
-        );
-        return foundCompany ? foundCompany.symbol : null;
-      })
-      .filter((symbol) => symbol !== null);
+      const symbols = companySelected
+        .map((selectedCompany) => {
+          const foundCompany = companyList.find(
+            (company) => company.fullname === selectedCompany
+          );
+          return foundCompany ? foundCompany.symbol : null;
+        })
+        .filter((symbol) => symbol !== null);
+    var nobours = {...config.nobours, symbols:companySelected}
+    setConfig({ ...config, nobours: nobours });
+  }, [companySelected,companyList]);
+  // useEffect(() => {
 
-    setNobours({ ...nobours, symbol: symbols });
-  }, [companySelected, companyList]);
+  //   setNobours({ ...nobours, symbol: symbols });
+  // }, [companySelected, companyList]);
 
   // console.log(nobours);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
