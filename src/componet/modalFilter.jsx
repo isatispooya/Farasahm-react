@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing"
-
+import Sending from "./sending";
 
 const ModalFilter = ({ toggleModal, access  }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -145,13 +145,13 @@ console.log("log",config);
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch config={config} setConfig={setConfig}  />
-          <NameSearch config={config} setConfig={setConfig}  />
-          <PhoneSearch config={config} setConfig={setConfig} />
-          <CityFilter access={access} config={config} setConfig={setConfig} />
-          <CompanyFilter access={access} config={config} setConfig={setConfig}  />
-          <Stocks config={config} setConfig={setConfig}  />
-          <Date config={config} setConfig={setConfig} />
+          <NationalIdSearch nobours={nobours} setNobours={setNobours} />
+          <NameSearch nobours={nobours} setNobours={setNobours} />
+          <PhoneSearch nobours={nobours} setNobours={setNobours} />
+          <CityFilter access={access} config={config} setC={setNobours} />
+          <CompanyFilter access={access} nobours={nobours} setNobours={setNobours} />
+          <Stocks nobours={nobours} setNobours={setNobours} />
+          <Date nobours={nobours} setNobours={setNobours} />
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
@@ -164,6 +164,62 @@ console.log("log",config);
     </div>
     </>
   );
+  const sendingOptions = () => {
+    return (
+      <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
+        {/* عنوان */}
+        <FormControl fullWidth className="mt-4">
+          <InputLabel id="title-select-label"> عنوان</InputLabel>
+          <Select
+            labelId="title-select-label"
+            id="title-select"
+            // value={Title || "هیچ آیتمی انتخاب نشده"}
+            label="انتخاب عنوان"
+            // onChange={handleTitle}
+            className="bg-white"
+          >
+            {/* <MenuItem value={title}>{title}</MenuItem> */}
+  
+          </Select>
+        </FormControl>
+  
+        {/* تاریخ و زمان */}
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+          <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
+          <div className="flex justify-center">
+            <DatePicker
+              format="MM/DD/YYYY HH:mm:ss"
+              plugins={[<TimePicker position="bottom" />]}
+              calendar={persian}
+              // value={date}
+              // onChange={setDate}
+              locale={persian_fa}
+              calendarPosition="bottom-right"
+              className="w-full p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+            />
+          </div>
+        </div>
+  
+        {/* زمان ارسال */}
+        <FormControl fullWidth style={{marginTop:"40px"}}>
+          <InputLabel id="frequency-select-label">انتخاب تعداد ارسال</InputLabel>
+          <Select
+            labelId="frequency-select-label"
+            id="frequency-select"
+            // value={time}
+            label="انتخاب تعداد ارسال"
+            // onChange={handleChange}
+            className="bg-white"
+          >
+            <MenuItem value="oneTime">یکبار</MenuItem>
+            <MenuItem value="daily">روزانه</MenuItem>
+            <MenuItem value="weekly">هفتگی</MenuItem>
+            <MenuItem value="monthly">ماهانه</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+    );
+  }
 
   return (
     <div dir="rtl" className="relative w-full max-w-6xl max-h-screen rounded-xl p-6 overflow-y-auto">
@@ -184,7 +240,7 @@ console.log("log",config);
           ))}
         </>
       )}
-      {stepNumber === 1 && <p></p>}
+      {stepNumber === 1 && <Sending/>}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
       <Button disabled={stepNumber==0} onClick={nextStep}>بعدی</Button>
