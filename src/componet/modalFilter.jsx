@@ -14,7 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmationModal from "./confirmation";
 
-const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
+const ModalFilter = ({ onSubmit, access,getDf,message,Config}) => {
   const [title, setTitle] = useState("");
 
 
@@ -78,6 +78,16 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
 
 
 
+  const getList = () => {
+    axios({
+      method: "POST",
+      url: OnRun + "/marketing/perviewcontext",
+      data: { access: access, context: message, _id: Config },
+    }).then((response) => {
+   console.log(response);
+   
+    });
+  };
 
 
   return (
