@@ -207,10 +207,6 @@ const CreateList = () => {
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <button className="inp-fld" onClick={toggleTitleModal}>
-            عنوان
-            <MdOutlineCreateNewFolder className="mt-1" />
-          </button>
           <select
             value={Config}
             onChange={(e) => handleOptionClick(e.target.options[e.target.selectedIndex].text)}
