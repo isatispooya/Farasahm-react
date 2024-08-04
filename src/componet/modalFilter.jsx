@@ -115,6 +115,7 @@ const ModalFilter = ({ onSubmit, access,getDf,titleList }) => {
           />
           <Stocks nobours={nobours} setNobours={setNobours} />
           <Date nobours={nobours} setNobours={setNobours} />
+         
         </div>
       </div>
 

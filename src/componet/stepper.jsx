@@ -11,8 +11,9 @@ import ModalFilter from "./modalFilter";
 import Title from "./title";
 import { styled } from "@mui/system";
 import { AccessContext } from "../config/accessContext";
-import axios from "axios";
 import { OnRun } from "../config/config";
+import axios from "axios";
+import Sending from "./sending";
 
 // Custom styles
 const CustomStepper = styled(Stepper)(({ theme }) => ({
@@ -51,8 +52,8 @@ const StepperSlide = ({ toggleModal, titleList }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const steps = [
     "قدم 1: لیست‌ها",
-    "قدم 2: مشاهده و ایجاد",
-    "قدم 3: نهایی کردن",
+    "قدم 2:انتخاب تاریخ و زمان ارسال ",
+    "قدم 3: مشاهده و فیلتر ",
   ];
 
   useEffect(() => {
@@ -143,14 +144,14 @@ const StepperSlide = ({ toggleModal, titleList }) => {
                 addNewItem={addNewItem}
               />
             ) : activeStep === 1 ? (
+              <Sending />
+            ) : (
               <ModalFilter
                 titleList={titleList}
                 onSubmit={handleNext}
                 access={access}
                 getDf={() => console.log("Data fetched and Modal closed")}
               />
-            ) : (
-              "گزینه‌های انتخاب شده را بررسی کنید و برای ارسال روی اتمام کلیک کنید"
             )}
           </Typography>
           <Box
