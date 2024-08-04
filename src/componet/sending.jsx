@@ -5,17 +5,17 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-const Sending = ({ selectedTitle }) => {
+const Sending = ({ title }) => {
   const [time, setTime] = useState("");
-  const [title, setTitle] = useState("");
+  const [Title, setTitle] = useState("");
   const [date, setDate] = useState(null);
 
   useEffect(() => {
-    if (selectedTitle) {
-      setTitle(selectedTitle); 
+    if (title) {
+      setTitle(title); 
     }
    
-  }, [selectedTitle]);
+  }, [title]);
 
   const handleChange = (event) => {
     setTime(event.target.value);
@@ -33,7 +33,7 @@ const Sending = ({ selectedTitle }) => {
         <Select
           labelId="title-select-label"
           id="title-select"
-          value={title || "هیچ آیتمی انتخاب نشده"}
+          value={Title || "هیچ آیتمی انتخاب نشده"}
           label="انتخاب عنوان"
           onChange={handleTitle}
           className="bg-white"

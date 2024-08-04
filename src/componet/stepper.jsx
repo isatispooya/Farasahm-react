@@ -105,7 +105,7 @@ const StepperSlide = ({ toggleModal, titleList }) => {
     } else {
       setSelectedItem(item);
     }
-    console.log("Selected Item:", item);  // Debugging: Check selected item
+    console.log("Selected Item:", item); 
   };
 
   return (
