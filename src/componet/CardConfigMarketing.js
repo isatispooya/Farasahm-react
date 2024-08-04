@@ -22,11 +22,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textAlign: "right",
-          borderRadius: 16, 
-          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)", 
-          transition: "transform 0.3s ease, box-shadow 0.3s ease", 
+          borderRadius: 16,
+          boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease",
           "&:hover": {
-            boxShadow: "0 16px 30px rgba(0, 0, 0, 0.3)", 
+            boxShadow: "0 16px 30px rgba(0, 0, 0, 0.3)",
           },
         },
       },
@@ -34,9 +34,9 @@ const theme = createTheme({
     MuiAvatar: {
       styleOverrides: {
         root: {
-          width: 60, 
+          width: 60,
           height: 60,
-          color: "#fff", 
+          color: "#fff",
         },
       },
     },
@@ -44,14 +44,21 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          textTransform: "none", 
+          textTransform: "none",
         },
       },
     },
   },
 });
 
-const CardConfigMarketing = ({ profil, title, id, setConfig, index,setConfigSelected }) => {
+const CardConfigMarketing = ({
+  profil,
+  title,
+  id,
+  setConfig,
+  index,
+  setConfigSelected,
+}) => {
   const access = useContext(AccessContext);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -95,8 +102,6 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index,setConfigSele
       console.error("خطا در درخواست حذف:", error);
     }
   };
-
-
   return (
     <div dir="rtl">
       <ThemeProvider theme={theme}>
@@ -104,10 +109,14 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index,setConfigSele
         <Card sx={{ maxWidth: 360, margin: 2, padding: 2 }}>
           <CardHeader
             avatar={<Avatar>{profil}</Avatar>}
-            title={<Typography variant="h6" sx={{ fontWeight: "bold" }}>{title}</Typography>}
+            title={
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                {title}
+              </Typography>
+            }
             sx={{
               textAlign: "left",
-              "& .MuiCardHeader-root": { 
+              "& .MuiCardHeader-root": {
                 display: "flex",
                 alignItems: "center",
                 padding: 1,
@@ -123,9 +132,17 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index,setConfigSele
               },
             }}
           />
-          <CardActions sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}>
+          <CardActions
+            sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}
+          >
+            <Button
+              onClick={() => setConfigSelected(id)}
+              variant="contained"
+              color="primary"
+            >
+              انتخاب
+            </Button>
 
-<Button onClick={()=>setConfigSelected(id)} variant="contained" color="primary">انتخاب</Button>
 
             {title !== "جدید" && (
               <Button
@@ -170,7 +187,7 @@ const CardConfigMarketing = ({ profil, title, id, setConfig, index,setConfigSele
       </ThemeProvider>
     </div>
   );
+
 };
 
 export default CardConfigMarketing;
-

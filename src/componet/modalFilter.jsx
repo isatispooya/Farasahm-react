@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
@@ -6,23 +6,32 @@ import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
 import NameSearch from "./name";
-import axios from "axios";
-import { OnRun } from "../config/config";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Button, Step, StepLabel, Stepper, TextField } from "@mui/material";
-import CardConfigMarketing from "./CardConfigMarketing"
+import {
+  Button,
+  Step,
+  StepLabel,
+  Stepper,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import axios from "axios";
+import { OnRun } from "../config/config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the dropdown icon
 
 const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState({
+    title: "",
     send_time: null,
     context: "",
     period: "ones",
@@ -51,6 +60,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     },
   });
   const [listConfig, setListConfig] = useState([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const getConfigList = () => {
     axios({
@@ -94,7 +104,7 @@ const ModalFilter = ({ toggleModal, access }) => {
         });
     } else {
       setConfig({
-        title: "",
+        title: null,
         send_time: null,
         period: null,
         context: "",
@@ -128,10 +138,8 @@ const ModalFilter = ({ toggleModal, access }) => {
     nextStep();
   };
 
-
-  useEffect(getConfig,[configSelected])
-  useEffect(getConfigList,[])
-
+  useEffect(getConfig, [configSelected]);
+  useEffect(getConfigList, []);
 
   const renderFilters = () => (
     <>
@@ -140,13 +148,41 @@ const ModalFilter = ({ toggleModal, access }) => {
       </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
-          <NationalIdSearch config={config} setConfig={setConfig} />
-          <NameSearch config={config} setConfig={setConfig} />
-          <PhoneSearch config={config} setConfig={setConfig} />
-          <CityFilter access={access} config={config} setConfig={setConfig} />
-          <CompanyFilter access={access} config={config} setConfig={setConfig} />
-          <Stocks config={config} setConfig={setConfig} />
-          <Date config={config} setConfig={setConfig} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setFiltersOpen(!filtersOpen)} // Toggle dropdown state
+            fullWidth
+            endIcon={
+              <ExpandMoreIcon
+                style={{
+                  transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform 0.3s",
+                }}
+              />
+            }
+          >
+            تنظیمات فیلتر
+          </Button>
+          {filtersOpen && (
+            <div className="mt-4">
+              <NationalIdSearch config={config} setConfig={setConfig} />
+              <NameSearch config={config} setConfig={setConfig} />
+              <PhoneSearch config={config} setConfig={setConfig} />
+              <CityFilter
+                access={access}
+                config={config}
+                setConfig={setConfig}
+              />
+              <CompanyFilter
+                access={access}
+                config={config}
+                setConfig={setConfig}
+              />
+              <Stocks config={config} setConfig={setConfig} />
+              <Date config={config} setConfig={setConfig} />
+            </div>
+          )}
         </div>
       </div>
       <div className="flex self-center justify-center w-full mt-6">
@@ -159,22 +195,21 @@ const ModalFilter = ({ toggleModal, access }) => {
       </div>
     </>
   );
-  const sendingOptions = () => {
 
+  const sendingOptions = () => {
+    console.log(config)
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
-        {/* عنوان */}
-        <FormControl fullWidth className="mt-4">
-          <TextField
-            id="outlined-basic"
-            
-            label={config.title}
-            variant="outlined"
-            
-          />
-        </FormControl>
+        <TextField
+          id="outlined-basic"
+          disabled
+          label="عنوان" // This will be the label above the input field
+          defaultValue={config.title} // Use defaultValue if it's static
+          variant="outlined"
+        />
 
-        {/* تاریخ و زمان */}
+        <FormControl fullWidth className="mt-4"></FormControl>
+
         <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
@@ -182,8 +217,6 @@ const ModalFilter = ({ toggleModal, access }) => {
               format="MM/DD/YYYY HH:mm:ss"
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
-              // value={date}
-              // onChange={setDate}
               locale={persian_fa}
               calendarPosition="bottom-right"
               className="w-full p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
@@ -191,7 +224,6 @@ const ModalFilter = ({ toggleModal, access }) => {
           </div>
         </div>
 
-        {/* زمان ارسال */}
         <FormControl fullWidth style={{ marginTop: "40px" }}>
           <InputLabel id="frequency-select-label">
             انتخاب تعداد ارسال
@@ -199,9 +231,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           <Select
             labelId="frequency-select-label"
             id="frequency-select"
-            // value={time}
-            label="انتخاب تعداد ارسال"
-            onChange={((e)=>e.target.value)}
+            onChange={(e) => e.target.value}
             className="bg-white"
             value={config.period}
           >
@@ -248,7 +278,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           ))}
         </>
       )}
-     
+
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
       <div className="flex justify-between">
