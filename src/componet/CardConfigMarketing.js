@@ -10,6 +10,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
+  Container,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
@@ -59,7 +61,6 @@ const CardConfigMarketing = ({
   nextStep,
   setConfigSelected,
 }) => {
-
   const access = useContext(AccessContext);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -67,12 +68,10 @@ const CardConfigMarketing = ({
     setOpenDialog(true);
   };
 
-
-  const handleSelect = () =>{
-    nextStep()
-    setConfigSelected(id)
-
-  }
+  const handleSelect = () => {
+    nextStep();
+    setConfigSelected(id);
+  };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -87,81 +86,78 @@ const CardConfigMarketing = ({
         },
         body: JSON.stringify({
           access: access,
-          title: title,
+          _id: id,
         }),
       });
-      const data = await response.json();
+      setOpenDialog(false);
+      window.location.reload();
 
       if (response.ok) {
         setConfig((prevConfig) => {
           if (Array.isArray(prevConfig)) {
-            return prevConfig.filter((config) => config.id !== id);
+            const updatedConfig = prevConfig.filter((config) => config.id !== id);
+            return updatedConfig;
           } else {
             console.error("prevConfig is not an array");
             return [];
           }
         });
       } else {
-        alert("خطا در حذف کانفیگ");
+        const errorData = await response.json();
+        console.error("Error deleting config:", errorData);
       }
-      handleCloseDialog();
     } catch (error) {
       console.error("خطا در درخواست حذف:", error);
     }
   };
+  
+  
+
   return (
-    <div dir="rtl">
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Card sx={{ maxWidth: 360, margin: 2, padding: 2 }}>
-          <CardHeader
-            avatar={<Avatar>{profil}</Avatar>}
-            title={
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                {title}
-              </Typography>
-            }
-            sx={{
-              textAlign: "left",
-              "& .MuiCardHeader-root": {
-                display: "flex",
-                alignItems: "center",
-                padding: 1,
-              },
-              "& .MuiCardHeader-title": {
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                marginLeft: 2,
-              },
-              "& .MuiCardHeader-avatar": {
-                marginLeft: 0,
-              },
-            }}
-          />
-          <CardActions
-            sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}
-          >
-            <Button
-              onClick={handleSelect}
-              variant="contained"
-              color="primary"
-            >
-              انتخاب
-            </Button>
-
-
-            {title !== "جدید" && (
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={handleDeleteClick}
-              >
-                حذف
-              </Button>
-            )}
-          </CardActions>
-        </Card>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Card sx={{ maxWidth: 360, margin: 2, padding: 2 }}>
+              <CardHeader
+                avatar={<Avatar>{profil}</Avatar>}
+                title={
+                  <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    {title}
+                  </Typography>
+                }
+                sx={{
+                  textAlign: "left",
+                  "& .MuiCardHeader-root": {
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 1,
+                  },
+                  "& .MuiCardHeader-title": {
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    marginLeft: 2,
+                  },
+                  "& .MuiCardHeader-avatar": {
+                    marginLeft: 0,
+                  },
+                }}
+              />
+              <CardActions sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}>
+                <Button onClick={handleSelect} variant="contained" color="primary">
+                  انتخاب
+                </Button>
+                {title !== "جدید" && (
+                  <Button variant="outlined" color="error" onClick={handleDeleteClick}>
+                    حذف
+                  </Button>
+                )}
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
 
         <Dialog open={openDialog} onClose={handleCloseDialog}>
           <DialogTitle
@@ -191,10 +187,9 @@ const CardConfigMarketing = ({
             </Button>
           </DialogActions>
         </Dialog>
-      </ThemeProvider>
-    </div>
+      </Container>
+    </ThemeProvider>
   );
-
 };
 
 export default CardConfigMarketing;
