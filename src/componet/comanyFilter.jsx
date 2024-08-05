@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
@@ -10,17 +9,17 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    // مقداردهی اولیه companySelected از config.nobours.symbol در صورت وجود
-    if (config.nobours.symbol && config.nobours.symbol.length > 0) {
-      setCompanySelected(config.nobours.symbol);
-    }
-  }, [config.nobours.symbol]);
-
   const [companySelected, setCompanySelected] = useState([]);
 
   useEffect(() => {
+    // Initialize companySelected from config.nobours.symbol if available
+    if (config.nobours?.symbol && config.nobours.symbol.length > 0) {
+      setCompanySelected(config.nobours.symbol);
+    }
+  }, [config.nobours?.symbol]);
+
+  useEffect(() => {
+    // Update the config with selected companies
     const symbols = companySelected
       .map((selectedCompany) => {
         const foundCompany = companyList.find(
@@ -29,19 +28,28 @@ const CompanyFilter = ({ access, config, setConfig }) => {
         return foundCompany ? foundCompany.symbol : null;
       })
       .filter((symbol) => symbol !== null);
-    var nobours = { ...config.nobours, symbols: companySelected };
-    setConfig({ ...config, nobours: nobours });
-  }, [companySelected, companyList]);
 
-  const getCompanyList = () => {
-    axios({
-      method: "POST",
-      url: `${OnRun}/marketing/symbolregisternobours`,
-      data: { access },
-    }).then((response) => {
-      setCompanyList(response.data);
-    });
-  };
+    const updatedConfig = {
+      ...config,
+      nobours: { ...config.nobours, symbols: companySelected },
+    };
+    setConfig(updatedConfig);
+  }, [companySelected, companyList, config, setConfig]);
+
+  useEffect(() => {
+    // Fetch company list on component mount
+    const fetchCompanyList = async () => {
+      try {
+        const response = await axios.post(`${OnRun}/marketing/symbolregisternobours`, {
+          access,
+        });
+        setCompanyList(response.data);
+      } catch (error) {
+        console.error("Failed to fetch company list", error);
+      }
+    };
+    fetchCompanyList();
+  }, [access]);
 
   const handleCompanyChange = (event, newValue) => {
     setCompanyInput(newValue);
@@ -67,8 +75,6 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
-  useEffect(getCompanyList, []);
 
   const availableCompanies = companyList
     .map((i) => i.fullname)

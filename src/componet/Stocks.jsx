@@ -9,40 +9,46 @@ const Stocks = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState(null);
 
+  // Handle changes to text fields with validation for numeric input
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
       setter(value);
     }
   };
-  useEffect(() => {
-    var amount = { from: input1, to: input2 }
-    var nobours = {...config.nobours, amount: amount }
-    setConfig({ ...config, nobours: nobours });
-  }, [input1, input2]);
-  useEffect(() => {
-    var rate = { from: input3, to: input4 }
-    var nobours = {...config.nobours, rate: rate }
-    setConfig({ ...config, nobours: nobours });
-  }, [input3, input4]);
-  // useEffect(() => {
-  //   setNobours({ ...nobours, amount: { from: input1, to: input2 } });
-  // }, [input1, input2]);
 
-  // useEffect(() => {
-  //   setNobours({ ...nobours, rate: { min: input3, max: input4 } });
-  // }, [input3, input4]);
+  // Update the config with amount when input1 or input2 change
+  useEffect(() => {
+    const amount = { from: input1, to: input2 };
+    const nobours = { ...config.nobours, amount: amount };
+    setConfig({ ...config, nobours: nobours });
+  }, [input1, input2, config, setConfig]);
 
+  // Update the config with rate when input3 or input4 change
+  useEffect(() => {
+    const rate = { from: input3, to: input4 };
+    const nobours = { ...config.nobours, rate: rate };
+    setConfig({ ...config, nobours: nobours });
+  }, [input3, input4, config, setConfig]);
+
+  // Toggle dropdown visibility
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Handle button click to set selected values
   const handleButtonClick = () => {
     setSelectedValues({
       amount: { from: input1, to: input2 },
       rate: { min: input3, max: input4 },
     });
   };
+
+  // Ensure config.nobours is properly initialized
+  const amountFrom = config.nobours?.amount?.from || "";
+  const amountTo = config.nobours?.amount?.to || "";
+  const rateMin = config.nobours?.rate?.min || "";
+  const rateMax = config.nobours?.rate?.max || "";
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -71,7 +77,7 @@ const Stocks = ({ config, setConfig }) => {
 
       {isDropdownOpen && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg ">
-          <div className="flex justify-between items-center mb-2 bg-gray-200  p-2">
+          <div className="flex justify-between items-center mb-2 bg-gray-200 p-2">
             <div className="text-right text-lg font-bold w-full">
               تعداد سهام
             </div>
@@ -83,10 +89,8 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="از"
                   type="number"
-                  // value={input1}
-                  // onChange={handleInputChange(setInput1)}
-                  value={config.nobours.amount.from} // Use defaultValue if it's static
-                  onChange={e=>setConfig({...config, amount:e.target.vlaue})}
+                  value={amountFrom}
+                  onChange={handleInputChange(setInput1)}
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
@@ -101,10 +105,8 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="تا"
                   type="number"
-                  // value={input2}
+                  value={amountTo}
                   onChange={handleInputChange(setInput2)}
-                  value={config.nobours.amount.to} // Use defaultValue if it's static
-                  // onChange={e=>setConfig({...config, amount:e.target.vlaue})}
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
@@ -116,7 +118,7 @@ const Stocks = ({ config, setConfig }) => {
             </div>
           </div>
 
-          <div className="flex justify-between items-center mb-5 bg-gray-200  p-2">
+          <div className="flex justify-between items-center mb-5 bg-gray-200 p-2">
             <div className="text-right text-lg font-bold w-full">درصد سهام</div>
 
             <div className="flex justify-between space-x-4 w-full">
@@ -127,8 +129,7 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="از"
                   type="number"
-                  // value={input3}
-                  value={config.nobours.rate.min} 
+                  value={rateMin}
                   variant="outlined"
                   onChange={handleInputChange(setInput3)}
                   inputMode="numeric"
@@ -143,7 +144,7 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="تا"
                   type="number"
-                  value={config.nobours.rate.max} 
+                  value={rateMax}
                   variant="outlined"
                   pattern="[0-9]*"
                   onChange={handleInputChange(setInput4)}
@@ -171,12 +172,12 @@ const Stocks = ({ config, setConfig }) => {
                 مقادیر انتخاب شده:
               </h3>
               <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {config.nobours.amount.from} تا{" "}
-                {config.nobours.amount.to}
+                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
+                {selectedValues.amount.to}
               </p>
               <p className="mt-2">
-                <strong>درصد سهام:</strong> از {config.nobours.rate.min} تا{" "}
-                {config.nobours.rate.max}
+                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
+                {selectedValues.rate.max}
               </p>
             </div>
           )}
