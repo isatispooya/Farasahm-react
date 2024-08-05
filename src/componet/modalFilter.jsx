@@ -6,6 +6,7 @@ import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
 import NameSearch from "./name";
+import { DateObject } from "react-multi-date-picker";
 import {
   Button,
   Step,
@@ -19,7 +20,9 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -107,7 +110,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     } else {
       setConfig({
         title: "",
-        send_time: null,
+        send_time: "",
         period: null,
         context: "",
         period: "ones",
@@ -137,8 +140,6 @@ const ModalFilter = ({ toggleModal, access }) => {
       });
     }
   };
-
-  // const dateFromTimestamp = new Date(parseInt(config.send_time));
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
@@ -198,19 +199,14 @@ const ModalFilter = ({ toggleModal, access }) => {
     </>
   );
 
-  console.log(config);
-  
-
-
-  const sendingOptions = () => {    
+  const sendingOptions = () => {
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
-            disabled
-            label="عنوان" // This will be the label above the input field
-            value={config.title} // Use defaultValue if it's static
+            label="عنوان"
+            value={config.title}
             variant="outlined"
           />
         </FormControl>
@@ -218,10 +214,12 @@ const ModalFilter = ({ toggleModal, access }) => {
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
-              value={config.send_time}
-              // onChange={(e)=>e.target.value = dateFromTimestamp}
-
-              format="MM/DD/YYYY HH:mm:ss"
+              value={
+                new DateObject({
+                  date: config.send_time * 1,
+                  calendar: persian,
+                })
+              }
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
               locale={persian_fa}
@@ -282,7 +280,6 @@ const ModalFilter = ({ toggleModal, access }) => {
               id={i._id}
               setConfigSelected={setConfigSelected}
               nextStep={nextStep}
-
             />
           ))}
         </>
