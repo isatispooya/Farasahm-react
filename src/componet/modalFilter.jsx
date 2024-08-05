@@ -1,9 +1,17 @@
+// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh
+
+
+
+
+
 import React, { useState, useEffect } from "react";
+
+
 import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
-import Date from "./birthDate";
+import BirthDate from "./birthDate";
 import PhoneSearch from "./phoneFilter";
 import NameSearch from "./name";
 import { DateObject } from "react-multi-date-picker";
@@ -98,6 +106,9 @@ const ModalFilter = ({
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
 
+  const allFieldsFilled =
+    config.title !== "" && config.send_time !== null && config.period !== null;
+
   const PostData = () => {
     const postConfig =
       configSelected == null || configSelected === undefined
@@ -143,10 +154,13 @@ const ModalFilter = ({
           }
         })
         .catch((error) => {
-          console.error("error:", error);
+          console.error("Error fetching selected config:", error);
+          setLoading(false);
+          toast.error("خطا در دریافت تنظیمات انتخاب شده");
         });
     } else {
       setConfig(newconfig);
+      setLoading(false);
     }
   };
 
@@ -155,12 +169,6 @@ const ModalFilter = ({
   useEffect(() => {
     setIsContextSelected(config.context);
   }, [config.context]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown((prevDropdownId) =>
@@ -226,7 +234,7 @@ const ModalFilter = ({
                 setConfig={setConfig}
               />
               <Stocks config={config} setConfig={setConfig} />
-              <Date config={config} setConfig={setConfig} />
+              <BirthDate config={config} setConfig={setConfig} />
             </div>
           )}
         </div>
@@ -349,6 +357,9 @@ const ModalFilter = ({
                   locale={persian_fa}
                   calendarPosition="left"
                   className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+                  onChange={(date) =>
+                    setConfig({ ...config, send_time: date.toDate().getTime() })
+                  }
                 />
               </div>
             </div>
@@ -432,7 +443,7 @@ const ModalFilter = ({
           قبلی
         </Button>
         <Button
-          disabled={stepNumber === 0}
+          disabled={!allFieldsFilled} // دکمه بعدی تنها در صورت پر بودن فیلدها فعال می‌شود
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
           variant="contained"
           color="primary"

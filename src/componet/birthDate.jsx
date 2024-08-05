@@ -5,7 +5,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { CiCalendarDate } from "react-icons/ci";
 import { DateObject } from "react-multi-date-picker";
 
-export default function Date({ config, setConfig }) {
+export default function BirthDate({ config, setConfig }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

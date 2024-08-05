@@ -23,7 +23,7 @@ import TraderActivityReport from "./page/subPage/bours/TraderActivityReport";
 import BrokerActivityReport from "./page/subPage/bours/BrokerActivityReport";
 import StationActivityReport from "./page/subPage/bours/StationActivityReport";
 import ExcerptTrader from "./page/subPage/bours/ExcerptTrader";
-import Manegment from "./page/manegment/manegment";
+
 import StockSheet from "./page/subPage/noBours/stocksheet";
 import FormerStockman from "./page/subPage/bours/FormerStockman";
 import Metric from "./page/subPage/bours/metric";
@@ -48,7 +48,7 @@ import TraderCodes from "./page/subPage/desk/sabad/tradercodes";
 import Todo from "./page/subPage/desk/todo";
 import TodoControl from "./page/subPage/desk/todocontrol";
 import CompareReturnSample from "./page/subPage/fixincom/analysis/CompareReturnSample";
-// import { QueryClient, QueryClientProvider } from "react-query";
+
 import LimitFundFix from "./page/subPage/fixincom/LimitFundFix";
 import CompareReturnPeriod from "./page/subPage/fixincom/analysis/CompareReturnPeriod";
 import OraghYTM from "./page/subPage/fixincom/oraghytm";
@@ -78,7 +78,7 @@ import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import CreateList from "./page/subPage/desk/marketing/createlist";
 import { CacheProvider } from '@emotion/react';
@@ -92,9 +92,7 @@ function App() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
   
-  function Rtl(props) {
-    return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
-  }
+
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>

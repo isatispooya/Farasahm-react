@@ -63,6 +63,7 @@ const CreateList = () => {
   useEffect(get,[configSelected,contextSelected])
 
 
+console.log(configSelected);
 
 
   return (
