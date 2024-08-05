@@ -14,7 +14,6 @@ import {
   StepLabel,
   Stepper,
   TextField,
-  
   FormControlLabel,
   Switch,
   Grid,
@@ -34,10 +33,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemainingCustomer from "./remainingCustomer";
 import { GoPlus } from "react-icons/go";
 
-const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
-  var newconfig = {
+const ModalFilter = ({
+  access,
+  configSelected,
+  setConfigSelected,
+  setIsContextSelected,
+  setIsOpenFilter,
+}) => {
+  const newconfig = {
     config: {
-      send_time: null,
+      send_time: new DateObject(),
       context: null,
       period: null,
       insurance: {
@@ -74,6 +79,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
     },
     title: "",
   };
+
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState(newconfig);
@@ -81,61 +87,60 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(newconfig);
-
   const getConfigList = () => {
-    axios({
-      method: "POST",
-      url: OnRun + "/marketing/marketinglist",
-      data: { access: access },
-    }).then((response) => {
-      setListConfig(response.data);
-    });
+    axios
+      .post(OnRun + "/marketing/marketinglist", { access: access })
+      .then((response) => {
+        setListConfig(response.data || []);
+      });
   };
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
 
   const PostData = () => {
-    if (configSelected === null) {
-      axios({
-        method: "POST",
-        url: `${OnRun}/marketing/fillter`,
-        headers: { "Content-Type": "application/json" },
-        data: { access: access, title: config.title, config: config },
-      })
-        .then((response) => { 
-          toast.success("با موفقیت ایجاد شد");
-          console.log("response",response.data);
-        })
-        .catch(() => toast.error("خطا در دریافت از سرور"));
-    } else {
-      axios({
-        method: "POST",
-        url: `${OnRun}/marketing/editfillter`,
-        headers: { "Content-Type": "application/json" },
-        data: { access: access,_id:configSelected, title: config.title, config: config },
-      })
-        .then((response) => { 
-          toast.success("با موفقیت ایجاد شد");
-          console.log("response",response.data);
-        })
-        .catch(() => toast.error("خطا در دریافت از سرور"));
-    }
-  };
-  
+    const postConfig =
+      configSelected == null || configSelected === undefined
+        ? axios.post(`${OnRun}/marketing/fillter`, {
+            access: access,
+            title: config.title,
+            config: { ...config.config, period: config.period },
+          })
+        : axios.post(`${OnRun}/marketing/editfillter`, {
+            access: access,
+            _id: configSelected,
+            title: config.title,
+            config: { ...config.config, period: config.period },
+          });
 
+    postConfig
+      .then((response) => {
+        if (response.data.reply === true) {
+          setIsOpenFilter(false);
+          if (configSelected == null) setConfigSelected(response.data.id);
+          console.log(response.data);
+        } else {
+          toast.error(response.data.msg);
+        }
+      })
+      .catch((error) => toast.error(error.message));
+  };
 
   const getConfig = () => {
     if (configSelected) {
-      axios({
-        method: "POST",
-        url: `${OnRun}/marketing/perviewcontext`,
-        data: { access: access, context: "", _id: configSelected },
-      })
+      axios
+        .post(`${OnRun}/marketing/perviewcontext`, {
+          access: access,
+          context: "",
+          _id: configSelected,
+        })
         .then((response) => {
-          response.data.config["title"] = response.data["title"];
-          setConfig(response.data.config);
+          if (response.data && response.data.config) {
+            response.data.config["title"] = response.data["title"];
+            setConfig(response.data.config);
+          } else {
+            console.error("Config data is missing or invalid");
+          }
         })
         .catch((error) => {
           console.error("error:", error);
@@ -147,6 +152,9 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
+  useEffect(() => {
+    setIsContextSelected(config.context);
+  }, [config.context]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -155,12 +163,14 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
   }, []);
 
   const handleDropdownToggle = (dropdownId) => {
-    setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+    setOpenDropdown((prevDropdownId) =>
+      prevDropdownId === dropdownId ? null : dropdownId
+    );
   };
 
   const renderFilters = () => (
     <>
-      <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
+      <div className="overflow-y-auto max-h-[calc(150vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <Button
             variant="contained"
@@ -186,7 +196,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={config.nobours.enabled || false}
+                    checked={config.nobours?.enabled || false}
                     onChange={(e) =>
                       setConfig({
                         ...config,
@@ -202,7 +212,6 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
                 }
                 label="فعال"
               />
-
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
               <PhoneSearch config={config} setConfig={setConfig} />
@@ -246,10 +255,10 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
           </Button>
           {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
-                 <FormControlLabel
+              <FormControlLabel
                 control={
                   <Switch
-                    checked={config.insurance.enabled || false}
+                    checked={config.insurance?.enabled || false}
                     onChange={(e) =>
                       setConfig({
                         ...config,
@@ -259,7 +268,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
                         },
                       })
                     }
-                    name="noboursEnabled"
+                    name="insuranceEnabled"
                     color="primary"
                   />
                 }
@@ -315,7 +324,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
               <TextField
                 id="outlined-basic"
                 label="عنوان"
-                value={config.title}
+                value={config.title || ""} // Ensure `config.title` is a string or empty string
                 onChange={(e) =>
                   setConfig({ ...config, title: e.target.value })
                 }
@@ -343,7 +352,6 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
                 />
               </div>
             </div>
-
             <FormControl fullWidth style={{ marginTop: "40px" }}>
               <InputLabel id="demo-simple-select-label">
                 انتخاب تعداد ارسال
@@ -352,7 +360,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
                 style={{ backgroundColor: "white" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={config.period}
+                value={config.period || ""} // Ensure `config.period` is a valid value
                 label="انتخاب تعداد ارسال"
                 onChange={(e) =>
                   setConfig({ ...config, period: e.target.value })
@@ -395,8 +403,6 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
           />
           {listConfig.map((i) => {
             const firstLetter = i.title.charAt(0);
-            console.table(i.status);
-
             return (
               <CardConfigMarketing
                 key={i._id}

@@ -1,7 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import NoData from "../../../../componet/Loader/NoData";
 import { exportPdf } from "../../../../config/exportPdf";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
@@ -9,7 +7,6 @@ import ModalFilter from "../../../../componet/modalFilter";
 import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
 import { OnRun } from "../../../../config/config";
-import Smspage from "../../../../componet/smspage";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -20,6 +17,8 @@ const CreateList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
+  const [contextSelected, setIsContextSelected] = useState('');
+
 
   useEffect(() => {
     if (df) {
@@ -40,15 +39,31 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); // Set the table instance in state
+      setTable(newTable); 
 
       return () => {
-        newTable.destroy(); // Clean up the table instance on unmount
+        newTable.destroy(); 
       };
     }
   }, [df]);
 
-  console.log('zzaaaa',configSelected);
+  const get = () => {
+    if (configSelected) {
+      axios({
+        method: "POST",
+        url: OnRun + "marketing/perviewcontext",
+        data: {access: access,_id:configSelected,context:contextSelected},
+      }).then((response) => {
+        console.log('hjgh',response.data);
+      });
+    }
+  };
+
+
+  useEffect(get,[configSelected,contextSelected])
+
+
+
 
   return (
     <div className="subPage tablePg">
@@ -89,21 +104,12 @@ const CreateList = () => {
             listConfig={listConfig}
             configSelected={configSelected}
             setConfigSelected={setConfigSelected}
+            setIsContextSelected ={setIsContextSelected}
+            setIsOpenFilter={setIsOpenFilter}
           />
         )}
       </div>
       <div></div>
-      <div>
-        {/* {isOpenSender && (
-          <Smspage
-            toggleModal={toggleModalSender}
-            len={len}
-            Config={Config}
-            columns={columns}
-            access={access}
-          />
-        )} */}
-      </div>
       <div></div>
       <div id="data-table"></div>
     </div>
