@@ -9,21 +9,21 @@ import NameSearch from "./name";
 import { DateObject } from "react-multi-date-picker";
 import {
   Button,
+  Skeleton,
   Step,
   StepLabel,
   Stepper,
   TextField,
-  IconButton,
-  Grid,
+  
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
-import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
-import gregorian_fa from "react-date-object/locales/gregorian_fa";
 import InputIcon from "react-multi-date-picker/components/input_icon";
 import axios from "axios";
 import { OnRun } from "../config/config";
@@ -34,14 +34,19 @@ import RemainingCustomer from "./remainingCustomer";
 import { GoPlus } from "react-icons/go";
 
 const ModalFilter = ({ toggleModal, access }) => {
-  const steps = ["لیست", "تنظیمات", "فیلتر"];
-  const [configSelected, setConfigSelected] = useState(null);
-  const [stepNumber, setStepNumber] = useState(0);
-  const [config, setConfig] = useState({
-    access: access,
+  var newconfig = {
     config: {
       send_time: null,
+      context: null,
       period: null,
+      insurance: {
+        enabled: true,
+        accounting: {
+          from: "",
+          to: "",
+          code: "",
+        },
+      },
       nobours: {
         enabled: true,
         name: null,
@@ -67,9 +72,16 @@ const ModalFilter = ({ toggleModal, access }) => {
       },
     },
     title: "",
-  });
+  };
+  const steps = ["لیست", "تنظیمات", "فیلتر"];
+  const [configSelected, setConfigSelected] = useState(null);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  console.log(newconfig);
 
   const getConfigList = () => {
     axios({
@@ -110,45 +122,18 @@ const ModalFilter = ({ toggleModal, access }) => {
           console.error("error:", error);
         });
     } else {
-      setConfig({
-        title: "",
-        send_time: "",
-        period: null,
-        context: "",
-        period: "ones",
-        nobours: {
-          enabled: true,
-          name: null,
-          birthday: {
-            from: null,
-            to: null,
-          },
-          city: [],
-          symbol: [],
-          national_id: [],
-          amount: {
-            from: null,
-            to: null,
-          },
-          rate: {
-            min: null,
-            max: null,
-          },
-          mobile: {
-            num1: [],
-            num2: [],
-          },
-        },
-        title: "",
-      });
+      setConfig(newconfig);
     }
   };
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
-  console.log("config", config);
 
-  console.log(access);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -179,6 +164,26 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Button>
           {openDropdown === "nobours" && (
             <div className="mt-4">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.nobours.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        nobours: {
+                          ...config.nobours,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
+
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
               <PhoneSearch config={config} setConfig={setConfig} />
@@ -222,6 +227,25 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Button>
           {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
+                 <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.insurance.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        insurance: {
+                          ...config.insurance,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
               <RemainingCustomer setConfig={setConfig} config={config} />
             </div>
           )}
@@ -233,53 +257,96 @@ const ModalFilter = ({ toggleModal, access }) => {
   const sendingOptions = () => {
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
-        <FormControl fullWidth className="mt-4">
-          <TextField
-            id="outlined-basic"
-            label="عنوان" // This will be the label above the input field
-            value={config.title} // Use defaultValue if it's static
-            onChange={(e) => setConfig({ ...config, title: e.target.vlaue })}
-            variant="outlined"
-          />
-        </FormControl>
-        <div className="mt-8 p-4 bg-gray-100 rounded-lg ">
-          <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
-          <div className="flex justify-center">
-            <DatePicker
-              value={
-                new DateObject({
-                  date: config.send_time * 1,
-                  calendar: persian,
-                })
-              }
-              plugins={[<TimePicker position="bottom" />]}
-              render={<InputIcon />}
-              calendar={persian}
-              locale={persian_fa}
-              calendarPosition="left"
-              className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+        {loading ? (
+          <>
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height={56}
+              className="rounded-lg"
             />
-          </div>
-        </div>
+            <div className="mt-8 ">
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                height={56}
+                className="rounded-lg"
+              />
+            </div>
+            <div className="mt-8 p-4 ">
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                height={100}
+                className="rounded-lg"
+              />
+            </div>
+            <div className="mt-8 ">
+              <Skeleton
+                variant="rectangular"
+                width="100%"
+                height={56}
+                className="rounded-lg"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <FormControl fullWidth className="mt-4">
+              <TextField
+                id="outlined-basic"
+                label="عنوان"
+                value={config.title}
+                onChange={(e) =>
+                  setConfig({ ...config, title: e.target.value })
+                }
+                variant="outlined"
+              />
+            </FormControl>
+            <div className="mt-8 p-4 bg-blue-100 rounded-lg ">
+              <p className="text-right font-semibold mb-4">
+                تاریخ و زمان ارسال
+              </p>
+              <div className="flex justify-center">
+                <DatePicker
+                  value={
+                    new DateObject({
+                      date: config.send_time * 1,
+                      calendar: persian,
+                    })
+                  }
+                  plugins={[<TimePicker position="bottom" />]}
+                  render={<InputIcon />}
+                  calendar={persian}
+                  locale={persian_fa}
+                  calendarPosition="left"
+                  className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+                />
+              </div>
+            </div>
 
-        <FormControl fullWidth style={{ marginTop: "40px" }}>
-          <InputLabel id="demo-simple-select-label">
-            انتخاب تعداد ارسال
-          </InputLabel>
-          <Select
-            style={{ backgroundColor: "white" }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={config.period}
-            label="انتخاب تعداد ارسال"
-            onChange={(e) => setConfig({ ...config, period: e.target.value })}
-          >
-            <MenuItem value="ones">یکبار</MenuItem>
-            <MenuItem value="daily">روزانه</MenuItem>
-            <MenuItem value="weekly">هفتگی</MenuItem>
-            <MenuItem value="monthly">ماهانه</MenuItem>
-          </Select>
-        </FormControl>
+            <FormControl fullWidth style={{ marginTop: "40px" }}>
+              <InputLabel id="demo-simple-select-label">
+                انتخاب تعداد ارسال
+              </InputLabel>
+              <Select
+                style={{ backgroundColor: "white" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={config.period}
+                label="انتخاب تعداد ارسال"
+                onChange={(e) =>
+                  setConfig({ ...config, period: e.target.value })
+                }
+              >
+                <MenuItem value="ones">یکبار</MenuItem>
+                <MenuItem value="daily">روزانه</MenuItem>
+                <MenuItem value="weekly">هفتگی</MenuItem>
+                <MenuItem value="monthly">ماهانه</MenuItem>
+              </Select>
+            </FormControl>
+          </>
+        )}
       </div>
     );
   };
@@ -330,13 +397,20 @@ const ModalFilter = ({ toggleModal, access }) => {
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
 
-      <div className="flex justify-between mt-6">
-        <Button disabled={stepNumber === 0} onClick={backStep}>
+      <div className="flex justify-between mt-4">
+        <Button
+          disabled={stepNumber === 0}
+          onClick={backStep}
+          variant="contained"
+          color="primary"
+        >
           قبلی
         </Button>
         <Button
           disabled={stepNumber === 0}
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
+          variant="contained"
+          color="primary"
         >
           {stepNumber === 2 ? "ایجاد" : "بعدی"}
         </Button>
