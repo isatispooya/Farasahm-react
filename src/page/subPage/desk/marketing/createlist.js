@@ -1,15 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import MiniLoader from "../../../../componet/Loader/miniLoader";
+
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import NoData from "../../../../componet/Loader/NoData";
+
 import { exportPdf } from "../../../../config/exportPdf";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ModalFilter from "../../../../componet/modalFilter";
 import { AccessContext } from "../../../../config/accessContext";
-import axios from "axios";
-import { OnRun } from "../../../../config/config";
-import Smspage from "../../../../componet/smspage";
+
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -94,15 +92,7 @@ const CreateList = () => {
       </div>
       <div></div>
       <div>
-        {/* {isOpenSender && (
-          <Smspage
-            toggleModal={toggleModalSender}
-            len={len}
-            Config={Config}
-            columns={columns}
-            access={access}
-          />
-        )} */}
+
       </div>
       <div></div>
       <div id="data-table"></div>
