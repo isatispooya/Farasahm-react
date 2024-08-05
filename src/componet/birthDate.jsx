@@ -53,7 +53,7 @@ export default function Date({ config, setConfig }) {
             <div>
               <DatePicker
                 calendar={persian}
-                value={from}
+                value={config.nobours.birthday.from} 
                 onChange={setFrom}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
@@ -70,7 +70,7 @@ export default function Date({ config, setConfig }) {
             <div>
               <DatePicker
                 calendar={persian}
-                value={from}
+                value={config.nobours.birthday.to} 
                 onChange={setFrom}
                 locale={persian_fa}
                 calendarPosition="bottom-right"

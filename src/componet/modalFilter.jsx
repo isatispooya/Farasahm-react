@@ -23,6 +23,7 @@ import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import InputIcon from "react-multi-date-picker/components/input_icon";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -66,7 +67,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     title: "",
   });
   const [listConfig, setListConfig] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const getConfigList = () => {
     axios({
@@ -88,8 +89,8 @@ const ModalFilter = ({ toggleModal, access }) => {
       headers: { "Content-Type": "application/json" },
       data: config,
     })
-      .then(() => toast.success("Data submitted successfully!"))
-      .catch(() => toast.error("An error occurred while submitting data!"));
+      .then(() => toast.success("با موفقیت ایجاد شد"))
+      .catch(() => toast.error("خطا در دریافت از سرور"));
   };
 
   const getConfig = () => {
@@ -143,6 +144,9 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
+  console.log("config",config);
+  
+console.log(access);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -230,13 +234,13 @@ const ModalFilter = ({ toggleModal, access }) => {
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
-            disabled
-            label="عنوان"
-            value={config.title}
+            label="عنوان" // This will be the label above the input field
+            value={config.title} // Use defaultValue if it's static
+            onChange={e=>setConfig({...config, title:e.target.vlaue})}
             variant="outlined"
           />
         </FormControl>
-        <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg ">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
@@ -247,6 +251,7 @@ const ModalFilter = ({ toggleModal, access }) => {
                 })
               }
               plugins={[<TimePicker position="bottom" />]}
+              render={<InputIcon />}
               calendar={persian}
               locale={persian_fa}
               calendarPosition="left"
@@ -322,7 +327,7 @@ const ModalFilter = ({ toggleModal, access }) => {
         </Button>
         <Button
           disabled={stepNumber === 0}
-          onClick={stepNumber === 2 ? PostData : nextStep}
+          onClick={stepNumber === 2 ? () => PostData() : nextStep}
         >
           {stepNumber === 2 ? "ایجاد" : "بعدی"}
         </Button>

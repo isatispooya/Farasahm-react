@@ -83,8 +83,10 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="از"
                   type="number"
-                  value={input1}
-                  onChange={handleInputChange(setInput1)}
+                  // value={input1}
+                  // onChange={handleInputChange(setInput1)}
+                  value={config.nobours.amount.from} // Use defaultValue if it's static
+                  onChange={e=>setConfig({...config, amount:e.target.vlaue})}
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
@@ -99,8 +101,10 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="تا"
                   type="number"
-                  value={input2}
+                  // value={input2}
                   onChange={handleInputChange(setInput2)}
+                  value={config.nobours.amount.to} // Use defaultValue if it's static
+                  // onChange={e=>setConfig({...config, amount:e.target.vlaue})}
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
@@ -123,7 +127,8 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="از"
                   type="number"
-                  value={input3}
+                  // value={input3}
+                  value={config.nobours.rate.min} 
                   variant="outlined"
                   onChange={handleInputChange(setInput3)}
                   inputMode="numeric"
@@ -138,7 +143,7 @@ const Stocks = ({ config, setConfig }) => {
                   id="outlined-number"
                   label="تا"
                   type="number"
-                  value={input4}
+                  value={config.nobours.rate.max} 
                   variant="outlined"
                   pattern="[0-9]*"
                   onChange={handleInputChange(setInput4)}
@@ -166,12 +171,12 @@ const Stocks = ({ config, setConfig }) => {
                 مقادیر انتخاب شده:
               </h3>
               <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
-                {selectedValues.amount.to}
+                <strong>تعداد سهام:</strong> از {config.nobours.amount.from} تا{" "}
+                {config.nobours.amount.to}
               </p>
               <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
-                {selectedValues.rate.max}
+                <strong>درصد سهام:</strong> از {config.nobours.rate.min} تا{" "}
+                {config.nobours.rate.max}
               </p>
             </div>
           )}
