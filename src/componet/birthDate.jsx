@@ -3,6 +3,8 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { CiCalendarDate } from "react-icons/ci";
+import { DateObject } from "react-multi-date-picker";
+
 export default function Date({ config, setConfig }) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
@@ -53,7 +55,12 @@ export default function Date({ config, setConfig }) {
             <div>
               <DatePicker
                 calendar={persian}
-                value={config.nobours.birthday.from} 
+                value={
+                  new DateObject({
+                    date: config.nobours.birthday.from * 1,
+                    calendar: persian,
+                  })
+                }
                 onChange={setFrom}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
@@ -70,7 +77,12 @@ export default function Date({ config, setConfig }) {
             <div>
               <DatePicker
                 calendar={persian}
-                value={config.nobours.birthday.to} 
+                value={
+                  new DateObject({
+                    date: config.nobours.birthday.to * 1,
+                    calendar: persian,
+                  })
+                }
                 onChange={setFrom}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
