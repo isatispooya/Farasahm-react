@@ -171,12 +171,12 @@ const Stocks = ({ config, setConfig }) => {
                 مقادیر انتخاب شده:
               </h3>
               <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
-                {selectedValues.amount.to}
+                <strong>تعداد سهام:</strong> از {config.nobours.amount.from} تا{" "}
+                {config.nobours.amount.to}
               </p>
               <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
-                {selectedValues.rate.max}
+                <strong>درصد سهام:</strong> از {config.nobours.rate.min} تا{" "}
+                {config.nobours.rate.max}
               </p>
             </div>
           )}
