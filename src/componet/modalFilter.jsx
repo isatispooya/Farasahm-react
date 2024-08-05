@@ -3,7 +3,7 @@ import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
-import Date from "./birthDate";
+import BirthDate from "./birthDate";
 import PhoneSearch from "./phoneFilter";
 import NameSearch from "./name";
 import { DateObject } from "react-multi-date-picker";
@@ -14,7 +14,6 @@ import {
   StepLabel,
   Stepper,
   TextField,
-  
   FormControlLabel,
   Switch,
   Grid,
@@ -35,7 +34,7 @@ import RemainingCustomer from "./remainingCustomer";
 import { GoPlus } from "react-icons/go";
 
 const ModalFilter = ({ toggleModal, access }) => {
-  var newconfig = {
+  const newconfig = {
     config: {
       send_time: null,
       context: null,
@@ -74,6 +73,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     },
     title: "",
   };
+
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
@@ -82,20 +82,29 @@ const ModalFilter = ({ toggleModal, access }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(newconfig);
-
   const getConfigList = () => {
+    setLoading(true);
     axios({
       method: "POST",
       url: OnRun + "/marketing/marketinglist",
       data: { access: access },
-    }).then((response) => {
-      setListConfig(response.data);
-    });
+    })
+      .then((response) => {
+        setListConfig(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching config list:", error);
+        setLoading(false);
+        toast.error("خطا در دریافت لیست تنظیمات");
+      });
   };
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
+
+  const allFieldsFilled =
+    config.title !== "" && config.send_time !== null && config.period !== null;
 
   const PostData = () => {
     axios({
@@ -110,6 +119,7 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   const getConfig = () => {
     if (configSelected) {
+      setLoading(true);
       axios({
         method: "POST",
         url: `${OnRun}/marketing/perviewcontext`,
@@ -118,23 +128,21 @@ const ModalFilter = ({ toggleModal, access }) => {
         .then((response) => {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
+          setLoading(false);
         })
         .catch((error) => {
-          console.error("error:", error);
+          console.error("Error fetching selected config:", error);
+          setLoading(false);
+          toast.error("خطا در دریافت تنظیمات انتخاب شده");
         });
     } else {
       setConfig(newconfig);
+      setLoading(false);
     }
   };
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -199,7 +207,7 @@ const ModalFilter = ({ toggleModal, access }) => {
                 setConfig={setConfig}
               />
               <Stocks config={config} setConfig={setConfig} />
-              <Date config={config} setConfig={setConfig} />
+              <BirthDate config={config} setConfig={setConfig} />
             </div>
           )}
         </div>
@@ -228,7 +236,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Button>
           {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
-                 <FormControlLabel
+              <FormControlLabel
                 control={
                   <Switch
                     checked={config.insurance.enabled || false}
@@ -241,7 +249,7 @@ const ModalFilter = ({ toggleModal, access }) => {
                         },
                       })
                     }
-                    name="noboursEnabled"
+                    name="insuranceEnabled"
                     color="primary"
                   />
                 }
@@ -322,6 +330,9 @@ const ModalFilter = ({ toggleModal, access }) => {
                   locale={persian_fa}
                   calendarPosition="left"
                   className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+                  onChange={(date) =>
+                    setConfig({ ...config, send_time: date.toDate().getTime() })
+                  }
                 />
               </div>
             </div>
@@ -334,7 +345,7 @@ const ModalFilter = ({ toggleModal, access }) => {
                 style={{ backgroundColor: "white" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={config.period}
+                value={config.period || ""}
                 label="انتخاب تعداد ارسال"
                 onChange={(e) =>
                   setConfig({ ...config, period: e.target.value })
@@ -377,7 +388,6 @@ const ModalFilter = ({ toggleModal, access }) => {
           />
           {listConfig.map((i) => {
             const firstLetter = i.title.charAt(0);
-            console.table(i.status);
 
             return (
               <CardConfigMarketing
@@ -408,7 +418,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           قبلی
         </Button>
         <Button
-          disabled={stepNumber === 0}
+          disabled={!allFieldsFilled} // دکمه بعدی تنها در صورت پر بودن فیلدها فعال می‌شود
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
           variant="contained"
           color="primary"

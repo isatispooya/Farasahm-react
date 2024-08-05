@@ -101,6 +101,7 @@ const CityFilter = ({ access, config, setConfig }) => {
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <Autocomplete
               value={cityInput}
+              
               options={availableCities}
               onChange={handleCityChange}
               onInputChange={(event, newInputValue) => {
