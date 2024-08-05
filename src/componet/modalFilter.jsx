@@ -6,6 +6,7 @@ import Stocks from "./Stocks";
 import Date from "./birthDate";
 import PhoneSearch from "./phoneFilter";
 import NameSearch from "./name";
+import { DateObject } from "react-multi-date-picker";
 import {
   Button,
   Step,
@@ -19,48 +20,54 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
+import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import InputIcon from "react-multi-date-picker/components/input_icon"
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the dropdown icon
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import RemainingCustomer from "./remainingCustomer";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState({
-    title: "",
-    send_time: null,
-    context: "",
-    period: "ones",
-    nobours: {
-      enabled: true,
-      name: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      symbol: [],
-      national_id: [],
-      amount: {
-        from: null,
-        to: null,
-      },
-      rate: {
-        min: null,
-        max: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
+    access: access,
+    config: {
+      send_time: null,
+      period: null,
+      nobours: {
+        enabled: true,
+        name: null,
+        birthday: {
+          from: null,
+          to: null,
+        },
+        city: [],
+        symbol: [],
+        national_id: [],
+        amount: {
+          from: null,
+          to: null,
+        },
+        rate: {
+          min: null,
+          max: null,
+        },
+        mobile: {
+          num1: [],
+          num2: [],
+        },
       },
     },
+    title: "",
   });
   const [listConfig, setListConfig] = useState([]);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
 
   const getConfigList = () => {
     axios({
@@ -79,11 +86,8 @@ const ModalFilter = ({ toggleModal, access }) => {
     axios({
       method: "POST",
       url: `${OnRun}/marketing/fillter`,
-      headers: { "content-type": "application/json" },
-      data: {
-        access: access,
-        config: config,
-      },
+      headers: { "Content-Type": "application/json" },
+      data: config,
     })
       .then(() => toast.success("Data submitted successfully!"))
       .catch(() => toast.error("An error occurred while submitting data!"));
@@ -106,7 +110,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     } else {
       setConfig({
         title: "",
-        send_time: null,
+        send_time: "",
         period: null,
         context: "",
         period: "ones",
@@ -133,6 +137,7 @@ const ModalFilter = ({ toggleModal, access }) => {
             num2: [],
           },
         },
+        title: "",
       });
     }
   };
@@ -143,30 +148,34 @@ const ModalFilter = ({ toggleModal, access }) => {
   
 console.log(access);
 
+  const handleDropdownToggle = (dropdownId) => {
+    setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+  };
+
   const renderFilters = () => (
     <>
-      <h2 className="text-xl mt-8 font-bold mb-6 text-center text-gray-800">
-        سهامداران غیر بورسی
-      </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setFiltersOpen(!filtersOpen)} // Toggle dropdown state
+            onClick={() => handleDropdownToggle("nobours")}
             fullWidth
             endIcon={
               <ExpandMoreIcon
                 style={{
-                  transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transform:
+                    openDropdown === "nobours"
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
                   transition: "transform 0.3s",
                 }}
               />
             }
           >
-            تنظیمات فیلتر
+            سهامداران غیر بورسی
           </Button>
-          {filtersOpen && (
+          {openDropdown === "nobours" && (
             <div className="mt-4">
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
@@ -187,19 +196,39 @@ console.log(access);
           )}
         </div>
       </div>
-      <div className="flex self-center justify-center w-full mt-6">
-        <button
-          onClick={PostData}
-          className="bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
-        >
-          ایجاد
-        </button>
+
+      <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
+        <div className="bg-white rounded-lg p-6 shadow-inner">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleDropdownToggle("remainingCustomer")}
+            fullWidth
+            endIcon={
+              <ExpandMoreIcon
+                style={{
+                  transform:
+                    openDropdown === "remainingCustomer"
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                  transition: "transform 0.3s",
+                }}
+              />
+            }
+          >
+            کارگزاری بیمه
+          </Button>
+          {openDropdown === "remainingCustomer" && (
+            <div className="mt-4">
+              <RemainingCustomer setConfig={setConfig} config={config} />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
 
-
-  const sendingOptions = () => {    
+  const sendingOptions = () => {
     return (
       <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
@@ -211,29 +240,37 @@ console.log(access);
             variant="outlined"
           />
         </FormControl>
-        <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg ">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
-              format="MM/DD/YYYY HH:mm:ss"
+              value={
+                new DateObject({
+                  date: config.send_time * 1,
+                  calendar: persian,
+                })
+              }
               plugins={[<TimePicker position="bottom" />]}
+              render={<InputIcon/>}
               calendar={persian}
               locale={persian_fa}
-              calendarPosition="bottom-right"
-              className="w-full p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+              calendarPosition="left"
+              className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
             />
           </div>
         </div>
+
         <FormControl fullWidth style={{ marginTop: "40px" }}>
-          <InputLabel id="frequency-select-label">
+          <InputLabel id="demo-simple-select-label">
             انتخاب تعداد ارسال
           </InputLabel>
           <Select
-            labelId="frequency-select-label"
-            id="frequency-select"
-            onChange={(e) => e.target.value}
-            className="bg-white"
+            style={{ backgroundColor: "white" }}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
             value={config.period}
+            label="انتخاب تعداد ارسال"
+            onChange={(e) => setConfig({ ...config, period: e.target.value })}
           >
             <MenuItem value="ones">یکبار</MenuItem>
             <MenuItem value="daily">روزانه</MenuItem>
@@ -276,7 +313,6 @@ console.log(access);
               id={i._id}
               setConfigSelected={setConfigSelected}
               nextStep={nextStep}
-
             />
           ))}
         </>
@@ -284,12 +320,16 @@ console.log(access);
 
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
-      <div className="flex justify-between">
+
+      <div className="flex justify-between mt-4">
         <Button disabled={stepNumber === 0} onClick={backStep}>
           قبلی
         </Button>
-        <Button disabled={stepNumber === 0} onClick={nextStep}>
-          بعدی
+        <Button
+          disabled={stepNumber === 0}
+          onClick={stepNumber === 2 ? PostData : nextStep}
+        >
+          {stepNumber === 2 ? "ایجاد" : "بعدی"}
         </Button>
       </div>
     </div>
