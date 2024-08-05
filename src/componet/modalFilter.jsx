@@ -390,7 +390,6 @@ const ModalFilter = ({
   };
 
 
-  console.log(config);
   
 
   return (
