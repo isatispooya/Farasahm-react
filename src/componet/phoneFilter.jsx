@@ -62,15 +62,21 @@ const PhoneSearch = ({ config, setConfig }) => {
   };
 
   useEffect(() => {
-    var mobile = { num1: phones1, num2: phones2 };
-    var nobours = { ...config.nobours, mobile: mobile };
-    setConfig({ ...config, nobours: nobours });
-  }, [phones1, phones2]);
+    // Initialize `mobile` object to prevent undefined access
+    const mobile = {
+      num1: phones1,
+      num2: phones2,
+    };
+    const nobours = { ...config.nobours, mobile };
+    setConfig({ ...config, nobours });
+  }, [phones1, phones2, config, setConfig]);
 
   useEffect(() => {
-    setPhones1(config.nobours.mobile.num1 || []);
-    setPhones2(config.nobours.mobile.num2 || []);
-  }, [config.nobours.mobile]);
+    // Provide default values to prevent errors
+    const mobile = config.nobours?.mobile || { num1: [], num2: [] };
+    setPhones1(mobile.num1 || []);
+    setPhones2(mobile.num2 || []);
+  }, [config.nobours]);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -106,7 +112,7 @@ const PhoneSearch = ({ config, setConfig }) => {
               onKeyDown={handleKeyDown1}
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               id="outlined-basic"
-              label="پیش شماره همراه "
+              label="پیش شماره همراه"
               variant="outlined"
             />
             <Button
@@ -128,9 +134,9 @@ const PhoneSearch = ({ config, setConfig }) => {
                   >
                     <button
                       onClick={() => handleRemove1(id)}
-                      className=" text-white bg-red-600 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                      className="text-white bg-red-600 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
-                      <IoCloseOutline className="text-2xl  text-white " />
+                      <IoCloseOutline className="text-2xl text-white" />
                     </button>
                     <span className="mr-2 text-lg font-medium">{id}</span>
                   </div>
@@ -143,7 +149,7 @@ const PhoneSearch = ({ config, setConfig }) => {
             <TextField
               style={{ backgroundColor: "white" }}
               id="outlined-basic"
-              label="سه رقم میانه شماره همراه "
+              label="سه رقم میانه شماره همراه"
               variant="outlined"
               value={searchTerm2}
               onChange={handleSearch2}
@@ -169,9 +175,9 @@ const PhoneSearch = ({ config, setConfig }) => {
                   >
                     <button
                       onClick={() => handleRemove2(id)}
-                      className=" text-white  bg-red-600  rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                      className="text-white bg-red-600 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
-                      <IoCloseOutline className="text-2xl text-white " />
+                      <IoCloseOutline className="text-2xl text-white" />
                     </button>
                     <span className="mr-1 text-lg font-medium">{id}</span>
                   </div>
