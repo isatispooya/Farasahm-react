@@ -21,9 +21,10 @@ const RemainingCustomer = ({ config, setConfig }) => {
 
   useEffect(() => {
     var amount = { from: from, to: to, code: code };
-    var nobours = { ...config.nobours, amount: amount };
-    setConfig({ ...config, nobours: nobours });
+    var insurance = { ...config.insurance, amount: amount };
+    setConfig({ ...config, insurance: insurance });
   }, [from, to, code]);
+
 
   return (
     <>
@@ -71,7 +72,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده از"
                   variant="outlined"
-                  value={from}
+                  value={config.insurance.accounting.from}
                   onChange={handleInputChange(setFrom)}
                 />
                 <TextField
@@ -79,7 +80,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده تا"
                   variant="outlined"
-                  value={to}
+                  value={config.insurance.accounting.to}
                   onChange={handleInputChange(setTo)}
                 />
                 <TextField
@@ -87,7 +88,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="کد معین"
                   variant="outlined"
-                  value={code}
+                  value={config.insurance.accounting.code}
                   onChange={handleInputChange(setCode)}
                 />
               </Box>

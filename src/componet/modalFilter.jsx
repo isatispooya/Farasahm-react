@@ -14,6 +14,8 @@ import {
   Stepper,
   TextField,
   IconButton,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
@@ -32,14 +34,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemainingCustomer from "./remainingCustomer";
 
 const ModalFilter = ({ toggleModal, access }) => {
-  const steps = ["لیست", "تنظیمات", "فیلتر"];
-  const [configSelected, setConfigSelected] = useState(null);
-  const [stepNumber, setStepNumber] = useState(0);
-  const [config, setConfig] = useState({
-    access: access,
+  var newconfig = {
     config: {
       send_time: null,
+      context: null,
       period: null,
+      insurance: {
+        enabled: true,
+        accounting: {
+          from: "",
+          to: "",
+          code: "",
+        },
+      },
       nobours: {
         enabled: true,
         name: null,
@@ -65,9 +72,15 @@ const ModalFilter = ({ toggleModal, access }) => {
       },
     },
     title: "",
-  });
+  };
+  const steps = ["لیست", "تنظیمات", "فیلتر"];
+  const [configSelected, setConfigSelected] = useState(null);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
+
+  console.log(newconfig);
 
   const getConfigList = () => {
     axios({
@@ -108,45 +121,15 @@ const ModalFilter = ({ toggleModal, access }) => {
           console.error("error:", error);
         });
     } else {
-      setConfig({
-        title: "",
-        send_time: "",
-        period: null,
-        context: "",
-        period: "ones",
-        nobours: {
-          enabled: true,
-          name: null,
-          birthday: {
-            from: null,
-            to: null,
-          },
-          city: [],
-          symbol: [],
-          national_id: [],
-          amount: {
-            from: null,
-            to: null,
-          },
-          rate: {
-            min: null,
-            max: null,
-          },
-          mobile: {
-            num1: [],
-            num2: [],
-          },
-        },
-        title: "",
-      });
+      setConfig(newconfig);
     }
   };
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
-  console.log("config",config);
-  
-console.log(access);
+  console.log("config", config);
+
+  console.log(access);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -177,6 +160,26 @@ console.log(access);
           </Button>
           {openDropdown === "nobours" && (
             <div className="mt-4">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.nobours.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        nobours: {
+                          ...config.nobours,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
+
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
               <PhoneSearch config={config} setConfig={setConfig} />
@@ -220,6 +223,25 @@ console.log(access);
           </Button>
           {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
+                 <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.insurance.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        insurance: {
+                          ...config.insurance,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
               <RemainingCustomer setConfig={setConfig} config={config} />
             </div>
           )}
@@ -236,7 +258,7 @@ console.log(access);
             id="outlined-basic"
             label="عنوان" // This will be the label above the input field
             value={config.title} // Use defaultValue if it's static
-            onChange={e=>setConfig({...config, title:e.target.vlaue})}
+            onChange={(e) => setConfig({ ...config, title: e.target.vlaue })}
             variant="outlined"
           />
         </FormControl>
