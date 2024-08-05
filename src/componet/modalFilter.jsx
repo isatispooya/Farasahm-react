@@ -1,4 +1,12 @@
+// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh
+
+
+
+
+
 import React, { useState, useEffect } from "react";
+
+
 import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
@@ -124,6 +132,8 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
         url: `${OnRun}/marketing/editfillter`,
         headers: { "Content-Type": "application/json" },
         data: { access: access,_id:configSelected, title: config.title, config: config },
+
+        
       })
         .then((response) => { 
           toast.success("با موفقیت ایجاد شد");
