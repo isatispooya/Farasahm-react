@@ -23,6 +23,7 @@ import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
+import InputIcon from "react-multi-date-picker/components/input_icon"
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -221,13 +222,12 @@ const ModalFilter = ({ toggleModal, access }) => {
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
-            disabled
             label="عنوان"
             value={config.title}
             variant="outlined"
           />
         </FormControl>
-        <div className="mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="mt-8 p-4 bg-gray-100 rounded-lg ">
           <p className="text-right font-semibold mb-4">تاریخ و زمان ارسال</p>
           <div className="flex justify-center">
             <DatePicker
@@ -238,6 +238,7 @@ const ModalFilter = ({ toggleModal, access }) => {
                 })
               }
               plugins={[<TimePicker position="bottom" />]}
+              render={<InputIcon/>}
               calendar={persian}
               locale={persian_fa}
               calendarPosition="left"
