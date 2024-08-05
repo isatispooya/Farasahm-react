@@ -2,9 +2,8 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const RemainingCustomer = ({config,setConfig}) => {
+const RemainingCustomer = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedValues, setSelectedValues] = useState(null);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [code, setCode] = useState("");
@@ -20,22 +19,11 @@ const RemainingCustomer = ({config,setConfig}) => {
     }
   };
 
-
   useEffect(() => {
-    var amount = { from: from, to: to,code:code }
-    var nobours = {...config.nobours, amount: amount }
+    var amount = { from: from, to: to, code: code };
+    var nobours = { ...config.nobours, amount: amount };
     setConfig({ ...config, nobours: nobours });
-  }, [from, to,code]);
-
-
-
-
-  const handleButtonClick = () => {
-    setSelectedValues({
-      amount: { from: from, to: to, Code: code },
-    });
-  };
-
+  }, [from, to, code]);
 
   return (
     <>
@@ -45,7 +33,7 @@ const RemainingCustomer = ({config,setConfig}) => {
           onClick={toggleDropdown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          شهر
+          مانده مشتری
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
@@ -77,7 +65,7 @@ const RemainingCustomer = ({config,setConfig}) => {
               >
                 مانده مشتری
               </Typography>
-              <Box sx={{ marginLeft: "40px",paddingBottom:'20px' }}>
+              <Box sx={{ marginLeft: "40px", paddingBottom: "20px" }}>
                 <TextField
                   sx={{ marginRight: "5px", backgroundColor: "white" }}
                   id="outlined-basic"
@@ -104,13 +92,8 @@ const RemainingCustomer = ({config,setConfig}) => {
                 />
               </Box>
             </Box>
-
           </>
-
-        
         )}
-
-        
       </div>
     </>
   );

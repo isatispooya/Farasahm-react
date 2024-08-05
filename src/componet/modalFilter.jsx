@@ -35,7 +35,6 @@ const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
-
   const [config, setConfig] = useState({
     access: access,
     config: {
@@ -68,7 +67,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     title: "",
   });
   const [listConfig, setListConfig] = useState([]);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
 
   const getConfigList = () => {
     axios({
@@ -146,6 +145,10 @@ const ModalFilter = ({ toggleModal, access }) => {
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
 
+  const handleDropdownToggle = (dropdownId) => {
+    setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+  };
+
   const renderFilters = () => (
     <>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
@@ -153,12 +156,15 @@ const ModalFilter = ({ toggleModal, access }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setFiltersOpen(!filtersOpen)}
+            onClick={() => handleDropdownToggle("nobours")}
             fullWidth
             endIcon={
               <ExpandMoreIcon
                 style={{
-                  transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transform:
+                    openDropdown === "nobours"
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
                   transition: "transform 0.3s",
                 }}
               />
@@ -166,7 +172,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           >
             سهامداران غیر بورسی
           </Button>
-          {filtersOpen && (
+          {openDropdown === "nobours" && (
             <div className="mt-4">
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
@@ -193,12 +199,15 @@ const ModalFilter = ({ toggleModal, access }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setFiltersOpen(!filtersOpen)}
+            onClick={() => handleDropdownToggle("remainingCustomer")}
             fullWidth
             endIcon={
               <ExpandMoreIcon
                 style={{
-                  transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transform:
+                    openDropdown === "remainingCustomer"
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
                   transition: "transform 0.3s",
                 }}
               />
@@ -206,7 +215,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           >
             کارگزاری بیمه
           </Button>
-          {filtersOpen && (
+          {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
               <RemainingCustomer setConfig={setConfig} config={config} />
             </div>
