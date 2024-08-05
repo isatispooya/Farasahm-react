@@ -144,6 +144,9 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
+  console.log("config",config);
+  
+console.log(access);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -231,8 +234,9 @@ const ModalFilter = ({ toggleModal, access }) => {
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
-            label="عنوان"
-            value={config.title}
+            label="عنوان" // This will be the label above the input field
+            value={config.title} // Use defaultValue if it's static
+            onChange={e=>setConfig({...config, title:e.target.vlaue})}
             variant="outlined"
           />
         </FormControl>
