@@ -38,15 +38,15 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); // Set the table instance in state
+      setTable(newTable);
 
       return () => {
-        newTable.destroy(); // Clean up the table instance on unmount
+        newTable.destroy();
       };
     }
   }, [df]);
 
-  console.log('zzaaaa',configSelected);
+  
 
   return (
     <div className="subPage tablePg">

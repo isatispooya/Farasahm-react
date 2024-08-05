@@ -92,9 +92,7 @@ function App() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
   
-  function Rtl(props) {
-    return <CacheProvider value={cacheRtl}>{props.children}</CacheProvider>;
-  }
+
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
