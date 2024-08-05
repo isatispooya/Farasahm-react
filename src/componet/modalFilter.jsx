@@ -1,12 +1,4 @@
-// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh// flgjhdikukighdflghkmmfh
-
-
-
-
-
 import React, { useState, useEffect } from "react";
-
-
 import NationalIdSearch from "./nationalFilter";
 import CompanyFilter from "./comanyFilter";
 import CityFilter from "./cityFilter";
@@ -332,7 +324,7 @@ const ModalFilter = ({
               <TextField
                 id="outlined-basic"
                 label="عنوان"
-                value={config.title || ""} // Ensure `config.title` is a string or empty string
+                value={config.title || ""} 
                 onChange={(e) =>
                   setConfig({ ...config, title: e.target.value })
                 }
@@ -371,7 +363,7 @@ const ModalFilter = ({
                 style={{ backgroundColor: "white" }}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={config.period || ""} // Ensure `config.period` is a valid value
+                value={config.period || ""} 
                 label="انتخاب تعداد ارسال"
                 onChange={(e) =>
                   setConfig({ ...config, period: e.target.value })
@@ -388,10 +380,6 @@ const ModalFilter = ({
       </div>
     );
   };
-
-
-  console.log(config);
-  
 
   return (
     <div
@@ -447,7 +435,7 @@ const ModalFilter = ({
           قبلی
         </Button>
         <Button
-          disabled={!allFieldsFilled} // دکمه بعدی تنها در صورت پر بودن فیلدها فعال می‌شود
+          disabled={!allFieldsFilled} 
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
           variant="contained"
           color="primary"
