@@ -27,7 +27,7 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; // Import the dropdown icon
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -35,33 +35,35 @@ const ModalFilter = ({ toggleModal, access }) => {
   const [stepNumber, setStepNumber] = useState(0);
 
   const [config, setConfig] = useState({
-    title: "",
-    send_time: "",
-    context: "",
-    period: "ones",
-    nobours: {
-      enabled: true,
-      name: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      symbol: [],
-      national_id: [],
-      amount: {
-        from: null,
-        to: null,
-      },
-      rate: {
-        min: null,
-        max: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
+    access: access,
+    config: {
+      send_time: null,
+      period: null,
+      nobours: {
+        enabled: true,
+        name: null,
+        birthday: {
+          from: null,
+          to: null,
+        },
+        city: [],
+        symbol: [],
+        national_id: [],
+        amount: {
+          from: null,
+          to: null,
+        },
+        rate: {
+          min: null,
+          max: null,
+        },
+        mobile: {
+          num1: [],
+          num2: [],
+        },
       },
     },
+    title: "",
   });
   const [listConfig, setListConfig] = useState([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -83,11 +85,8 @@ const ModalFilter = ({ toggleModal, access }) => {
     axios({
       method: "POST",
       url: `${OnRun}/marketing/fillter`,
-      headers: { "content-type": "application/json" },
-      data: {
-        access: access,
-        config: config,
-      },
+      headers: { "Content-Type": "application/json" },
+      data: config,
     })
       .then(() => toast.success("Data submitted successfully!"))
       .catch(() => toast.error("An error occurred while submitting data!"));
@@ -137,6 +136,7 @@ const ModalFilter = ({ toggleModal, access }) => {
             num2: [],
           },
         },
+        title: "",
       });
     }
   };
@@ -146,9 +146,6 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   const renderFilters = () => (
     <>
-      <h2 className="text-xl mt-8 font-bold mb-6 text-center text-gray-800">
-        سهامداران غیر بورسی
-      </h2>
       <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
         <div className="bg-white rounded-lg p-6 shadow-inner">
           <Button
@@ -165,7 +162,7 @@ const ModalFilter = ({ toggleModal, access }) => {
               />
             }
           >
-            تنظیمات فیلتر
+            سهامداران غیر بورسی
           </Button>
           {filtersOpen && (
             <div className="mt-4">
@@ -188,23 +185,17 @@ const ModalFilter = ({ toggleModal, access }) => {
           )}
         </div>
       </div>
-      <div className="flex self-center justify-center w-full mt-6">
-        <button
-          onClick={PostData}
-          className="bg-green-500 text-white px-8 py-1 rounded-md shadow-md hover:bg-green-700"
-        >
-          ایجاد
-        </button>
-      </div>
     </>
   );
 
   const sendingOptions = () => {
     return (
-      <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
+      
+        <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
+            disabled
             label="عنوان"
             value={config.title}
             variant="outlined"
@@ -223,21 +214,23 @@ const ModalFilter = ({ toggleModal, access }) => {
               plugins={[<TimePicker position="bottom" />]}
               calendar={persian}
               locale={persian_fa}
-              calendarPosition="bottom-right"
-              className="w-full p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
+              calendarPosition="left"
+              className="w-full z-50 p-4 text-lg rounded-lg border border-gray-300 shadow-sm"
             />
           </div>
         </div>
+
         <FormControl fullWidth style={{ marginTop: "40px" }}>
-          <InputLabel id="frequency-select-label">
+          <InputLabel id="demo-simple-select-label">
             انتخاب تعداد ارسال
           </InputLabel>
           <Select
-            labelId="frequency-select-label"
-            id="frequency-select"
-            onChange={(e) => e.target.value}
-            className="bg-white"
+            style={{ backgroundColor: "white" }}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
             value={config.period}
+            label="انتخاب تعداد ارسال"
+            onChange={(e) => setConfig({ ...config, period: e.target.value })}
           >
             <MenuItem value="ones">یکبار</MenuItem>
             <MenuItem value="daily">روزانه</MenuItem>
@@ -246,6 +239,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Select>
         </FormControl>
       </div>
+      
     );
   };
 
@@ -287,12 +281,16 @@ const ModalFilter = ({ toggleModal, access }) => {
 
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
-      <div className="flex justify-between">
+
+      <div className="flex justify-between mt-4">
         <Button disabled={stepNumber === 0} onClick={backStep}>
           قبلی
         </Button>
-        <Button disabled={stepNumber === 0} onClick={nextStep}>
-          بعدی
+        <Button
+          disabled={stepNumber === 0}
+          onClick={stepNumber === 2 ? PostData : nextStep}
+        >
+          {stepNumber === 2 ? "ایجاد" : "بعدی"}
         </Button>
       </div>
     </div>
