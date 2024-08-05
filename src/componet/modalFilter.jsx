@@ -14,6 +14,9 @@ import {
   StepLabel,
   Stepper,
   TextField,
+  
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
@@ -30,15 +33,19 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemainingCustomer from "./remainingCustomer";
 
 const ModalFilter = ({ toggleModal, access }) => {
-  const steps = ["لیست", "تنظیمات", "فیلتر"];
-  const [configSelected, setConfigSelected] = useState(null);
-  const [stepNumber, setStepNumber] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [config, setConfig] = useState({
-    access: access,
+  var newconfig = {
     config: {
       send_time: null,
+      context: null,
       period: null,
+      insurance: {
+        enabled: true,
+        accounting: {
+          from: "",
+          to: "",
+          code: "",
+        },
+      },
       nobours: {
         enabled: true,
         name: null,
@@ -64,9 +71,16 @@ const ModalFilter = ({ toggleModal, access }) => {
       },
     },
     title: "",
-  });
+  };
+  const steps = ["لیست", "تنظیمات", "فیلتر"];
+  const [configSelected, setConfigSelected] = useState(null);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  console.log(newconfig);
 
   const getConfigList = () => {
     axios({
@@ -107,37 +121,7 @@ const ModalFilter = ({ toggleModal, access }) => {
           console.error("error:", error);
         });
     } else {
-      setConfig({
-        title: "",
-        send_time: "",
-        period: null,
-        context: "",
-        period: "ones",
-        nobours: {
-          enabled: true,
-          name: null,
-          birthday: {
-            from: null,
-            to: null,
-          },
-          city: [],
-          symbol: [],
-          national_id: [],
-          amount: {
-            from: null,
-            to: null,
-          },
-          rate: {
-            min: null,
-            max: null,
-          },
-          mobile: {
-            num1: [],
-            num2: [],
-          },
-        },
-        title: "",
-      });
+      setConfig(newconfig);
     }
   };
 
@@ -179,6 +163,26 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Button>
           {openDropdown === "nobours" && (
             <div className="mt-4">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.nobours.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        nobours: {
+                          ...config.nobours,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
+
               <NationalIdSearch config={config} setConfig={setConfig} />
               <NameSearch config={config} setConfig={setConfig} />
               <PhoneSearch config={config} setConfig={setConfig} />
@@ -222,6 +226,25 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Button>
           {openDropdown === "remainingCustomer" && (
             <div className="mt-4">
+                 <FormControlLabel
+                control={
+                  <Switch
+                    checked={config.insurance.enabled || false}
+                    onChange={(e) =>
+                      setConfig({
+                        ...config,
+                        insurance: {
+                          ...config.insurance,
+                          enabled: e.target.checked,
+                        },
+                      })
+                    }
+                    name="noboursEnabled"
+                    color="primary"
+                  />
+                }
+                label="فعال"
+              />
               <RemainingCustomer setConfig={setConfig} config={config} />
             </div>
           )}
