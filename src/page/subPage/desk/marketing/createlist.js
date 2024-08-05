@@ -63,8 +63,6 @@ const CreateList = () => {
   useEffect(get,[configSelected,contextSelected])
 
 
-console.log(configSelected);
-
 
   return (
     <div className="subPage tablePg">

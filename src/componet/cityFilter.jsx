@@ -8,13 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
   const [cityInput, setCityInput] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    var Config = {...config.config, city:config.config.city || []};
-    setConfig({ ...config, config: Config });
-  }, []);
-
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const newConfig = { ...config.config, city: config.config?.city || [] };
+    setConfig({ ...config, config: newConfig });
+  }, [config, setConfig]);
 
   const getCityList = () => {
     axios({
@@ -26,6 +25,10 @@ const CityFilter = ({ access, config, setConfig }) => {
     });
   };
 
+  useEffect(() => {
+    getCityList();
+  }, [access]);
+
   const handleCityChange = (event, newValue) => {
     setCityInput(newValue);
   };
@@ -34,13 +37,13 @@ const CityFilter = ({ access, config, setConfig }) => {
     if (
       cityInput &&
       availableCities.includes(cityInput) &&
-      !config.config.city.includes(cityInput)
+      !config.config?.city?.includes(cityInput)
     ) {
       setConfig(prev => ({
         ...prev,
         config: {
-          ...prev.nobours,
-          city: [...prev.config.city, cityInput]
+          ...prev.config,
+          city: [...(prev.config.city || []), cityInput]
         }
       }));
       setCityInput("");
@@ -49,26 +52,22 @@ const CityFilter = ({ access, config, setConfig }) => {
     }
   };
 
-  const handleDelete = (item, type) => {
-    if (type === "city") {
-      setConfig(prev => ({
-        ...prev,
-        config: {
-          ...prev.config,
-          city: prev.config.city.filter((city) => city !== item)
-        }
-      }));
-    }
+  const handleDelete = (item) => {
+    setConfig(prev => ({
+      ...prev,
+      config: {
+        ...prev.config,
+        city: (prev.config.city || []).filter((city) => city !== item)
+      }
+    }));
   };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  useEffect(getCityList, []);
-
   const availableCities = cityList.filter(
-    (city) => !config.config.city.includes(city)
+    (city) => !config.config?.city?.includes(city)
   );
 
   return (
@@ -101,7 +100,6 @@ const CityFilter = ({ access, config, setConfig }) => {
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <Autocomplete
               value={cityInput}
-              
               options={availableCities}
               onChange={handleCityChange}
               onInputChange={(event, newInputValue) => {
@@ -138,11 +136,11 @@ const CityFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {config.config.city.map((city, index) => (
+            {config.config?.city?.map((city, index) => (
               <Chip
                 key={`city-${index}`}
                 label={city || "Unknown City"}
-                onDelete={() => handleDelete(city, "city")}
+                onDelete={() => handleDelete(city)}
                 deleteIcon={
                   <button
                     style={{ color: "white", marginRight: "5px" }}
