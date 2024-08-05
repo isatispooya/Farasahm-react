@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
-const PhoneSearch = ({config, setConfig }) => {
+const PhoneSearch = ({ config, setConfig }) => {
   const [searchTerm1, setSearchTerm1] = useState("");
   const [searchTerm2, setSearchTerm2] = useState("");
   const [phones1, setPhones1] = useState([]);
@@ -60,12 +60,17 @@ const PhoneSearch = ({config, setConfig }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
   useEffect(() => {
-    var mobile = { num1: phones1, num2: phones2 }
-    var nobours = {...config.nobours, mobile: mobile }
+    var mobile = { num1: phones1, num2: phones2 };
+    var nobours = { ...config.nobours, mobile: mobile };
     setConfig({ ...config, nobours: nobours });
   }, [phones1, phones2]);
 
+  useEffect(() => {
+    setPhones1(config.nobours.mobile.num1 || []);
+    setPhones2(config.nobours.mobile.num2 || []);
+  }, [config.nobours.mobile]);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -104,7 +109,6 @@ const PhoneSearch = ({config, setConfig }) => {
               label="پیش شماره همراه "
               variant="outlined"
             />
-
             <Button
               onClick={handleAdd1}
               sx={{ borderRadius: 2 }}
@@ -120,7 +124,7 @@ const PhoneSearch = ({config, setConfig }) => {
                 {phones1.map((id) => (
                   <div
                     key={id}
-                    className="flex items-center  px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                    className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   >
                     <button
                       onClick={() => handleRemove1(id)}
@@ -146,7 +150,6 @@ const PhoneSearch = ({config, setConfig }) => {
               onKeyDown={handleKeyDown2}
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
-
             <Button
               onClick={handleAdd2}
               sx={{ borderRadius: 2 }}

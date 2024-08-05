@@ -1,21 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { getConfig } from "@testing-library/react";
 
 const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
   const [cityInput, setCityInput] = useState("");
-  const [citySelected, setCitySelected] = useState([]);
 
   useEffect(() => {
-    var nobours = {...config.nobours, city:citySelected}
+    var nobours = {...config.nobours, city:config.nobours.city || []};
     setConfig({ ...config, nobours: nobours });
-  }, [citySelected]);
+  }, []);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -37,9 +34,15 @@ const CityFilter = ({ access, config, setConfig }) => {
     if (
       cityInput &&
       availableCities.includes(cityInput) &&
-      !citySelected.includes(cityInput)
+      !config.nobours.city.includes(cityInput)
     ) {
-      setCitySelected((prev) => [...prev, cityInput]);
+      setConfig(prev => ({
+        ...prev,
+        nobours: {
+          ...prev.nobours,
+          city: [...prev.nobours.city, cityInput]
+        }
+      }));
       setCityInput("");
     } else {
       toast.error("لطفا یک شهر معتبر انتخاب کنید");
@@ -48,7 +51,13 @@ const CityFilter = ({ access, config, setConfig }) => {
 
   const handleDelete = (item, type) => {
     if (type === "city") {
-      setCitySelected((prev) => prev.filter((city) => city !== item));
+      setConfig(prev => ({
+        ...prev,
+        nobours: {
+          ...prev.nobours,
+          city: prev.nobours.city.filter((city) => city !== item)
+        }
+      }));
     }
   };
 
@@ -59,7 +68,7 @@ const CityFilter = ({ access, config, setConfig }) => {
   useEffect(getCityList, []);
 
   const availableCities = cityList.filter(
-    (city) => !citySelected.includes(city)
+    (city) => !config.nobours.city.includes(city)
   );
 
   return (
@@ -128,7 +137,7 @@ const CityFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {citySelected.map((city, index) => (
+            {config.nobours.city.map((city, index) => (
               <Chip
                 key={`city-${index}`}
                 label={city || "Unknown City"}

@@ -6,31 +6,32 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CompanyFilter = ({ access, config,setConfig}) => {
+const CompanyFilter = ({ access, config, setConfig }) => {
   const [companyList, setCompanyList] = useState([]);
-
   const [companyInput, setCompanyInput] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    // مقداردهی اولیه companySelected از config.nobours.symbol در صورت وجود
+    if (config.nobours.symbol && config.nobours.symbol.length > 0) {
+      setCompanySelected(config.nobours.symbol);
+    }
+  }, [config.nobours.symbol]);
 
   const [companySelected, setCompanySelected] = useState([]);
+
   useEffect(() => {
-      const symbols = companySelected
-        .map((selectedCompany) => {
-          const foundCompany = companyList.find(
-            (company) => company.fullname === selectedCompany
-          );
-          return foundCompany ? foundCompany.symbol : null;
-        })
-        .filter((symbol) => symbol !== null);
-    var nobours = {...config.nobours, symbols:companySelected}
+    const symbols = companySelected
+      .map((selectedCompany) => {
+        const foundCompany = companyList.find(
+          (company) => company.fullname === selectedCompany
+        );
+        return foundCompany ? foundCompany.symbol : null;
+      })
+      .filter((symbol) => symbol !== null);
+    var nobours = { ...config.nobours, symbols: companySelected };
     setConfig({ ...config, nobours: nobours });
-  }, [companySelected,companyList]);
-  // useEffect(() => {
-
-  //   setNobours({ ...nobours, symbol: symbols });
-  // }, [companySelected, companyList]);
-
-  // console.log(nobours);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  }, [companySelected, companyList]);
 
   const getCompanyList = () => {
     axios({
@@ -58,10 +59,9 @@ const CompanyFilter = ({ access, config,setConfig}) => {
       toast.error("لطفا یک شرکت معتبر انتخاب کنید");
     }
   };
-  const handleDelete = (item, type) => {
-    if (type === "company") {
-      setCompanySelected((prev) => prev.filter((company) => company !== item));
-    }
+
+  const handleDelete = (item) => {
+    setCompanySelected((prev) => prev.filter((company) => company !== item));
   };
 
   const toggleDropdown = () => {
@@ -124,7 +124,13 @@ const CompanyFilter = ({ access, config,setConfig}) => {
               )}
               style={{ flex: 1 }}
             />
-            <Button  onClick={handleAddCompany} sx={{borderRadius:2}} variant="contained">افزودن</Button>
+            <Button
+              onClick={handleAddCompany}
+              sx={{ borderRadius: 2 }}
+              variant="contained"
+            >
+              افزودن
+            </Button>
           </div>
 
           <Stack
@@ -138,7 +144,7 @@ const CompanyFilter = ({ access, config,setConfig}) => {
               <Chip
                 key={`company-${index}`}
                 label={company || "Unknown Company"}
-                onDelete={() => handleDelete(company, "company")}
+                onDelete={() => handleDelete(company)}
                 deleteIcon={
                   <button
                     style={{ color: "white", marginRight: "5px" }}
