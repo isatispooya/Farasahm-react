@@ -23,7 +23,7 @@ import persian from "react-date-object/calendars/persian";
 import gregorian from "react-date-object/calendars/gregorian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
-import InputIcon from "react-multi-date-picker/components/input_icon"
+import InputIcon from "react-multi-date-picker/components/input_icon";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -67,7 +67,7 @@ const ModalFilter = ({ toggleModal, access }) => {
     title: "",
   });
   const [listConfig, setListConfig] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const getConfigList = () => {
     axios({
@@ -89,8 +89,8 @@ const ModalFilter = ({ toggleModal, access }) => {
       headers: { "Content-Type": "application/json" },
       data: config,
     })
-      .then(() => toast.success("Data submitted successfully!"))
-      .catch(() => toast.error("An error occurred while submitting data!"));
+      .then(() => toast.success("با موفقیت ایجاد شد"))
+      .catch(() => toast.error("خطا در دریافت از سرور"));
   };
 
   const getConfig = () => {
@@ -251,7 +251,7 @@ console.log(access);
                 })
               }
               plugins={[<TimePicker position="bottom" />]}
-              render={<InputIcon/>}
+              render={<InputIcon />}
               calendar={persian}
               locale={persian_fa}
               calendarPosition="left"
@@ -327,7 +327,7 @@ console.log(access);
         </Button>
         <Button
           disabled={stepNumber === 0}
-          onClick={stepNumber === 2 ? PostData : nextStep}
+          onClick={stepNumber === 2 ? () => PostData() : nextStep}
         >
           {stepNumber === 2 ? "ایجاد" : "بعدی"}
         </Button>
