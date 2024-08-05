@@ -25,6 +25,7 @@ import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import RemainingCustomer from "./remainingCustomer";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -182,13 +183,38 @@ const ModalFilter = ({ toggleModal, access }) => {
           )}
         </div>
       </div>
+
+      <div className="overflow-y-auto max-h-[calc(80vh-180px)]">
+        <div className="bg-white rounded-lg p-6 shadow-inner">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            fullWidth
+            endIcon={
+              <ExpandMoreIcon
+                style={{
+                  transform: filtersOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform 0.3s",
+                }}
+              />
+            }
+          >
+            کارگزاری بیمه
+          </Button>
+          {filtersOpen && (
+            <div className="mt-4">
+              <RemainingCustomer setConfig={setConfig} config={config} />
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 
   const sendingOptions = () => {
     return (
-      
-        <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
+      <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
         <FormControl fullWidth className="mt-4">
           <TextField
             id="outlined-basic"
@@ -232,7 +258,6 @@ const ModalFilter = ({ toggleModal, access }) => {
           </Select>
         </FormControl>
       </div>
-      
     );
   };
 
