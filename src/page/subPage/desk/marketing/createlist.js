@@ -18,29 +18,8 @@ const CreateList = () => {
   const [table, setTable] = useState(null);
   const [columns, setColumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
-  const [isOpenSender, setIsOpenSender] = useState(false);
-  const [len, setLen] = useState(0);
-
-
-
-
-  // const getDf = () => {
-  //   if (Config) {
-  //     axios({
-  //       method: "POST",
-  //       url: OnRun + "/marketing/columnmarketing",
-  //       data: { access: access, _id: Config },
-  //     }).then((response) => {
-  //       setDf(response.data.dic);
-  //       setColumns(response.data.columns);
-  //       setLen(response.data.len);
-       
-  //     });
-  //   }
-  // };
-
-
-
+  const [configSelected, setConfigSelected] = useState(null);
+  const [isOpenSender, setIsOpenSender] = useState();
 
   useEffect(() => {
     if (df) {
@@ -69,16 +48,9 @@ const CreateList = () => {
     }
   }, [df]);
 
-  
-
-
-
-
-
-
+  console.log('zzaaaa',configSelected);
 
   return (
-
     <div className="subPage tablePg">
       <div className="tls">
         <h2 className="titlePage">لیست</h2>
@@ -98,18 +70,16 @@ const CreateList = () => {
         </p>
 
         <div className="btntls">
-          <button className="inp-fld" onClick={()=>setIsOpenSender(true)}>
+          <button className="inp-fld" onClick={() => setIsOpenSender(true)}>
             ارسال
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-          <button className="inp-fld" onClick={()=>setIsOpenFilter(true)}>
+          <button className="inp-fld" onClick={() => setIsOpenFilter(true)}>
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
-
         </div>
       </div>
-
 
       <div>
         {isOpenFilter && (
@@ -117,12 +87,12 @@ const CreateList = () => {
             toggleModal={setIsOpenFilter}
             access={access}
             listConfig={listConfig}
+            configSelected={configSelected}
+            setConfigSelected={setConfigSelected}
           />
         )}
       </div>
-      <div>
-
-      </div>
+      <div></div>
       <div>
         {/* {isOpenSender && (
           <Smspage
@@ -134,13 +104,10 @@ const CreateList = () => {
           />
         )} */}
       </div>
-      <div>
-
-      </div>
+      <div></div>
       <div id="data-table"></div>
     </div>
   );
 };
 
 export default CreateList;
-

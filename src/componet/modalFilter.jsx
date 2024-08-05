@@ -34,7 +34,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemainingCustomer from "./remainingCustomer";
 import { GoPlus } from "react-icons/go";
 
-const ModalFilter = ({ toggleModal, access }) => {
+const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
   var newconfig = {
     config: {
       send_time: null,
@@ -75,7 +75,6 @@ const ModalFilter = ({ toggleModal, access }) => {
     title: "",
   };
   const steps = ["لیست", "تنظیمات", "فیلتر"];
-  const [configSelected, setConfigSelected] = useState(null);
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
@@ -98,15 +97,34 @@ const ModalFilter = ({ toggleModal, access }) => {
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
 
   const PostData = () => {
-    axios({
-      method: "POST",
-      url: `${OnRun}/marketing/fillter`,
-      headers: { "Content-Type": "application/json" },
-      data: config,
-    })
-      .then(() => toast.success("با موفقیت ایجاد شد"))
-      .catch(() => toast.error("خطا در دریافت از سرور"));
+    if (configSelected === null) {
+      axios({
+        method: "POST",
+        url: `${OnRun}/marketing/fillter`,
+        headers: { "Content-Type": "application/json" },
+        data: { access: access, title: config.title, config: config },
+      })
+        .then((response) => { 
+          toast.success("با موفقیت ایجاد شد");
+          console.log("response",response.data);
+        })
+        .catch(() => toast.error("خطا در دریافت از سرور"));
+    } else {
+      axios({
+        method: "POST",
+        url: `${OnRun}/marketing/editfillter`,
+        headers: { "Content-Type": "application/json" },
+        data: { access: access,_id:configSelected, title: config.title, config: config },
+      })
+        .then((response) => { 
+          toast.success("با موفقیت ایجاد شد");
+          console.log("response",response.data);
+        })
+        .catch(() => toast.error("خطا در دریافت از سرور"));
+    }
   };
+  
+
 
   const getConfig = () => {
     if (configSelected) {
