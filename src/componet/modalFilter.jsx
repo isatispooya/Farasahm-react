@@ -14,6 +14,7 @@ import {
   Stepper,
   TextField,
   IconButton,
+  Grid,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
@@ -30,6 +31,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemainingCustomer from "./remainingCustomer";
+import { GoPlus } from "react-icons/go";
 
 const ModalFilter = ({ toggleModal, access }) => {
   const steps = ["لیست", "تنظیمات", "فیلتر"];
@@ -144,9 +146,9 @@ const ModalFilter = ({ toggleModal, access }) => {
 
   useEffect(getConfig, [configSelected]);
   useEffect(getConfigList, []);
-  console.log("config",config);
-  
-console.log(access);
+  console.log("config", config);
+
+  console.log(access);
 
   const handleDropdownToggle = (dropdownId) => {
     setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
@@ -236,7 +238,7 @@ console.log(access);
             id="outlined-basic"
             label="عنوان" // This will be the label above the input field
             value={config.title} // Use defaultValue if it's static
-            onChange={e=>setConfig({...config, title:e.target.vlaue})}
+            onChange={(e) => setConfig({ ...config, title: e.target.vlaue })}
             variant="outlined"
           />
         </FormControl>
@@ -285,7 +287,7 @@ console.log(access);
   return (
     <div
       dir="rtl"
-      className="relative w-full max-w-6xl max-h-screen rounded-xl p-6 overflow-y-auto"
+      className="relative w-full min-h-screen bg-gray-100 p-6 overflow-hidden"
     >
       <ToastContainer />
       <Stepper activeStep={stepNumber}>
@@ -297,31 +299,38 @@ console.log(access);
       </Stepper>
 
       {stepNumber === 0 && (
-        <>
+        <Grid container spacing={3}>
           <CardConfigMarketing
-            profil={"+"}
+            profil={<GoPlus size={30} style={{ strokeWidth: 2 }} />}
             title={"جدید"}
             id={null}
             setConfigSelected={setConfigSelected}
             nextStep={nextStep}
           />
-          {listConfig.map((i) => (
-            <CardConfigMarketing
-              key={i._id}
-              profil={"*"}
-              title={i.title}
-              id={i._id}
-              setConfigSelected={setConfigSelected}
-              nextStep={nextStep}
-            />
-          ))}
-        </>
+          {listConfig.map((i) => {
+            const firstLetter = i.title.charAt(0);
+            console.table(i.status);
+
+            return (
+              <CardConfigMarketing
+                key={i._id}
+                profil={<span>{firstLetter}</span>}
+                title={i.title}
+                id={i._id}
+                data={i.date}
+                status={i.status}
+                setConfigSelected={setConfigSelected}
+                nextStep={nextStep}
+              />
+            );
+          })}
+        </Grid>
       )}
 
       {stepNumber === 1 && sendingOptions()}
       {stepNumber === 2 && renderFilters()}
 
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-6">
         <Button disabled={stepNumber === 0} onClick={backStep}>
           قبلی
         </Button>
