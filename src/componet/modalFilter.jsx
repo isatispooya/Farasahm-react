@@ -204,7 +204,7 @@ const ModalFilter = ({  access,configSelected,setConfigSelected }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    // checked={config.config.enabled || false}
+                    checked={config.config.enabled || false}
                     onChange={(e) =>
                       setConfig({
                         ...config,

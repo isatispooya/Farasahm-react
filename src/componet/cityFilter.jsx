@@ -10,8 +10,8 @@ const CityFilter = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
 
   useEffect(() => {
-    var nobours = {...config.nobours, city:config.nobours.city || []};
-    setConfig({ ...config, nobours: nobours });
+    var Config = {...config.config, city:config.config.city || []};
+    setConfig({ ...config, config: Config });
   }, []);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -34,13 +34,13 @@ const CityFilter = ({ access, config, setConfig }) => {
     if (
       cityInput &&
       availableCities.includes(cityInput) &&
-      !config.nobours.city.includes(cityInput)
+      !config.config.city.includes(cityInput)
     ) {
       setConfig(prev => ({
         ...prev,
-        nobours: {
+        config: {
           ...prev.nobours,
-          city: [...prev.nobours.city, cityInput]
+          city: [...prev.config.city, cityInput]
         }
       }));
       setCityInput("");
@@ -53,9 +53,9 @@ const CityFilter = ({ access, config, setConfig }) => {
     if (type === "city") {
       setConfig(prev => ({
         ...prev,
-        nobours: {
-          ...prev.nobours,
-          city: prev.nobours.city.filter((city) => city !== item)
+        config: {
+          ...prev.config,
+          city: prev.config.city.filter((city) => city !== item)
         }
       }));
     }
@@ -68,7 +68,7 @@ const CityFilter = ({ access, config, setConfig }) => {
   useEffect(getCityList, []);
 
   const availableCities = cityList.filter(
-    (city) => !config.nobours.city.includes(city)
+    (city) => !config.config.city.includes(city)
   );
 
   return (
@@ -138,7 +138,7 @@ const CityFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {config.nobours.city.map((city, index) => (
+            {config.config.city.map((city, index) => (
               <Chip
                 key={`city-${index}`}
                 label={city || "Unknown City"}
