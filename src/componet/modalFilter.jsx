@@ -1,64 +1,78 @@
-import React, { useState, useEffect } from "react";
 
+import React, { useState, useEffect } from "react";
+import NationalIdSearch from "./nationalFilter";
+import CompanyFilter from "./comanyFilter";
+import CityFilter from "./cityFilter";
+import Stocks from "./Stocks";
+import Date from "./birthDate";
+import PhoneSearch from "./phoneFilter";
+import NameSearch from "./name";
 import { DateObject } from "react-multi-date-picker";
 import SendingOptions from "./marketing/sendingOptions";
 import RenderFilters from "./marketing/renderFilters";
 import { Button, Step, StepLabel, Stepper, Grid } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
-
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import DatePicker from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import InputIcon from "react-multi-date-picker/components/input_icon";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import RemainingCustomer from "./remainingCustomer";
 import { GoPlus } from "react-icons/go";
 
 const ModalFilter = ({
+  toggleModal,
   access,
   configSelected,
   setConfigSelected,
-  setIsContextSelected,
-  setIsOpenFilter,
 }) => {
   const newconfig = {
-    send_time: new DateObject(),
-    context: null,
-    period: null,
-    insurance: {
-      enabled: true,
-      accounting: {
-        from: "",
-        to: "",
-        code: "",
+    config: {
+      send_time: null,
+      context: null,
+      period: null,
+      insurance: {
+        enabled: true,
+        accounting: {
+          from: "",
+          to: "",
+          code: "",
+        },
+      },
+      nobours: {
+        enabled: true,
+        name: null,
+        birthday: {
+          from: null,
+          to: null,
+        },
+        city: [],
+        symbol: [],
+        national_id: [],
+        amount: {
+          from: null,
+          to: null,
+        },
+        rate: {
+          min: null,
+          max: null,
+        },
+        mobile: {
+          num1: [],
+          num2: [],
+        },
       },
     },
-    nobours: {
-      enabled: true,
-      name: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      symbol: [],
-      national_id: [],
-      amount: {
-        from: null,
-        to: null,
-      },
-      rate: {
-        min: null,
-        max: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
-      },
-    },
-
     title: "",
   };
 
+  
   const steps = ["لیست", "تنظیمات", "فیلتر"];
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState(newconfig);
@@ -68,10 +82,17 @@ const ModalFilter = ({
   // console.log("================================\n", config);
 
   const getConfigList = () => {
-    axios
-      .post(OnRun + "/marketing/marketinglist", { access: access })
+    axios({
+      method: "POST",
+      url: OnRun + "/marketing/marketinglist",
+      data: { access: access },
+    })
       .then((response) => {
         setListConfig(response.data);
+      })
+      .catch((error) => {
+        toast.error("خطا در دریافت لیست تنظیمات");
+        console.error("Error fetching config list:", error);
       });
   };
 
@@ -99,8 +120,8 @@ const ModalFilter = ({
           }
         })
         .catch((error) => {
-          console.error("Error fetching selected config:", error);
-          toast.error("خطا در دریافت تنظیمات انتخاب شده");
+          toast.error("خطا در دریافت تنظیمات");
+          console.error("Error fetching config:", error);
         });
     } else {
       setConfig(newconfig);
@@ -148,13 +169,13 @@ const ModalFilter = ({
   }, [configSelected]);
   useEffect(getConfigList, []);
   useEffect(() => {
-    setIsContextSelected(config.context);
-  }, [config.context]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
 
   const handleDropdownToggle = (dropdownId) => {
-    setOpenDropdown((prevDropdownId) =>
-      prevDropdownId === dropdownId ? null : dropdownId
-    );
+    setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
   };
 
   return (
@@ -172,31 +193,31 @@ const ModalFilter = ({
       </Stepper>
 
       {stepNumber === 0 && (
-        <Grid container spacing={3}>
+    <Grid container spacing={3}>
+      <CardConfigMarketing
+        profil={<GoPlus size={30} style={{ strokeWidth: 2 }} />}
+        title={"جدید"}
+        id={null}
+        setConfigSelected={setConfigSelected}
+        nextStep={nextStep}
+      />
+      {listConfig.map((i) => {
+        const firstLetter = i.title.charAt(0);
+        return (
           <CardConfigMarketing
-            profil={<GoPlus size={30} style={{ strokeWidth: 2 }} />}
-            title={"جدید"}
-            id={null}
+            key={i._id}
+            profil={<span>{firstLetter}</span>}
+            title={i.title}
+            id={i._id}
+            data={i.date}
+            status={i.status}
             setConfigSelected={setConfigSelected}
             nextStep={nextStep}
           />
-          {listConfig.map((i) => {
-            const firstLetter = i.title.charAt(0);
-            return (
-              <CardConfigMarketing
-                key={i._id}
-                profil={<span>{firstLetter}</span>}
-                title={i.title}
-                id={i._id}
-                data={i.date}
-                status={i.status}
-                setConfigSelected={setConfigSelected}
-                nextStep={nextStep}
-              />
-            );
-          })}
-        </Grid>
-      )}
+        );
+      })}
+    </Grid>
+  )}
 
       {stepNumber === 1 && (
         <SendingOptions
@@ -215,24 +236,6 @@ const ModalFilter = ({
         />
       )}
 
-      <div className="flex justify-between mt-4">
-        <Button
-          disabled={stepNumber === 0}
-          onClick={backStep}
-          variant="contained"
-          color="primary"
-        >
-          قبلی
-        </Button>
-        <Button
-          onClick={stepNumber === 2 ? () => PostData() : nextStep}
-          variant="contained"
-          color="primary"
-        >
-          {stepNumber === 2 ? "ایجاد" : "بعدی"}
-        </Button>
-      </div>
-    </div>
   );
 };
 

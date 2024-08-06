@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, MenuItem, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,46 +9,13 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
-  const [companySelected, setCompanySelected] = useState([]);
-
-  // useEffect(() => {
-  //   if (config?.symbol && config.symbol.length > 0) {
-  //     setCompanySelected(config.symbol);
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    setConfig((prevConfig) => ({
-      ...prevConfig,
-      nobours: { ...prevConfig.nobours, symbol: companySelected },
-    }));
-  }, [companySelected, setConfig]);
-
-  useEffect(() => {
-    // const symbols = companySelected
-    //   .map((selectedCompany) => {
-    //     const foundCompany = companyList.find(
-    //       (company) => company.fullname === selectedCompany
-    //     );
-    //     return foundCompany ? foundCompany.symbol : null;
-    //   })
-    //   .filter((symbol) => symbol !== null);
-
-    const updatedConfig = {
-      ...config,
-      nobours: { ...config, symbols: companySelected },
-    };
-    setConfig(updatedConfig);
-  }, []);
 
   useEffect(() => {
     const fetchCompanyList = async () => {
       try {
         const response = await axios.post(
           `${OnRun}/marketing/symbolregisternobours`,
-          {
-            access,
-          }
+          { access }
         );
         setCompanyList(response.data);
       } catch (error) {
@@ -58,34 +25,44 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     fetchCompanyList();
   }, [access]);
 
-  const handleCompanyChange = (newValue) => {
-    setCompanyInput(newValue);
-  };
-
   const handleAddCompany = () => {
-    if (
-      companyInput &&
-      availableCompanies.includes(companyInput) &&
-      !companySelected.includes(companyInput)
-    ) {
-      setCompanySelected((prev) => [...prev, companyInput]);
+    const available = companyList.some(
+      (company) => company.symbol === companyInput
+    );
+    if (available) {
+      const company_list = [...(config.nobours?.company || [])];
+      company_list.push(companyInput);
+      const nobours = { ...config.nobours, company: company_list };
+      setConfig({ ...config, nobours });
       setCompanyInput("");
     } else {
       toast.error("لطفا یک شرکت معتبر انتخاب کنید");
     }
   };
 
-  const handleDelete = (item) => {
-    setCompanySelected((prev) => prev.filter((company) => company !== item));
+  const handleDelete = (company) => {
+    const company_list = (config.nobours?.company || []).filter(
+      (i) => i !== company
+    );
+    const nobours = { ...config.nobours, company: company_list };
+    setConfig({ ...config, nobours });
   };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const availableCompanies = companyList.filter(
+    (company) => !config.config?.company?.includes(company)
+  );
 
-  const availableCompanies = companyList
-    .map((i) => i.fullname)
-    .filter((company) => !companySelected.includes(company));
+  const handleCompanySelect = (event) => {
+    setCompanyInput(event.target.value);
+    // Don't close dropdown here; leave it open
+  };
+
+  const availableCompanies = companyList.filter(
+    (company) => !(config.nobours?.company || []).includes(company.symbol)
+  );
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -115,29 +92,24 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       {isDropdownOpen && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
-            <Autocomplete
-              value={companyInput || null}
-              options={availableCompanies}
-              onChange={handleCompanyChange}
-              isOptionEqualToValue={(option, value) => option === value}
-              onInputChange={(event, newInputValue) => {
-                setCompanyInput(newInputValue);
-              }}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handleAddCompany();
-                }
-              }}
-              renderInput={(params) => (
-                <TextField
-                  style={{ backgroundColor: "white" }}
-                  {...params}
-                  label="انتخاب شرکت"
-                  fullWidth
-                />
-              )}
-              style={{ flex: 1 }}
-            />
+            <TextField
+              select
+              value={companyInput}
+              onChange={handleCompanySelect}
+              label="شرکت"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+              variant="outlined"
+              style={{ marginBottom: 16 }}
+            >
+              {availableCompanies.map((i) => {
+                return (
+                  <MenuItem value={i.symbol} key={i.symbol}>
+                    {i.fullname}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+
             <Button
               onClick={handleAddCompany}
               sx={{ borderRadius: 2 }}
@@ -154,42 +126,47 @@ const CompanyFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {companySelected.map((company, index) => (
-              <Chip
-                key={`company-${index}`}
-                label={company || "Unknown Company"}
-                onDelete={() => handleDelete(company)}
-                deleteIcon={
-                  <button
-                    style={{ color: "white", marginRight: "5px" }}
-                    className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
+            {(config.nobours.company || []).map((company, index) => {
+              var name = companyList.find(
+                (i) => i.symbol === company
+              )?.fullname;
+              return (
+                <Chip
+                  key={`company-${index}`}
+                  label={name}
+                  onDelete={() => handleDelete(company)}
+                  deleteIcon={
+                    <button
+                      style={{ color: "white", marginRight: "5px" }}
+                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                }
-                style={{
-                  backgroundColor: "red",
-                  color: "white",
-                  borderRadius: "16px",
-                  fontSize: "0.875rem",
-                  fontWeight: "bold",
-                }}
-                className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-              />
-            ))}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  }
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    borderRadius: "16px",
+                    fontSize: "0.875rem",
+                    fontWeight: "bold",
+                  }}
+                  className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                />
+              );
+            })}
           </Stack>
         </div>
       )}
