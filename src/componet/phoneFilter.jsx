@@ -3,46 +3,61 @@ import React, { useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
 const PhoneSearch = ({ config, setConfig }) => {
-  const [searchTerm1, setSearchTerm1] = useState("");
-  const [searchTerm2, setSearchTerm2] = useState("");
-  const [phones1, setPhones1] = useState([]);
-  const [phones2, setPhones2] = useState([]);
+  const [inputNum1, setInputNum1] = useState("");
+  const [inputNum2, setInputNum2] = useState("");
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSearch1 = (e) => {
     const value = e.target.value;
     if (value.length <= 4 && /^\d*$/.test(value)) {
-      setSearchTerm1(value);
+      setInputNum1(value);
     }
   };
 
   const handleSearch2 = (e) => {
     const value = e.target.value;
     if (value.length <= 3 && /^\d*$/.test(value)) {
-      setSearchTerm2(value);
+      setInputNum2(value);
     }
   };
 
   const handleAdd1 = () => {
-    if (searchTerm1 && !phones1.includes(searchTerm1)) {
-      setPhones1([...phones1, searchTerm1]);
-      setSearchTerm1("");
+    if (inputNum1.length>0 && !config.nobours.mobile.num1.includes(inputNum1)) {
+      var num1Config = config.nobours.mobile.num1;
+      num1Config.push(inputNum1);
+      var mobile = { ...config.nobours.mobile, num1: num1Config };
+      var nobours = { ...config.nobours, mobile: mobile };
+      setConfig({ ...config, nobours: nobours });
     }
+    setInputNum1("");
   };
 
   const handleAdd2 = () => {
-    if (searchTerm2 && !phones2.includes(searchTerm2)) {
-      setPhones2([...phones2, searchTerm2]);
-      setSearchTerm2("");
+    if (inputNum2.length>0 && !config.nobours.mobile.num2.includes(inputNum2)) {
+      var num2Config = config.nobours.mobile.num2;
+      num2Config.push(inputNum2);
+      var mobile = { ...config.nobours.mobile, num2: num2Config };
+      var nobours = { ...config.nobours, mobile: mobile };
+      setConfig({ ...config, nobours: nobours });
     }
+    setInputNum2("");
   };
 
   const handleRemove1 = (id) => {
-    setPhones1(phones1.filter((existingId) => existingId !== id));
+    let num1Config = config.nobours.mobile.num1;
+    num1Config = num1Config.filter((i) => i != id);
+    var mobile = { ...config.nobours.mobile, num1: num1Config };
+    var nobours = { ...config.nobours, mobile: mobile };
+    setConfig({ ...config, nobours: nobours });
   };
 
   const handleRemove2 = (id) => {
-    setPhones2(phones2.filter((existingId) => existingId !== id));
+    let num2Config = config.nobours.mobile.num2;
+    num2Config = num2Config.filter((i) => i != id);
+    var mobile = { ...config.nobours.mobile, num2: num2Config };
+    var nobours = { ...config.nobours, mobile: mobile };
+    setConfig({ ...config, nobours: nobours });
   };
 
   const handleKeyDown1 = (e) => {
@@ -60,23 +75,6 @@ const PhoneSearch = ({ config, setConfig }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
-  useEffect(() => {
-    
-    const mobile = {
-      num1: phones1,
-      num2: phones2,
-    };
-    const nobours = { ...config, mobile };
-    setConfig({ ...config, nobours });
-  }, [phones1, phones2]);
-
-  useEffect(() => {
-    
-    const mobile = config?.mobile || { num1: [], num2: [] };
-    setPhones1(mobile.num1 || []);
-    setPhones2(mobile.num2 || []);
-  }, []);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -107,7 +105,7 @@ const PhoneSearch = ({ config, setConfig }) => {
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <TextField
               style={{ backgroundColor: "white" }}
-              value={searchTerm1}
+              value={inputNum1}
               onChange={handleSearch1}
               onKeyDown={handleKeyDown1}
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -124,10 +122,10 @@ const PhoneSearch = ({ config, setConfig }) => {
             </Button>
           </div>
 
-          {phones1.length > 0 && (
+          {config.nobours.mobile.num1.length > 0 && (
             <div className="mb-4">
               <div className="flex flex-wrap gap-4">
-                {phones1.map((id) => (
+                {config.nobours.mobile.num1.map((id) => (
                   <div
                     key={id}
                     className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
@@ -151,7 +149,7 @@ const PhoneSearch = ({ config, setConfig }) => {
               id="outlined-basic"
               label="سه رقم میانه شماره همراه"
               variant="outlined"
-              value={searchTerm2}
+              value={inputNum2}
               onChange={handleSearch2}
               onKeyDown={handleKeyDown2}
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -165,10 +163,10 @@ const PhoneSearch = ({ config, setConfig }) => {
             </Button>
           </div>
 
-          {phones2.length > 0 && (
+          {config.nobours.mobile.num2.length > 0 && (
             <div className="mb-4">
               <div className="flex flex-wrap gap-4">
-                {phones2.map((id) => (
+                {config.nobours.mobile.num2.map((id) => (
                   <div
                     key={id}
                     className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
