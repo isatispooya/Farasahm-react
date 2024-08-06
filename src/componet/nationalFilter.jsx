@@ -106,9 +106,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
                   SelectProps={{ native: true }}
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 >
-                  <option value="" disabled>
-                    
-                  </option>
+                  <option value="" disabled></option>
                   {filteredCities.length > 0 &&
                     filteredCities.map((i) => (
                       <option key={i.num} value={i.num}>

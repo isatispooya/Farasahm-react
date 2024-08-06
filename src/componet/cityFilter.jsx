@@ -5,7 +5,11 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) => {
+const CityFilter = ({
+  access,
+  config = { config: { city: [] } },
+  setConfig,
+}) => {
   const [cityList, setCityList] = useState([]);
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -38,7 +42,7 @@ const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) =>
   };
 
   const handleDelete = (city) => {
-    const city_list = config.nobours.city.filter(i => i !== city);
+    const city_list = config.nobours.city.filter((i) => i !== city);
     const nobours = { ...config.nobours, city: city_list };
     setConfig({ ...config, nobours });
   };
@@ -57,15 +61,16 @@ const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) =>
       <div>
         <TextField
           select
+          
           value={cityInput}
-          onChange={e => setCityInput(e.target.value)}
+          onChange={(e) => setCityInput(e.target.value)}
           label="شهر"
-          fullWidth
+          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
           variant="outlined"
           style={{ marginBottom: 16 }}
           onClick={toggleDropdown}
         >
-          {availableCities.map(city => (
+          {availableCities.map((city) => (
             <MenuItem value={city} key={city}>
               {city}
             </MenuItem>
