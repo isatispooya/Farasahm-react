@@ -11,9 +11,9 @@ const CityFilter = ({ access, config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const newConfig = { ...config.config, city: config.config?.city || [] };
+    const newConfig = { ...config, city: config?.city || [] };
     setConfig({ ...config, config: newConfig });
-  }, [config, setConfig]);
+  }, []);
 
   const getCityList = () => {
     axios({
@@ -29,7 +29,7 @@ const CityFilter = ({ access, config, setConfig }) => {
     getCityList();
   }, [access]);
 
-  const handleCityChange = (event, newValue) => {
+  const handleCityChange = (newValue) => {
     setCityInput(newValue);
   };
 
@@ -39,12 +39,12 @@ const CityFilter = ({ access, config, setConfig }) => {
       availableCities.includes(cityInput) &&
       !config.config?.city?.includes(cityInput)
     ) {
-      setConfig(prev => ({
+      setConfig((prev) => ({
         ...prev,
         config: {
           ...prev.config,
-          city: [...(prev.config.city || []), cityInput]
-        }
+          city: [...(prev.config.city || []), cityInput],
+        },
       }));
       setCityInput("");
     } else {
@@ -53,12 +53,12 @@ const CityFilter = ({ access, config, setConfig }) => {
   };
 
   const handleDelete = (item) => {
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       config: {
         ...prev.config,
-        city: (prev.config.city || []).filter((city) => city !== item)
-      }
+        city: (prev.config.city || []).filter((city) => city !== item),
+      },
     }));
   };
 

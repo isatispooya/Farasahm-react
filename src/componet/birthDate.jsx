@@ -16,7 +16,7 @@ export default function BirthDate({ config, setConfig }) {
 
   useEffect(() => {
     var birthday = { from: from, to: to };
-    var nobours = { ...config.nobours, birthday: birthday };
+    var nobours = { ...config, birthday: birthday };
     setConfig({ ...config, nobours: nobours });
   }, [from, to]);
 

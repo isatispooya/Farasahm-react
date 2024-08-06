@@ -67,16 +67,16 @@ const PhoneSearch = ({ config, setConfig }) => {
       num1: phones1,
       num2: phones2,
     };
-    const nobours = { ...config.nobours, mobile };
+    const nobours = { ...config, mobile };
     setConfig({ ...config, nobours });
-  }, [phones1, phones2, config, setConfig]);
+  }, [phones1, phones2]);
 
   useEffect(() => {
     // Provide default values to prevent errors
-    const mobile = config.nobours?.mobile || { num1: [], num2: [] };
+    const mobile = config?.mobile || { num1: [], num2: [] };
     setPhones1(mobile.num1 || []);
     setPhones2(mobile.num2 || []);
-  }, [config.nobours]);
+  }, []);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

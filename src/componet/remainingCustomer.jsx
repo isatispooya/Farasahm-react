@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -24,7 +24,6 @@ const RemainingCustomer = ({ config, setConfig }) => {
     var insurance = { ...config.insurance, amount: amount };
     setConfig({ ...config, insurance: insurance });
   }, [from, to, code]);
-
 
   return (
     <>

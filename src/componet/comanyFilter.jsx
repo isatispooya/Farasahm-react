@@ -11,39 +11,43 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companySelected, setCompanySelected] = useState([]);
 
-  useEffect(() => {
-    // Initialize companySelected from config.nobours.symbol if available
-    if (config.nobours?.symbol && config.nobours.symbol.length > 0) {
-      setCompanySelected(config.nobours.symbol);
-    }
-  }, [config.nobours?.symbol]);
+  
 
   useEffect(() => {
-    // Update the config with selected companies
-    const symbols = companySelected
-      .map((selectedCompany) => {
-        const foundCompany = companyList.find(
-          (company) => company.fullname === selectedCompany
-        );
-        return foundCompany ? foundCompany.symbol : null;
-      })
-      .filter((symbol) => symbol !== null);
+    if (config?.symbol && config.symbol.length > 0) {
+      setCompanySelected(config.symbol);
+    }
+  }, []);
+
+  useEffect(() => {
+    // const symbols = companySelected
+    //   .map((selectedCompany) => {
+    //     const foundCompany = companyList.find(
+    //       (company) => company.fullname === selectedCompany
+    //     );
+    //     return foundCompany ? foundCompany.symbol : null;
+    //   })
+    //   .filter((symbol) => symbol !== null);
 
     const updatedConfig = {
       ...config,
-      nobours: { ...config.nobours, symbols: companySelected },
+      nobours: { ...config, symbols: companySelected },
     };
     setConfig(updatedConfig);
   }, [companySelected, companyList, config, setConfig]);
 
   useEffect(() => {
-    // Fetch company list on component mount
     const fetchCompanyList = async () => {
       try {
-        const response = await axios.post(`${OnRun}/marketing/symbolregisternobours`, {
-          access,
-        });
+        const response = await axios.post(
+          `${OnRun}/marketing/symbolregisternobours`,
+          {
+            access,
+          }
+        );
         setCompanyList(response.data);
+        console.log(config,config.symbol);
+
       } catch (error) {
         console.error("Failed to fetch company list", error);
       }
@@ -51,7 +55,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     fetchCompanyList();
   }, [access]);
 
-  const handleCompanyChange = (event, newValue) => {
+  const handleCompanyChange = (newValue) => {
     setCompanyInput(newValue);
   };
 
