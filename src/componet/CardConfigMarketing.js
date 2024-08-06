@@ -96,8 +96,9 @@ const CardConfigMarketing = ({
         }),
       });
       setOpenDialog(false);
-
+  
       if (response.ok) {
+        // بروزرسانی وضعیت بدون ریلود صفحه
         setConfig((prevConfig) => {
           if (Array.isArray(prevConfig)) {
             const updatedConfig = prevConfig.filter(
@@ -109,7 +110,6 @@ const CardConfigMarketing = ({
             return [];
           }
         });
-        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error deleting config:", errorData);
@@ -118,6 +118,7 @@ const CardConfigMarketing = ({
       console.error("Error deleting request:", error);
     }
   };
+  
 
   const getRandomColor = () => {
     const colors = [
