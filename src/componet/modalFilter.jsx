@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from "react";
-// import NationalIdSearch from "./nationalFilter";
-// import CompanyFilter from "./comanyFilter";
-// import CityFilter from "./cityFilter";
+import NationalIdSearch from "./nationalFilter";
+import CompanyFilter from "./comanyFilter";
+import CityFilter from "./cityFilter";
 import Stocks from "./Stocks";
-// import Date from "./birthDate";
-// import PhoneSearch from "./phoneFilter";
-// import NameSearch from "./name";
+import Date from "./birthDate";
+import PhoneSearch from "./phoneFilter";
+import NameSearch from "./name";
 import { DateObject } from "react-multi-date-picker";
 import {
   Button,
