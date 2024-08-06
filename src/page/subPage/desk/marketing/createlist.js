@@ -54,7 +54,7 @@ const CreateList = () => {
         url: OnRun + "marketing/perviewcontext",
         data: {access: access,_id:configSelected,context:contextSelected},
       }).then((response) => {
-     
+        console.log('hjgh',response.data);
       });
     }
   };
