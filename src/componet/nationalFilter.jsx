@@ -1,99 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import citiesData from "./data.json";
-
-const NationalIdSearch = ({  setConfig }) => {
+import { citi_list } from "./marketing/city_list";
+const NationalIdSearch = ({ config, setConfig }) => {
   const [searchTermPrimary, setSearchTermPrimary] = useState("");
-  const [primaryIds, setPrimaryIds] = useState([]);
-  const [searchTermSecondary, setSearchTermSecondary] = useState("");
-  const [filteredCities, setFilteredCities] = useState([]);
+  const [filteredCities, setFilteredCities] = useState(citi_list);
+  const [cityselected, setCityselected] = useState("");
 
   // جستجو و افزودن کد ملی به صورت مستقیم
-  const handleSearchPrimary = (e) => {
+  const handle_search_number_national_code = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) setSearchTermPrimary(value);
   };
 
-  const handleAddPrimary = () => {
-    if (searchTermPrimary && !primaryIds.includes(searchTermPrimary)) {
-      setPrimaryIds([...primaryIds, searchTermPrimary]);
-      setSearchTermPrimary("");
-    }
-  };
+
 
   const handleRemovePrimary = (id) => {
-    setPrimaryIds(primaryIds.filter((existingId) => existingId !== id));
+    var nc_list = config.nobours.national_id;
+    nc_list = nc_list.filter(i => i!=id)
+    var nobours = { ...config.nobours, national_id: nc_list };
+    setConfig({ ...config, nobours: nobours });
   };
 
-  // جستجو کد ملی براساس نام شهر
-  const handleSearchSecondary = (e) => {
+  const set_city_by_name = (e) => {
     const value = e.target.value;
-    setSearchTermSecondary(value);
-
-    const results = citiesData.filter((city) =>
-      city.city.includes(value)
-    );
-    setFilteredCities(results);
-  };
-
-  const handleAddSecondary = () => {
-    if (filteredCities.length > 0) {
-      const selectedCity = filteredCities[0];
-      if (!primaryIds.includes(selectedCity.num)) {
-        setPrimaryIds([...primaryIds, selectedCity.num]);
-      }
-      setSearchTermSecondary("");
-      setFilteredCities([]);
+    const availibale = filteredCities.filter(i=>i.num==value)
+    if (availibale.length>0) {
+      setCityselected(value)
     }
   };
 
-  // افزودن کد ملی‌ها با فشردن کلید Enter
-  const handleKeyDownPrimary = (e) => {
-    if (e.key === "Enter") handleAddPrimary();
-  };
+  const add_num_to_config = () => {
+    var nc_list = config.nobours.national_id;
+    var nobours
+    if (searchTermPrimary) {
+      nc_list.push(searchTermPrimary);
+      nobours = { ...config.nobours, national_id: nc_list };
+      setConfig({ ...config, nobours: nobours });
+      setSearchTermPrimary("");
+      setCityselected('')
+    }else if (cityselected) {
+      nc_list.push(cityselected);
+      nobours = { ...config.nobours, national_id: nc_list };
+      setConfig({ ...config, nobours: nobours });
+      setCityselected('')
+      setSearchTermPrimary("");
 
-  const handleKeyDownSecondary = (e) => {
-    if (e.key === "Enter") handleAddSecondary();
+    }
   };
-
-  // به‌روزرسانی config هر بار که primaryIds تغییر می‌کند
-  useEffect(() => {
-    setConfig((prevConfig) => ({
-      ...prevConfig,
-      nobours: { ...prevConfig.nobours, national_id: primaryIds },
-    }));
-  }, [primaryIds, setConfig]);
 
   return (
     <div dir="rtl" className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <div className="flex items-center space-x-4">
         <TextField
-          style={{ backgroundColor: "white", flex: 1 , marginLeft: "10px"  }}
+          style={{ backgroundColor: "white", flex: 1, marginLeft: "10px" }}
           value={searchTermPrimary}
-          onChange={handleSearchPrimary}
-          onKeyDown={handleKeyDownPrimary}
+          onChange={handle_search_number_national_code}
           label="جستجو کد ملی"
           variant="outlined"
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 "
         />
 
-        <TextField
-          style={{ backgroundColor: "white", flex: 1 }}
-          value={searchTermSecondary}
-          onChange={handleSearchSecondary}
-          onKeyDown={handleKeyDownSecondary}
-          label="جستجو کد ملی براساس شهر"
-          variant="outlined"
-          inputProps={{ inputMode: "text", pattern: "[\u0600-\u06FFa-zA-Zs]*" }}
-          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-        />
+
 
         <Button
-          onClick={() => {
-            handleAddPrimary();
-            handleAddSecondary();
-          }}
+          onClick={add_num_to_config}
           sx={{ borderRadius: 2, marginLeft: "20px" }}
           variant="contained"
         >
@@ -101,27 +72,23 @@ const NationalIdSearch = ({  setConfig }) => {
         </Button>
       </div>
 
-      {filteredCities.length > 0 && (
-        <div className="mt-2 bg-gray-200 p-2 rounded-lg shadow-md">
-          {filteredCities.map((city) => (
-            <div
-              key={city.num}
-              className="flex items-center justify-between p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition duration-200"
-              onClick={() => {
-                setSearchTermSecondary(city.city);
-                handleAddSecondary();
-              }}
-            >
-              <span>{city.city}</span>
-              <span>{city.num}</span>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="mt-2 bg-gray-200 p-2 rounded-lg shadow-md">
+        <input value={cityselected} list="city" onChange={set_city_by_name}/>
+        <datalist id="city" >
+          {filteredCities.length > 0 &&
+            filteredCities.map((i) => {
+              return (
+                <option key={  Math.floor(1000000000 * (Math.random()+2))} value={i.num}>
+                  {i.city}
+                </option>
+              );
+            })}
+        </datalist>
+      </div>
 
-      {primaryIds.length > 0 && (
+      {config.nobours.national_id.length > 0 && (
         <div className="flex flex-wrap gap-4 mt-4">
-          {primaryIds.map((id) => (
+          {config.nobours.national_id.map((id) => (
             <div
               key={id}
               className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
@@ -155,7 +122,3 @@ const NationalIdSearch = ({  setConfig }) => {
 };
 
 export default NationalIdSearch;
-
-
-
-
