@@ -149,13 +149,13 @@ const Stocks = ({ config, setConfig }) => {
             </div>
           </div>
           <div className="flex justify-center">
-            <Button
+            {/* <Button
               onClick={handleButtonClick}
               sx={{ borderRadius: 2 }}
               variant="contained"
             >
               تایید انتخاب
-            </Button>
+            </Button> */}
           </div>
 
           {selectedValues && (
