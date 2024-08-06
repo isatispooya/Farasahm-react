@@ -4,9 +4,9 @@ import { ToastContainer } from "react-toastify";
 
 const RemainingCustomer = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [code, setCode] = useState("");
+  const [from, setFrom] = useState(config.insurance.accounting.from || "");
+  const [to, setTo] = useState(config.insurance.accounting.to || "");
+  const [code, setCode] = useState(config.insurance.accounting.code || "");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -20,8 +20,8 @@ const RemainingCustomer = ({ config, setConfig }) => {
   };
 
   useEffect(() => {
-    var amount = { from: from, to: to, code: code };
-    var insurance = { ...config.insurance, amount: amount };
+    var accounting = { from: from, to: to, code: code };
+    var insurance = { ...config.insurance, accounting: accounting };
     setConfig({ ...config, insurance: insurance });
   }, [from, to, code]);
 
@@ -71,7 +71,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده از"
                   variant="outlined"
-                  value={config.insurance.accounting.from}
+                  value={from}
                   onChange={handleInputChange(setFrom)}
                 />
                 <TextField
@@ -79,7 +79,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده تا"
                   variant="outlined"
-                  value={config.insurance.accounting.to}
+                  value={to}
                   onChange={handleInputChange(setTo)}
                 />
                 <TextField
@@ -87,7 +87,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="کد معین"
                   variant="outlined"
-                  value={config.insurance.accounting.code}
+                  value={code}
                   onChange={handleInputChange(setCode)}
                 />
               </Box>
@@ -100,3 +100,4 @@ const RemainingCustomer = ({ config, setConfig }) => {
 };
 
 export default RemainingCustomer;
+

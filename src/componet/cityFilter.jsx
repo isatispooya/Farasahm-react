@@ -42,7 +42,7 @@ const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) =>
           city: [...(prev.config.city || []), cityInput],
         },
       }));
-      setCityInput("");
+      setCityInput();
     } else {
       toast.error("لطفا یک شهر معتبر انتخاب کنید");
     }

@@ -9,6 +9,7 @@ const Stocks = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState(null);
 
+ 
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
@@ -16,18 +17,15 @@ const Stocks = ({ config, setConfig }) => {
     }
   };
 
+  // Update the config with amount and rate when any input changes
   useEffect(() => {
     const amount = { from: input1, to: input2 };
-    const nobours = { ...config, amount: amount };
-    setConfig({ ...config, nobours: nobours });
-  }, [input1, input2]);
+    const rate = { min: input3, max: input4 };
+    const nobours = { ...config.nobours, amount, rate };
+    setConfig({ ...config, nobours });
+  }, [input1, input2, input3, input4]);
 
-  useEffect(() => {
-    const rate = { from: input3, to: input4 };
-    const nobours = { ...config, rate: rate };
-    setConfig({ ...config, nobours: nobours });
-  }, [input3, input4]);
-
+  
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };

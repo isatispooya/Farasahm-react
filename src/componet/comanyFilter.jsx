@@ -31,7 +31,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       nobours: { ...config, symbols: companySelected },
     };
     setConfig(updatedConfig);
-  }, [companySelected, companyList, config, setConfig]);
+  }, []);
 
   useEffect(() => {
     const fetchCompanyList = async () => {
