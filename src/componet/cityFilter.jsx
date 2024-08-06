@@ -99,8 +99,8 @@ const CityFilter = ({
                   style={{ marginBottom: 16 }}
                 >
                   <option value="" disabled></option>
-                  {availableCities.map((city) => (
-                    <option key={city} value={city}>
+                  {availableCities.map((city, index) => (
+                    <option key={index} value={city}>
                       {city}
                     </option>
                   ))}

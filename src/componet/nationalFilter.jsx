@@ -110,8 +110,8 @@ const NationalIdSearch = ({ config, setConfig }) => {
                     
                   </option>
                   {filteredCities.length > 0 &&
-                    filteredCities.map((i) => (
-                      <option key={i.num} value={i.num}>
+                    filteredCities.map((i,index) => (
+                      <option key={index} value={i.num}>
                         {i.city}
                       </option>
                     ))}
@@ -129,9 +129,9 @@ const NationalIdSearch = ({ config, setConfig }) => {
 
             {config.nobours.national_id.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.national_id.map((id) => (
+                {config.nobours.national_id.map((id,index) => (
                   <div
-                    key={id}
+                    key={index}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   >
                     <span className="mr-2 text-lg font-medium">{id}</span>

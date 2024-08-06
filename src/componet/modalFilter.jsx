@@ -85,11 +85,10 @@ const ModalFilter = ({
       await axios
         .post(`${OnRun}/marketing/perviewcontext`, {
           access: access,
-          context: "",
+          context: "سلام {{نام و نام خانوادگی}} حالتون چطوره {{صادره}}",
           _id: configSelected,
         })
         .then((response) => {
-          // console.log("*****************************\n", response.data);
 
           if (response.data && response.data.config) {
             response.data.config["title"] = response.data["title"];
