@@ -63,11 +63,11 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                 config={config}
                 setConfig={setConfig}
               /> 
-              {/* <CompanyFilter
+              <CompanyFilter
                 access={access}
                 config={config}
                 setConfig={setConfig}
-              />   */}
+              />  
               {/* <Stocks config={config} setConfig={setConfig} />   */}
               {/* <BirthDate config={config} setConfig={setConfig} /> */}
             </div>

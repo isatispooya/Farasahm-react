@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import { DateObject } from "react-multi-date-picker";
-import SendingOptions from "./marketing/sendingOptions";
-import RenderFilters from "./marketing/renderFilters";
+import SendingOptions from "./marketingCom/sendingOptions";
+import RenderFilters from "./marketingCom/renderFilters";
 import {
   Button,
 
