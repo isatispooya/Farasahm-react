@@ -35,6 +35,7 @@ const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) =>
       availableCities.includes(cityInput) &&
       !config.nobors?.city?.includes(cityInput)
     ) {
+      
       setConfig((prev) => ({
         ...prev,
         config: {

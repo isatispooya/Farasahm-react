@@ -36,7 +36,7 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
           </Button>
           {openDropdown === "nobours" && (
             <div className="mt-4">
-              {/* <FormControlLabel
+              <FormControlLabel
                 control={
                   <Switch
                     checked={config.nobours?.enabled || false}
@@ -54,10 +54,10 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                   />
                 }
                 label="فعال"
-              /> */}
+              />
               <NationalIdSearch config={config} setConfig={setConfig} />
-              {/* <NameSearch config={config} setConfig={setConfig} /> */}
-              {/* <PhoneSearch config={config} setConfig={setConfig} /> */}
+              <NameSearch config={config} setConfig={setConfig} /> 
+              <PhoneSearch config={config} setConfig={setConfig} /> 
 
              
               <CityFilter
@@ -70,7 +70,7 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                 config={config}
                 setConfig={setConfig}
               />  
-              {/* <Stocks config={config} setConfig={setConfig} />   */}
+              <Stocks config={config} setConfig={setConfig} />  
               <BirthDate config={config} setConfig={setConfig} />
             </div>
           )}
