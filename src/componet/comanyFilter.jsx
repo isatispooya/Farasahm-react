@@ -24,15 +24,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     }));
   }, [companySelected, setConfig]);
 
-  useEffect(() => {
-    // const symbols = companySelected
-    //   .map((selectedCompany) => {
-    //     const foundCompany = companyList.find(
-    //       (company) => company.fullname === selectedCompany
-    //     );
-    //     return foundCompany ? foundCompany.symbol : null;
-    //   })
-    //   .filter((symbol) => symbol !== null);
+  useEffect(() => { 
 
     const updatedConfig = {
       ...config,

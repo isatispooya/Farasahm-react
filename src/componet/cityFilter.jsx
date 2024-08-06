@@ -5,15 +5,10 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CityFilter = ({ access, config, setConfig }) => {
+const CityFilter = ({ access, config = { config: { city: [] } }, setConfig }) => {
   const [cityList, setCityList] = useState([]);
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const newConfig = { ...config, city: config?.city || [] };
-    setConfig({ ...config, config: newConfig });
-  }, []);
 
   const getCityList = () => {
     axios({
@@ -32,12 +27,13 @@ const CityFilter = ({ access, config, setConfig }) => {
   const handleCityChange = (newValue) => {
     setCityInput(newValue);
   };
-
   const handleAddCity = () => {
+    const newConfig = { ...config, city: config.nobors?.city || [] };
+    setConfig({ ...config, config: newConfig });
     if (
       cityInput &&
       availableCities.includes(cityInput) &&
-      !config.config?.city?.includes(cityInput)
+      !config.nobors?.city?.includes(cityInput)
     ) {
       setConfig((prev) => ({
         ...prev,
@@ -52,12 +48,12 @@ const CityFilter = ({ access, config, setConfig }) => {
     }
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = (city) => {
     setConfig((prev) => ({
       ...prev,
       config: {
         ...prev.config,
-        city: (prev.config.city || []).filter((city) => city !== item),
+        city: (prev.config.city || []).filter((c) => c !== city),
       },
     }));
   };
@@ -99,13 +95,11 @@ const CityFilter = ({ access, config, setConfig }) => {
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <Autocomplete
-              value={cityInput || null}
+              value={cityInput}
               options={availableCities}
-              isOptionEqualToValue={(option, value) => option === value} 
-              onChange={handleCityChange}
-              onInputChange={(event, newInputValue) => {
-                setCityInput(newInputValue);
-              }}
+              isOptionEqualToValue={(option, value) => option === value}
+              onChange={(event, newValue) => setCityInput(newValue)}
+              onInputChange={(event, newInputValue) => setCityInput(newInputValue)}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   handleAddCity();
@@ -137,10 +131,10 @@ const CityFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {config.config?.city?.map((city, index) => (
+            {(config.config?.city || []).map((city, index) => (
               <Chip
                 key={`city-${index}`}
-                label={city || "Unknown City"}
+                label={city}
                 onDelete={() => handleDelete(city)}
                 deleteIcon={
                   <button
