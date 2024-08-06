@@ -1,13 +1,11 @@
 import { Button, FormControlLabel, Switch } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NationalIdSearch from "../nationalFilter";
-import NameSearch from "../name";
-import PhoneSearch from "../phoneFilter";
 import CityFilter from "../cityFilter";
 import CompanyFilter from "../comanyFilter";
-import Stocks from "../Stocks";
 import BirthDate from "../birthDate";
 import RemainingCustomer from "../remainingCustomer";
+import PhoneSearch from "../phoneFilter";
 
 
 
@@ -54,10 +52,10 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                   />
                 }
                 label="فعال"
-              />
-              <NationalIdSearch config={config} setConfig={setConfig} />
-              <NameSearch config={config} setConfig={setConfig} /> 
-              <PhoneSearch config={config} setConfig={setConfig} /> 
+              /> */}
+              <NationalIdSearch config={config} setConfig={setConfig}  />
+              {/* <NameSearch config={config} setConfig={setConfig} /> */}
+              <PhoneSearch config={config} setConfig={setConfig} />
 
              
               <CityFilter
@@ -129,4 +127,4 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
 
 
 
-  export default RenderFilters
+  export default RenderFilters;
