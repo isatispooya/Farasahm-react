@@ -98,11 +98,9 @@ const CityFilter = ({
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                   style={{ marginBottom: 16 }}
                 >
-                  <option value="" disabled>
-                     
-                  </option>
-                  {availableCities.map((city) => (
-                    <option key={city} value={city}>
+                  <option value="" disabled></option>
+                  {availableCities.map((city, index) => (
+                    <option key={index} value={city}>
                       {city}
                     </option>
                   ))}
@@ -170,4 +168,3 @@ const CityFilter = ({
 };
 
 export default CityFilter;
-
