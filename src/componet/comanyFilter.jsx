@@ -51,6 +51,9 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const availableCompanies = companyList.filter(
+    (company) => !config.config?.company?.includes(company)
+  );
 
   const handleCompanySelect = (event) => {
     setCompanyInput(event.target.value);
