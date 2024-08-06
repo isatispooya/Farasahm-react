@@ -9,7 +9,7 @@ const Stocks = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState(null);
 
-  // Handle changes to text fields with validation for numeric input
+ 
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
@@ -17,26 +17,25 @@ const Stocks = ({ config, setConfig }) => {
     }
   };
 
-  // Update the config with amount when input1 or input2 change
+ 
   useEffect(() => {
     const amount = { from: input1, to: input2 };
     const nobours = { ...config.nobours, amount: amount };
     setConfig({ ...config, nobours: nobours });
-  }, [input1, input2, config, setConfig]);
+  }, [input1, input2]);
 
-  // Update the config with rate when input3 or input4 change
+
   useEffect(() => {
     const rate = { from: input3, to: input4 };
     const nobours = { ...config.nobours, rate: rate };
     setConfig({ ...config, nobours: nobours });
-  }, [input3, input4, config, setConfig]);
+  }, [input3, input4]);
 
-  // Toggle dropdown visibility
+  
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Handle button click to set selected values
   const handleButtonClick = () => {
     setSelectedValues({
       amount: { from: input1, to: input2 },
@@ -44,7 +43,6 @@ const Stocks = ({ config, setConfig }) => {
     });
   };
 
-  // Ensure config.nobours is properly initialized
   const amountFrom = config.nobours?.amount?.from || "";
   const amountTo = config.nobours?.amount?.to || "";
   const rateMin = config.nobours?.rate?.min || "";

@@ -12,14 +12,12 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companySelected, setCompanySelected] = useState([]);
 
   useEffect(() => {
-   
     if (config.nobours?.symbol && config.nobours.symbol.length > 0) {
       setCompanySelected(config.nobours.symbol);
     }
   }, [config.nobours?.symbol]);
 
   useEffect(() => {
-
     const symbols = companySelected
       .map((selectedCompany) => {
         const foundCompany = companyList.find(
@@ -34,15 +32,17 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       nobours: { ...config.nobours, symbols: companySelected },
     };
     setConfig(updatedConfig);
-  }, [companySelected, companyList, config, setConfig]);
+  }, []);
 
   useEffect(() => {
-    // Fetch company list on component mount
     const fetchCompanyList = async () => {
       try {
-        const response = await axios.post(`${OnRun}/marketing/symbolregisternobours`, {
-          access,
-        });
+        const response = await axios.post(
+          `${OnRun}/marketing/symbolregisternobours`,
+          {
+            access,
+          }
+        );
         setCompanyList(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
@@ -112,7 +112,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
               value={companyInput || null}
               options={availableCompanies}
               onChange={handleCompanyChange}
-              isOptionEqualToValue={(option, value) => option === value} 
+              isOptionEqualToValue={(option, value) => option === value}
               onInputChange={(event, newInputValue) => {
                 setCompanyInput(newInputValue);
               }}

@@ -10,11 +10,6 @@ const CityFilter = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const newConfig = { ...config.config, city: config.config?.city || [] };
-    setConfig({ ...config, config: newConfig });
-  }, [config, setConfig]);
-
   const getCityList = () => {
     axios({
       method: "POST",
@@ -29,6 +24,11 @@ const CityFilter = ({ access, config, setConfig }) => {
     getCityList();
   }, [access]);
 
+  useEffect(() => {
+    const newConfig = { ...config.config, city: config.config?.city || [] };
+    setConfig({ ...config, config: newConfig });
+  }, []);
+
   const handleCityChange = (event, newValue) => {
     setCityInput(newValue);
   };
@@ -39,26 +39,26 @@ const CityFilter = ({ access, config, setConfig }) => {
       availableCities.includes(cityInput) &&
       !config.config?.city?.includes(cityInput)
     ) {
-      setConfig(prev => ({
+      setConfig((prev) => ({
         ...prev,
         config: {
           ...prev.config,
-          city: [...(prev.config.city || []), cityInput]
-        }
+          city: [...(prev.config.city || []), cityInput],
+        },
       }));
-      setCityInput("");
+      setCityInput();
     } else {
       toast.error("لطفا یک شهر معتبر انتخاب کنید");
     }
   };
 
   const handleDelete = (item) => {
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       config: {
         ...prev.config,
-        city: (prev.config.city || []).filter((city) => city !== item)
-      }
+        city: (prev.config.city || []).filter((city) => city !== item),
+      },
     }));
   };
 

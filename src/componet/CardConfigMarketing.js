@@ -73,6 +73,7 @@ const CardConfigMarketing = ({
   };
 
   const handleSelect = () => {
+    
     nextStep();
     setConfigSelected(id);
   };
