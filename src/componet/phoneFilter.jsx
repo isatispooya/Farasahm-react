@@ -62,7 +62,7 @@ const PhoneSearch = ({ config, setConfig }) => {
   };
 
   useEffect(() => {
-    // Initialize `mobile` object to prevent undefined access
+    
     const mobile = {
       num1: phones1,
       num2: phones2,
@@ -72,7 +72,7 @@ const PhoneSearch = ({ config, setConfig }) => {
   }, [phones1, phones2]);
 
   useEffect(() => {
-    // Provide default values to prevent errors
+    
     const mobile = config?.mobile || { num1: [], num2: [] };
     setPhones1(mobile.num1 || []);
     setPhones2(mobile.num2 || []);

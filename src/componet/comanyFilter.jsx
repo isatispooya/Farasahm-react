@@ -6,9 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 const CompanyFilter = ({ access, config, setConfig }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companySelected, setCompanySelected] = useState([]);
 
   // useEffect(() => {
