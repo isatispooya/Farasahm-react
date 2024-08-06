@@ -11,25 +11,32 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companySelected, setCompanySelected] = useState([]);
 
-  useEffect(() => {
-    if (config.nobours?.symbol && config.nobours.symbol.length > 0) {
-      setCompanySelected(config.nobours.symbol);
-    }
-  }, [config.nobours?.symbol]);
+  // useEffect(() => {
+  //   if (config?.symbol && config.symbol.length > 0) {
+  //     setCompanySelected(config.symbol);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    const symbols = companySelected
-      .map((selectedCompany) => {
-        const foundCompany = companyList.find(
-          (company) => company.fullname === selectedCompany
-        );
-        return foundCompany ? foundCompany.symbol : null;
-      })
-      .filter((symbol) => symbol !== null);
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      nobours: { ...prevConfig.nobours, symbol: companySelected },
+    }));
+  }, [companySelected, setConfig]);
+
+  useEffect(() => {
+    // const symbols = companySelected
+    //   .map((selectedCompany) => {
+    //     const foundCompany = companyList.find(
+    //       (company) => company.fullname === selectedCompany
+    //     );
+    //     return foundCompany ? foundCompany.symbol : null;
+    //   })
+    //   .filter((symbol) => symbol !== null);
 
     const updatedConfig = {
       ...config,
-      nobours: { ...config.nobours, symbols: companySelected },
+      nobours: { ...config, symbols: companySelected },
     };
     setConfig(updatedConfig);
   }, []);
@@ -51,7 +58,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     fetchCompanyList();
   }, [access]);
 
-  const handleCompanyChange = (event, newValue) => {
+  const handleCompanyChange = (newValue) => {
     setCompanyInput(newValue);
   };
 

@@ -6,8 +6,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import { DateObject } from "react-multi-date-picker";
 
 export default function BirthDate({ config, setConfig }) {
-  const [from, setFrom] = useState(null);
-  const [to, setTo] = useState(null);
+  const [from, setFrom] = useState(config.nobours?.birthday?.from ?? null);
+  const [to, setTo] = useState(config.nobours?.birthday?.to ?? null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -15,10 +15,10 @@ export default function BirthDate({ config, setConfig }) {
   };
 
   useEffect(() => {
-    var birthday = { from: from, to: to };
-    var nobours = { ...config.nobours, birthday: birthday };
-    setConfig({ ...config, nobours: nobours });
-  }, [from, to]);
+    const birthday = { from, to };
+    const nobours = { ...config.nobours, birthday };
+    setConfig((prevConfig) => ({ ...prevConfig, nobours }));
+  }, [from, to, config, setConfig]);
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -48,7 +48,7 @@ export default function BirthDate({ config, setConfig }) {
       {isDropdownOpen && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md flex justify-between gap-4">
           <div className="flex-1">
-            <div className="flex  items-center mb-2 mr-8">
+            <div className="flex items-center mb-2 mr-8">
               <CiCalendarDate />
               <p className="text-center">تاریخ شروع</p>
             </div>
@@ -56,10 +56,12 @@ export default function BirthDate({ config, setConfig }) {
               <DatePicker
                 calendar={persian}
                 value={
-                  new DateObject({
-                    date: config.nobours.birthday.from * 1,
-                    calendar: persian,
-                  })
+                  from
+                    ? new DateObject({
+                        date: from,
+                        calendar: persian,
+                      })
+                    : null
                 }
                 onChange={setFrom}
                 locale={persian_fa}
@@ -70,7 +72,7 @@ export default function BirthDate({ config, setConfig }) {
           </div>
 
           <div className="flex-1">
-            <div className="flex  items-center mb-2 mr-8">
+            <div className="flex items-center mb-2 mr-8">
               <CiCalendarDate />
               <p className="text-center">تاریخ پایان</p>
             </div>
@@ -78,12 +80,14 @@ export default function BirthDate({ config, setConfig }) {
               <DatePicker
                 calendar={persian}
                 value={
-                  new DateObject({
-                    date: config.nobours.birthday.to * 1,
-                    calendar: persian,
-                  })
+                  to
+                    ? new DateObject({
+                        date: to,
+                        calendar: persian,
+                      })
+                    : null
                 }
-                onChange={setFrom}
+                onChange={setTo}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
                 className="w-full bg-white p-2 rounded shadow-md"

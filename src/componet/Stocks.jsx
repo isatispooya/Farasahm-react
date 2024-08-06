@@ -20,14 +20,13 @@ const Stocks = ({ config, setConfig }) => {
  
   useEffect(() => {
     const amount = { from: input1, to: input2 };
-    const nobours = { ...config.nobours, amount: amount };
+    const nobours = { ...config, amount: amount };
     setConfig({ ...config, nobours: nobours });
   }, [input1, input2]);
 
-
   useEffect(() => {
     const rate = { from: input3, to: input4 };
-    const nobours = { ...config.nobours, rate: rate };
+    const nobours = { ...config, rate: rate };
     setConfig({ ...config, nobours: nobours });
   }, [input3, input4]);
 

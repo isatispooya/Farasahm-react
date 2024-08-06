@@ -11,14 +11,14 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
-  Container,
   CardContent,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AccessContext } from "../config/accessContext";
 import { OnRun } from "../config/config";
-import { deepOrange, deepPurple, blue, green, red } from "@mui/material/colors";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 const theme = createTheme({
   components: {
@@ -64,6 +64,7 @@ const CardConfigMarketing = ({
   setConfig,
   nextStep,
   setConfigSelected,
+  isFirst,
 }) => {
   const access = useContext(AccessContext);
   const [openDialog, setOpenDialog] = useState(false);
@@ -95,7 +96,6 @@ const CardConfigMarketing = ({
         }),
       });
       setOpenDialog(false);
-      window.location.reload();
 
       if (response.ok) {
         setConfig((prevConfig) => {
@@ -109,32 +109,33 @@ const CardConfigMarketing = ({
             return [];
           }
         });
+        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error deleting config:", errorData);
       }
     } catch (error) {
-      console.error("خطا در درخواست حذف:", error);
+      console.error("Error deleting request:", error);
     }
   };
 
   const getRandomColor = () => {
     const colors = [
-      "#FF5722", // Deep Orange 500
-      "#673AB7", // Deep Purple 500
-      "#2196F3", // Blue 500
-      "#4CAF50", // Green 500
-      "#F44336", // Red 500
-      "#FFC107", // Amber 500
-      "#9C27B0", // Purple 500
-      "#03A9F4", // Light Blue 500
-      "#8BC34A", // Lime 500
-      "#FF9800", // Orange 500
-      "#3F51B5", // Indigo 500
-      "#E91E63", // Pink 500
-      "#CDDC39", // Lime 500
-      "#009688", // Teal 500
-      "#FFEB3B", // Yellow 500
+      "#FF5722",
+      "#673AB7",
+      "#2196F3",
+      "#4CAF50",
+      "#F44336",
+      "#FFC107",
+      "#9C27B0",
+      "#03A9F4",
+      "#8BC34A",
+      "#FF9800",
+      "#3F51B5",
+      "#E91E63",
+      "#CDDC39",
+      "#009688",
+      "#FFEB3B",
     ];
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
@@ -144,7 +145,14 @@ const CardConfigMarketing = ({
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Grid item>
-        <Card sx={{ minWidth: 350, margin: 2, padding: 2 }}>
+        <Card
+          sx={{
+            minWidth: 480,
+            maxWidth: 480,
+            margin: 2,
+            padding: 2,
+          }}
+        >
           <CardHeader
             avatar={
               <Avatar
@@ -158,9 +166,33 @@ const CardConfigMarketing = ({
               </Avatar>
             }
             title={
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                {title}
-              </Typography>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                {title !== "جدید" &&
+                  (status ? (
+                    <FaRegCircleCheck
+                      size={24}
+                      style={{ color: "green", marginRight: 8 }}
+                    />
+                  ) : (
+                    <IoCloseCircleOutline
+                      size={24}
+                      style={{ color: "red", marginRight: 8 }}
+                    />
+                  ))}
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  {title}
+                </Typography>
+              </div>
             }
             sx={{
               textAlign: "left",
@@ -181,8 +213,11 @@ const CardConfigMarketing = ({
             }}
           />
           <CardContent>
-            <Typography>{data}</Typography>
+            <Typography>
+              {data}
+            </Typography>
           </CardContent>
+
           <CardActions
             sx={{ justifyContent: "flex-end", gap: 2, paddingTop: 2 }}
           >

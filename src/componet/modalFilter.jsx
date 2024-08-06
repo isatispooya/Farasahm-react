@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from "react";
-import NationalIdSearch from "./nationalFilter";
-import CompanyFilter from "./comanyFilter";
-import CityFilter from "./cityFilter";
-import Stocks from "./Stocks";
-import BirthDate from "./birthDate";
-import PhoneSearch from "./phoneFilter";
-import NameSearch from "./name";
+
 import { DateObject } from "react-multi-date-picker";
 import SendingOptions from "./marketing/sendingOptions";
 import RenderFilters from "./marketing/renderFilters";
 import {
   Button,
-  Skeleton,
+
   Step,
   StepLabel,
   Stepper,
-  TextField,
-  FormControlLabel,
-  Switch,
+
   Grid,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import DatePicker from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import InputIcon from "react-multi-date-picker/components/input_icon";
+
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import RemainingCustomer from "./remainingCustomer";
+
 import { GoPlus } from "react-icons/go";
 
 const ModalFilter = ({
@@ -120,7 +107,7 @@ const ModalFilter = ({
           
           if (response.data && response.data.config) {
             response.data.config["title"] = response.data["title"];
-            setConfig(response.data.config);
+            setConfig(response.data);
           } else {
             console.error("Config data is missing or invalid");
           }
