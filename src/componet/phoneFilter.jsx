@@ -1,11 +1,10 @@
 import { Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 
 const PhoneSearch = ({ config, setConfig }) => {
   const [inputNum1, setInputNum1] = useState("");
   const [inputNum2, setInputNum2] = useState("");
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSearch1 = (e) => {
@@ -21,6 +20,7 @@ const PhoneSearch = ({ config, setConfig }) => {
       setInputNum2(value);
     }
   };
+
 
   const handleAdd1 = () => {
     if (inputNum1.length>0 && !config.nobours.mobile.num1.includes(inputNum1)) {
