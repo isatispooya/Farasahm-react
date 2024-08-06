@@ -17,19 +17,13 @@ const Stocks = ({ config, setConfig }) => {
     }
   };
 
-  // Update the config with amount when input1 or input2 change
+  // Update the config with amount and rate when any input changes
   useEffect(() => {
     const amount = { from: input1, to: input2 };
-    const nobours = { ...config, amount: amount };
-    setConfig({ ...config, nobours: nobours });
-  }, [input1, input2]);
-
-  // Update the config with rate when input3 or input4 change
-  useEffect(() => {
-    const rate = { from: input3, to: input4 };
-    const nobours = { ...config, rate: rate };
-    setConfig({ ...config, nobours: nobours });
-  }, [input3, input4]);
+    const rate = { min: input3, max: input4 };
+    const nobours = { ...config.nobours, amount, rate };
+    setConfig({ ...config, nobours });
+  }, [input1, input2, input3, input4]);
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
