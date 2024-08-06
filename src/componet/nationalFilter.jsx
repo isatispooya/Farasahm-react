@@ -26,7 +26,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
     const available = filteredCities.filter((i) => i.num === value);
     if (available.length > 0) {
       setCityselected(value);
-      // Clear the input after selection
+     
       setSearchTermPrimary("");
     }
   };

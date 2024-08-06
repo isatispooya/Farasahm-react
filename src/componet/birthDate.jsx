@@ -14,11 +14,20 @@ export default function BirthDate({ config, setConfig }) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  useEffect(() => {
+  const HandleChange = () => {
     const birthday = { from, to };
     const nobours = { ...config.nobours, birthday };
+    setTo()
+    setFrom()
+
     setConfig((prevConfig) => ({ ...prevConfig, nobours }));
-  }, [from, to, config, setConfig]);
+  }
+
+
+ 
+
+  
+
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
