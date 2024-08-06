@@ -6,6 +6,7 @@ import CompanyFilter from "../comanyFilter";
 import BirthDate from "../birthDate";
 import RemainingCustomer from "../remainingCustomer";
 import PhoneSearch from "../phoneFilter";
+import Stocks from "../Stocks";
 
 
 
@@ -52,7 +53,7 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                   />
                 }
                 label="فعال"
-              /> */}
+              /> 
               <NationalIdSearch config={config} setConfig={setConfig}  />
               {/* <NameSearch config={config} setConfig={setConfig} /> */}
               <PhoneSearch config={config} setConfig={setConfig} />
