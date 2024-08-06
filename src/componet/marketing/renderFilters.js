@@ -6,6 +6,7 @@ import CompanyFilter from "../comanyFilter";
 import BirthDate from "../birthDate";
 import RemainingCustomer from "../remainingCustomer";
 import PhoneSearch from "../phoneFilter";
+import Stocks from "../Stocks";
 
 
 
@@ -56,8 +57,6 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
               <NationalIdSearch config={config} setConfig={setConfig}  />
               {/* <NameSearch config={config} setConfig={setConfig} /> */}
               <PhoneSearch config={config} setConfig={setConfig} />
-
-             
               <CityFilter
                 access={access}
                 config={config}
@@ -68,8 +67,8 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                 config={config}
                 setConfig={setConfig}
               />  
-              {/* <Stocks config={config} setConfig={setConfig} />   */}
-              <BirthDate config={config} setConfig={setConfig} />
+              <Stocks config={config} setConfig={setConfig} />  
+              {/* <BirthDate config={config} setConfig={setConfig} /> */}
             </div>
           )}
         </div>

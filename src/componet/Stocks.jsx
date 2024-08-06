@@ -1,5 +1,5 @@
 import { TextField, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Stocks = ({ config, setConfig }) => {
   const [input1, setInput1] = useState("");
@@ -9,7 +9,6 @@ const Stocks = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState(null);
 
- 
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
@@ -17,20 +16,16 @@ const Stocks = ({ config, setConfig }) => {
     }
   };
 
-  // Update the config with amount and rate when any input changes
-  useEffect(() => {
-    const amount = { from: input1, to: input2 };
-    const rate = { min: input3, max: input4 };
-    const nobours = { ...config.nobours, amount, rate };
-    setConfig({ ...config, nobours });
-  }, [input1, input2, input3, input4]);
-
-  
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const handleButtonClick = () => {
+    const amount = { from: input1, to: input2 };
+    const rate = { min: input3, max: input4 };
+    const nobours = { ...config.nobours, amount, rate };
+    setConfig({ ...config, nobours });
+    
     setSelectedValues({
       amount: { from: input1, to: input2 },
       rate: { min: input3, max: input4 },
@@ -68,12 +63,11 @@ const Stocks = ({ config, setConfig }) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="mt-2 bg-gray-200 p-4 rounded-lg ">
+        <div className="mt-2 bg-gray-200 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2 bg-gray-200 p-2">
             <div className="text-right text-lg font-bold w-full">
               تعداد سهام
             </div>
-
             <div className="flex justify-between space-x-4 w-full">
               <div className="text-right w-1/2">
                 <TextField
@@ -86,9 +80,7 @@ const Stocks = ({ config, setConfig }) => {
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
               <div className="text-right w-1/2">
@@ -102,9 +94,7 @@ const Stocks = ({ config, setConfig }) => {
                   inputMode="numeric"
                   pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
             </div>
@@ -112,7 +102,6 @@ const Stocks = ({ config, setConfig }) => {
 
           <div className="flex justify-between items-center mb-5 bg-gray-200 p-2">
             <div className="text-right text-lg font-bold w-full">درصد سهام</div>
-
             <div className="flex justify-between space-x-4 w-full">
               <div className="text-right w-1/2">
                 <TextField
@@ -125,9 +114,7 @@ const Stocks = ({ config, setConfig }) => {
                   variant="outlined"
                   onChange={handleInputChange(setInput3)}
                   inputMode="numeric"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
               <div className="text-right w-1/2">
@@ -141,9 +128,7 @@ const Stocks = ({ config, setConfig }) => {
                   pattern="[0-9]*"
                   onChange={handleInputChange(setInput4)}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  InputLabelProps={{ shrink: true }}
                 />
               </div>
             </div>
@@ -164,12 +149,10 @@ const Stocks = ({ config, setConfig }) => {
                 مقادیر انتخاب شده:
               </h3>
               <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
-                {selectedValues.amount.to}
+                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا {selectedValues.amount.to}
               </p>
               <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
-                {selectedValues.rate.max}
+                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا {selectedValues.rate.max}
               </p>
             </div>
           )}
