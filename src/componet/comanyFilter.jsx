@@ -30,9 +30,9 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       (company) => company.symbol === companyInput
     );
     if (available) {
-      const company_list = [...(config.nobours?.company || [])];
-      company_list.push(companyInput);
-      const nobours = { ...config.nobours, company: company_list };
+      const symbolList = [...(config.nobours?.symbol || [])];
+      symbolList.push(companyInput);
+      const nobours = { ...config.nobours, symbol: symbolList };
       setConfig({ ...config, nobours });
       setCompanyInput("");
     } else {
@@ -40,11 +40,11 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     }
   };
 
-  const handleDelete = (company) => {
-    const company_list = (config.nobours?.company || []).filter(
-      (i) => i !== company
+  const handleDelete = (companySymbol) => {
+    const symbolList = (config.nobours?.symbol || []).filter(
+      (symbol) => symbol !== companySymbol
     );
-    const nobours = { ...config.nobours, company: company_list };
+    const nobours = { ...config.nobours, symbol: symbolList };
     setConfig({ ...config, nobours });
   };
 
@@ -54,11 +54,10 @@ const CompanyFilter = ({ access, config, setConfig }) => {
 
   const handleCompanySelect = (event) => {
     setCompanyInput(event.target.value);
-    // Don't close dropdown here; leave it open
   };
 
   const availableCompanies = companyList.filter(
-    (company) => !(config.nobours?.company || []).includes(company.symbol)
+    (company) => !(config.nobours?.symbol || []).includes(company.symbol)
   );
 
   return (
@@ -123,15 +122,16 @@ const CompanyFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {(config.nobours.company || []).map((company, index) => {
-              var name = companyList.find(
-                (i) => i.symbol === company
-              )?.fullname;
+            {(config.nobours?.symbol || []).map((companySymbol, index) => {
+              const companyInfo = companyList.find(
+                (i) => i.symbol === companySymbol
+              );
+              const name = companyInfo?.fullname || companySymbol;
               return (
                 <Chip
                   key={`company-${index}`}
                   label={name}
-                  onDelete={() => handleDelete(company)}
+                  onDelete={() => handleDelete(companySymbol)}
                   deleteIcon={
                     <button
                       style={{ color: "white", marginRight: "5px" }}
