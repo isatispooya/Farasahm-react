@@ -12,14 +12,14 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companySelected, setCompanySelected] = useState([]);
 
   useEffect(() => {
-    // Initialize companySelected from config.nobours.symbol if available
+   
     if (config.nobours?.symbol && config.nobours.symbol.length > 0) {
       setCompanySelected(config.nobours.symbol);
     }
   }, [config.nobours?.symbol]);
 
   useEffect(() => {
-    // Update the config with selected companies
+
     const symbols = companySelected
       .map((selectedCompany) => {
         const foundCompany = companyList.find(
@@ -109,9 +109,10 @@ const CompanyFilter = ({ access, config, setConfig }) => {
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <Autocomplete
-              value={companyInput}
+              value={companyInput || null}
               options={availableCompanies}
               onChange={handleCompanyChange}
+              isOptionEqualToValue={(option, value) => option === value} 
               onInputChange={(event, newInputValue) => {
                 setCompanyInput(newInputValue);
               }}
