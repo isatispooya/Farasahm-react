@@ -56,7 +56,6 @@ const NationalIdSearch = ({  setConfig }) => {
     if (e.key === "Enter") handleAddSecondary();
   };
 
-  // به‌روزرسانی config هر بار که primaryIds تغییر می‌کند
   useEffect(() => {
     setConfig((prevConfig) => ({
       ...prevConfig,

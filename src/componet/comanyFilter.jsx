@@ -11,13 +11,18 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [companySelected, setCompanySelected] = useState([]);
 
-  
+  // useEffect(() => {
+  //   if (config?.symbol && config.symbol.length > 0) {
+  //     setCompanySelected(config.symbol);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (config?.symbol && config.symbol.length > 0) {
-      setCompanySelected(config.symbol);
-    }
-  }, []);
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      nobours: { ...prevConfig.nobours, symbol: companySelected },
+    }));
+  }, [companySelected, setConfig]);
 
   useEffect(() => {
     // const symbols = companySelected
@@ -46,8 +51,6 @@ const CompanyFilter = ({ access, config, setConfig }) => {
           }
         );
         setCompanyList(response.data);
-        console.log(config,config.symbol);
-
       } catch (error) {
         console.error("Failed to fetch company list", error);
       }
@@ -113,9 +116,10 @@ const CompanyFilter = ({ access, config, setConfig }) => {
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <Autocomplete
-              value={companyInput}
+              value={companyInput || null}
               options={availableCompanies}
               onChange={handleCompanyChange}
+              isOptionEqualToValue={(option, value) => option === value}
               onInputChange={(event, newInputValue) => {
                 setCompanyInput(newInputValue);
               }}

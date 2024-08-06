@@ -89,7 +89,13 @@ const ModalFilter = ({
     axios
       .post(OnRun + "/marketing/marketinglist", { access: access })
       .then((response) => {
-        setListConfig(response.data || []);
+        setListConfig(response.data);
+        console.log(response.data);
+        
+      })
+      .catch((error) => {
+        console.error("Error fetching config list:", error);
+        toast.error("خطا در دریافت لیست تنظیمات");
       });
   };
 
@@ -105,13 +111,13 @@ const ModalFilter = ({
         ? axios.post(`${OnRun}/marketing/fillter`, {
             access: access,
             title: config.title,
-            config: { ...config.config, period: config.period },
+            config: { ...config, period: config.period },
           })
         : axios.post(`${OnRun}/marketing/editfillter`, {
             access: access,
             _id: configSelected,
             title: config.title,
-            config: { ...config.config, period: config.period },
+            config: { ...config, period: config.period },
           });
 
     postConfig
@@ -127,8 +133,11 @@ const ModalFilter = ({
       .catch((error) => toast.error(error.message));
   };
 
+  
+
   const getConfig = () => {
     if (configSelected) {
+      
       axios
         .post(`${OnRun}/marketing/perviewcontext`, {
           access: access,
@@ -138,23 +147,24 @@ const ModalFilter = ({
         .then((response) => {
           if (response.data && response.data.config) {
             response.data.config["title"] = response.data["title"];
-            setConfig(response.data.config);
+            setConfig(response.data);
           } else {
             console.error("Config data is missing or invalid");
           }
         })
         .catch((error) => {
-          console.error("Error fetching selected config:", error);
+          console.error("Error fetching selected config:", error);          
           setLoading(false);
           toast.error("خطا در دریافت تنظیمات انتخاب شده");
         });
     } else {
       setConfig(newconfig);
       setLoading(false);
+      
     }
   };
 
-  useEffect(getConfig, [configSelected]);
+  useEffect(getConfig, []);
   useEffect(getConfigList, []);
   useEffect(() => {
     setIsContextSelected(config.context);
@@ -322,7 +332,7 @@ const ModalFilter = ({
               <TextField
                 id="outlined-basic"
                 label="عنوان"
-                value={config.title || ""} 
+                value={config.title} 
                 onChange={(e) =>
                   setConfig({ ...config, title: e.target.value })
                 }
@@ -377,10 +387,7 @@ const ModalFilter = ({
         )}
       </div>
     );
-  };
-
-
-  
+  };  
 
   return (
     <div
