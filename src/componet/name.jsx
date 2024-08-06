@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const NameSearch = ({ config, setConfig }) => {
   const [searchTermName, setSearchTermName] = useState("");
@@ -8,7 +8,6 @@ const NameSearch = ({ config, setConfig }) => {
 
   const handleSearchName = (e) => {
     const value = e.target.value;
-    
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
       setSearchTermName(value);
     }
@@ -16,13 +15,25 @@ const NameSearch = ({ config, setConfig }) => {
 
   const handleAddName = () => {
     if (searchTermName && !nameIds.includes(searchTermName)) {
-      setNameIds([...nameIds, searchTermName]);
+      const updatedNameIds = [...nameIds, searchTermName];
+      setNameIds(updatedNameIds);
       setSearchTermName("");
+      const nobours = {
+        ...config,
+        nobours: { ...config.nobours, name: updatedNameIds },
+      };
+      setConfig(nobours);
     }
   };
 
   const handleRemoveName = (id) => {
-    setNameIds(nameIds.filter((existingId) => existingId !== id));
+    const updatedNameIds = nameIds.filter((existingId) => existingId !== id);
+    setNameIds(updatedNameIds);
+    const nobours = {
+      ...config,
+      nobours: { ...config.nobours, name: updatedNameIds },
+    };
+    setConfig(nobours);
   };
 
   const handleKeyDownName = (e) => {
@@ -35,14 +46,6 @@ const NameSearch = ({ config, setConfig }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // useEffect(() => {
-  //   setNobours({ ...nobours, name: nameIds });
-  // }, [nameIds]);
-  useEffect(() => {
-    var nobours = {...config.nobours, name:nameIds}
-    setConfig({ ...config, nobours: nobours });
-  }, [nameIds]);
-
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <div className="">
@@ -50,11 +53,13 @@ const NameSearch = ({ config, setConfig }) => {
           onClick={toggleDropdown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          نام  و  نام خانوادگی
+          نام و نام خانوادگی
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen ? "rotate-180 duration-500" : "rotate-0 duration-500"
+              isDropdownOpen
+                ? "rotate-180 duration-500"
+                : "rotate-0 duration-500"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -74,9 +79,7 @@ const NameSearch = ({ config, setConfig }) => {
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
-                // value={searchTermName}
-                value={config.nobours.name} 
-          
+                value={searchTermName}
                 onChange={handleSearchName}
                 onKeyDown={handleKeyDownName}
                 label="جستجو نام و نام خانوادگی"
@@ -87,9 +90,14 @@ const NameSearch = ({ config, setConfig }) => {
                 }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
-            
-              <Button  onClick={handleAddName} sx={{borderRadius:2}} variant="contained">افزودن</Button>
 
+              <Button
+                onClick={handleAddName}
+                sx={{ borderRadius: 2 }}
+                variant="contained"
+              >
+                افزودن
+              </Button>
             </div>
 
             {nameIds.length > 0 && (

@@ -32,11 +32,6 @@ const Stocks = ({ config, setConfig }) => {
     });
   };
 
-  const amountFrom = config.nobours?.amount?.from || "";
-  const amountTo = config.nobours?.amount?.to || "";
-  const rateMin = config.nobours?.rate?.min || "";
-  const rateMax = config.nobours?.rate?.max || "";
-
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
@@ -72,13 +67,11 @@ const Stocks = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="outlined-number"
+                  id="amount-from"
                   label="از"
                   type="number"
-                  value={amountFrom}
+                  value={input1}
                   onChange={handleInputChange(setInput1)}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -86,13 +79,11 @@ const Stocks = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="outlined-number"
+                  id="amount-to"
                   label="تا"
                   type="number"
-                  value={amountTo}
+                  value={input2}
                   onChange={handleInputChange(setInput2)}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -107,25 +98,21 @@ const Stocks = ({ config, setConfig }) => {
                 <TextField
                   style={{ backgroundColor: "white" }}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
-                  id="outlined-number"
+                  id="rate-min"
                   label="از"
                   type="number"
-                  value={rateMin}
-                  variant="outlined"
+                  value={input3}
                   onChange={handleInputChange(setInput3)}
-                  inputMode="numeric"
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="outlined-number"
+                  id="rate-max"
                   label="تا"
                   type="number"
-                  value={rateMax}
-                  variant="outlined"
-                  pattern="[0-9]*"
+                  value={input4}
                   onChange={handleInputChange(setInput4)}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
