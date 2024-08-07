@@ -25,7 +25,7 @@ const Stocks = ({ config, setConfig }) => {
     const rate = { min: input3, max: input4 };
     const nobours = { ...config.nobours, amount, rate };
     setConfig({ ...config, nobours });
-    
+
     setSelectedValues({
       amount: { from: input1, to: input2 },
       rate: { min: input3, max: input4 },
@@ -70,7 +70,7 @@ const Stocks = ({ config, setConfig }) => {
                   id="amount-from"
                   label="از"
                   type="number"
-                  value={input1}
+                  value={config.nobours.amount.from}
                   onChange={handleInputChange(setInput1)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
@@ -82,7 +82,7 @@ const Stocks = ({ config, setConfig }) => {
                   id="amount-to"
                   label="تا"
                   type="number"
-                  value={input2}
+                  value={config.nobours.amount.to}
                   onChange={handleInputChange(setInput2)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
@@ -101,9 +101,20 @@ const Stocks = ({ config, setConfig }) => {
                   id="rate-min"
                   label="از"
                   type="number"
-                  value={input3}
-                  onChange={handleInputChange(setInput3)}
+                  value={config.nobours.rate.min}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value >= 0) {
+                      handleInputChange(setInput3)(e);
+                    }
+                  }}
+                  onInput={(e) => {
+                    if (e.target.value < 0) {
+                      e.target.value = 0;
+                    }
+                  }}
                   InputLabelProps={{ shrink: true }}
+            
                 />
               </div>
               <div className="text-right w-1/2">
@@ -112,22 +123,28 @@ const Stocks = ({ config, setConfig }) => {
                   id="rate-max"
                   label="تا"
                   type="number"
-                  value={input4}
-                  onChange={handleInputChange(setInput4)}
+                  value={config.nobours.rate.max}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value <= 100) {
+                      handleInputChange(setInput4)(e);
+                    }
+                  }}
+                  onInput={(e) => {
+                    if (e.target.value > 100) {
+                      e.target.value = 100;
+                    }
+                  }}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
+                  inputProps={{
+                    inputMode: "numeric",
+                    pattern: "[0-9]*",
+                  
+                  }}
                 />
               </div>
             </div>
-          </div>
-          <div className="flex justify-center">
-            <Button
-              onClick={handleButtonClick}
-              sx={{ borderRadius: 2 }}
-              variant="contained"
-            >
-              تایید انتخاب
-            </Button>
           </div>
 
           {selectedValues && (
@@ -136,10 +153,12 @@ const Stocks = ({ config, setConfig }) => {
                 مقادیر انتخاب شده:
               </h3>
               <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا {selectedValues.amount.to}
+                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
+                {selectedValues.amount.to}
               </p>
               <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا {selectedValues.rate.max}
+                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
+                {selectedValues.rate.max}
               </p>
             </div>
           )}
