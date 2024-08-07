@@ -61,7 +61,7 @@ const CardConfigMarketing = ({
   data,
   title,
   id,
-  setConfig,
+  setConfig, 
   nextStep,
   setConfigSelected,
   isFirst,
@@ -74,7 +74,6 @@ const CardConfigMarketing = ({
   };
 
   const handleSelect = () => {
-    
     nextStep();
     setConfigSelected(id);
   };
@@ -95,21 +94,13 @@ const CardConfigMarketing = ({
           _id: id,
         }),
       });
-      setOpenDialog(false);
-  
+
       if (response.ok) {
-        // بروزرسانی وضعیت بدون ریلود صفحه
-        setConfig((prevConfig) => {
-          if (Array.isArray(prevConfig)) {
-            const updatedConfig = prevConfig.filter(
-              (config) => config.id !== id
-            );
-            return updatedConfig;
-          } else {
-            console.error("prevConfig is not an array");
-            return [];
-          }
-        });
+       
+        setConfig((prevConfig) =>
+          prevConfig.filter((config) => config.id !== id)
+        );
+        setOpenDialog(false);
       } else {
         const errorData = await response.json();
         console.error("Error deleting config:", errorData);
@@ -214,9 +205,7 @@ const CardConfigMarketing = ({
             }}
           />
           <CardContent>
-            <Typography>
-              {data}
-            </Typography>
+            <Typography>{data}</Typography>
           </CardContent>
 
           <CardActions
@@ -271,3 +260,5 @@ const CardConfigMarketing = ({
 };
 
 export default CardConfigMarketing;
+
+

@@ -17,8 +17,7 @@ const CreateList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
-  const [contextSelected, setIsContextSelected] = useState('');
-
+  const [contextSelected, setIsContextSelected] = useState("");
 
 
   useEffect(() => {
@@ -40,24 +39,20 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); 
+      setTable(newTable);
 
       return () => {
-        newTable.destroy(); 
+        newTable.destroy();
       };
     }
   }, [df]);
 
-
-  
   const get = () => {
-    console.log(configSelected);
-    
     if (configSelected) {
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
-        data: {access: access,_id:configSelected,context:contextSelected},
+        data: { access: access, _id: configSelected, context: contextSelected },
       }).then((response) => {
         console.log('hjgh',response.data);
         setConfig(response.data)
@@ -109,7 +104,7 @@ const CreateList = () => {
             access={access}
             configSelected={configSelected}
             setConfigSelected={setConfigSelected}
-            setIsContextSelected ={setIsContextSelected}
+            setIsContextSelected={setIsContextSelected}
             setIsOpenFilter={setIsOpenFilter}
           />
         )}
