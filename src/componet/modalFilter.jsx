@@ -170,6 +170,8 @@ const ModalFilter = ({
             id={null}
             setConfigSelected={setConfigSelected}
             nextStep={nextStep}
+           
+           
           />
           {listConfig.map((i) => {
             const firstLetter = i.title.charAt(0);
@@ -183,6 +185,7 @@ const ModalFilter = ({
                 status={i.status}
                 setConfigSelected={setConfigSelected}
                 nextStep={nextStep}
+                setConfig={setConfig}
               />
             );
           })}
