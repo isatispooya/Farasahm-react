@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
@@ -14,20 +14,19 @@ export default function BirthDate({ config, setConfig }) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const HandleChange = () => {
-    const birthday = { from, to };
-    const nobours = { ...config.nobours, birthday };
-    setTo()
-    setFrom()
-
-    setConfig((prevConfig) => ({ ...prevConfig, nobours }));
-  }
-
-
- 
-
-  
-
+  const handleChange = (newValue, type) => {
+    if (type === "from") {
+      setFrom(newValue);
+      const birthday = { from: newValue, to };
+      const nobours = { ...config.nobours, birthday };
+      setConfig((prevConfig) => ({ ...prevConfig, nobours }));
+    } else if (type === "to") {
+      setTo(newValue);
+      const birthday = { from, to: newValue };
+      const nobours = { ...config.nobours, birthday };
+      setConfig((prevConfig) => ({ ...prevConfig, nobours }));
+    }
+  };
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -72,7 +71,7 @@ export default function BirthDate({ config, setConfig }) {
                       })
                     : null
                 }
-                onChange={setFrom}
+                onChange={(value) => handleChange(value, "from")}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
                 className="w-full bg-white p-2 rounded shadow-md"
@@ -96,7 +95,7 @@ export default function BirthDate({ config, setConfig }) {
                       })
                     : null
                 }
-                onChange={setTo}
+                onChange={(value) => handleChange(value, "to")}
                 locale={persian_fa}
                 calendarPosition="bottom-right"
                 className="w-full bg-white p-2 rounded shadow-md"

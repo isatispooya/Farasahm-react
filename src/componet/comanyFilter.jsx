@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, MenuItem, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,9 +30,9 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       (company) => company.symbol === companyInput
     );
     if (available) {
-      const company_list = [...(config.nobours?.company || [])];
-      company_list.push(companyInput);
-      const nobours = { ...config.nobours, company: company_list };
+      const symbolList = [...(config.nobours?.symbol || [])];
+      symbolList.push(companyInput);
+      const nobours = { ...config.nobours, symbol: symbolList };
       setConfig({ ...config, nobours });
       setCompanyInput("");
     } else {
@@ -40,11 +40,11 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     }
   };
 
-  const handleDelete = (company) => {
-    const company_list = (config.nobours?.company || []).filter(
-      (i) => i !== company
+  const handleDelete = (companySymbol) => {
+    const symbolList = (config.nobours?.symbol || []).filter(
+      (symbol) => symbol !== companySymbol
     );
-    const nobours = { ...config.nobours, company: company_list };
+    const nobours = { ...config.nobours, symbol: symbolList };
     setConfig({ ...config, nobours });
   };
 
@@ -54,11 +54,10 @@ const CompanyFilter = ({ access, config, setConfig }) => {
 
   const handleCompanySelect = (event) => {
     setCompanyInput(event.target.value);
-    // Don't close dropdown here; leave it open
   };
 
   const availableCompanies = companyList.filter(
-    (company) => !(config.nobours?.company || []).includes(company.symbol)
+    (company) => !(config.nobours?.symbol || []).includes(company.symbol)
   );
 
   return (
@@ -87,34 +86,33 @@ const CompanyFilter = ({ access, config, setConfig }) => {
         </svg>
       </button>
       {isDropdownOpen && (
-        <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
+        <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <TextField
               select
               value={companyInput}
               onChange={handleCompanySelect}
               label="شرکت"
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               variant="outlined"
+              SelectProps={{ native: true }}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               style={{ marginBottom: 16 }}
             >
-              {availableCompanies.map((i) => {
-                return (
-                  <MenuItem value={i.symbol} key={i.symbol}>
-                    {i.fullname}
-                  </MenuItem>
-                );
-              })}
+              <option value="" disabled></option>
+              {availableCompanies.map((i) => (
+                <option value={i.symbol} key={i.symbol}>
+                  {i.fullname}
+                </option>
+              ))}
             </TextField>
-
-            <Button
-              onClick={handleAddCompany}
-              sx={{ borderRadius: 2 }}
-              variant="contained"
-            >
-              افزودن
-            </Button>
           </div>
+          <Button
+            onClick={handleAddCompany}
+            sx={{ borderRadius: 2 }}
+            variant="contained"
+          >
+            افزودن
+          </Button>
 
           <Stack
             direction="row"
@@ -123,15 +121,16 @@ const CompanyFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {(config.nobours.company || []).map((company, index) => {
-              var name = companyList.find(
-                (i) => i.symbol === company
-              )?.fullname;
+            {(config.nobours?.symbol || []).map((companySymbol, index) => {
+              const companyInfo = companyList.find(
+                (i) => i.symbol === companySymbol
+              );
+              const name = companyInfo?.fullname || companySymbol;
               return (
                 <Chip
                   key={`company-${index}`}
                   label={name}
-                  onDelete={() => handleDelete(company)}
+                  onDelete={() => handleDelete(companySymbol)}
                   deleteIcon={
                     <button
                       style={{ color: "white", marginRight: "5px" }}

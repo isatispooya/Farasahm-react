@@ -7,6 +7,7 @@ import BirthDate from "../birthDate";
 import RemainingCustomer from "../remainingCustomer";
 import PhoneSearch from "../phoneFilter";
 import Stocks from "../Stocks";
+import NameSearch from "../name.jsx"
 
 
 
@@ -35,7 +36,7 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
           </Button>
           {openDropdown === "nobours" && (
             <div className="mt-4">
-              {/* <FormControlLabel
+              <FormControlLabel
                 control={
                   <Switch
                     checked={config.nobours?.enabled || false}
@@ -53,9 +54,9 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                   />
                 }
                 label="فعال"
-              /> */}
+              />
               <NationalIdSearch config={config} setConfig={setConfig}  />
-              {/* <NameSearch config={config} setConfig={setConfig} /> */}
+              <NameSearch config={config} setConfig={setConfig} />
               <PhoneSearch config={config} setConfig={setConfig} />
               <CityFilter
                 access={access}
@@ -68,7 +69,7 @@ const RenderFilters = ({handleDropdownToggle, openDropdown, config, setConfig, a
                 setConfig={setConfig}
               />  
               <Stocks config={config} setConfig={setConfig} />  
-              {/* <BirthDate config={config} setConfig={setConfig} /> */}
+              <BirthDate config={config} setConfig={setConfig} />
             </div>
           )}
         </div>

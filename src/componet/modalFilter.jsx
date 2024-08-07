@@ -3,15 +3,7 @@ import React, { useState, useEffect } from "react";
 import { DateObject } from "react-multi-date-picker";
 import SendingOptions from "./marketing/sendingOptions";
 import RenderFilters from "./marketing/renderFilters";
-import {
-  Button,
-
-  Step,
-  StepLabel,
-  Stepper,
-
-  Grid,
-} from "@mui/material";
+import { Button, Step, StepLabel, Stepper, Grid } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
 
 import axios from "axios";
@@ -30,7 +22,7 @@ const ModalFilter = ({
 }) => {
   const newconfig = {
     send_time: new DateObject(),
-    context: null,
+    context: "",
     period: null,
     insurance: {
       enabled: true,
@@ -73,7 +65,7 @@ const ModalFilter = ({
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("================================\n", config);
+  // console.log("================================\n", config);
 
   const getConfigList = () => {
     axios
@@ -85,29 +77,24 @@ const ModalFilter = ({
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
-
-
-
-  
+  console.log(config);
 
   const getConfig = async () => {
     setLoading(true);
     
+
     if (configSelected) {
-      
-     await axios
-        .post(`${OnRun}/marketing/perviewcontext`, {
+      await axios
+        .post(`${OnRun}/marketing/viewconfig`, {
           access: access,
-          context: "",
           _id: configSelected,
         })
         .then((response) => {
-
-          console.log("*****************************\n",response.data);
+          console.log(response.data);
           
           if (response.data && response.data.config) {
             response.data.config["title"] = response.data["title"];
-            setConfig(response.data);
+            setConfig(response.data.config);
           } else {
             console.error("Config data is missing or invalid");
           }
@@ -120,48 +107,36 @@ const ModalFilter = ({
       setConfig(newconfig);
     }
     setLoading(false);
-
   };
-
 
   const PostData = async () => {
-    if (config.title !== "") {
-      alert("title");
-    } else if (config.send_time !== null) {
-      alert("send_time");
-    } else if (config.period !== null) {
-      alert("period");
-    } else {
+    const postConfig =
+      (await configSelected) == null || configSelected === undefined
+        ? axios.post(`${OnRun}/marketing/fillter`, {
+            access: access,
+            title: config.title,
+            config: { ...config, period: config.period },
+          })
+        : axios.post(`${OnRun}/marketing/editfillter`, {
+            access: access,
+            _id: configSelected,
+            title: config.title,
+            config: config,
+          });
+    postConfig
+      .then((response) => {
+        console.log(response);
+        
+        if (response.data.reply === true) {
+          setIsOpenFilter(false);
+          if (configSelected == null) setConfigSelected(response.data.id);
 
-
-      
-      const postConfig =await configSelected == null || configSelected === undefined
-          ? axios.post(`${OnRun}/marketing/fillter`, {
-              access: access,
-              title: config.title,
-              config: { ...config.config, period: config.period },
-            })
-          : axios.post(`${OnRun}/marketing/editfillter`, {
-              access: access,
-              _id: configSelected,
-              title: config.title,
-              config: { ...config.config, period: config.period },
-            });
-            postConfig
-            .then((response) => {
-              if (response.data.reply === true) {
-                setIsOpenFilter(false);
-                if (configSelected == null) setConfigSelected(response.data.id);
-                console.log(response.data);
-              } else {
-                toast.error(response.data.msg);
-              }
-            })
-            .catch((error) => toast.error(error.message));
-    }
+        } else {
+          toast.error(response.data.msg);
+        }
+      })
+      .catch((error) => toast.error(error.message));
   };
-
-
 
   useEffect(() => {
     getConfig();
@@ -176,8 +151,6 @@ const ModalFilter = ({
       prevDropdownId === dropdownId ? null : dropdownId
     );
   };
-
-
 
   return (
     <div
@@ -220,8 +193,22 @@ const ModalFilter = ({
         </Grid>
       )}
 
-      {stepNumber === 1 && <SendingOptions loading={loading} config={config} setConfig={setConfig}/>}
-      {stepNumber === 2 && <RenderFilters handleDropdownToggle={handleDropdownToggle} openDropdown={openDropdown} config={config} setConfig={setConfig} access={access}/>}
+      {stepNumber === 1 && (
+        <SendingOptions
+          loading={loading}
+          config={config}
+          setConfig={setConfig}
+        />
+      )}
+      {stepNumber === 2 && (
+        <RenderFilters
+          handleDropdownToggle={handleDropdownToggle}
+          openDropdown={openDropdown}
+          config={config}
+          setConfig={setConfig}
+          access={access}
+        />
+      )}
 
       <div className="flex justify-between mt-4">
         <Button
