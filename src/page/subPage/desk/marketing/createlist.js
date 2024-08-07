@@ -6,18 +6,19 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ModalFilter from "../../../../componet/modalFilter";
 import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
+import Smspage from "../../../../componet/smspage"
 import { OnRun } from "../../../../config/config";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
-  const [listConfig, setListConfig] = useState([]);
+  const [Config, setConfig] = useState([]);
   const [df, setDf] = useState(null);
   const [table, setTable] = useState(null);
-  const [columns, setColumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState('');
+
 
 
   useEffect(() => {
@@ -59,12 +60,14 @@ const CreateList = () => {
         data: {access: access,_id:configSelected,context:contextSelected},
       }).then((response) => {
         console.log('hjgh',response.data);
+        setConfig(response.data)
       });
     }
+    
   };
 
 
-  useEffect(get,[configSelected,contextSelected])
+  useEffect(get,[access,configSelected,contextSelected])
 
 
 
@@ -104,7 +107,6 @@ const CreateList = () => {
           <ModalFilter
             toggleModal={setIsOpenFilter}
             access={access}
-            listConfig={listConfig}
             configSelected={configSelected}
             setConfigSelected={setConfigSelected}
             setIsContextSelected ={setIsContextSelected}
@@ -112,7 +114,18 @@ const CreateList = () => {
           />
         )}
       </div>
-      <div></div>
+      <div>
+        {
+          isOpenSender?
+          <Smspage
+        toggleModal={setIsOpenSender}
+        access={access}
+          Config={Config}
+
+          />
+          :null
+        }
+        </div>
       <div></div>
       <div id="data-table"></div>
     </div>
