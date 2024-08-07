@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -24,6 +24,18 @@ const RemainingCustomer = ({ config, setConfig }) => {
     var insurance = { ...config.insurance, accounting: accounting };
     setConfig({ ...config, insurance: insurance });
   }, [from, to, code]);
+
+  const codeItems = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09"
+  ];
 
   return (
     <>
@@ -74,22 +86,34 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   value={from}
                   onChange={handleInputChange(setFrom)}
                 />
+                
                 <TextField
                   sx={{ marginRight: "5px", backgroundColor: "white" }}
                   id="outlined-basic"
                   label="مانده تا"
                   variant="outlined"
                   value={to}
-                  onChange={handleInputChange(setTo)}
-                />
+                  onChange={(e) => setTo(e.target.value)}
+                  style={{ marginBottom: 16 }}
+                >
+                </TextField>
+
                 <TextField
+                  select
                   sx={{ marginRight: "5px", backgroundColor: "white" }}
                   id="outlined-basic"
-                  label="کد معین"
+                  label="کد"
                   variant="outlined"
                   value={code}
-                  onChange={handleInputChange(setCode)}
-                />
+                  onChange={(e) => setCode(e.target.value)}
+                  style={{ marginBottom: 16 }}
+                >
+                  {codeItems.map((code, index) => (
+                    <MenuItem key={index} value={code}>
+                      {code}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Box>
             </Box>
           </>
@@ -100,4 +124,3 @@ const RemainingCustomer = ({ config, setConfig }) => {
 };
 
 export default RemainingCustomer;
-

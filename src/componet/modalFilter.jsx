@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
-
-import { DateObject } from "react-multi-date-picker";
+import {
+  Button,
+  Step,
+  StepLabel,
+  Stepper,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
+import CardConfigMarketing from "./CardConfigMarketing";
 import SendingOptions from "./marketing/sendingOptions";
 import RenderFilters from "./marketing/renderFilters";
-import { Button, Step, StepLabel, Stepper, Grid } from "@mui/material";
-import CardConfigMarketing from "./CardConfigMarketing";
-
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { GoPlus } from "react-icons/go";
+import { DateObject } from "react-multi-date-picker";
+import Loader from "./Loader/Loader";
+import MiniLoader from "./Loader/miniLoader";
 
 const ModalFilter = ({
   access,
@@ -55,7 +61,6 @@ const ModalFilter = ({
         num2: [],
       },
     },
-
     title: "",
   };
 
@@ -65,7 +70,7 @@ const ModalFilter = ({
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
-  // console.log("================================\n", config);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getConfigList = () => {
     axios
@@ -77,71 +82,69 @@ const ModalFilter = ({
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
-  console.log(config);
 
   const getConfig = async () => {
     setLoading(true);
-    
-
-    if (configSelected) {
-      await axios
-        .post(`${OnRun}/marketing/viewconfig`, {
+    try {
+      if (configSelected) {
+        const response = await axios.post(`${OnRun}/marketing/viewconfig`, {
           access: access,
           _id: configSelected,
-        })
-        .then((response) => {
-          console.log(response.data);
-          
-          if (response.data && response.data.config) {
-            response.data.config["title"] = response.data["title"];
-            setConfig(response.data.config);
-          } else {
-            console.error("Config data is missing or invalid");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching selected config:", error);
-          toast.error("خطا در دریافت تنظیمات انتخاب شده");
         });
-    } else {
-      setConfig(newconfig);
+        if (response.data && response.data.config) {
+          response.data.config["title"] = response.data["title"];
+          setConfig(response.data.config);
+        } else {
+          console.error(response.error.data.message);
+        }
+      } else {
+        setConfig(newconfig);
+      }
+    } catch (error) {
+      setStepNumber(0);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const PostData = async () => {
-    const postConfig =
-      (await configSelected) == null || configSelected === undefined
-        ? axios.post(`${OnRun}/marketing/fillter`, {
-            access: access,
-            title: config.title,
-            config: { ...config, period: config.period },
-          })
-        : axios.post(`${OnRun}/marketing/editfillter`, {
-            access: access,
-            _id: configSelected,
-            title: config.title,
-            config: config,
-          });
-    postConfig
-      .then((response) => {
-        console.log(response);
-        
-        if (response.data.reply === true) {
-          setIsOpenFilter(false);
-          if (configSelected == null) setConfigSelected(response.data.id);
+    setIsSubmitting(true);
+    try {
+      const postConfig =
+        configSelected == null || configSelected === undefined
+          ? axios.post(`${OnRun}/marketing/fillter`, {
+              access: access,
+              title: config.title,
+              config: { ...config, period: config.period },
+            })
+          : axios.post(`${OnRun}/marketing/editfillter`, {
+              access: access,
+              _id: configSelected,
+              title: config.title,
+              config: config,
+            });
 
-        } else {
-          toast.error(response.data.msg);
-        }
-      })
-      .catch((error) => toast.error(error.message));
+      const response = await postConfig;
+      if (response.data.reply === true) {
+        setIsOpenFilter(false);
+        if (configSelected == null) setConfigSelected(response.data.id);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
     getConfig();
   }, [configSelected]);
+
   useEffect(getConfigList, []);
+
   useEffect(() => {
     setIsContextSelected(config.context);
   }, [config.context]);
@@ -203,14 +206,19 @@ const ModalFilter = ({
           setConfig={setConfig}
         />
       )}
-      {stepNumber === 2 && (
-        <RenderFilters
-          handleDropdownToggle={handleDropdownToggle}
-          openDropdown={openDropdown}
-          config={config}
-          setConfig={setConfig}
-          access={access}
-        />
+
+      {isSubmitting ? (
+        <MiniLoader />
+      ) : (
+        stepNumber === 2 && (
+          <RenderFilters
+            handleDropdownToggle={handleDropdownToggle}
+            openDropdown={openDropdown}
+            config={config}
+            setConfig={setConfig}
+            access={access}
+          />
+        )
       )}
 
       <div className="flex justify-between mt-4">
@@ -227,7 +235,13 @@ const ModalFilter = ({
           variant="contained"
           color="primary"
         >
-          {stepNumber === 2 ? "ایجاد" : "بعدی"}
+          {isSubmitting ? (
+            <CircularProgress color="secondary" size={20} />
+          ) : stepNumber === 2 ? (
+            "ایجاد"
+          ) : (
+            "بعدی"
+          )}
         </Button>
       </div>
     </div>

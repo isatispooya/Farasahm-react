@@ -13,12 +13,10 @@ const CreateList = () => {
   const [listConfig, setListConfig] = useState([]);
   const [df, setDf] = useState(null);
   const [table, setTable] = useState(null);
-  const [columns, setColumns] = useState([]);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
-  const [contextSelected, setIsContextSelected] = useState('');
-
+  const [contextSelected, setIsContextSelected] = useState("");
 
   useEffect(() => {
     if (df) {
@@ -39,34 +37,27 @@ const CreateList = () => {
         autoColumns: true,
       });
 
-      setTable(newTable); 
+      setTable(newTable);
 
       return () => {
-        newTable.destroy(); 
+        newTable.destroy();
       };
     }
   }, [df]);
 
-
-  
   const get = () => {
-    console.log(configSelected);
-    
     if (configSelected) {
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
-        data: {access: access,_id:configSelected,context:contextSelected},
+        data: { access: access, _id: configSelected, context: contextSelected },
       }).then((response) => {
-        console.log('hjgh',response.data);
+        console.log("hjgh", response.data);
       });
     }
   };
 
-
-  useEffect(get,[configSelected,contextSelected])
-
-
+  useEffect(get, [configSelected, contextSelected]);
 
   return (
     <div className="subPage tablePg">
@@ -107,13 +98,11 @@ const CreateList = () => {
             listConfig={listConfig}
             configSelected={configSelected}
             setConfigSelected={setConfigSelected}
-            setIsContextSelected ={setIsContextSelected}
+            setIsContextSelected={setIsContextSelected}
             setIsOpenFilter={setIsOpenFilter}
           />
         )}
       </div>
-      <div></div>
-      <div></div>
       <div id="data-table"></div>
     </div>
   );
