@@ -98,7 +98,6 @@ const CardConfigMarketing = ({
       setOpenDialog(false);
   
       if (response.ok) {
-        // بروزرسانی وضعیت بدون ریلود صفحه
         setConfig((prevConfig) => {
           if (Array.isArray(prevConfig)) {
             const updatedConfig = prevConfig.filter(
