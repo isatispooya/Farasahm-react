@@ -82,7 +82,7 @@ const Smspage = ({toggleModal,access,Config,configSelected,get,textareaRef}) => 
         }
       })}
 
-      <div className="flex self-start mr-28 mt-8 gap-8">
+      <div className="flex self-center mr-28 mt-8 gap-8">
         <span>هزینه پیام : {Config.cost}</span>
         <span>تعداد پیام : {Config.count_sms}</span>
         <p className="mb-1 text-sm">تعداد افراد : {Config.len}</p>
