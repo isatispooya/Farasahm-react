@@ -6,7 +6,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [from, setFrom] = useState(config.insurance.accounting.from || "");
   const [to, setTo] = useState(config.insurance.accounting.to || "");
-  const [code, setCode] = useState(config.insurance.accounting.code || "");
+  const [code, setCode] = useState(config.insurance.accounting.code || "03");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -18,6 +18,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
       setter(value);
     }
   };
+
 
   useEffect(() => {
     var accounting = { from: from, to: to, code: code };
@@ -93,7 +94,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   label="مانده تا"
                   variant="outlined"
                   value={to}
-                  onChange={(e) => setTo(e.target.value)}
+                  onChange={handleInputChange(setTo)}
                   style={{ marginBottom: 16 }}
                 >
                 </TextField>

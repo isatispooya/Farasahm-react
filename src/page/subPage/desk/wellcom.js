@@ -10,7 +10,7 @@ const WellcomBrokerDesk = () =>{
         desksabad:{logo:process.env.PUBLIC_URL+'/img/nevisa.png',title:'سبدگردانی ایساتیس پویا'},
         deskvisa:{logo:process.env.PUBLIC_URL+'/img/visa.png',title:'سرمایه گذاری ایساتیس پویا'},
         moadian:{logo:process.env.PUBLIC_URL+'/img/moadian.png',title:'سامانه مودیان'},
-        marketing:{logo:process.env.PUBLIC_URL+'/img/moadian.png',title:'میزز کار مارکتینگ'}
+        marketing:{logo:process.env.PUBLIC_URL+'/img/marketing.png',title:'میز کار مارکتینگ'}
     }
     
 

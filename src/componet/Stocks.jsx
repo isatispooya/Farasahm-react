@@ -1,36 +1,59 @@
 import { TextField, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Stocks = ({ config, setConfig }) => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedValues, setSelectedValues] = useState(null);
 
-  const handleInputChange = (setter) => (e) => {
-    const value = e.target.value;
-    if (/^\d*$/.test(value)) {
-      setter(value);
-    }
-  };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+
+  console.log(config);
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleButtonClick = () => {
-    const amount = { from: input1, to: input2 };
-    const rate = { min: input3, max: input4 };
-    const nobours = { ...config.nobours, amount, rate };
-    setConfig({ ...config, nobours });
 
-    setSelectedValues({
-      amount: { from: input1, to: input2 },
-      rate: { min: input3, max: input4 },
-    });
-  };
+
+  const  handleButtonClick_amount_from = (value) => {
+    if (/^\d*$/.test(value) && value>=0) {
+      let amount =  {...config.nobours.amount, from:value}
+      let nobours = {... config.nobours, amount:amount}
+      setConfig({ ...config, nobours });
+    }
+  }
+
+  const  handleButtonClick_amount_to = (value) => {
+    if (/^\d*$/.test(value)  && value>=0) {
+      let amount =  {...config.nobours.amount, to:value}
+      let nobours = {... config.nobours, amount:amount}
+      setConfig({ ...config, nobours });
+    }
+  }
+
+
+
+  const  handleButtonClick_rate_min = (value) => {
+    if (/^\d*$/.test(value) && value>=0 && value<=100) {
+      console.log(5265464556);
+      
+      let rate =  {...config.nobours.rate, min:value}
+      let nobours = {... config.nobours, rate:rate}
+      setConfig({ ...config, nobours });
+    }
+  }
+  const  handleButtonClick_rate_max = (value) => {
+    if (/^\d*$/.test(value) && value>=0 && value<=100) {
+      let rate =  {...config.nobours.rate, max:value}
+      let nobours = {... config.nobours, rate:rate}
+      setConfig({ ...config, nobours });
+    }
+  }
+
+
+
+
+
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -71,7 +94,7 @@ const Stocks = ({ config, setConfig }) => {
                   label="از"
                   type="number"
                   value={config.nobours.amount.from}
-                  onChange={handleInputChange(setInput1)}
+                  onChange={(e)=>handleButtonClick_amount_from(e.target.value)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -83,7 +106,7 @@ const Stocks = ({ config, setConfig }) => {
                   label="تا"
                   type="number"
                   value={config.nobours.amount.to}
-                  onChange={handleInputChange(setInput2)}
+                  onChange={(e)=>handleButtonClick_amount_to(e.target.value)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -102,17 +125,8 @@ const Stocks = ({ config, setConfig }) => {
                   label="از"
                   type="number"
                   value={config.nobours.rate.min}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value >= 0) {
-                      handleInputChange(setInput3)(e);
-                    }
-                  }}
-                  onInput={(e) => {
-                    if (e.target.value < 0) {
-                      e.target.value = 0;
-                    }
-                  }}
+                  onChange={(e)=>handleButtonClick_rate_min(e.target.value)}
+
                   InputLabelProps={{ shrink: true }}
             
                 />
@@ -124,44 +138,20 @@ const Stocks = ({ config, setConfig }) => {
                   label="تا"
                   type="number"
                   value={config.nobours.rate.max}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value <= 100) {
-                      handleInputChange(setInput4)(e);
-                    }
-                  }}
-                  onInput={(e) => {
-                    if (e.target.value > 100) {
-                      e.target.value = 100;
-                    }
-                  }}
+                  onChange={(e)=>handleButtonClick_rate_max(e.target.value)}
+
+     
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
-                  inputProps={{
-                    inputMode: "numeric",
-                    pattern: "[0-9]*",
-                  
-                  }}
+ 
                 />
               </div>
             </div>
           </div>
 
-          {selectedValues && (
-            <div className="mt-4 p-4 bg-white rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800">
-                مقادیر انتخاب شده:
-              </h3>
-              <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
-                {selectedValues.amount.to}
-              </p>
-              <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
-                {selectedValues.rate.max}
-              </p>
-            </div>
-          )}
+
+
+
         </div>
       )}
     </div>

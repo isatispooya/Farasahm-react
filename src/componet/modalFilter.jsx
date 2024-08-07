@@ -40,7 +40,7 @@ const ModalFilter = ({
     },
     nobours: {
       enabled: true,
-      name: null,
+      name: [],
       birthday: {
         from: null,
         to: null,

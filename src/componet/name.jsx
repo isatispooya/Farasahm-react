@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 const NameSearch = ({ config, setConfig ,  }) => {
   const [searchTermName, setSearchTermName] = useState("");
-  const [nameIds, setNameIds] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleSearchName = (e) => {
     const value = e.target.value;
@@ -13,24 +12,26 @@ const NameSearch = ({ config, setConfig ,  }) => {
   };
 
   const handleAddName = () => {
-    if (searchTermName && !nameIds.includes(searchTermName)) {
-      const updatedNameIds = [...nameIds, searchTermName];
-      setNameIds(updatedNameIds);
+    if (searchTermName && !config.nobours.name.includes(searchTermName)) {
+
+
       setSearchTermName("");
+      let name_list = config.nobours.name
+      name_list.push(searchTermName);
+
       const nobours = {
         ...config,
-        nobours: { ...config.nobours, name: updatedNameIds },
+        nobours: { ...config.nobours, name: name_list },
       };
       setConfig(nobours);
     }
   };
 
   const handleRemoveName = (id) => {
-    const updatedNameIds = nameIds.filter((existingId) => existingId !== id);
-    setNameIds(updatedNameIds);
+    let name_list = config.nobours.name.filter((existingId) => existingId !== id);
     const nobours = {
       ...config,
-      nobours: { ...config.nobours, name: updatedNameIds },
+      nobours: { ...config.nobours, name: name_list },
     };
     setConfig(nobours);
   };
@@ -78,8 +79,8 @@ const NameSearch = ({ config, setConfig ,  }) => {
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
-                // value={searchTermName}
-                value={config.nobours.name}
+                value={searchTermName}
+                // value={config.nobours.name}
                 onChange={handleSearchName}
                 onKeyDown={handleKeyDownName}
                 label="جستجو نام و نام خانوادگی"
@@ -100,9 +101,9 @@ const NameSearch = ({ config, setConfig ,  }) => {
               </Button>
             </div>
 
-            {nameIds.length > 0 && (
+            {config.nobours.name.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {nameIds.map((id) => (
+                {config.nobours.name.map((id) => (
                   <div
                     key={id}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
