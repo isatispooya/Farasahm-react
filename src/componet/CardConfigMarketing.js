@@ -109,6 +109,7 @@ const CardConfigMarketing = ({
       console.error("Error deleting request:", error);
     }
   };
+  
 
   const getRandomColor = () => {
     const colors = [

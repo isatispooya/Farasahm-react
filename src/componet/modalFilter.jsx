@@ -22,7 +22,7 @@ const ModalFilter = ({
 }) => {
   const newconfig = {
     send_time: new DateObject(),
-    context: null,
+    context: "",
     period: null,
     insurance: {
       enabled: true,
@@ -77,22 +77,24 @@ const ModalFilter = ({
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
+  console.log(config);
 
   const getConfig = async () => {
     setLoading(true);
+    
 
     if (configSelected) {
       await axios
-        .post(`${OnRun}/marketing/perviewcontext`, {
+        .post(`${OnRun}/marketing/viewconfig`, {
           access: access,
-          context: "سلام {{نام و نام خانوادگی}} حالتون چطوره {{صادره}}",
           _id: configSelected,
         })
         .then((response) => {
-
+          console.log(response.data);
+          
           if (response.data && response.data.config) {
             response.data.config["title"] = response.data["title"];
-            setConfig(response.data);
+            setConfig(response.data.config);
           } else {
             console.error("Config data is missing or invalid");
           }
@@ -113,20 +115,22 @@ const ModalFilter = ({
         ? axios.post(`${OnRun}/marketing/fillter`, {
             access: access,
             title: config.title,
-            config: { ...config.config, period: config.period },
+            config: { ...config, period: config.period },
           })
         : axios.post(`${OnRun}/marketing/editfillter`, {
             access: access,
             _id: configSelected,
             title: config.title,
-            config: { ...config.config, period: config.period },
+            config: config,
           });
     postConfig
       .then((response) => {
+        console.log(response);
+        
         if (response.data.reply === true) {
           setIsOpenFilter(false);
           if (configSelected == null) setConfigSelected(response.data.id);
-          console.log(response.data);
+
         } else {
           toast.error(response.data.msg);
         }

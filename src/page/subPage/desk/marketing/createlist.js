@@ -47,11 +47,15 @@ const CreateList = () => {
     }
   }, [df]);
 
+
+  
   const get = () => {
+    console.log(configSelected);
+    
     if (configSelected) {
       axios({
         method: "POST",
-        url: OnRun + "marketing/perviewcontext",
+        url: OnRun + "/marketing/perviewcontext",
         data: {access: access,_id:configSelected,context:contextSelected},
       }).then((response) => {
         console.log('hjgh',response.data);
