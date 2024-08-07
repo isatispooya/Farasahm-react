@@ -6,7 +6,7 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ModalFilter from "../../../../componet/modalFilter";
 import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
-import Smspage from "../../../../componet/smspage"
+import Smspage from "../../../../componet/smspage";
 import { OnRun } from "../../../../config/config";
 
 const CreateList = () => {
@@ -18,7 +18,6 @@ const CreateList = () => {
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState("");
-
 
   useEffect(() => {
     if (df) {
@@ -54,17 +53,14 @@ const CreateList = () => {
         url: OnRun + "/marketing/perviewcontext",
         data: { access: access, _id: configSelected, context: contextSelected },
       }).then((response) => {
-        console.log('hjgh',response.data);
-        setConfig(response.data)
+        setDf(response.data.dict)
+        console.log("hjgh", response.data);
+        setConfig(response.data);
       });
     }
-    
   };
 
-
-  useEffect(get,[access,configSelected,contextSelected])
-
-
+  useEffect(get, [access, configSelected, contextSelected]);
 
   return (
     <div className="subPage tablePg">
@@ -94,6 +90,14 @@ const CreateList = () => {
             ایجاد
             <MdOutlineCreateNewFolder className="mt-1" />
           </button>
+          {
+            isOpenFilter?null:
+          <button className="inp-fld" onClick={get}>
+            بارگزاری
+            <MdOutlineCreateNewFolder className="mt-1" />
+          </button>
+        }
+
         </div>
       </div>
 
@@ -110,17 +114,14 @@ const CreateList = () => {
         )}
       </div>
       <div>
-        {
-          isOpenSender?
+        {isOpenSender ? (
           <Smspage
-        toggleModal={setIsOpenSender}
-        access={access}
-          Config={Config}
-
+            toggleModal={setIsOpenSender}
+            access={access}
+            Config={Config}
           />
-          :null
-        }
-        </div>
+        ) : null}
+      </div>
       <div></div>
       <div id="data-table"></div>
     </div>
