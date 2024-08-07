@@ -10,6 +10,8 @@ import { OnRun } from "../../../../config/config";
 import XLSX from "xlsx/dist/xlsx.full.min.js";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineTopic } from "react-icons/md";
+import { toast } from "react-toastify";
+import MiniLoader from "../../../../componet/Loader/miniLoader";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -20,10 +22,12 @@ const CreateList = () => {
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState("");
+  const [loadingDf, setLoadingDf] = useState(false)
   window.XLSX = XLSX;
 
   useEffect(() => {
     if (df && !isOpenFilter) {
+
       const newTable = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
@@ -50,16 +54,24 @@ const CreateList = () => {
   }, [df,isOpenFilter]);
 
   const get = () => {
+    setLoadingDf(true);
+
     if (configSelected) {
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
         data: { access: access, _id: configSelected},
-      }).then((response) => {
-        setDf(response.data.dict);
+      }).then(async (response) => {
+         setDf(response.data.dict);
         console.log("hjgh", response.data);
         setConfig(response.data);
+    setLoadingDf(false)
+
       });
+    }else{
+      toast.warning("لطفا یک تنظیمات  انتخاب کنید")
+    setLoadingDf(false)
+
     }
   };
 
@@ -136,6 +148,7 @@ const CreateList = () => {
         ) : null}
       </div>
       <div></div>
+      {loadingDf?<MiniLoader/>:null}
       <div id="data-table"></div>
     </div>
   );

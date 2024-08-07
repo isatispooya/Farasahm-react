@@ -3,10 +3,13 @@ import axios from "axios";
 import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import MiniLoader from "./Loader/miniLoader";
 const Smspage = ({toggleModal,access,Config,configSelected,get,textareaRef}) => {
   const [message, setMessage] = useState(Config.context || "");
 
+  console.log(Config);
+  console.log(Config);
+  
   useEffect(()=>{
     if (Config.context) {
       setMessage(Config.context);
@@ -46,7 +49,9 @@ const Smspage = ({toggleModal,access,Config,configSelected,get,textareaRef}) => 
       <div className="flex w-full max-w-7xl items-center justify-center space-x-2">
         <div className="w-1/5 bg-white rounded-lg shadow-lg p-2 overflow-y-auto max-h-96">
           <div className="flex flex-col space-y-1">
-            {Config.column.map((word, index) => (
+            {
+              Config.column?
+              Config.column.map((word, index) => (
               <button
                 key={index}
                 onClick={() => handleWordSelect(word)}
@@ -54,7 +59,10 @@ const Smspage = ({toggleModal,access,Config,configSelected,get,textareaRef}) => 
               >
                 {word}
               </button>
-            ))}
+            ))
+            :<MiniLoader/>
+            
+            }
           </div>
         </div>
 
