@@ -4,7 +4,7 @@ import { OnRun } from "../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-const Smspage = ({textareaRef,setMessage,message,toggleModal, access, columns, Config,len,handleWordSelect }) => {
+const Smspage = ({textareaRef,setMessage,message,toggleModal, access, Config,handleWordSelect }) => {
   const [context, setContext] = useState("");
   const [sendMessage, setSendMessage] = useState("");
 
@@ -72,12 +72,12 @@ const Smspage = ({textareaRef,setMessage,message,toggleModal, access, columns, C
 
   return (
     <div dir="rtl" className="flex flex-col fixed inset-0 z-50 items-center overflow-y-scroll justify-center min-h-screen bg-gray-100 p-2">
-      <p className="mb-1 text-sm">تعداد پیام ها: {len}</p>
+      <p className="mb-1 text-sm">تعداد پیام ها: {Config.len}</p>
       <ToastContainer />
       <div className="flex w-full max-w-7xl items-center justify-center space-x-2">
         <div className="w-1/5 bg-white rounded-lg shadow-lg p-2 overflow-y-auto max-h-96">
           <div className="flex flex-col space-y-1">
-            {columns.map((word, index) => (
+            {Config.columns.map((word, index) => (
               <button
                 key={index}
                 onClick={() => handleWordSelect(word)}

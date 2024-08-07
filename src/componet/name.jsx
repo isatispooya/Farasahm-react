@@ -5,7 +5,6 @@ const NameSearch = ({ config, setConfig ,  }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [nameIds, setNameIds] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const handleSearchName = (e) => {
     const value = e.target.value;
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
@@ -79,7 +78,8 @@ const NameSearch = ({ config, setConfig ,  }) => {
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
-                value={searchTermName}
+                // value={searchTermName}
+                value={config.nobours.name}
                 onChange={handleSearchName}
                 onKeyDown={handleKeyDownName}
                 label="جستجو نام و نام خانوادگی"

@@ -127,9 +127,11 @@ const ModalFilter = ({
             });
 
       const response = await postConfig;
+
       if (response.data.reply === true) {
         setIsOpenFilter(false);
         if (configSelected == null) setConfigSelected(response.data.id);
+        
       } else {
         toast.error(response.data.msg);
       }
@@ -180,8 +182,6 @@ const ModalFilter = ({
             id={null}
             setConfigSelected={setConfigSelected}
             nextStep={nextStep}
-           
-           
           />
           {listConfig.map((i) => {
             const firstLetter = i.title.charAt(0);
