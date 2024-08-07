@@ -20,7 +20,7 @@ const CreateList = () => {
   const [contextSelected, setIsContextSelected] = useState("");
 
   useEffect(() => {
-    if (df) {
+    if (df && !isOpenFilter) {
       const newTable = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
@@ -44,14 +44,14 @@ const CreateList = () => {
         newTable.destroy();
       };
     }
-  }, [df]);
+  }, [df,isOpenFilter]);
 
   const get = () => {
     if (configSelected) {
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
-        data: { access: access, _id: configSelected, context: contextSelected },
+        data: { access: access, _id: configSelected},
       }).then((response) => {
         setDf(response.data.dict)
         console.log("hjgh", response.data);
@@ -119,6 +119,8 @@ const CreateList = () => {
             toggleModal={setIsOpenSender}
             access={access}
             Config={Config}
+            configSelected={configSelected}
+            get={get}
           />
         ) : null}
       </div>
