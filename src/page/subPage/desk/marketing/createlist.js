@@ -8,6 +8,8 @@ import axios from "axios";
 import Smspage from "../../../../componet/smspage";
 import { OnRun } from "../../../../config/config";
 import XLSX from "xlsx/dist/xlsx.full.min.js";
+import { FiRefreshCw } from "react-icons/fi";
+import { MdOutlineTopic } from "react-icons/md";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -94,8 +96,8 @@ const CreateList = () => {
           {isOpenFilter ? null : (
             <>
               <button className="inp-fld" onClick={() => setIsOpenSender(true)}>
-                ارسال
-                <MdOutlineCreateNewFolder className="mt-1" />
+                محتوا
+                <MdOutlineTopic className="mt-1" />
               </button>
               <button className="inp-fld" onClick={() => setIsOpenFilter(true)}>
                 ایجاد
@@ -103,7 +105,7 @@ const CreateList = () => {
               </button>
               <button className="inp-fld" onClick={get}>
                 بارگزاری
-                <MdOutlineCreateNewFolder className="mt-1" />
+                <FiRefreshCw className="mt-1" />
               </button>
             </>
           )}

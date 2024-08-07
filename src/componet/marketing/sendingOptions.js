@@ -92,7 +92,7 @@ const SendingOptions = ({loading, config, setConfig}) => {
                   setConfig({ ...config, period: e.target.value })
                 }
               >
-                <MenuItem value="ones">یکبار</MenuItem>
+                <MenuItem value="once">یکبار</MenuItem>
                 <MenuItem value="daily">روزانه</MenuItem>
                 <MenuItem value="weekly">هفتگی</MenuItem>
                 <MenuItem value="monthly">ماهانه</MenuItem>
