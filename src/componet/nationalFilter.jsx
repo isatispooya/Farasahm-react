@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
-import { citi_list } from "./marketing/city_list";
+import { Button, TextField, Autocomplete } from "@mui/material";
+import { city_list } from "./marketing/city_list";
 
 const NationalIdSearch = ({ config, setConfig }) => {
   const [searchTermPrimary, setSearchTermPrimary] = useState("");
-  const [filteredCities, setFilteredCities] = useState(citi_list);
-  const [cityselected, setCityselected] = useState("");
+  const [cityselected, setCityselected] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
-  // جستجو و افزودن کد ملی به صورت مستقیم
   const handle_search_number_national_code = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) setSearchTermPrimary(value);
@@ -21,16 +20,6 @@ const NationalIdSearch = ({ config, setConfig }) => {
     setConfig({ ...config, nobours: nobours });
   };
 
-  const set_city_by_name = (e) => {
-    const value = e.target.value;
-    const available = filteredCities.filter((i) => i.num === value);
-    if (available.length > 0) {
-      setCityselected(value);
-     
-      setSearchTermPrimary("");
-    }
-  };
-
   const add_num_to_config = () => {
     let nc_list = config.nobours.national_id;
     let nobours;
@@ -39,13 +28,15 @@ const NationalIdSearch = ({ config, setConfig }) => {
       nobours = { ...config.nobours, national_id: nc_list };
       setConfig({ ...config, nobours: nobours });
       setSearchTermPrimary("");
-      setCityselected("");
+      setCityselected(null);
+      setInputValue("");
     } else if (cityselected) {
-      nc_list.push(cityselected);
+      nc_list.push(cityselected.num);
       nobours = { ...config.nobours, national_id: nc_list };
       setConfig({ ...config, nobours: nobours });
-      setCityselected("");
+      setCityselected(null);
       setSearchTermPrimary("");
+      setInputValue("");
     }
   };
 
@@ -96,27 +87,30 @@ const NationalIdSearch = ({ config, setConfig }) => {
                 />
               </div>
 
-              <div className="rounded-lg">
-                <TextField
-                  value={cityselected}
-                  onChange={set_city_by_name}
-                  label="کدملی براساس شهر"
-                  variant="outlined"
-                  select
-                  SelectProps={{ native: true }}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                >
-                  <option value="" disabled>
-                    
-                  </option>
-                  {filteredCities.length > 0 &&
-                    filteredCities.map((i,index) => (
-                      <option key={index} value={i.num}>
-                        {i.city}
-                      </option>
-                    ))}
-                </TextField>
-              </div>
+              <Autocomplete
+                options={city_list}
+                getOptionLabel={(option) => option.city}
+                filterOptions={(options, state) =>
+                  options.filter((option) =>
+                    option.city.includes(state.inputValue)
+                  )
+                }
+                inputValue={inputValue}
+                onInputChange={(event, newInputValue) => {
+                  setInputValue(newInputValue);
+                }}
+                onChange={(event, newValue) => {
+                  setCityselected(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="کدملی براساس شهر"
+                    variant="outlined"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                  />
+                )}
+              />
 
               <Button
                 onClick={add_num_to_config}
@@ -129,7 +123,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
 
             {config.nobours.national_id.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.national_id.map((id,index) => (
+                {config.nobours.national_id.map((id, index) => (
                   <div
                     key={index}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"

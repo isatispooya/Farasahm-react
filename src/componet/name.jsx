@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const NameSearch = ({ config, setConfig }) => {
+const NameSearch = ({ config, setConfig ,  }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [nameIds, setNameIds] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

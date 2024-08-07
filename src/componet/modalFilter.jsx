@@ -80,9 +80,10 @@ const ModalFilter = ({
       });
   };
 
+  
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
-
+  
   const getConfig = async () => {
     setLoading(true);
     try {
@@ -102,7 +103,7 @@ const ModalFilter = ({
       }
     } catch (error) {
       setStepNumber(0);
-      toast.error(error.message);
+      toast.error("خطا در بارگزاری");
     } finally {
       setLoading(false);
     }
@@ -135,11 +136,13 @@ const ModalFilter = ({
         toast.error(response.data.msg);
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error("خطا در بارگزاری");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const checkValue = config.title !== "" && config.send_time !== null && config.period !== null;
 
   useEffect(() => {
     getConfig();
@@ -234,8 +237,9 @@ const ModalFilter = ({
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
           variant="contained"
           color="primary"
+          disabled={!checkValue}
         >
-          {isSubmitting ? (
+          {isSubmitting && checkValue ? (
             <CircularProgress color="secondary" size={20} />
           ) : stepNumber === 2 ? (
             "ایجاد"

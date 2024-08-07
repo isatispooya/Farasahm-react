@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import { exportPdf } from "../../../../config/exportPdf";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ModalFilter from "../../../../componet/modalFilter";
@@ -8,6 +7,7 @@ import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
 import Smspage from "../../../../componet/smspage";
 import { OnRun } from "../../../../config/config";
+import XLSX from "xlsx/dist/xlsx.full.min.js";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -18,6 +18,7 @@ const CreateList = () => {
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState("");
+  window.XLSX = XLSX;
 
   useEffect(() => {
     if (df && !isOpenFilter) {
@@ -53,7 +54,7 @@ const CreateList = () => {
         url: OnRun + "/marketing/perviewcontext",
         data: { access: access, _id: configSelected},
       }).then((response) => {
-        setDf(response.data.dict)
+        setDf(response.data.dict);
         console.log("hjgh", response.data);
         setConfig(response.data);
       });
@@ -66,38 +67,46 @@ const CreateList = () => {
     <div className="subPage tablePg">
       <div className="tls">
         <h2 className="titlePage">لیست</h2>
-        <p onClick={exportPdf}>
-          <BsFiletypePdf />
-          <span>خروجی PDF</span>
-        </p>
-        <p
-          onClick={() => {
-            if (table) {
-              table.download("csv", "data.csv");
-            }
-          }}
-        >
-          <BsFiletypeCsv />
-          <span>خروجی CSV</span>
-        </p>
+        {isOpenFilter ? null : (
+          <>
+            <p
+              onClick={() => {
+                table.download("xlsx", "data.xlsx");
+              }}
+            >
+              <BsFiletypePdf />
+              <span>خروجی اکسل</span>
+            </p>
+            <p
+              onClick={() => {
+                if (table) {
+                  table.download("xlsx", ".xlsx", "buffer");
+                }
+              }}
+            >
+              <BsFiletypeCsv />
+              <span>خروجی CSV</span>
+            </p>
+          </>
+        )}
 
         <div className="btntls">
-          <button className="inp-fld" onClick={() => setIsOpenSender(true)}>
-            ارسال
-            <MdOutlineCreateNewFolder className="mt-1" />
-          </button>
-          <button className="inp-fld" onClick={() => setIsOpenFilter(true)}>
-            ایجاد
-            <MdOutlineCreateNewFolder className="mt-1" />
-          </button>
-          {
-            isOpenFilter?null:
-          <button className="inp-fld" onClick={get}>
-            بارگزاری
-            <MdOutlineCreateNewFolder className="mt-1" />
-          </button>
-        }
-
+          {isOpenFilter ? null : (
+            <>
+              <button className="inp-fld" onClick={() => setIsOpenSender(true)}>
+                ارسال
+                <MdOutlineCreateNewFolder className="mt-1" />
+              </button>
+              <button className="inp-fld" onClick={() => setIsOpenFilter(true)}>
+                ایجاد
+                <MdOutlineCreateNewFolder className="mt-1" />
+              </button>
+              <button className="inp-fld" onClick={get}>
+                بارگزاری
+                <MdOutlineCreateNewFolder className="mt-1" />
+              </button>
+            </>
+          )}
         </div>
       </div>
 

@@ -1,4 +1,7 @@
-export const citi_list = [
+
+
+
+export const city_list = [
   {
     num: "503",
     city: "\u0627\u0628\u0631\u06a9\u0648\u0647",
