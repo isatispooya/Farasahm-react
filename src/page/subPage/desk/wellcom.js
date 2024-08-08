@@ -18,7 +18,7 @@ const WellcomBrokerDesk = () =>{
         <div className="wellcom">
             <div className="logo">
                 <img src={data[access[1]]['logo']}/>
-                <h2>میزکار</h2>     
+                    
                 <h1>{data[access[1]]['title']}</h1>
             </div>
         </div>

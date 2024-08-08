@@ -57,7 +57,7 @@
     "styled-components": "^6.1.12",
     "stylis": "^4.3.2",
     "stylis-plugin-rtl": "^2.1.1",
-    "tabulator-tables": "^5.2.7",
+    "tabulator-tables": "^5.6.1",
     "web-vitals": "^2.1.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.9/xlsx-0.18.9.tgz"
   },
