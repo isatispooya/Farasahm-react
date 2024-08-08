@@ -10,7 +10,7 @@ const WellcomBrokerDesk = () =>{
         desksabad:{logo:process.env.PUBLIC_URL+'/img/nevisa.png',title:'سبدگردانی ایساتیس پویا'},
         deskvisa:{logo:process.env.PUBLIC_URL+'/img/visa.png',title:'سرمایه گذاری ایساتیس پویا'},
         moadian:{logo:process.env.PUBLIC_URL+'/img/moadian.png',title:'سامانه مودیان'},
-        marketing:{logo:process.env.PUBLIC_URL+'/img/moadian.png',title:'میزز کار مارکتینگ'}
+        marketing:{logo:process.env.PUBLIC_URL+'/img/marketing.png',title:'میز کار مارکتینگ'}
     }
     
 
@@ -18,7 +18,7 @@ const WellcomBrokerDesk = () =>{
         <div className="wellcom">
             <div className="logo">
                 <img src={data[access[1]]['logo']}/>
-                <h2>میزکار</h2>     
+                    
                 <h1>{data[access[1]]['title']}</h1>
             </div>
         </div>

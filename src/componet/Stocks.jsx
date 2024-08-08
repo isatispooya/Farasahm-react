@@ -1,45 +1,68 @@
 import { TextField, Button } from "@mui/material";
 import React, { useState } from "react";
 
-const Stocks = ({ config, setConfig }) => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
-  const [input3, setInput3] = useState("");
-  const [input4, setInput4] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedValues, setSelectedValues] = useState(null);
-
+const Stocks = ({
+  config = {
+    nobours: { amount: { from: "", to: "" }, rate: { min: "", max: "" } },
+  },
+  setConfig,
+}) => {
+  // تابع برای فرمت عدد با کاما
   const formatNumber = (num) => {
-    let result = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return result;
+    if (!num) return "";
+    const numStr = num.replace(/,/g, "");
+    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const handleInputChange = (setter) => (e) => {
-    const value = e.target.value;
+  // وضعیت باز و بسته بودن منو
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const rawValue = value.replace(/,/g, "");
-
-    if (/^\d*$/.test(rawValue)) {
-      setter(rawValue);
-    }
-  };
-
+  // تغییر وضعیت منو
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleButtonClick = () => {
-    const newAmount = { from: input1, to: input2 };
-    const newRate = { min: input3, max: input4 };
-    const nobours = { ...config.nobours, amount: newAmount, rate: newRate };
-    setConfig({ ...config, nobours });
-
-    setSelectedValues({
-      amount: newAmount,
-      rate: newRate,
-    });
+  // تغییر مقدار "از" در محدوده تعداد سهام
+  const handleButtonClick_amount_from = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
+      let amount = { ...config.nobours.amount, from: formatNumber(rawValue) };
+      let nobours = { ...config.nobours, amount: amount };
+      setConfig({ ...config, nobours });
+    }
   };
 
+  // تغییر مقدار "تا" در محدوده تعداد سهام
+  const handleButtonClick_amount_to = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
+      let amount = { ...config.nobours.amount, to: formatNumber(rawValue) };
+      let nobours = { ...config.nobours, amount: amount };
+      setConfig({ ...config, nobours });
+    }
+  };
+
+  // تغییر مقدار "از" در درصد سهام
+  const handleButtonClick_rate_min = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+      let rate = { ...config.nobours.rate, min: formatNumber(rawValue) };
+      let nobours = { ...config.nobours, rate: rate };
+      setConfig({ ...config, nobours });
+    }
+  };
+
+  // تغییر مقدار "تا" در درصد سهام
+  const handleButtonClick_rate_max = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+      let rate = { ...config.nobours.rate, max: formatNumber(rawValue) };
+      let nobours = { ...config.nobours, rate: rate };
+      setConfig({ ...config, nobours });
+    }
+  };
+
+  // نمایش کامپوننت
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
@@ -77,8 +100,10 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-from"
                   label="از"
-                  value={formatNumber(input1)}
-                  onChange={handleInputChange(setInput1)}
+                  value={formatNumber(config.nobours?.amount?.from)}
+                  onChange={(e) =>
+                    handleButtonClick_amount_from(e.target.value)
+                  }
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -88,8 +113,8 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-to"
                   label="تا"
-                  value={formatNumber(input2)}
-                  onChange={handleInputChange(setInput2)}
+                  value={formatNumber(config.nobours?.amount?.to)}
+                  onChange={(e) => handleButtonClick_amount_to(e.target.value)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -106,18 +131,8 @@ const Stocks = ({ config, setConfig }) => {
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   id="rate-min"
                   label="از"
-                  value={formatNumber(input3)}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value >= 0) {
-                      handleInputChange(setInput3)(e);
-                    }
-                  }}
-                  onInput={(e) => {
-                    if (e.target.value < 0) {
-                      e.target.value = 0;
-                    }
-                  }}
+                  value={formatNumber(config.nobours?.rate?.min)}
+                  onChange={(e) => handleButtonClick_rate_min(e.target.value)}
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
@@ -126,53 +141,14 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="rate-max"
                   label="تا"
-                  value={formatNumber(input4)}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value <= 100) {
-                      handleInputChange(setInput4)(e);
-                    }
-                  }}
-                  onInput={(e) => {
-                    if (e.target.value > 100) {
-                      e.target.value = 100;
-                    }
-                  }}
+                  value={formatNumber(config.nobours?.rate?.max)}
+                  onChange={(e) => handleButtonClick_rate_max(e.target.value)}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
-                  inputProps={{
-                    inputMode: "numeric",
-                    pattern: "[0-9]*",
-                  }}
                 />
               </div>
             </div>
           </div>
-
-          <Button
-            onClick={handleButtonClick}
-            variant="contained"
-            color="primary"
-            className="w-full"
-          >
-            ثبت
-          </Button>
-
-          {selectedValues && (
-            <div className="mt-4 p-4 bg-white rounded-lg shadow-md">
-              <h3 className="text-lg font-semibold text-gray-800">
-                مقادیر انتخاب شده:
-              </h3>
-              <p className="mt-2">
-                <strong>تعداد سهام:</strong> از {selectedValues.amount.from} تا{" "}
-                {selectedValues.amount.to}
-              </p>
-              <p className="mt-2">
-                <strong>درصد سهام:</strong> از {selectedValues.rate.min} تا{" "}
-                {selectedValues.rate.max}
-              </p>
-            </div>
-          )}
         </div>
       )}
     </div>

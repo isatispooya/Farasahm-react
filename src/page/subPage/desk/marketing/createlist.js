@@ -10,6 +10,8 @@ import { OnRun } from "../../../../config/config";
 import XLSX from "xlsx/dist/xlsx.full.min.js";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineTopic } from "react-icons/md";
+import { toast } from "react-toastify";
+import MiniLoader from "../../../../componet/Loader/miniLoader";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -20,6 +22,7 @@ const CreateList = () => {
   const [configSelected, setConfigSelected] = useState(null);
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState("");
+  const [loadingDf, setLoadingDf] = useState(false);
   window.XLSX = XLSX;
 
   useEffect(() => {
@@ -47,24 +50,26 @@ const CreateList = () => {
         newTable.destroy();
       };
     }
-  }, [df,isOpenFilter]);
+  }, [df, isOpenFilter]);
 
   const get = () => {
+    setLoadingDf(true);
+
     if (configSelected) {
+      setDf(null);
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
         data: { access: access, _id: configSelected },
-      })
-      .then((response) => {
+      }).then(async (response) => {
         setDf(response.data.dict);
         console.log("Response Data:", response.data);
         setConfig(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        // Optionally, show a user-friendly message
+        setLoadingDf(false);
       });
+    } else {
+      toast.warning("لطفا یک تنظیمات انتخاب کنید");
+      setLoadingDf(false);
     }
   };
   
@@ -142,6 +147,7 @@ const CreateList = () => {
         ) : null}
       </div>
       <div></div>
+      {loadingDf ? <MiniLoader /> : null}
       <div id="data-table"></div>
     </div>
   );
