@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 const RemainingCustomer = ({ config, setConfig }) => {
+  // Ensure default values for nested properties
+  const insurance = config?.insurance || {};
+  const accounting = insurance.accounting || {};
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [from, setFrom] = useState(config.insurance.accounting.from || "");
-  const [to, setTo] = useState(config.insurance.accounting.to || "");
-  const [code, setCode] = useState(config.insurance.accounting.code || "");
+  const [from, setFrom] = useState(accounting.from || "");
+  const [to, setTo] = useState(accounting.to || "");
+  const [code, setCode] = useState(accounting.code || "");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -20,10 +24,10 @@ const RemainingCustomer = ({ config, setConfig }) => {
   };
 
   useEffect(() => {
-    var accounting = { from: from, to: to, code: code };
-    var insurance = { ...config.insurance, accounting: accounting };
-    setConfig({ ...config, insurance: insurance });
-  }, [from, to, code]);
+    const newAccounting = { from, to, code };
+    const newInsurance = { ...insurance, accounting: newAccounting };
+    setConfig({ ...config, insurance: newInsurance });
+  }, [from, to, code, config, insurance, setConfig]);
 
   const codeItems = [
     "01",
@@ -95,8 +99,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   value={to}
                   onChange={(e) => setTo(e.target.value)}
                   style={{ marginBottom: 16 }}
-                >
-                </TextField>
+                />
 
                 <TextField
                   select
@@ -108,9 +111,9 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   onChange={(e) => setCode(e.target.value)}
                   style={{ marginBottom: 16 }}
                 >
-                  {codeItems.map((code, index) => (
-                    <MenuItem key={index} value={code}>
-                      {code}
+                  {codeItems.map((codeItem, index) => (
+                    <MenuItem key={index} value={codeItem}>
+                      {codeItem}
                     </MenuItem>
                   ))}
                 </TextField>

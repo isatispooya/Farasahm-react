@@ -7,6 +7,9 @@ const PhoneSearch = ({ config, setConfig }) => {
   const [inputNum2, setInputNum2] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  // Ensure config.nobours and config.nobours.mobile are initialized
+  const mobile = config?.nobours?.mobile || { num1: [], num2: [] };
+
   const handleSearch1 = (e) => {
     const value = e.target.value;
     if (value.length <= 4 && /^\d*$/.test(value)) {
@@ -21,43 +24,66 @@ const PhoneSearch = ({ config, setConfig }) => {
     }
   };
 
-
   const handleAdd1 = () => {
-    if (inputNum1.length>0 && !config.nobours.mobile.num1.includes(inputNum1)) {
-      var num1Config = config.nobours.mobile.num1;
-      num1Config.push(inputNum1);
-      var mobile = { ...config.nobours.mobile, num1: num1Config };
-      var nobours = { ...config.nobours, mobile: mobile };
-      setConfig({ ...config, nobours: nobours });
+    if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
+      const num1Config = [...mobile.num1, inputNum1];
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        nobours: {
+          ...prevConfig.nobours,
+          mobile: {
+            ...mobile,
+            num1: num1Config
+          }
+        }
+      }));
     }
     setInputNum1("");
   };
 
   const handleAdd2 = () => {
-    if (inputNum2.length>0 && !config.nobours.mobile.num2.includes(inputNum2)) {
-      var num2Config = config.nobours.mobile.num2;
-      num2Config.push(inputNum2);
-      var mobile = { ...config.nobours.mobile, num2: num2Config };
-      var nobours = { ...config.nobours, mobile: mobile };
-      setConfig({ ...config, nobours: nobours });
+    if (inputNum2.length > 0 && !mobile.num2.includes(inputNum2)) {
+      const num2Config = [...mobile.num2, inputNum2];
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        nobours: {
+          ...prevConfig.nobours,
+          mobile: {
+            ...mobile,
+            num2: num2Config
+          }
+        }
+      }));
     }
     setInputNum2("");
   };
 
   const handleRemove1 = (id) => {
-    let num1Config = config.nobours.mobile.num1;
-    num1Config = num1Config.filter((i) => i != id);
-    var mobile = { ...config.nobours.mobile, num1: num1Config };
-    var nobours = { ...config.nobours, mobile: mobile };
-    setConfig({ ...config, nobours: nobours });
+    const num1Config = mobile.num1.filter((i) => i !== id);
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      nobours: {
+        ...prevConfig.nobours,
+        mobile: {
+          ...mobile,
+          num1: num1Config
+        }
+      }
+    }));
   };
 
   const handleRemove2 = (id) => {
-    let num2Config = config.nobours.mobile.num2;
-    num2Config = num2Config.filter((i) => i != id);
-    var mobile = { ...config.nobours.mobile, num2: num2Config };
-    var nobours = { ...config.nobours, mobile: mobile };
-    setConfig({ ...config, nobours: nobours });
+    const num2Config = mobile.num2.filter((i) => i !== id);
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      nobours: {
+        ...prevConfig.nobours,
+        mobile: {
+          ...mobile,
+          num2: num2Config
+        }
+      }
+    }));
   };
 
   const handleKeyDown1 = (e) => {
@@ -122,10 +148,10 @@ const PhoneSearch = ({ config, setConfig }) => {
             </Button>
           </div>
 
-          {config.nobours.mobile.num1.length > 0 && (
+          {mobile.num1.length > 0 && (
             <div className="mb-4">
               <div className="flex flex-wrap gap-4">
-                {config.nobours.mobile.num1.map((id) => (
+                {mobile.num1.map((id) => (
                   <div
                     key={id}
                     className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
@@ -163,10 +189,10 @@ const PhoneSearch = ({ config, setConfig }) => {
             </Button>
           </div>
 
-          {config.nobours.mobile.num2.length > 0 && (
+          {mobile.num2.length > 0 && (
             <div className="mb-4">
               <div className="flex flex-wrap gap-4">
-                {config.nobours.mobile.num2.map((id) => (
+                {mobile.num2.map((id) => (
                   <div
                     key={id}
                     className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"

@@ -54,14 +54,20 @@ const CreateList = () => {
       axios({
         method: "POST",
         url: OnRun + "/marketing/perviewcontext",
-        data: { access: access, _id: configSelected},
-      }).then((response) => {
+        data: { access: access, _id: configSelected },
+      })
+      .then((response) => {
         setDf(response.data.dict);
-        console.log("hjgh", response.data);
+        console.log("Response Data:", response.data);
         setConfig(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        // Optionally, show a user-friendly message
       });
     }
   };
+  
 
   useEffect(get, [access, configSelected, contextSelected]);
 

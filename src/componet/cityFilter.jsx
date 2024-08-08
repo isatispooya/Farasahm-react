@@ -96,7 +96,7 @@ const CityFilter = ({
                 onChange={(event, newValue) => {
                   setCityInput(newValue);
                 }}
-                renderInput={(params) => (
+                renderInput={(params, index) => (
                   <TextField
                     {...params}
                     label="شهر"
@@ -168,4 +168,3 @@ const CityFilter = ({
 };
 
 export default CityFilter;
-

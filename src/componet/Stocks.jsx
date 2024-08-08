@@ -9,10 +9,18 @@ const Stocks = ({ config, setConfig }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedValues, setSelectedValues] = useState(null);
 
+  const formatNumber = (num) => {
+    let result = num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return result;
+  };
+
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
-    if (/^\d*$/.test(value)) {
-      setter(value);
+
+    const rawValue = value.replace(/,/g, "");
+
+    if (/^\d*$/.test(rawValue)) {
+      setter(rawValue);
     }
   };
 
@@ -21,14 +29,14 @@ const Stocks = ({ config, setConfig }) => {
   };
 
   const handleButtonClick = () => {
-    const amount = { from: input1, to: input2 };
-    const rate = { min: input3, max: input4 };
-    const nobours = { ...config.nobours, amount, rate };
+    const newAmount = { from: input1, to: input2 };
+    const newRate = { min: input3, max: input4 };
+    const nobours = { ...config.nobours, amount: newAmount, rate: newRate };
     setConfig({ ...config, nobours });
 
     setSelectedValues({
-      amount: { from: input1, to: input2 },
-      rate: { min: input3, max: input4 },
+      amount: newAmount,
+      rate: newRate,
     });
   };
 
@@ -69,8 +77,7 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-from"
                   label="از"
-                  type="number"
-                  value={config.nobours.amount.from}
+                  value={formatNumber(input1)}
                   onChange={handleInputChange(setInput1)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
@@ -81,8 +88,7 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-to"
                   label="تا"
-                  type="number"
-                  value={config.nobours.amount.to}
+                  value={formatNumber(input2)}
                   onChange={handleInputChange(setInput2)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
@@ -100,8 +106,7 @@ const Stocks = ({ config, setConfig }) => {
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   id="rate-min"
                   label="از"
-                  type="number"
-                  value={config.nobours.rate.min}
+                  value={formatNumber(input3)}
                   onChange={(e) => {
                     const value = e.target.value;
                     if (value >= 0) {
@@ -114,7 +119,6 @@ const Stocks = ({ config, setConfig }) => {
                     }
                   }}
                   InputLabelProps={{ shrink: true }}
-            
                 />
               </div>
               <div className="text-right w-1/2">
@@ -122,8 +126,7 @@ const Stocks = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="rate-max"
                   label="تا"
-                  type="number"
-                  value={config.nobours.rate.max}
+                  value={formatNumber(input4)}
                   onChange={(e) => {
                     const value = e.target.value;
                     if (value <= 100) {
@@ -140,12 +143,20 @@ const Stocks = ({ config, setConfig }) => {
                   inputProps={{
                     inputMode: "numeric",
                     pattern: "[0-9]*",
-                  
                   }}
                 />
               </div>
             </div>
           </div>
+
+          <Button
+            onClick={handleButtonClick}
+            variant="contained"
+            color="primary"
+            className="w-full"
+          >
+            ثبت
+          </Button>
 
           {selectedValues && (
             <div className="mt-4 p-4 bg-white rounded-lg shadow-md">

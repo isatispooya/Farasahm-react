@@ -31,7 +31,7 @@ const ModalFilter = ({
     context: "",
     period: null,
     insurance: {
-      enabled: true,
+      enabled: false,
       accounting: {
         from: "",
         to: "",
@@ -39,7 +39,7 @@ const ModalFilter = ({
       },
     },
     nobours: {
-      enabled: true,
+      enabled: false,
       name: null,
       birthday: {
         from: null,
@@ -80,10 +80,9 @@ const ModalFilter = ({
       });
   };
 
-  
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
-  
+
   const getConfig = async () => {
     setLoading(true);
     try {
@@ -131,7 +130,6 @@ const ModalFilter = ({
       if (response.data.reply === true) {
         setIsOpenFilter(false);
         if (configSelected == null) setConfigSelected(response.data.id);
-        
       } else {
         toast.error(response.data.msg);
       }
@@ -142,7 +140,8 @@ const ModalFilter = ({
     }
   };
 
-  const checkValue = config.title !== "" && config.send_time !== null && config.period !== null;
+  const checkValue =
+    config.title !== "" && config.send_time !== null && config.period !== null;
 
   useEffect(() => {
     getConfig();
@@ -160,6 +159,9 @@ const ModalFilter = ({
     );
   };
 
+  console.log(listConfig);
+  
+
   return (
     <div
       dir="rtl"
@@ -173,6 +175,10 @@ const ModalFilter = ({
           </Step>
         ))}
       </Stepper>
+
+
+
+
 
       {stepNumber === 0 && (
         <Grid container spacing={3}>
@@ -191,6 +197,8 @@ const ModalFilter = ({
                 profil={<span>{firstLetter}</span>}
                 title={i.title}
                 id={i._id}
+                send_time={i.time}
+                period={i.period}
                 data={i.date}
                 status={i.status}
                 setConfigSelected={setConfigSelected}
