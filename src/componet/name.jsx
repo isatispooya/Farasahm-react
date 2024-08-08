@@ -1,9 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const NameSearch = ({ config, setConfig ,  }) => {
+const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const handleSearchName = (e) => {
     const value = e.target.value;
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
@@ -13,12 +14,8 @@ const NameSearch = ({ config, setConfig ,  }) => {
 
   const handleAddName = () => {
     if (searchTermName && !config.nobours.name.includes(searchTermName)) {
-
-
       setSearchTermName("");
-      let name_list = config.nobours.name
-      name_list.push(searchTermName);
-
+      let name_list = [...config.nobours.name, searchTermName];
       const nobours = {
         ...config,
         nobours: { ...config.nobours, name: name_list },
@@ -27,8 +24,8 @@ const NameSearch = ({ config, setConfig ,  }) => {
     }
   };
 
-  const handleRemoveName = (id) => {
-    let name_list = config.nobours.name.filter((existingId) => existingId !== id);
+  const handleRemoveName = (name) => {
+    let name_list = config.nobours.name.filter((existingName) => existingName !== name);
     const nobours = {
       ...config,
       nobours: { ...config.nobours, name: name_list },
@@ -48,7 +45,7 @@ const NameSearch = ({ config, setConfig ,  }) => {
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
-      <div className="">
+      <div>
         <button
           onClick={toggleDropdown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
@@ -57,9 +54,7 @@ const NameSearch = ({ config, setConfig ,  }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen
-                ? "rotate-180 duration-500"
-                : "rotate-0 duration-500"
+              isDropdownOpen ? "rotate-180 duration-500" : "rotate-0 duration-500"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -80,14 +75,13 @@ const NameSearch = ({ config, setConfig ,  }) => {
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
                 value={searchTermName}
-                // value={config.nobours.name}
                 onChange={handleSearchName}
                 onKeyDown={handleKeyDownName}
                 label="جستجو نام و نام خانوادگی"
                 variant="outlined"
                 inputProps={{
                   inputMode: "text",
-                  pattern: "[\u0600-\u06FFa-zA-Zs]*",
+                  pattern: "[\u0600-\u06FFa-zA-Z\s]*",
                 }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
@@ -101,16 +95,16 @@ const NameSearch = ({ config, setConfig ,  }) => {
               </Button>
             </div>
 
-            {config.nobours.name.length > 0 && (
+            {config.nobours.name && config.nobours.name.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.name.map((id) => (
+                {config.nobours.name.map((name) => (
                   <div
-                    key={id}
+                    key={name}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   >
-                    <span className="mr-2 text-lg font-medium">{id}</span>
+                    <span className="mr-2 text-lg font-medium">{name}</span>
                     <button
-                      onClick={() => handleRemoveName(id)}
+                      onClick={() => handleRemoveName(name)}
                       className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
                       <svg
