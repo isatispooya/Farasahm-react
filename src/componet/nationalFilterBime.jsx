@@ -8,6 +8,27 @@ const NationalFilterBime = ({ config, setConfig }) => {
   const [dropDown, setDropDown] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+  const add_num_to_config = () => {
+    let nc_list = config.insurance.national_id;
+    let insurance;
+
+    if (search) {
+      // Add single national ID entered by the user
+      nc_list.push(search);
+      insurance = { ...config.insurance, national_id: nc_list };
+      setConfig({ ...config, insurance: insurance });
+      setSearch("");
+    } else if (cityselected) {
+   
+      if (cityselected.num && cityselected.num.length > 0) {
+        nc_list.push(cityselected.num[0]); 
+        insurance = { ...config.insurance, national_id: nc_list };
+        setConfig({ ...config, insurance: insurance });
+        setCityselected(null);
+        setInputValue("");
+      }
+    }
+  };
 
   const Remove_selected = (id) => {
     let nc_list = config.insurance.national_id;
@@ -16,33 +37,19 @@ const NationalFilterBime = ({ config, setConfig }) => {
     setConfig({ ...config, insurance: insurance });
   };
 
-  const add_num_to_config = () => {
-    let nc_list = config.insurance.national_id;
-    let insurance;
-    if (search) {
-      console.log(config);
-
-      nc_list.push(search);
-      insurance = { ...config.insurance, national_id: nc_list };
-      setConfig({ ...config, insurance: insurance });
-      setSearch("");
-      setCityselected(null);
-      setInputValue("");
-    } else if (cityselected) {
-      nc_list = [...nc_list, ...cityselected.num];
-      insurance = { ...config.insurance, national_id: nc_list };
-      setConfig({ ...config, insurance: insurance });
-      setCityselected(null);
-      setSearch("");
-      setInputValue("");
-    }
-  };
   const handle_search_number_national_code = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) setSearch(value);
   };
+
   const openDropdown = () => {
     setDropDown(!dropDown);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      add_num_to_config();
+    }
   };
 
   return (
@@ -83,6 +90,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
                   onChange={handle_search_number_national_code}
                   label="جستجو کد ملی"
                   variant="outlined"
+                  onKeyDown={handleKeyDown}
                   inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 />
@@ -90,6 +98,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
 
               <Autocomplete
                 options={city_list}
+                onKeyDown={handleKeyDown}
                 getOptionLabel={(option) => option.city}
                 filterOptions={(options, state) =>
                   options.filter((option) =>
@@ -102,6 +111,8 @@ const NationalFilterBime = ({ config, setConfig }) => {
                 }}
                 onChange={(event, newValue) => {
                   setCityselected(newValue);
+                  // Keeping the dropdown open after selection
+                  setDropDown(true);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -161,3 +172,4 @@ const NationalFilterBime = ({ config, setConfig }) => {
 };
 
 export default NationalFilterBime;
+

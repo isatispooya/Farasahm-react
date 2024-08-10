@@ -10,21 +10,23 @@ const NameFilterBime = ({
 
   const AddName = () => {
     if (search && !config.insurance.name.includes(search)) {
-      setSearch("");
       let name_list = [...config.insurance.name, search];
       const insurance = {
         ...config,
         insurance: { ...config.insurance, name: name_list },
       };
       setConfig(insurance);
+      setSearch("");  // Clear search after adding
     }
   };
+
   const SearchName = (e) => {
     const value = e.target.value;
     if (/^[\u0600-\u06FFa-zA-Z\s]*$/.test(value)) {
       setSearch(value);
     }
   };
+
   const Remove = (name) => {
     let name_list = config.insurance.name.filter(
       (existingName) => existingName !== name
@@ -41,6 +43,7 @@ const NameFilterBime = ({
       AddName();
     }
   };
+
   const openDropdown = () => {
     setDropDown(!dropDown);
   };
@@ -136,3 +139,4 @@ const NameFilterBime = ({
 };
 
 export default NameFilterBime;
+

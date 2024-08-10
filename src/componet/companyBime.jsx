@@ -15,9 +15,9 @@ const CompanyBime = ({ access, config, setConfig }) => {
       try {
         const response = await axios.post(
           `${OnRun}/marketing/insurance_companies`,
-          { access }
+          { access: access }
         );
-        console.log(response.data , "bime")
+        console.log(response.data, "bime");
         setCompanyList(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
