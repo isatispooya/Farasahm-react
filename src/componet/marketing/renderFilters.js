@@ -9,6 +9,7 @@ import RemainingCustomer from "../remainingCustomer";
 import PhoneSearch from "../phoneFilter";
 import Stocks from "../Stocks";
 import NameSearch from "../name.jsx";
+import InsuranceConsultant from "../insuranceconsultant.jsx";
 
 const RenderFilters = ({ config = {}, setConfig, access }) => {
   const [selected, setSelected] = useState([]);
@@ -116,9 +117,7 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
               endIcon={
                 <ExpandMoreIcon
                   style={{
-                    transform: openNobours
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    transform: openNobours ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 0.3s",
                   }}
                 />
@@ -174,6 +173,7 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
             {openInsuranceBroker && (
               <div className="mt-4 w-full">
                 <RemainingCustomer setConfig={setConfig} config={config} />
+                <InsuranceConsultant setConfig={setConfig} config={config} access={access}/>
               </div>
             )}
           </>

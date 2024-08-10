@@ -11,7 +11,7 @@ const CityFilter = ({
   setConfig,
 }) => {
   const [cityList, setCityList] = useState([]);
-  const [cityInput, setCityInput] = useState(null); // Updated to use an object
+  const [cityInput, setCityInput] = useState(null); 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const getCityList = () => {

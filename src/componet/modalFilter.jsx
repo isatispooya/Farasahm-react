@@ -26,38 +26,53 @@ const ModalFilter = ({
   setIsOpenFilter,
 }) => {
   const newconfig = {
-    send_time: new DateObject(),
-    context: "",
-    period: null,
-    insurance: {
-      enabled: false,
-      accounting: {
-        from: "",
-        to: "",
-        code: "",
+    config: {
+      send_time: new DateObject(),
+      context: "",
+      period: null,
+      insurance: {
+        enabled: true,
+        name: [],
+        national_id: [],
+        mobile: {
+          num1: [],
+          num2: [],
+        },
+        company: [],
+        consultant: [],
+        insurance_item: [],
+        insurance_field: [],
+        fee: {
+          max: null,
+          min: null,
+        },
+        payment: {
+          max: null,
+          min: null,
+        },
       },
-    },
-    nobours: {
-      enabled: false,
-      name: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      symbol: [],
-      national_id: [],
-      amount: {
-        from: null,
-        to: null,
-      },
-      rate: {
-        min: null,
-        max: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
+      nobours: {
+        enabled: false,
+        name: null,
+        birthday: {
+          from: null,
+          to: null,
+        },
+        city: [],
+        symbol: [],
+        national_id: [],
+        amount: {
+          from: null,
+          to: null,
+        },
+        rate: {
+          min: null,
+          max: null,
+        },
+        mobile: {
+          num1: [],
+          num2: [],
+        },
       },
     },
     title: "",
@@ -219,7 +234,6 @@ const ModalFilter = ({
             openDropdown={openDropdown}
             config={config}
             setConfig={setConfig}
-            access={access}
           />
         )
       )}
