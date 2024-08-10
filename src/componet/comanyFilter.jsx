@@ -10,21 +10,26 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
 
+  
   useEffect(() => {
     const fetchCompanyList = async () => {
+      const options = {
+        method: 'POST',
+        url: `${OnRun}/marketing/symbolregisternobours`,
+        headers: { 'content-type': 'application/json' },
+        data: { access: access || [] },
+      };
+  
       try {
-        const response = await axios.post(
-          `${OnRun}/marketing/symbolregisternobours`,
-          { access }
-        );
+        const response = await axios.request(options);
         setCompanyList(response.data);
       } catch (error) {
-        console.error("Failed to fetch company list", error);
+        console.error("Failed to fetch company list", error.response?.data || error.message);
       }
     };
     fetchCompanyList();
   }, [access]);
-
+  
   const handleAddCompany = () => {
     const available = companyList.some(
       (company) => company.symbol === companyInput
@@ -45,7 +50,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       (symbol) => symbol !== companySymbol
     );
     const nobours = { ...config.nobours, symbol: symbolList };
-    setConfig({ ...config, nobours });
+    setConfig({ ...config, nobours: nobours });
   };
 
   const toggleDropdown = () => {

@@ -32,9 +32,9 @@ const InsuranceConsultant = ({
     if (consultantInput) {
       const available = consultantList.includes(consultantInput);
       if (available) {
-        const consultant_list = config.insurance.consultant;
+        const consultant_list = config.config.insurance.consultant;
         consultant_list.push(consultantInput);
-        const insurance = { ...config.insurance, consultant: consultant_list };
+        const insurance = { ...config.config.insurance, consultant: consultant_list };
         setConfig({ ...config, insurance });
         setConsultantInput(null);
       } else {
@@ -44,10 +44,10 @@ const InsuranceConsultant = ({
   };
 
   const handleDelete = (consultant) => {
-    const consultant_list = config.insurance.consultant.filter(
+    const consultant_list = config.config.insurance.consultant.filter(
       (i) => i !== consultant
     );
-    const insurance = { ...config.insurance, consultant: consultant_list };
+    const insurance = { ...config.config.insurance, consultant: consultant_list };
     setConfig({ ...config, insurance });
   };
 
@@ -124,7 +124,7 @@ const InsuranceConsultant = ({
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.insurance.consultant || []).map(
+                {(config.config.insurance.consultant || []).map(
                   (consultant, index) => (
                     <Chip
                       key={`city-${index}`}

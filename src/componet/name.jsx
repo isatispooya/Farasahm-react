@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
+const NameSearch = ({ config, setConfig }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -13,24 +13,27 @@ const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
   };
 
   const handleAddName = () => {
-    if (searchTermName && !config.nobours.name.includes(searchTermName)) {
-      setSearchTermName("");
-      let name_list = [...config.nobours.name, searchTermName];
+    const name_list = config.nobours.name ?? [];
+
+    if (searchTermName && !name_list.includes(searchTermName)) {
+      const updatedNameList = [...name_list, searchTermName];
       const nobours = {
-        ...config,
-        nobours: { ...config.nobours, name: name_list },
+        ...config.nobours,
+        name: updatedNameList,
       };
-      setConfig(nobours);
+      setConfig({ ...config, nobours: nobours } );
+      setSearchTermName("");
     }
   };
 
   const handleRemoveName = (name) => {
-    let name_list = config.nobours.name.filter((existingName) => existingName !== name);
+    const name_list = config.nobours.name ?? [];
+    const updatedNameList = name_list.filter((existingName) => existingName !== name);
     const nobours = {
-      ...config,
-      nobours: { ...config.nobours, name: name_list },
+      ...config.nobours,
+      name: updatedNameList,
     };
-    setConfig(nobours);
+    setConfig({ ...config, nobours: nobours });
   };
 
   const handleKeyDownName = (e) => {

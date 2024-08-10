@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React, { useState, useRef, useEffect } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -18,49 +19,29 @@ import CompanyBime from "../companyBime.jsx";
 import PaymentBime from "../payment&FeeBime.jsx";
 import FieldBime from "../FieldBime.jsx";
 
-const RenderFilters = ({ config = {}, setConfig, access }) => {
-  const [selected, setSelected] = useState([]);
+const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
   const [openInsuranceBroker, setOpenInsuranceBroker] = useState(false);
   const dropdownRef = useRef(null);
-  const ButtonTitle = ["nobours", "insuranceBroker", "stockExchange"];
 
-  useEffect(() => {
-    const newSelected = [];
-    if (config.nobours?.enabled) newSelected.push("nobours");
-    if (config.insurance?.enabled) newSelected.push("insuranceBroker");
-    if (config.stockExchange?.enabled) newSelected.push("stockExchange");
-    setSelected(newSelected);
-  }, [config]);
+  
 
-  const handleClick = (value) => {
-    setSelected((prevSelected) => {
-      const isSelected = prevSelected.includes(value);
-      const updatedSelected = isSelected
-        ? prevSelected.filter((item) => item !== value)
-        : [...prevSelected, value];
-
-      setConfig((prevConfig) => {
-        const updatedConfig = {
-          ...prevConfig,
-          nobours:
-            value === "nobours" ? { enabled: !isSelected } : prevConfig.nobours,
-          insurance:
-            value === "insuranceBroker"
-              ? { enabled: !isSelected }
-              : prevConfig.insurance,
-          stockExchange:
-            value === "stockExchange"
-              ? { enabled: !isSelected }
-              : prevConfig.stockExchange,
-        };
-
-        return updatedConfig;
-      });
-
-      return updatedSelected;
-    });
+  const handleEnebledNobours = () => {
+    let nobours = {
+      ...config.nobours,
+      enabled: !config.nobours.enabled,
+    };
+    setConfig({ ...config, nobours: nobours });
   };
+
+  const handleEnebledInsurance = () => {
+    let insurance = {
+      ...config.insurance,
+      enabled: !config.insurance.enabled,
+    };
+    setConfig({ ...config, insurance: insurance });
+  };
+
 
   const handleDropdownClick = (dropdownType) => {
     if (dropdownType === "nobours") {
@@ -94,26 +75,26 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
     >
       <div className="bg-white rounded-lg p-6 shadow-lg flex flex-col items-center space-y-4">
         <ButtonGroup variant="outlined" aria-label="Loading button group ">
-          {ButtonTitle.map((buttonValue) => (
-            <Button
-              style={{ padding: "20px" }}
-              key={buttonValue}
-              variant={
-                selected.includes(buttonValue) ? "contained" : "outlined"
-              }
-              onClick={() => handleClick(buttonValue)}
-              disabled={buttonValue === "stockExchange"}
-            >
-              {buttonValue === "nobours"
-                ? "غیر بورسی"
-                : buttonValue === "insuranceBroker"
-                ? "کارگزاری بیمه"
-                : "کارگزاری بورس"}
-            </Button>
-          ))}
+          <Button
+            style={{ padding: "20px" }}
+            variant={config.nobours.enabled ? "contained" : "outlined"}
+            onClick={handleEnebledNobours}
+          >
+            غیر بورسی
+          </Button>
+          <Button
+            style={{ padding: "20px" }}
+            variant={config.insurance.enabled ? "contained" : "outlined"}
+            onClick={handleEnebledInsurance}
+          >
+            کارگزاری بیمه
+          </Button>
+          <Button style={{ padding: "20px" }} disabled>
+            کارگزاری بورس
+          </Button>
         </ButtonGroup>
 
-        {config.nobours?.enabled && (
+        {config.nobours.enabled && (
           <>
             <Button
               variant="contained"
@@ -155,7 +136,7 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
           </>
         )}
 
-        {config.insurance?.enabled && (
+        {config.insurance.enabled && (
           <>
             <Button
               variant="contained"

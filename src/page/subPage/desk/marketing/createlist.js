@@ -25,6 +25,9 @@ const CreateList = () => {
   const [loadingDf, setLoadingDf] = useState(false);
   window.XLSX = XLSX;
 
+
+  
+
   useEffect(() => {
     if (df && !isOpenFilter) {
       const newTable = new Tabulator("#data-table", {

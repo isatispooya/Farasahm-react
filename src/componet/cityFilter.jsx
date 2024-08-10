@@ -1,52 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField, Autocomplete } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CityFilter = ({
-  access,
-  config = { config: { city: [] } },
-  setConfig,
-}) => {
+const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
-  const [cityInput, setCityInput] = useState(null); 
+  const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  useEffect(() => {
+    if (!config.city) {
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        city: [],
+      }));
+    }
+    if (!config.nobours.city) {
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        nobours: {
+          ...prevConfig.nobours,
+          city: [],
+        },
+      }));
+    }
+    getCityList();
+  }, []);
+
   const getCityList = () => {
-    axios({
+    const options = {
       method: "POST",
       url: `${OnRun}/marketing/cityregisternobours`,
-      data: { access },
-    }).then((response) => {
-      setCityList(response.data);
-    });
-  };
+      headers: { "content-type": "application/json" },
+      data: { access: access },
+    };
 
-  useEffect(() => {
-    getCityList();
-  }, [access]);
-
-  const handleAddCity = () => {
-    if (cityInput) {
-      const available = cityList.includes(cityInput);
-      if (available) {
-        const city_list = config.nobours.city;
-        city_list.push(cityInput);
-        const nobours = { ...config.nobours, city: city_list };
-        setConfig({ ...config, nobours });
-        setCityInput(null);
-      } else {
-        toast.error("لطفا یک شهر معتبر انتخاب کنید");
-      }
-    }
+    axios
+      .request(options)
+      .then((response) => {
+        setCityList(response.data);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
   };
 
   const handleDelete = (city) => {
-    const city_list = config.nobours.city.filter((i) => i !== city);
+    const city_list = (config.nobours.city || []).filter((i) => i !== city);
     const nobours = { ...config.nobours, city: city_list };
-    setConfig({ ...config, nobours });
+    setConfig({ ...config, nobours: nobours });
   };
 
   const toggleDropdown = () => {
@@ -54,8 +58,27 @@ const CityFilter = ({
   };
 
   const availableCities = cityList.filter(
-    (city) => !config.config?.city?.includes(city)
+    (city) => !config.city.includes(city)
   );
+
+  const handleCitySelect = (e) => {
+    setCityInput(e.target.value);
+  };
+
+  const handleAddCity = () => {
+    if (cityInput) {
+      const available = cityList.includes(cityInput);
+      if (available) {
+        const city_list = [...(config.nobours.city || [])];
+        city_list.push(cityInput);
+        const nobours = { ...config.nobours, city: city_list };
+        setConfig({ ...config, nobours: nobours });
+        setCityInput("");
+      } else {
+        toast.error("لطفا یک شهر معتبر انتخاب کنید");
+      }
+    }
+  };
 
   return (
     <>
@@ -86,26 +109,25 @@ const CityFilter = ({
           <div
             dir="rtl"
             className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
+            onClick={(e) => e.stopPropagation()}
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <Autocomplete
-                options={availableCities}
-                getOptionLabel={(option) => option}
+              <TextField
+                select
                 value={cityInput}
-                onChange={(event, newValue) => {
-                  setCityInput(newValue);
-                }}
-                renderInput={(params, index) => (
-                  <TextField
-                    {...params}
-                    label="شهر"
-                    variant="outlined"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                    style={{ marginBottom: 16 }}
-                  />
-                )}
-              />
+                onChange={handleCitySelect}
+                label="شهر ها"
+                variant="outlined"
+                SelectProps={{ native: true }}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                style={{ marginBottom: 16 }}
+              >
+              <option value="" disabled></option>
+              {availableCities.map((i, index) => (
+                  <option key={index}>{i}</option>
+                ))}
+              </TextField>
 
               <Button
                 onClick={handleAddCity}
