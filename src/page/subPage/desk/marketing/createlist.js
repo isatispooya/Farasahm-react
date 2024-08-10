@@ -42,6 +42,10 @@ const CreateList = () => {
         dataTree: true,
         dataTreeStartExpanded: false,
         autoColumns: true,
+        rowTooltip: function(row) { // Custom function for row tooltip
+          var data = row.getData();
+          return "Name: " + data.name + "\nAge: " + data.age + "\nGender: " + data.gender;
+      }
       });
 
       setTable(newTable);

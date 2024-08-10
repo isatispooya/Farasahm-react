@@ -24,6 +24,8 @@ const NationalIdSearch = ({ config, setConfig }) => {
     let nc_list = config.nobours.national_id;
     let nobours;
     if (searchTermPrimary) {
+      console.log(config);
+      
       nc_list.push(searchTermPrimary);
       nobours = { ...config.nobours, national_id: nc_list };
       setConfig({ ...config, nobours: nobours });
@@ -31,7 +33,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
       setCityselected(null);
       setInputValue("");
     } else if (cityselected) {
-      nc_list.push(cityselected.num);
+      nc_list =  [...nc_list,...cityselected.num ]
       nobours = { ...config.nobours, national_id: nc_list };
       setConfig({ ...config, nobours: nobours });
       setCityselected(null);

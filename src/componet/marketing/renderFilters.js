@@ -116,9 +116,7 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
               endIcon={
                 <ExpandMoreIcon
                   style={{
-                    transform: openNobours
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    transform: openNobours ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 0.3s",
                   }}
                 />
