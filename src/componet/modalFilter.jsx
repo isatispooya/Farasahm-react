@@ -16,7 +16,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoPlus } from "react-icons/go";
 import { DateObject } from "react-multi-date-picker";
-import Loader from "./Loader/Loader";
 import MiniLoader from "./Loader/miniLoader";
 
 const ModalFilter = ({
@@ -159,9 +158,6 @@ const ModalFilter = ({
     );
   };
 
-  console.log(listConfig);
-  
-
   return (
     <div
       dir="rtl"
@@ -175,10 +171,6 @@ const ModalFilter = ({
           </Step>
         ))}
       </Stepper>
-
-
-
-
 
       {stepNumber === 0 && (
         <Grid container spacing={3}>

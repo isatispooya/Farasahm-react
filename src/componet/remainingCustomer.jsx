@@ -8,9 +8,9 @@ const RemainingCustomer = ({ config, setConfig }) => {
   const accounting = insurance.accounting || {};
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [from, setFrom] = useState(config.insurance.accounting.from || "");
-  const [to, setTo] = useState(config.insurance.accounting.to || "");
-  const [code, setCode] = useState(config.insurance.accounting.code || "03");
+  const [from, setFrom] = useState(accounting.from || "");
+  const [to, setTo] = useState(accounting.to || "");
+  const [code, setCode] = useState(accounting.code || "03");
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
