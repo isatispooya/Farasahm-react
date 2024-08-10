@@ -26,7 +26,6 @@ const ModalFilter = ({
   setIsOpenFilter,
 }) => {
   const newconfig = {
-    config: {
       send_time: new DateObject(),
       context: "",
       period: null,
@@ -74,7 +73,6 @@ const ModalFilter = ({
           num2: [],
         },
       },
-    },
     title: "",
   };
 
@@ -234,6 +232,7 @@ const ModalFilter = ({
             openDropdown={openDropdown}
             config={config}
             setConfig={setConfig}
+            access={access}
           />
         )
       )}

@@ -24,25 +24,24 @@ const RenderFilters = ({ config, setConfig, access }) => {
   const [openInsuranceBroker, setOpenInsuranceBroker] = useState(false);
   const dropdownRef = useRef(null);
 
+  
 
   const handleEnebledNobours = () => {
     let nobours = {
-      ...config.config.nobours,
-      enabled: !config.config.nobours.enabled,
+      ...config.nobours,
+      enabled: !config.nobours.enabled,
     };
-    let updatedConfig = { ...config.config, nobours: nobours };
-    setConfig({ ...config, config: updatedConfig });
+    setConfig({ ...config, nobours: nobours });
   };
 
   const handleEnebledInsurance = () => {
     let insurance = {
-      ...config.config.insurance,
-      enabled: !config.config.insurance.enabled,
+      ...config.insurance,
+      enabled: !config.insurance.enabled,
     };
-    let updatedConfig = { ...config.config, insurance: insurance };
-    setConfig({ ...config, config: updatedConfig });
+    setConfig({ ...config, insurance: insurance });
   };
-  console.log(config);
+
 
   const handleDropdownClick = (dropdownType) => {
     if (dropdownType === "nobours") {
@@ -78,14 +77,14 @@ const RenderFilters = ({ config, setConfig, access }) => {
         <ButtonGroup variant="outlined" aria-label="Loading button group ">
           <Button
             style={{ padding: "20px" }}
-            variant={config.config.nobours.enabled ? "contained" : "outlined"}
+            variant={config.nobours.enabled ? "contained" : "outlined"}
             onClick={handleEnebledNobours}
           >
             غیر بورسی
           </Button>
           <Button
             style={{ padding: "20px" }}
-            variant={config.config.insurance.enabled ? "contained" : "outlined"}
+            variant={config.insurance.enabled ? "contained" : "outlined"}
             onClick={handleEnebledInsurance}
           >
             کارگزاری بیمه
@@ -95,7 +94,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
           </Button>
         </ButtonGroup>
 
-        {config.config.nobours.enabled && (
+        {config.nobours.enabled && (
           <>
             <Button
               variant="contained"
@@ -137,7 +136,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
           </>
         )}
 
-        {config.config.insurance.enabled && (
+        {config.insurance.enabled && (
           <>
             <Button
               variant="contained"

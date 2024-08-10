@@ -10,33 +10,34 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
 
+  
   useEffect(() => {
     const fetchCompanyList = async () => {
+      const options = {
+        method: 'POST',
+        url: `${OnRun}/marketing/symbolregisternobours`,
+        headers: { 'content-type': 'application/json' },
+        data: { access: access || [] },
+      };
+  
       try {
-        const response = await axios.post(
-          `${OnRun}/marketing/symbolregisternobours`,
-          { access }
-        );
+        const response = await axios.request(options);
         setCompanyList(response.data);
-        console.log(companyList);
-
       } catch (error) {
-        console.error("Failed to fetch company list", error);
+        console.error("Failed to fetch company list", error.response?.data || error.message);
       }
     };
     fetchCompanyList();
   }, [access]);
-
   
-
   const handleAddCompany = () => {
     const available = companyList.some(
       (company) => company.symbol === companyInput
     );
     if (available) {
-      const symbolList = [...(config.config.nobours?.symbol || [])];
+      const symbolList = [...(config.nobours?.symbol || [])];
       symbolList.push(companyInput);
-      const nobours = { ...config.config.nobours, symbol: symbolList };
+      const nobours = { ...config.nobours, symbol: symbolList };
       setConfig({ ...config, nobours });
       setCompanyInput("");
     } else {
@@ -45,11 +46,11 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   };
 
   const handleDelete = (companySymbol) => {
-    const symbolList = (config.config.nobours?.symbol || []).filter(
+    const symbolList = (config.nobours?.symbol || []).filter(
       (symbol) => symbol !== companySymbol
     );
-    const nobours = { ...config.config.nobours, symbol: symbolList };
-    setConfig({ ...config, nobours });
+    const nobours = { ...config.nobours, symbol: symbolList };
+    setConfig({ ...config, nobours: nobours });
   };
 
   const toggleDropdown = () => {
@@ -61,7 +62,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   };
 
   const availableCompanies = companyList.filter(
-    (company) => !(config.config.nobours?.symbol || []).includes(company.symbol)
+    (company) => !(config.nobours?.symbol || []).includes(company.symbol)
   );
 
   return (
@@ -125,7 +126,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {(config.config.nobours?.symbol || []).map((companySymbol, index) => {
+            {(config.nobours?.symbol || []).map((companySymbol, index) => {
               const companyInfo = companyList.find(
                 (i) => i.symbol === companySymbol
               );

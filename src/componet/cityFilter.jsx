@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField, Autocomplete } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,48 +7,50 @@ import { ToastContainer, toast } from "react-toastify";
 
 const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
-  const [cityInput, setCityInput] = useState(null);
+  const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  useEffect(() => {
+    if (!config.city) {
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        city: [],
+      }));
+    }
+    if (!config.nobours.city) {
+      setConfig((prevConfig) => ({
+        ...prevConfig,
+        nobours: {
+          ...prevConfig.nobours,
+          city: [],
+        },
+      }));
+    }
+    getCityList();
+  }, []);
+
   const getCityList = () => {
-    axios({
+    const options = {
       method: "POST",
       url: `${OnRun}/marketing/cityregisternobours`,
-      data: { access },
-    })
+      headers: { "content-type": "application/json" },
+      data: { access: access },
+    };
+
+    axios
+      .request(options)
       .then((response) => {
         setCityList(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching city list:", error.response || error.message);
-        toast.error("There was an error fetching the city list. Please try again later.");
+        console.error(error.message);
       });
-    
-  };
-
-  useEffect(() => {
-    getCityList();
-  }, [access]);
-
-  const handleAddCity = () => {
-    if (cityInput) {
-      const available = cityList.includes(cityInput);
-      if (available) {
-        const city_list = config.config.nobours.city;
-        city_list.push(cityInput);
-        const nobours = { ...config.config.nobours, city: city_list };
-        setConfig({ ...config, nobours });
-        setCityInput(null);
-      } else {
-        toast.error("لطفا یک شهر معتبر انتخاب کنید");
-      }
-    }
   };
 
   const handleDelete = (city) => {
-    const city_list = config.config.nobours.city.filter((i) => i !== city);
-    const nobours = { ...config.config.nobours, city: city_list };
-    setConfig({ ...config, nobours });
+    const city_list = (config.nobours.city || []).filter((i) => i !== city);
+    const nobours = { ...config.nobours, city: city_list };
+    setConfig({ ...config, nobours: nobours });
   };
 
   const toggleDropdown = () => {
@@ -56,8 +58,27 @@ const CityFilter = ({ access, config, setConfig }) => {
   };
 
   const availableCities = cityList.filter(
-    (city) => !config.config?.city?.includes(city)
+    (city) => !config.city.includes(city)
   );
+
+  const handleCitySelect = (e) => {
+    setCityInput(e.target.value);
+  };
+
+  const handleAddCity = () => {
+    if (cityInput) {
+      const available = cityList.includes(cityInput);
+      if (available) {
+        const city_list = [...(config.nobours.city || [])];
+        city_list.push(cityInput);
+        const nobours = { ...config.nobours, city: city_list };
+        setConfig({ ...config, nobours: nobours });
+        setCityInput("");
+      } else {
+        toast.error("لطفا یک شهر معتبر انتخاب کنید");
+      }
+    }
+  };
 
   return (
     <>
@@ -92,24 +113,21 @@ const CityFilter = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <Autocomplete
-                options={availableCities}
-                getOptionLabel={(option) => option}
+              <TextField
+                select
                 value={cityInput}
-                onChange={(event, newValue) => {
-                  event.stopPropagation();
-                  setCityInput(newValue);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="شهر"
-                    variant="outlined"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                    style={{ marginBottom: 16 }}
-                  />
-                )}
-              />
+                onChange={handleCitySelect}
+                label="شهر ها"
+                variant="outlined"
+                SelectProps={{ native: true }}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                style={{ marginBottom: 16 }}
+              >
+              <option value="" disabled></option>
+              {availableCities.map((i, index) => (
+                  <option key={index}>{i}</option>
+                ))}
+              </TextField>
 
               <Button
                 onClick={handleAddCity}
@@ -126,7 +144,7 @@ const CityFilter = ({ access, config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.config.nobours.city || []).map((city, index) => (
+                {(config.nobours.city || []).map((city, index) => (
                   <Chip
                     key={`city-${index}`}
                     label={city}
