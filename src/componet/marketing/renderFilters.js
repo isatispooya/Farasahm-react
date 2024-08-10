@@ -10,6 +10,13 @@ import PhoneSearch from "../phoneFilter";
 import Stocks from "../Stocks";
 import NameSearch from "../name.jsx";
 import InsuranceConsultant from "../insuranceconsultant.jsx";
+import NationalFilterBime from "../nationalFilterBime.jsx";
+import NameFilterBime from "../nameFilterBime.jsx";
+import MordBime from "../mordBime.jsx";
+import PhoneFilterBime from "../phoneFilterBime.jsx";
+import CompanyBime from "../companyBime.jsx";
+import PaymentBime from "../payment&FeeBime.jsx";
+import FieldBime from "../FieldBime.jsx";
 
 const RenderFilters = ({ config = {}, setConfig, access }) => {
   const [selected, setSelected] = useState([]);
@@ -172,8 +179,35 @@ const RenderFilters = ({ config = {}, setConfig, access }) => {
 
             {openInsuranceBroker && (
               <div className="mt-4 w-full">
+                <NationalFilterBime
+                  setConfig={setConfig}
+                  config={config}
+                  access={access}
+                />
+                <NameFilterBime
+                  setConfig={setConfig}
+                  config={config}
+                  access={access}
+                />
+                <PhoneFilterBime setConfig={setConfig} config={config} />
                 <RemainingCustomer setConfig={setConfig} config={config} />
-                <InsuranceConsultant setConfig={setConfig} config={config} access={access}/>
+                <InsuranceConsultant
+                  setConfig={setConfig}
+                  config={config}
+                  access={access}
+                />
+                <MordBime
+                  setConfig={setConfig}
+                  config={config}
+                  access={access}
+                />
+                <FieldBime setConfig={setConfig} config={config} />
+                <PaymentBime setConfig={setConfig} config={config} />
+                <CompanyBime
+                  setConfig={setConfig}
+                  config={config}
+                  access={access}
+                />
               </div>
             )}
           </>

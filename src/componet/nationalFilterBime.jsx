@@ -2,62 +2,61 @@ import React, { useState } from "react";
 import { Button, TextField, Autocomplete } from "@mui/material";
 import { city_list } from "./marketing/city_list";
 
-const NationalIdSearch = ({ config, setConfig }) => {
-  const [searchTermPrimary, setSearchTermPrimary] = useState("");
+const NationalFilterBime = ({ config, setConfig }) => {
+  const [search, setSearch] = useState("");
   const [cityselected, setCityselected] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const handle_search_number_national_code = (e) => {
-    const value = e.target.value;
-    if (/^\d*$/.test(value)) setSearchTermPrimary(value);
-  };
 
-  const handleRemovePrimary = (id) => {
-    let nc_list = config.nobours.national_id;
+  const Remove_selected = (id) => {
+    let nc_list = config.insurance.national_id;
     nc_list = nc_list.filter((i) => i !== id);
-    let nobours = { ...config.nobours, national_id: nc_list };
-    setConfig({ ...config, nobours: nobours });
+    let insurance = { ...config.insurance, national_id: nc_list };
+    setConfig({ ...config, insurance: insurance });
   };
 
   const add_num_to_config = () => {
-    let nc_list = config.nobours.national_id;
-    let nobours;
-    if (searchTermPrimary) {
+    let nc_list = config.insurance.national_id;
+    let insurance;
+    if (search) {
       console.log(config);
 
-      nc_list.push(searchTermPrimary);
-      nobours = { ...config.nobours, national_id: nc_list };
-      setConfig({ ...config, nobours: nobours });
-      setSearchTermPrimary("");
+      nc_list.push(search);
+      insurance = { ...config.insurance, national_id: nc_list };
+      setConfig({ ...config, insurance: insurance });
+      setSearch("");
       setCityselected(null);
       setInputValue("");
     } else if (cityselected) {
       nc_list = [...nc_list, ...cityselected.num];
-      nobours = { ...config.nobours, national_id: nc_list };
-      setConfig({ ...config, nobours: nobours });
+      insurance = { ...config.insurance, national_id: nc_list };
+      setConfig({ ...config, insurance: insurance });
       setCityselected(null);
-      setSearchTermPrimary("");
+      setSearch("");
       setInputValue("");
     }
   };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const handle_search_number_national_code = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) setSearch(value);
+  };
+  const openDropdown = () => {
+    setDropDown(!dropDown);
   };
 
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
         <button
-          onClick={toggleDropdown}
+          onClick={openDropdown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
           کدملی
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen ? "rotate-180" : "rotate-0"
+              dropDown ? "rotate-180" : "rotate-0"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -71,7 +70,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
             />
           </svg>
         </button>
-        {isDropdownOpen && (
+        {dropDown && (
           <div
             dir="rtl"
             className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
@@ -80,7 +79,7 @@ const NationalIdSearch = ({ config, setConfig }) => {
               <div className="flex items-center space-x-4">
                 <TextField
                   style={{ flex: 1 }}
-                  value={searchTermPrimary}
+                  value={search}
                   onChange={handle_search_number_national_code}
                   label="جستجو کد ملی"
                   variant="outlined"
@@ -123,16 +122,16 @@ const NationalIdSearch = ({ config, setConfig }) => {
               </Button>
             </div>
 
-            {config?.nobours?.national_id?.length > 0 && (
+            {config?.insurance?.national_id?.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.national_id.map((id, index) => (
+                {config.insurance.national_id.map((id, index) => (
                   <div
                     key={index}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   >
                     <span className="mr-2 text-lg font-medium">{id}</span>
                     <button
-                      onClick={() => handleRemovePrimary(id)}
+                      onClick={() => Remove_selected(id)}
                       className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
                       <svg
@@ -161,4 +160,4 @@ const NationalIdSearch = ({ config, setConfig }) => {
   );
 };
 
-export default NationalIdSearch;
+export default NationalFilterBime;

@@ -1,14 +1,13 @@
-import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
+import { Button, TextField } from "@mui/material";
 import { IoCloseOutline } from "react-icons/io5";
 
-const PhoneSearch = ({ config, setConfig }) => {
+const PhoneFilterBime = ({ config, setConfig }) => {
   const [inputNum1, setInputNum1] = useState("");
   const [inputNum2, setInputNum2] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
-
-  const mobile = config?.nobours?.mobile || { num1: [], num2: [] };
+  const mobile = config?.insurance?.mobile || { num1: [], num2: [] };
 
   const handleSearch1 = (e) => {
     const value = e.target.value;
@@ -23,19 +22,18 @@ const PhoneSearch = ({ config, setConfig }) => {
       setInputNum2(value);
     }
   };
-
   const handleAdd1 = () => {
     if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
       const num1Config = [...mobile.num1, inputNum1];
       setConfig((prevConfig) => ({
         ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
+        insurance: {
+          ...prevConfig.insurance,
           mobile: {
             ...mobile,
-            num1: num1Config
-          }
-        }
+            num1: num1Config,
+          },
+        },
       }));
     }
     setInputNum1("");
@@ -46,8 +44,8 @@ const PhoneSearch = ({ config, setConfig }) => {
       const num2Config = [...mobile.num2, inputNum2];
       setConfig((prevConfig) => ({
         ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
+        insurance: {
+          ...prevConfig.insurance,
           mobile: {
             ...mobile,
             num2: num2Config
@@ -62,27 +60,26 @@ const PhoneSearch = ({ config, setConfig }) => {
     const num1Config = mobile.num1.filter((i) => i !== id);
     setConfig((prevConfig) => ({
       ...prevConfig,
-      nobours: {
-        ...prevConfig.nobours,
+      insurance: {
+        ...prevConfig.insurance,
         mobile: {
           ...mobile,
-          num1: num1Config
-        }
-      }
+          num1: num1Config,
+        },
+      },
     }));
   };
-
   const handleRemove2 = (id) => {
     const num2Config = mobile.num2.filter((i) => i !== id);
     setConfig((prevConfig) => ({
       ...prevConfig,
-      nobours: {
-        ...prevConfig.nobours,
+      insurance: {
+        ...prevConfig.insurance,
         mobile: {
           ...mobile,
-          num2: num2Config
-        }
-      }
+          num2: num2Config,
+        },
+      },
     }));
   };
 
@@ -98,21 +95,23 @@ const PhoneSearch = ({ config, setConfig }) => {
     }
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const openDropdown = () => {
+    setDropDown(!dropDown);
   };
+
+
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
-        onClick={toggleDropdown}
+        onClick={openDropdown}
         className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
       >
         شماره تماس
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-            isDropdownOpen ? "rotate-180" : "rotate-0"
+            dropDown ? "rotate-180" : "rotate-0"
           }`}
           fill="none"
           viewBox="0 0 24 24"
@@ -126,7 +125,7 @@ const PhoneSearch = ({ config, setConfig }) => {
           />
         </svg>
       </button>
-      {isDropdownOpen && (
+      {dropDown && (
         <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <TextField
@@ -215,4 +214,4 @@ const PhoneSearch = ({ config, setConfig }) => {
   );
 };
 
-export default PhoneSearch;
+export default PhoneFilterBime;
