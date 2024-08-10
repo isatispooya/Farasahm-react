@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 const RemainingCustomer = ({ config, setConfig }) => {
-  // Ensure default values for nested properties
   const insurance = config?.insurance || {};
   const accounting = insurance.accounting || {};
 
@@ -11,6 +10,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
   const [from, setFrom] = useState(accounting.from || "");
   const [to, setTo] = useState(accounting.to || "");
   const [code, setCode] = useState(accounting.code || "03");
+  const codeItems = ["01", "02", "03", "04", "05", "06", "07", "08", "09"];
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -23,24 +23,11 @@ const RemainingCustomer = ({ config, setConfig }) => {
     }
   };
 
-
-  useEffect(() => {
-    const newAccounting = { from, to, code };
-    const newInsurance = { ...insurance, accounting: newAccounting };
-    setConfig({ ...config, insurance: newInsurance });
-  }, [from, to, code, config, insurance, setConfig]);
-
-  const codeItems = [
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09"
-  ];
+  // useEffect(() => {
+  //   const newAccounting = { from, to, code };
+  //   const newInsurance = { ...insurance, accounting: newAccounting };
+  //   setConfig({ ...config, insurance: newInsurance });
+  // }, [from, to, code, config, insurance, setConfig]);
 
   return (
     <>
@@ -91,7 +78,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   value={from}
                   onChange={handleInputChange(setFrom)}
                 />
-                
+
                 <TextField
                   sx={{ marginRight: "5px", backgroundColor: "white" }}
                   id="outlined-basic"
