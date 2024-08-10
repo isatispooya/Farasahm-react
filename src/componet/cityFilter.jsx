@@ -5,13 +5,9 @@ import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CityFilter = ({
-  access,
-  config = { config: { city: [] } },
-  setConfig,
-}) => {
+const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
-  const [cityInput, setCityInput] = useState(null); 
+  const [cityInput, setCityInput] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const getCityList = () => {
@@ -19,9 +15,15 @@ const CityFilter = ({
       method: "POST",
       url: `${OnRun}/marketing/cityregisternobours`,
       data: { access },
-    }).then((response) => {
-      setCityList(response.data);
-    });
+    })
+      .then((response) => {
+        setCityList(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching city list:", error.response || error.message);
+        toast.error("There was an error fetching the city list. Please try again later.");
+      });
+    
   };
 
   useEffect(() => {
@@ -32,9 +34,9 @@ const CityFilter = ({
     if (cityInput) {
       const available = cityList.includes(cityInput);
       if (available) {
-        const city_list = config.nobours.city;
+        const city_list = config.config.nobours.city;
         city_list.push(cityInput);
-        const nobours = { ...config.nobours, city: city_list };
+        const nobours = { ...config.config.nobours, city: city_list };
         setConfig({ ...config, nobours });
         setCityInput(null);
       } else {
@@ -44,8 +46,8 @@ const CityFilter = ({
   };
 
   const handleDelete = (city) => {
-    const city_list = config.nobours.city.filter((i) => i !== city);
-    const nobours = { ...config.nobours, city: city_list };
+    const city_list = config.config.nobours.city.filter((i) => i !== city);
+    const nobours = { ...config.config.nobours, city: city_list };
     setConfig({ ...config, nobours });
   };
 
@@ -86,6 +88,7 @@ const CityFilter = ({
           <div
             dir="rtl"
             className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
+            onClick={(e) => e.stopPropagation()}
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
@@ -94,9 +97,10 @@ const CityFilter = ({
                 getOptionLabel={(option) => option}
                 value={cityInput}
                 onChange={(event, newValue) => {
+                  event.stopPropagation();
                   setCityInput(newValue);
                 }}
-                renderInput={(params, index) => (
+                renderInput={(params) => (
                   <TextField
                     {...params}
                     label="شهر"
@@ -122,7 +126,7 @@ const CityFilter = ({
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.nobours.city || []).map((city, index) => (
+                {(config.config.nobours.city || []).map((city, index) => (
                   <Chip
                     key={`city-${index}`}
                     label={city}

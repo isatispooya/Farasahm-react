@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
+const NameSearch = ({ config, setConfig }) => {
   const [searchTermName, setSearchTermName] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -13,24 +13,28 @@ const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
   };
 
   const handleAddName = () => {
-    if (searchTermName && !config.nobours.name.includes(searchTermName)) {
-      setSearchTermName("");
-      let name_list = [...config.nobours.name, searchTermName];
+    // Ensure that config.config.nobours.name is initialized as an array
+    const name_list = config.config.nobours.name ?? [];
+
+    if (searchTermName && !name_list.includes(searchTermName)) {
+      const updatedNameList = [...name_list, searchTermName];
       const nobours = {
-        ...config,
-        nobours: { ...config.nobours, name: name_list },
+        ...config.config.nobours,
+        name: updatedNameList,
       };
-      setConfig(nobours);
+      setConfig({ ...config, config: { ...config.config, nobours } });
+      setSearchTermName("");
     }
   };
 
   const handleRemoveName = (name) => {
-    let name_list = config.nobours.name.filter((existingName) => existingName !== name);
+    const name_list = config.config.nobours.name ?? [];
+    const updatedNameList = name_list.filter((existingName) => existingName !== name);
     const nobours = {
-      ...config,
-      nobours: { ...config.nobours, name: name_list },
+      ...config.config.nobours,
+      name: updatedNameList,
     };
-    setConfig(nobours);
+    setConfig({ ...config, config: { ...config.config, nobours } });
   };
 
   const handleKeyDownName = (e) => {
@@ -95,9 +99,9 @@ const NameSearch = ({ config = { nobours: { name: [] } }, setConfig }) => {
               </Button>
             </div>
 
-            {config.nobours.name && config.nobours.name.length > 0 && (
+            {config.config.nobours.name && config.config.nobours.name.length > 0 && (
               <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.name.map((name) => (
+                {config.config.nobours.name.map((name) => (
                   <div
                     key={name}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"

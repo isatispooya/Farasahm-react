@@ -18,6 +18,8 @@ const CompanyFilter = ({ access, config, setConfig }) => {
           { access }
         );
         setCompanyList(response.data);
+        console.log(companyList);
+
       } catch (error) {
         console.error("Failed to fetch company list", error);
       }
@@ -25,14 +27,16 @@ const CompanyFilter = ({ access, config, setConfig }) => {
     fetchCompanyList();
   }, [access]);
 
+  
+
   const handleAddCompany = () => {
     const available = companyList.some(
       (company) => company.symbol === companyInput
     );
     if (available) {
-      const symbolList = [...(config.nobours?.symbol || [])];
+      const symbolList = [...(config.config.nobours?.symbol || [])];
       symbolList.push(companyInput);
-      const nobours = { ...config.nobours, symbol: symbolList };
+      const nobours = { ...config.config.nobours, symbol: symbolList };
       setConfig({ ...config, nobours });
       setCompanyInput("");
     } else {
@@ -41,10 +45,10 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   };
 
   const handleDelete = (companySymbol) => {
-    const symbolList = (config.nobours?.symbol || []).filter(
+    const symbolList = (config.config.nobours?.symbol || []).filter(
       (symbol) => symbol !== companySymbol
     );
-    const nobours = { ...config.nobours, symbol: symbolList };
+    const nobours = { ...config.config.nobours, symbol: symbolList };
     setConfig({ ...config, nobours });
   };
 
@@ -57,7 +61,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   };
 
   const availableCompanies = companyList.filter(
-    (company) => !(config.nobours?.symbol || []).includes(company.symbol)
+    (company) => !(config.config.nobours?.symbol || []).includes(company.symbol)
   );
 
   return (
@@ -121,7 +125,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
             justifyContent="flex-end"
             sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
           >
-            {(config.nobours?.symbol || []).map((companySymbol, index) => {
+            {(config.config.nobours?.symbol || []).map((companySymbol, index) => {
               const companyInfo = companyList.find(
                 (i) => i.symbol === companySymbol
               );

@@ -31,7 +31,7 @@ const ModalFilter = ({
       context: "",
       period: null,
       insurance: {
-        enabled: true,
+        enabled: false,
         name: [],
         national_id: [],
         mobile: {
