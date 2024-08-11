@@ -10,23 +10,6 @@ const CityFilter = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    if (!config.city) {
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-      }));
-    }
-    if (!config.nobours.city) {
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
-        },
-      }));
-    }
-    getCityList();
-  }, []);
-
   const getCityList = () => {
     const options = {
       method: "POST",
@@ -45,6 +28,10 @@ const CityFilter = ({ access, config, setConfig }) => {
       });
   };
 
+  useEffect(() => {
+    getCityList();
+  });
+
   const handleDelete = (city) => {
     const city_list = (config.nobours.city || []).filter((i) => i !== city);
     const nobours = { ...config.nobours, city: city_list };
@@ -54,6 +41,10 @@ const CityFilter = ({ access, config, setConfig }) => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const availableCities = cityList.filter(
+    (city) => !(config.city ?? []).includes(city)
+  );
 
   const handleCitySelect = (e) => {
     setCityInput(e.target.value);
@@ -73,12 +64,6 @@ const CityFilter = ({ access, config, setConfig }) => {
       }
     }
   };
-
-  const filteredCities = cityList.filter(
-    (city) =>
-      city.toLowerCase().includes(cityInput.toLowerCase()) &&
-      !config.city.includes(city)
-  );
 
   return (
     <>
@@ -122,15 +107,10 @@ const CityFilter = ({ access, config, setConfig }) => {
                 SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
-                inputProps={{
-                  onInput: (e) => setCityInput(e.target.value),
-                }}
               >
                 <option value="" disabled></option>
-                {filteredCities.map((city, index) => (
-                  <option key={index} value={city}>
-                    {city}
-                  </option>
+                {availableCities.map((i, index) => (
+                  <option key={index}>{i}</option>
                 ))}
               </TextField>
 
@@ -181,7 +161,6 @@ const CityFilter = ({ access, config, setConfig }) => {
                       borderRadius: "16px",
                       fontSize: "0.875rem",
                       fontWeight: "bold",
-                      marginBottom: "10px",
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />

@@ -96,12 +96,14 @@ const ModalFilter = ({
         console.error(error);
       });
   };
+  
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
 
   const getConfig = async () => {
     setLoading(true);
+    
     try {
       if (configSelected) {
         const response = await axios.post(`${OnRun}/marketing/viewconfig`, {
@@ -111,6 +113,8 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
+          console.log("getConfig",response.data);
+
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }

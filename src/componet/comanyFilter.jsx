@@ -17,7 +17,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
         method: 'POST',
         url: `${OnRun}/marketing/symbolregisternobours`,
         headers: { 'content-type': 'application/json' },
-        data: { access: access || [] },
+        data: { access: access },
       };
   
       try {

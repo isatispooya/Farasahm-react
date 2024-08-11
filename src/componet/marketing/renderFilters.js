@@ -24,8 +24,6 @@ const RenderFilters = ({ config, setConfig, access }) => {
   const [openInsuranceBroker, setOpenInsuranceBroker] = useState(false);
   const dropdownRef = useRef(null);
 
-  
-
   const handleEnebledNobours = () => {
     let nobours = {
       ...config.nobours,
@@ -42,7 +40,6 @@ const RenderFilters = ({ config, setConfig, access }) => {
     setConfig({ ...config, insurance: insurance });
   };
 
-
   const handleDropdownClick = (dropdownType) => {
     if (dropdownType === "nobours") {
       setOpenNobours(!openNobours);
@@ -52,22 +49,6 @@ const RenderFilters = ({ config, setConfig, access }) => {
       setOpenNobours(false);
     }
   };
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpenNobours(false);
-        setOpenInsuranceBroker(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
-
   return (
     <div
       className="overflow-y-auto max-h-[calc(150vh-180px)]"
