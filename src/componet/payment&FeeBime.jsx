@@ -67,7 +67,7 @@ const PaymentBime = ({
     }
   };
 
-  console.log(config);
+  
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

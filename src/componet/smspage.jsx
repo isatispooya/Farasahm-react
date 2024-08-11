@@ -11,6 +11,7 @@ const Smspage = ({
   toggleModal,
   access,
   Config,
+  status,
   configSelected,
   get,
   textareaRef,
@@ -59,17 +60,17 @@ const Smspage = ({
   };
 
   const handleClose = () => {
-    setIsConfirmationModalOpen(true); // Show the confirmation modal when trying to close
+    setIsConfirmationModalOpen(true); 
   };
 
   const handleConfirmClose = () => {
     setIsConfirmationModalOpen(false);
-    toggleModal(false); // Close the Smspage modal if confirmed
+    toggleModal(false);
     editContext()
   };
 
   const handleCancelClose = () => {
-    setIsConfirmationModalOpen(false); // Cancel closing
+    setIsConfirmationModalOpen(false); 
   };
 
   const showPopUp = () => {
@@ -89,6 +90,11 @@ const Smspage = ({
       hideModal();
     }
   };
+
+  const sendRequest = () => {
+    setIsModalVisible(false);
+    console.log("sendRequest")
+  }
 
   useEffect(() => {
     if (isModalVisible) {
@@ -168,7 +174,9 @@ const Smspage = ({
             >
               پیش‌نمایش
             </button>
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md text-sm">
+            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md text-sm"
+            onClick={sendRequest}
+            >
               ارسال
             </button>
           </div>
