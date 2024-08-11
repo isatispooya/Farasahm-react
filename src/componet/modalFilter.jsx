@@ -26,53 +26,53 @@ const ModalFilter = ({
   setIsOpenFilter,
 }) => {
   const newconfig = {
-      send_time: new DateObject(),
-      context: "",
-      period: null,
-      insurance: {
-        enabled: false,
-        name: [],
-        national_id: [],
-        mobile: {
-          num1: [],
-          num2: [],
-        },
-        company: [],
-        consultant: [],
-        insurance_item: [],
-        insurance_field: [],
-        fee: {
-          max: null,
-          min: null,
-        },
-        payment: {
-          max: null,
-          min: null,
-        },
+    send_time: new DateObject(),
+    context: "",
+    period: null,
+    insurance: {
+      enabled: false,
+      name: [],
+      national_id: [],
+      mobile: {
+        num1: [],
+        num2: [],
       },
-      nobours: {
-        enabled: false,
-        name: null,
-        birthday: {
-          from: null,
-          to: null,
-        },
-        city: [],
-        symbol: [],
-        national_id: [],
-        amount: {
-          from: null,
-          to: null,
-        },
-        rate: {
-          min: null,
-          max: null,
-        },
-        mobile: {
-          num1: [],
-          num2: [],
-        },
+      company: [],
+      consultant: [],
+      insurance_item: [],
+      insurance_field: [],
+      fee: {
+        max: null,
+        min: null,
       },
+      payment: {
+        max: null,
+        min: null,
+      },
+    },
+    nobours: {
+      enabled: false,
+      name: null,
+      birthday: {
+        from: null,
+        to: null,
+      },
+      city: [],
+      symbol: [],
+      national_id: [],
+      amount: {
+        from: null,
+        to: null,
+      },
+      rate: {
+        min: null,
+        max: null,
+      },
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+    },
     title: "",
   };
 
@@ -86,9 +86,14 @@ const ModalFilter = ({
 
   const getConfigList = () => {
     axios
-      .post(OnRun + "/marketing/marketinglist", { access: access })
+      .post(OnRun + "/marketing/marketinglist", {
+        access: access,
+      })
       .then((response) => {
         setListConfig(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
@@ -107,7 +112,7 @@ const ModalFilter = ({
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
         } else {
-          console.error(response.error.data.message);
+          console.error(response.error?.data?.message || "Unknown error");
         }
       } else {
         setConfig(newconfig);
@@ -122,9 +127,10 @@ const ModalFilter = ({
 
   const PostData = async () => {
     setIsSubmitting(true);
+
     try {
       const postConfig =
-        configSelected == null || configSelected === undefined
+        configSelected == null || configSelected == undefined
           ? axios.post(`${OnRun}/marketing/fillter`, {
               access: access,
               title: config.title,

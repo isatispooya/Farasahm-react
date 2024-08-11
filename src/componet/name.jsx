@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const NameSearch = ({ config, setConfig }) => {
@@ -21,14 +21,16 @@ const NameSearch = ({ config, setConfig }) => {
         ...config.nobours,
         name: updatedNameList,
       };
-      setConfig({ ...config, nobours: nobours } );
+      setConfig({ ...config, nobours: nobours });
       setSearchTermName("");
     }
   };
 
   const handleRemoveName = (name) => {
     const name_list = config.nobours.name ?? [];
-    const updatedNameList = name_list.filter((existingName) => existingName !== name);
+    const updatedNameList = name_list.filter(
+      (existingName) => existingName !== name
+    );
     const nobours = {
       ...config.nobours,
       name: updatedNameList,
@@ -57,7 +59,9 @@ const NameSearch = ({ config, setConfig }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen ? "rotate-180 duration-500" : "rotate-0 duration-500"
+              isDropdownOpen
+                ? "rotate-180 duration-500"
+                : "rotate-0 duration-500"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -84,7 +88,7 @@ const NameSearch = ({ config, setConfig }) => {
                 variant="outlined"
                 inputProps={{
                   inputMode: "text",
-                  pattern: "[\u0600-\u06FFa-zA-Z\s]*",
+                  pattern: "[\u0600-\u06FFa-zA-Zs]*",
                 }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
@@ -99,35 +103,51 @@ const NameSearch = ({ config, setConfig }) => {
             </div>
 
             {config.nobours.name && config.nobours.name.length > 0 && (
-              <div className="flex flex-wrap gap-4 mt-4">
-                {config.nobours.name.map((name) => (
-                  <div
-                    key={name}
-                    className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                  >
-                    <span className="mr-2 text-lg font-medium">{name}</span>
-                    <button
-                      onClick={() => handleRemoveName(name)}
-                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
+              <Stack
+                direction="row"
+                spacing={1}
+                mt={2}
+                justifyContent="flex-start"
+                sx={{ flexWrap: "wrap" }}
+              >
+                {(config.nobours.name || []).map((item, index) => (
+                  <Chip
+                    key={`name-${index}`}
+                    label={item}
+                    onDelete={() => handleRemoveName(item)}
+                    deleteIcon={
+                      <button
+                        style={{ color: "white", marginRight: "5px" }}
+                        className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    }
+                    style={{
+                      backgroundColor: "blue",
+                      color: "white",
+                      borderRadius: "16px",
+                      fontSize: "0.875rem",
+                      fontWeight: "bold",
+                      marginBottom: "10px",
+                    }}
+                    className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                  />
                 ))}
-              </div>
+              </Stack>
             )}
           </div>
         )}

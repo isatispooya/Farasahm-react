@@ -45,7 +45,7 @@ const CreateList = () => {
         dataTree: true,
         dataTreeStartExpanded: false,
         autoColumns: true,
-        rowTooltip: function(row) { // Custom function for row tooltip
+        rowTooltip: function(row) {
           var data = row.getData();
           return "Name: " + data.name + "\nAge: " + data.age + "\nGender: " + data.gender;
       }
@@ -60,8 +60,7 @@ const CreateList = () => {
   }, [df, isOpenFilter]);
 
   const get = () => {
-    setLoadingDf(true);
-
+    setLoadingDf(true);    
     if (configSelected) {
       setDf(null);
       axios({

@@ -16,8 +16,8 @@ const Smspage = ({
 }) => {
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [show, setShow] = useState(10); 
-  const modalRef = useRef(null); 
+  const [show, setShow] = useState(10);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (Config.context) {
@@ -98,7 +98,9 @@ const Smspage = ({
 
       <div className="flex flex-col w-full max-w-7xl bg-white rounded-lg shadow-xl p-6">
         <div className="flex justify-between items-center mb-4">
-          <p className=" font-bold text-xl text-gray-700">تعداد پیام‌ها: {Config.len}</p>
+          <p className=" font-bold text-xl text-gray-700">
+            تعداد پیام‌ها: {Config.len}
+          </p>
           <button
             onClick={handleClose}
             className="bg-red-500 hover:bg-red-600 text-white font-bold rounded-md text-sm"
@@ -138,9 +140,15 @@ const Smspage = ({
 
         <div className="flex justify-between items-center mt-6">
           <div className=" ml-2 text-sm text-gray-700">
-            <span className=" m-5 font-bold text-xl">هزینه پیام: {Config.cost}</span>
-            <span className="ml-4 font-bold text-xl ">تعداد پیام: {Config.count_sms}</span>
-            <span className="ml-4 font-bold text-xl">تعداد افراد: {Config.len}</span>
+            <span className=" m-5 font-bold text-xl">
+              هزینه پیام: {Config.cost}
+            </span>
+            <span className="ml-4 font-bold text-xl ">
+              تعداد پیام: {Config.count_sms}
+            </span>
+            <span className="ml-4 font-bold text-xl">
+              تعداد افراد: {Config.len}
+            </span>
           </div>
 
           <div className="flex gap-4">
@@ -165,7 +173,10 @@ const Smspage = ({
 
       {isModalVisible && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div ref={modalRef} className="bg-white rounded-lg shadow-lg w-full max-w-4xl h-4/5 overflow-y-auto">
+          <div
+            ref={modalRef}
+            className="bg-white rounded-lg shadow-lg w-full max-w-4xl h-4/5 overflow-y-auto"
+          >
             <div className="sticky top-0 bg-white z-10 p-6 border-b border-gray-300">
               <div className="flex justify-between items-center">
                 <h3 className="text-2xl font-bold">پیش‌ نمایش پیام</h3>
@@ -188,16 +199,22 @@ const Smspage = ({
                     >
                       <div className="flex flex-wrap items-center mb-2">
                         <div className="flex items-center mb-2 w-full sm:w-1/2">
-                          <span className="font-bold text-blue-800">نام و نام خانوادگی:</span>
+                          <span className="font-bold text-blue-800">
+                            نام و نام خانوادگی:
+                          </span>
                           <p className="mr-2">{item["نام و نام خانوادگی"]}</p>
                         </div>
                         <div className="flex items-center mb-2 w-full sm:w-1/2">
-                          <span className="font-bold text-blue-800">شماره تماس:</span>
+                          <span className="font-bold text-blue-800">
+                            شماره تماس:
+                          </span>
                           <p className="mr-2">{item["شماره تماس"]}</p>
                         </div>
                       </div>
                       <div className="flex flex-col mb-2">
-                        <span className="font-bold text-lg text-blue-800">نتیجه:</span>
+                        <span className="font-bold text-lg text-blue-800">
+                          نتیجه:
+                        </span>
                         <p
                           className="text-gray-700 text-sm"
                           style={{ whiteSpace: "pre-wrap", direction: "rtl" }}
@@ -209,7 +226,7 @@ const Smspage = ({
                   );
                 })}
 
-              {show < Config.dict.length && ( 
+              {show < Config.dict.length && (
                 <div className="mt-4 flex justify-center">
                   <button
                     onClick={loadMessages}
@@ -228,7 +245,3 @@ const Smspage = ({
 };
 
 export default Smspage;
-
-
-
-

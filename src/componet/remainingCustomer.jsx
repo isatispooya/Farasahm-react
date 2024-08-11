@@ -1,5 +1,5 @@
 import { Box, TextField, Typography, MenuItem } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 const RemainingCustomer = ({ config, setConfig }) => {
@@ -14,6 +14,12 @@ const RemainingCustomer = ({ config, setConfig }) => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const formatNumber = (num) => {
+    if (!num) return "";
+    const numStr = num.replace(/,/g, "");
+    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const handleInputChange = (setter) => (e) => {
@@ -75,7 +81,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده از"
                   variant="outlined"
-                  value={from}
+                  value={formatNumber(from)}
                   onChange={handleInputChange(setFrom)}
                 />
 
@@ -84,7 +90,7 @@ const RemainingCustomer = ({ config, setConfig }) => {
                   id="outlined-basic"
                   label="مانده تا"
                   variant="outlined"
-                  value={to}
+                  value={formatNumber(to)}
                   onChange={handleInputChange(setTo)}
                   style={{ marginBottom: 16 }}
                 />
