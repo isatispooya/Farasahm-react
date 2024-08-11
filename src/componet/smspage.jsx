@@ -94,23 +94,30 @@ const Smspage = ({
       .post(OnRun + "/marketing/set_status", {
         access,
         _id: configSelected,
-        status: true
+        status: true,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.reply) {
           toast.success("پیام با موفقیت ذخیره شد.", {
             position: "top-right",
             autoClose: 3000,
           });
+          toggleModal(false); 
         } else {
           toast.error("ارسال پیام با مشکل مواجه شد.", {
             position: "top-right",
             autoClose: 3000,
           });
         }
+      })
+      .catch((error) => {
+        toast.error("ارسال پیام با مشکل مواجه شد.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       });
   };
+  
 
   useEffect(() => {
     if (isModalVisible) {

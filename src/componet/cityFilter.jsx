@@ -10,25 +10,6 @@ const CityFilter = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    if (!config.city) {
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        city: [],
-      }));
-    }
-    if (!config.nobours.city) {
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
-          city: [],
-        },
-      }));
-    }
-    getCityList();
-  }, []);
-
   const getCityList = () => {
     const options = {
       method: "POST",
@@ -47,6 +28,10 @@ const CityFilter = ({ access, config, setConfig }) => {
       });
   };
 
+  useEffect(() => {
+    getCityList();
+  });
+
   const handleDelete = (city) => {
     const city_list = (config.nobours.city || []).filter((i) => i !== city);
     const nobours = { ...config.nobours, city: city_list };
@@ -58,7 +43,7 @@ const CityFilter = ({ access, config, setConfig }) => {
   };
 
   const availableCities = cityList.filter(
-    (city) => !config.city.includes(city)
+    (city) => !(config.city ?? []).includes(city)
   );
 
   const handleCitySelect = (e) => {
@@ -123,8 +108,8 @@ const CityFilter = ({ access, config, setConfig }) => {
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
               >
-              <option value="" disabled></option>
-              {availableCities.map((i, index) => (
+                <option value="" disabled></option>
+                {availableCities.map((i, index) => (
                   <option key={index}>{i}</option>
                 ))}
               </TextField>

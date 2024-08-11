@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
+import { BsFiletypeCsv } from "react-icons/bs";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import ModalFilter from "../../../../componet/modalFilter";
@@ -10,8 +10,9 @@ import { OnRun } from "../../../../config/config";
 import XLSX from "xlsx/dist/xlsx.full.min.js";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineTopic } from "react-icons/md";
-import { toast } from "react-toastify";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
+import { GrDocumentExcel } from "react-icons/gr";
+
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -60,7 +61,7 @@ const CreateList = () => {
   }, [df, isOpenFilter]);
 
   const get = () => {
-    setLoadingDf(true);    
+    setLoadingDf(true);        
     if (configSelected) {
       setDf(null);
       axios({
@@ -92,8 +93,9 @@ const CreateList = () => {
                 table.download("xlsx", "data.xlsx");
               }}
             >
-              <BsFiletypePdf />
-              <span>خروجی اکسل</span>
+              <GrDocumentExcel/>
+              
+              <span>خروجی Excel</span>
             </p>
             <p
               onClick={() => {

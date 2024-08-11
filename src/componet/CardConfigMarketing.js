@@ -18,7 +18,8 @@ import { CssBaseline } from "@mui/material";
 import { AccessContext } from "../config/accessContext";
 import { OnRun } from "../config/config";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { FaRegCircleCheck } from "react-icons/fa6";
+
 
 const theme = createTheme({
   components: {
@@ -203,6 +204,7 @@ const CardConfigMarketing = ({
             padding: 3,
             display: "flex",
             flexDirection: "column",
+            justifyContent:'center',
             alignItems: "center",
             height: 420,
             position: "relative",
@@ -285,7 +287,8 @@ const CardConfigMarketing = ({
                   <Chip
                     icon={
                       status ? (
-                        <IoIosCheckmarkCircleOutline
+                        <FaRegCircleCheck 
+
                           style={{ color: "#4CAF50", fontSize: "15px" }}
                         />
                       ) : (

@@ -103,6 +103,7 @@ const ModalFilter = ({
 
   const getConfig = async () => {
     setLoading(true);
+    
     try {
       if (configSelected) {
         const response = await axios.post(`${OnRun}/marketing/viewconfig`, {
@@ -112,6 +113,8 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
+          console.log("getConfig",response.data);
+
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }
@@ -126,9 +129,8 @@ const ModalFilter = ({
     }
   };
 
-  const PostData = async () => {
+  const PostData = async (event) => {
     setIsSubmitting(true);
-
     try {
       const postConfig =
         configSelected == null || configSelected == undefined
@@ -157,7 +159,7 @@ const ModalFilter = ({
     } finally {
       setIsSubmitting(false);
     }
-  };
+};
 
   const checkValue =
     config.title !== "" && config.send_time !== null && config.period !== null;
