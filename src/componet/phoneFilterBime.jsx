@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import { IoCloseOutline } from "react-icons/io5";
 
 const PhoneFilterBime = ({ config, setConfig }) => {
@@ -48,9 +48,9 @@ const PhoneFilterBime = ({ config, setConfig }) => {
           ...prevConfig.insurance,
           mobile: {
             ...mobile,
-            num2: num2Config
-          }
-        }
+            num2: num2Config,
+          },
+        },
       }));
     }
     setInputNum2("");
@@ -99,8 +99,6 @@ const PhoneFilterBime = ({ config, setConfig }) => {
     setDropDown(!dropDown);
   };
 
-
-
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
@@ -148,24 +146,51 @@ const PhoneFilterBime = ({ config, setConfig }) => {
           </div>
 
           {mobile.num1.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-4">
-                {mobile.num1.map((id) => (
-                  <div
-                    key={id}
-                    className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                  >
+            <Stack
+              direction="row"
+              spacing={1}
+              mt={2}
+              justifyContent="flex-start"
+              sx={{ flexWrap: "wrap" }}
+            >
+              {(mobile.num1 || []).map((item, index) => (
+                <Chip
+                  key={`num1-${index}`}
+                  label={item}
+                  onDelete={() => handleRemove1(item)}
+                  deleteIcon={
                     <button
-                      onClick={() => handleRemove1(id)}
-                      className="text-white bg-red-600 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                      style={{ color: "white", marginRight: "5px" }}
+                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
-                      <IoCloseOutline className="text-2xl text-white" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
                     </button>
-                    <span className="mr-2 text-lg font-medium">{id}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  }
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    borderRadius: "16px",
+                    fontSize: "0.875rem",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                  }}
+                  className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                />
+              ))}
+            </Stack>
           )}
 
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
@@ -179,6 +204,7 @@ const PhoneFilterBime = ({ config, setConfig }) => {
               onKeyDown={handleKeyDown2}
               className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
+
             <Button
               onClick={handleAdd2}
               sx={{ borderRadius: 2 }}
@@ -189,24 +215,51 @@ const PhoneFilterBime = ({ config, setConfig }) => {
           </div>
 
           {mobile.num2.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-4">
-                {mobile.num2.map((id) => (
-                  <div
-                    key={id}
-                    className="flex items-center px-2 py-1 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                  >
+            <Stack
+              direction="row"
+              spacing={1}
+              mt={2}
+              justifyContent="flex-start"
+              sx={{ flexWrap: "wrap" }}
+            >
+              {(mobile.num2 || []).map((item, index) => (
+                <Chip
+                  key={`num2-${index}`}
+                  label={item}
+                  onDelete={() => handleRemove2(item)}
+                  deleteIcon={
                     <button
-                      onClick={() => handleRemove2(id)}
-                      className="text-white bg-red-600 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                      style={{ color: "white", marginRight: "5px" }}
+                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
-                      <IoCloseOutline className="text-2xl text-white" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
                     </button>
-                    <span className="mr-1 text-lg font-medium">{id}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  }
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    borderRadius: "16px",
+                    fontSize: "0.875rem",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                  }}
+                  className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                />
+              ))}
+            </Stack>
           )}
         </div>
       )}
