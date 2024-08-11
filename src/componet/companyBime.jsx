@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const CompanyBime = ({ access, config, setConfig }) => {
   const [companyInput, setCompanyInput] = useState([]);
-  const [companyList, setCompanyList] = useState("");
+  const [companyList, setCompanyList] = useState([]);
   const [dropdown, setdropdown] = useState(false);
 
   useEffect(() => {
