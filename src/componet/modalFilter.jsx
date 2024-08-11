@@ -96,6 +96,7 @@ const ModalFilter = ({
         console.error(error);
       });
   };
+  
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);

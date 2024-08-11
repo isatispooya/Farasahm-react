@@ -19,7 +19,7 @@ const CreateList = () => {
   const [df, setDf] = useState(null);
   const [table, setTable] = useState(null);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
-  const [configSelected, setConfigSelected] = useState(null);
+  const [configSelected, setConfigSelected] = useState();
   const [isOpenSender, setIsOpenSender] = useState();
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
@@ -74,13 +74,12 @@ const CreateList = () => {
         setLoadingDf(false);
       });
     } else {
-      toast.warning("لطفا یک تنظیمات انتخاب کنید");
       setLoadingDf(false);
     }
   };
   
-
   useEffect(get, [access, configSelected, contextSelected]);
+  
 
   return (
     <div className="subPage tablePg">
