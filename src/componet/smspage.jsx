@@ -11,8 +11,6 @@ const Smspage = ({
   toggleModal,
   access,
   Config,
-
-  status,
   configSelected,
   get,
   textareaRef,
@@ -22,7 +20,6 @@ const Smspage = ({
   const [show, setShow] = useState(10);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for ConfirmationModal
   const modalRef = useRef(null);
-  console.log(status, "status");
   useEffect(() => {
     if (Config.context) {
       setMessage(Config.context);
@@ -97,7 +94,7 @@ const Smspage = ({
       .post(OnRun + "/marketing/set_status", {
         access,
         _id: configSelected,
-        context: message,
+        status: true
       })
       .then((response) => {
         console.log(response);
