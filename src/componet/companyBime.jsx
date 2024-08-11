@@ -1,14 +1,14 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { OnRun } from "../config/config";
-import { ToastContainer, toast } from "react-toastify";
 import { Button, Chip, Stack, TextField } from "@mui/material";
+import axios from "axios";
+import { OnRun } from "../config/config";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const CompanyBime = ({ access, config, setConfig }) => {
-  const [companyList, setCompanyList] = useState([]);
-  const [companyInput, setCompanyInput] = useState("");
-  const [dropDown, setDropdown] = useState(false);
+  const [companyInput, setCompanyInput] = useState([]);
+  const [companyList, setCompanyList] = useState("");
+  const [dropdown, setdropdown] = useState(false);
 
   useEffect(() => {
     const fetchCompanyList = async () => {
@@ -17,7 +17,7 @@ const CompanyBime = ({ access, config, setConfig }) => {
           `${OnRun}/marketing/insurance_companies`,
           { access: access }
         );
-        console.log(response.data, "bime");
+
         setCompanyList(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
@@ -26,54 +26,51 @@ const CompanyBime = ({ access, config, setConfig }) => {
     fetchCompanyList();
   }, [access]);
 
-  const AddCompany = () => {
-    const available = companyList.some(
-      (company) => company.symbol === companyInput
+  const Remove = (company) => {
+    const company_list = (config.insurance.company || []).filter(
+      (i) => i !== company
     );
-    if (available) {
-      const symbolList = [...(config.insurance?.symbol || [])];
-      symbolList.push(companyInput);
-      const insurance = { ...config.insurance, symbol: symbolList };
-      setConfig({ ...config, insurance });
-      setCompanyInput("");
-    } else {
-      toast.error("لطفا یک شرکت معتبر انتخاب کنید");
+    const insurance = { ...config.insurance, company: company_list };
+    setConfig({ ...config, insurance: insurance });
+  };
+
+  const openDropDown = () => {
+    setdropdown(!dropdown);
+  };
+  const availableCompany = companyList.filter(
+    (company) => !config.insurance.company.includes(company)
+  );
+  const handleCompanySelect = (e) => {
+    setCompanyInput(e.target.value);
+  };
+
+  const AddCompany = () => {
+    if (companyInput) {
+      const available = companyList.includes(companyInput);
+      if (available) {
+        const company_list = [...(config.insurance.company || [])];
+        company_list.push(companyInput);
+        const insurance = { ...config.insurance, company: company_list };
+        setConfig({ ...config, insurance: insurance });
+        setCompanyInput("");
+      } else {
+        toast.error("لطفا یک شرکت  معتبر انتخاب کنید");
+      }
     }
   };
-
-  const Remove = (companySymbol) => {
-    const symbolList = (config.insurance?.symbol || []).filter(
-      (symbol) => symbol !== companySymbol
-    );
-    const insurance = { ...config.insurance, symbol: symbolList };
-    setConfig({ ...config, insurance });
-  };
-
-  const openDropdown = () => {
-    setDropdown(!dropDown);
-  };
-
-  const CompanySelect = (event) => {
-    setCompanyInput(event.target.value);
-  };
-
-  const availableCompanies = companyList.filter(
-    (company) => !(config.insurance?.symbol || []).includes(company.symbol)
-  );
 
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
-        <ToastContainer />
         <button
-          onClick={openDropdown}
+          onClick={openDropDown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          شرکت
+          بیمه گر
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              dropDown ? "rotate-180" : "rotate-0"
+              dropdown ? "rotate-180" : "rotate-0"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -87,52 +84,50 @@ const CompanyBime = ({ access, config, setConfig }) => {
             />
           </svg>
         </button>
-        {dropDown && (
-          <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-            <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
+        {dropdown && (
+          <div
+            dir="rtl"
+            className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ToastContainer />
+            <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <TextField
                 select
                 value={companyInput}
-                onChange={CompanySelect}
-                label="شرکت"
+                onChange={handleCompanySelect}
+                label="شرکت ها"
                 variant="outlined"
                 SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
               >
                 <option value="" disabled></option>
-                {availableCompanies.map((i) => (
-                  <option value={i.symbol} key={i.symbol}>
-                    {i.fullname}
-                  </option>
+                {availableCompany.map((i, index) => (
+                  <option key={index}>{i}</option>
                 ))}
               </TextField>
-            </div>
-            <Button
-              onClick={AddCompany}
-              sx={{ borderRadius: 2 }}
-              variant="contained"
-            >
-              افزودن
-            </Button>
 
-            <Stack
-              direction="row"
-              spacing={2}
-              mt={2}
-              justifyContent="flex-end"
-              sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
-            >
-              {(config.insurance?.symbol || []).map((companySymbol, index) => {
-                const companyInfo = companyList.find(
-                  (i) => i.symbol === companySymbol
-                );
-                const name = companyInfo?.fullname || companySymbol;
-                return (
+              <Button
+                onClick={AddCompany}
+                sx={{ borderRadius: 2 }}
+                variant="contained"
+              >
+                افزودن
+              </Button>
+
+              <Stack
+                direction="row"
+                spacing={1}
+                mt={2}
+                justifyContent="flex-start"
+                sx={{ flexWrap: "wrap" }}
+              >
+                {(config.insurance.company || []).map((company, index) => (
                   <Chip
                     key={`company-${index}`}
-                    label={name}
-                    onDelete={() => Remove(companySymbol)}
+                    label={company}
+                    onDelete={() => Remove(company)}
                     deleteIcon={
                       <button
                         style={{ color: "white", marginRight: "5px" }}
@@ -163,9 +158,9 @@ const CompanyBime = ({ access, config, setConfig }) => {
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />
-                );
-              })}
-            </Stack>
+                ))}
+              </Stack>
+            </div>
           </div>
         )}
       </div>
