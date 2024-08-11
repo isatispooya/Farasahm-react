@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, TextField, MenuItem, Stack, Chip } from "@mui/material";
-import { city_list } from "./marketing/city_list";
+import { city_list } from "./city_list.js";
 
 const NationalIdSearch = ({ config, setConfig }) => {
   const [searchTermPrimary, setSearchTermPrimary] = useState("");

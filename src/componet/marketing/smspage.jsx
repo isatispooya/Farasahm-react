@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { OnRun } from "../config/config";
+import { OnRun } from "../../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import MiniLoader from "./Loader/miniLoader";
+import MiniLoader from "../Loader/miniLoader";
 import { IoCloseOutline } from "react-icons/io5";
 import ConfirmationModal from "./confirmation";
 
@@ -18,8 +18,9 @@ const Smspage = ({
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); 
-  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] = useState(false); 
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] =
+    useState(false);
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -195,11 +196,17 @@ const Smspage = ({
 
         <div className="flex justify-between items-center mt-8 ">
           <div className="text-lg text-gray-700 ">
-          <div className="text-lg text-gray-700 flex space-x-8 space-x-reverse">
-    <span className="font-bold text-xl">هزینه پیام: {Config.cost}</span>
-    <span className="font-bold text-xl">تعداد پیام: {Config.count_sms}</span>
-    <span className="font-bold text-xl">تعداد افراد: {Config.len}</span>
-  </div>
+            <div className="text-lg text-gray-700 flex space-x-8 space-x-reverse">
+              <span className="font-bold text-lg">
+                هزینه پیام: {Config.cost}
+              </span>
+              <span className="font-bold text-lg">
+                تعداد پیام: {Config.count_sms}
+              </span>
+              <span className="font-bold text-lg">
+                تعداد افراد: {Config.len}
+              </span>
+            </div>
           </div>
 
           <div className="flex gap-4">
@@ -311,5 +318,3 @@ const Smspage = ({
 };
 
 export default Smspage;
-
-

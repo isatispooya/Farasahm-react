@@ -2,22 +2,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import NationalIdSearch from "../nationalFilter";
-import CityFilter from "../cityFilter";
-import CompanyFilter from "../comanyFilter";
-import BirthDate from "../birthDate";
-import RemainingCustomer from "../remainingCustomer";
-import PhoneSearch from "../phoneFilter";
-import Stocks from "../Stocks";
-import NameSearch from "../name.jsx";
-import InsuranceConsultant from "../insuranceconsultant.jsx";
-import NationalFilterBime from "../nationalFilterBime.jsx";
-import NameFilterBime from "../nameFilterBime.jsx";
-import MordBime from "../mordBime.jsx";
-import PhoneFilterBime from "../phoneFilterBime.jsx";
-import CompanyBime from "../companyBime.jsx";
-import PaymentBime from "../payment&FeeBime.jsx";
-import FieldBime from "../FieldBime.jsx";
+import NationalIdSearch from "./nationalFilter";
+import CityFilter from "./cityFilter";
+import CompanyFilter from "./comanyFilter";
+import BirthDate from "./birthDate.jsx";
+import RemainingCustomer from "./remainingCustomer.jsx";
+import PhoneSearch from "./phoneFilter.jsx";
+import Stocks from "./Stocks.jsx";
+import NameSearch from "./name.jsx";
+import InsuranceConsultant from "./insuranceconsultant.jsx";
+import NationalFilterBime from "./nationalFilterBime.jsx";
+import NameFilterBime from "./nameFilterBime.jsx";
+import MordBime from "./mordBime.jsx";
+import PhoneFilterBime from "./phoneFilterBime.jsx";
+import CompanyBime from "./companyBime.jsx";
+import PaymentBime from "./payment&FeeBime.jsx";
+import FieldBime from "./FieldBime.jsx";
 
 const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);

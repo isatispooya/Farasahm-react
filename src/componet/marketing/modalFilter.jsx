@@ -8,15 +8,15 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CardConfigMarketing from "./CardConfigMarketing";
-import SendingOptions from "./marketing/sendingOptions";
-import RenderFilters from "./marketing/renderFilters";
+import SendingOptions from "./sendingOptions";
+import RenderFilters from "./renderFilters";
 import axios from "axios";
-import { OnRun } from "../config/config";
+import { OnRun } from "../../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoPlus } from "react-icons/go";
 import { DateObject } from "react-multi-date-picker";
-import MiniLoader from "./Loader/miniLoader";
+import MiniLoader from "../Loader/miniLoader";
 
 const ModalFilter = ({
   access,
@@ -96,14 +96,13 @@ const ModalFilter = ({
         console.error(error);
       });
   };
-  
 
   const nextStep = () => stepNumber < 2 && setStepNumber(stepNumber + 1);
   const backStep = () => stepNumber > 0 && setStepNumber(stepNumber - 1);
 
   const getConfig = async () => {
     setLoading(true);
-    
+
     try {
       if (configSelected) {
         const response = await axios.post(`${OnRun}/marketing/viewconfig`, {
@@ -113,8 +112,7 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
-          console.log("getConfig",response.data);
-
+          console.log("getConfig", response.data);
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }
@@ -129,38 +127,38 @@ const ModalFilter = ({
     }
   };
 
-const PostData = async () => {
-  setIsSubmitting(true);
+  const PostData = async () => {
+    setIsSubmitting(true);
 
-  try {
-    const postConfig =
-      configSelected == null || configSelected == undefined
-        ? axios.post(`${OnRun}/marketing/fillter`, {
-            access: access,
-            title: config.title,
-            config: { ...config, period: config.period },
-          })
-        : axios.post(`${OnRun}/marketing/editfillter`, {
-            access: access,
-            _id: configSelected,
-            title: config.title,
-            config: config,
-          });
+    try {
+      const postConfig =
+        configSelected == null || configSelected == undefined
+          ? axios.post(`${OnRun}/marketing/fillter`, {
+              access: access,
+              title: config.title,
+              config: { ...config, period: config.period },
+            })
+          : axios.post(`${OnRun}/marketing/editfillter`, {
+              access: access,
+              _id: configSelected,
+              title: config.title,
+              config: config,
+            });
 
-    const response = await postConfig;
+      const response = await postConfig;
 
-    if (response.data.reply === true) {
-      setIsOpenFilter(false);  // Close the modal after successful submission
-      if (configSelected == null) setConfigSelected(response.data.id);
-    } else {
-      toast.error(response.data.msg);
+      if (response.data.reply === true) {
+        setIsOpenFilter(false); // Close the modal after successful submission
+        if (configSelected == null) setConfigSelected(response.data.id);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      toast.error("خطا در بارگزاری");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    toast.error("خطا در بارگزاری");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   const checkValue =
     config.title !== "" && config.send_time !== null && config.period !== null;

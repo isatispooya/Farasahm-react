@@ -2,17 +2,16 @@ import { useState, useEffect, useContext } from "react";
 import { BsFiletypeCsv } from "react-icons/bs";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
-import ModalFilter from "../../../../componet/modalFilter";
+import ModalFilter from "../../../../componet/marketing/modalFilter";
 import { AccessContext } from "../../../../config/accessContext";
 import axios from "axios";
-import Smspage from "../../../../componet/smspage";
+import Smspage from "../../../../componet/marketing/smspage";
 import { OnRun } from "../../../../config/config";
 import XLSX from "xlsx/dist/xlsx.full.min.js";
 import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineTopic } from "react-icons/md";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { GrDocumentExcel } from "react-icons/gr";
-
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -29,7 +28,7 @@ const CreateList = () => {
   useEffect(() => {
     if (df && !isOpenFilter) {
       if (table) {
-        table.destroy();  // Destroy the previous table before creating a new one
+        table.destroy(); // Destroy the previous table before creating a new one
       }
 
       const newTable = new Tabulator("#data-table", {
@@ -47,17 +46,24 @@ const CreateList = () => {
         dataTree: true,
         dataTreeStartExpanded: false,
         autoColumns: true,
-        rowTooltip: function(row) {
+        rowTooltip: function (row) {
           var data = row.getData();
-          return "Name: " + data.name + "\nAge: " + data.age + "\nGender: " + data.gender;
-        }
+          return (
+            "Name: " +
+            data.name +
+            "\nAge: " +
+            data.age +
+            "\nGender: " +
+            data.gender
+          );
+        },
       });
 
       setTable(newTable);
 
       return () => {
         if (newTable) {
-          newTable.destroy();  // Ensure the table is destroyed when the component unmounts
+          newTable.destroy(); // Ensure the table is destroyed when the component unmounts
         }
       };
     }
@@ -65,7 +71,7 @@ const CreateList = () => {
 
   const get = () => {
     setLoadingDf(true);
-    setTable(null);  // Reset the table when fetching new data
+    setTable(null); // Reset the table when fetching new data
     if (configSelected) {
       setDf(null);
       axios({
@@ -96,8 +102,8 @@ const CreateList = () => {
                 table.download("xlsx", "data.xlsx");
               }}
             >
-              <GrDocumentExcel/>
-              
+              <GrDocumentExcel />
+
               <span>خروجی Excel</span>
             </p>
             <p
