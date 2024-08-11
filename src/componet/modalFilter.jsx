@@ -129,36 +129,37 @@ const ModalFilter = ({
     }
   };
 
-  const PostData = async (event) => {
-    setIsSubmitting(true);
-    try {
-      const postConfig =
-        configSelected == null || configSelected == undefined
-          ? axios.post(`${OnRun}/marketing/fillter`, {
-              access: access,
-              title: config.title,
-              config: { ...config, period: config.period },
-            })
-          : axios.post(`${OnRun}/marketing/editfillter`, {
-              access: access,
-              _id: configSelected,
-              title: config.title,
-              config: config,
-            });
+const PostData = async () => {
+  setIsSubmitting(true);
 
-      const response = await postConfig;
+  try {
+    const postConfig =
+      configSelected == null || configSelected == undefined
+        ? axios.post(`${OnRun}/marketing/fillter`, {
+            access: access,
+            title: config.title,
+            config: { ...config, period: config.period },
+          })
+        : axios.post(`${OnRun}/marketing/editfillter`, {
+            access: access,
+            _id: configSelected,
+            title: config.title,
+            config: config,
+          });
 
-      if (response.data.reply === true) {
-        setIsOpenFilter(false);
-        if (configSelected == null) setConfigSelected(response.data.id);
-      } else {
-        toast.error(response.data.msg);
-      }
-    } catch (error) {
-      toast.error("خطا در بارگزاری");
-    } finally {
-      setIsSubmitting(false);
+    const response = await postConfig;
+
+    if (response.data.reply === true) {
+      setIsOpenFilter(false);  // Close the modal after successful submission
+      if (configSelected == null) setConfigSelected(response.data.id);
+    } else {
+      toast.error(response.data.msg);
     }
+  } catch (error) {
+    toast.error("خطا در بارگزاری");
+  } finally {
+    setIsSubmitting(false);
+  }
 };
 
   const checkValue =
