@@ -18,7 +18,8 @@ const Smspage = ({
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for Close ConfirmationModal
+  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] = useState(false); // State for Send ConfirmationModal
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -88,6 +89,19 @@ const Smspage = ({
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       hideModal();
     }
+  };
+
+  const handleSend = () => {
+    setIsSendConfirmationModalOpen(true);
+  };
+
+  const handleConfirmSend = () => {
+    setIsSendConfirmationModalOpen(false);
+    sendRequest();
+  };
+
+  const handleCancelSend = () => {
+    setIsSendConfirmationModalOpen(false);
   };
 
   const sendRequest = () => {
@@ -285,8 +299,16 @@ const Smspage = ({
         onConfirm={handleConfirmClose}
         onCancel={handleCancelClose}
       />
+
+      <ConfirmationModal
+        isOpen={isSendConfirmationModalOpen}
+        message="آیا مطمئن هستید که می‌خواهید پیام را ارسال کنید؟"
+        onConfirm={handleConfirmSend}
+        onCancel={handleCancelSend}
+      />
     </div>
   );
 };
 
 export default Smspage;
+
