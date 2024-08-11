@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MiniLoader from "./Loader/miniLoader";
 import { IoCloseOutline } from "react-icons/io5";
+import ConfirmationModal from "./confirmation"
 
 const Smspage = ({
   toggleModal,
@@ -17,6 +18,7 @@ const Smspage = ({
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10); 
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for ConfirmationModal
   const modalRef = useRef(null); 
 
   useEffect(() => {
@@ -57,7 +59,17 @@ const Smspage = ({
   };
 
   const handleClose = () => {
-    toggleModal(false);
+    setIsConfirmationModalOpen(true); // Show the confirmation modal when trying to close
+  };
+
+  const handleConfirmClose = () => {
+    setIsConfirmationModalOpen(false);
+    toggleModal(false); // Close the Smspage modal if confirmed
+    editContext()
+  };
+
+  const handleCancelClose = () => {
+    setIsConfirmationModalOpen(false); // Cancel closing
   };
 
   const showPopUp = () => {
@@ -223,11 +235,19 @@ const Smspage = ({
           </div>
         </div>
       )}
+
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        message="آیا مطمئن هستید که می‌خواهید این صفحه را ببندید؟"
+        onConfirm={handleConfirmClose}
+        onCancel={handleCancelClose}
+      />
     </div>
   );
 };
 
 export default Smspage;
+
 
 
 

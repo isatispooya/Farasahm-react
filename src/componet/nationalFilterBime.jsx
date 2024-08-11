@@ -107,10 +107,17 @@ const NationalFilterBime = ({ config, setConfig }) => {
                 value={cityselected}
                 onChange={(e) => setCityselected(e.target.value)}
               />
-              <datalist id="city">
+              <datalist
+                id="city"
+                className="bg-white border border-gray-300 rounded-lg shadow-md max-h-48 overflow-y-auto"
+              >
                 {city_list.map((i) => {
                   return (
-                    <option key={i.city} value={i.city}>
+                    <option
+                      key={i.city}
+                      value={i.city}
+                      className="p-2 hover:bg-gray-200 transition duration-200"
+                    >
                       {i.city}
                     </option>
                   );
