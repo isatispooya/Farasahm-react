@@ -1,7 +1,7 @@
 import axios from "axios";
 import { OnRun } from "../config/config";
 import { useEffect, useState } from "react";
-import { Autocomplete, Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 
 const InsuranceConsultant = ({
@@ -11,7 +11,7 @@ const InsuranceConsultant = ({
 }) => {
   const [consultantList, setConsultantList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [consultantInput, setConsultantInput] = useState(null);
+  const [consultantInput, setConsultantInput] = useState("");
 
   const getConsultantList = () => {
     axios({
@@ -20,7 +20,6 @@ const InsuranceConsultant = ({
       data: { access },
     }).then((response) => {
       setConsultantList(response.data);
-      console.log(consultantList);
     });
   };
 
@@ -32,11 +31,11 @@ const InsuranceConsultant = ({
     if (consultantInput) {
       const available = consultantList.includes(consultantInput);
       if (available) {
-        const consultant_list = config.config.insurance.consultant;
+        const consultant_list = config.insurance.consultant || [];
         consultant_list.push(consultantInput);
-        const insurance = { ...config.config.insurance, consultant: consultant_list };
+        const insurance = { ...config.insurance, consultant: consultant_list };
         setConfig({ ...config, insurance });
-        setConsultantInput(null);
+        setConsultantInput("");
       } else {
         toast.error("مشاور انتخابی شما صحیح نمیباشد");
       }
@@ -44,10 +43,10 @@ const InsuranceConsultant = ({
   };
 
   const handleDelete = (consultant) => {
-    const consultant_list = config.config.insurance.consultant.filter(
+    const consultant_list = config.insurance.consultant.filter(
       (i) => i !== consultant
     );
-    const insurance = { ...config.config.insurance, consultant: consultant_list };
+    const insurance = { ...config.insurance, consultant: consultant_list };
     setConfig({ ...config, insurance });
   };
 
@@ -56,7 +55,7 @@ const InsuranceConsultant = ({
   };
 
   const availableCities = consultantList.filter(
-    (consultant) => !config.config?.consultant?.includes(consultant)
+    (consultant) => !config.insurance.consultant?.includes(consultant)
   );
 
   return (
@@ -91,23 +90,23 @@ const InsuranceConsultant = ({
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <Autocomplete
-                getOptionLabel={(option) => option}
+              <TextField
+                select
                 value={consultantInput}
-                onChange={(event, newValue) => {
-                  setConsultantInput(newValue);
-                }}
-                options={availableCities}
-                renderInput={(params, index) => (
-                  <TextField
-                    {...params}
-                    label="مشاور"
-                    variant="outlined"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                    style={{ marginBottom: 16 }}
-                  />
-                )}
-              />
+                onChange={(event) => setConsultantInput(event.target.value)}
+                label="مشاور"
+                variant="outlined"
+                SelectProps={{ native: true }}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                style={{ marginBottom: 16 }}
+              >
+                <option value="" disabled></option>
+                {availableCities.map((city, index) => (
+                  <option key={index} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </TextField>
 
               <Button
                 onClick={handle_add_consultant}
@@ -124,7 +123,7 @@ const InsuranceConsultant = ({
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.config.insurance.consultant || []).map(
+                {(config.insurance.consultant || []).map(
                   (consultant, index) => (
                     <Chip
                       key={`city-${index}`}

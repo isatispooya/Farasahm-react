@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { OnRun } from "../config/config";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MordBime = ({ access, config, setConfig }) => {
   const [dropdown, setDropdown] = useState(false);
@@ -12,42 +11,46 @@ const MordBime = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     const fetchMordList = async () => {
+      const settings = {
+        url: "https://b.fidip.ir/marketing/insurance_item",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({
+          access: ["6406d4bb6ce0fd6d33dd1553", "marketing"],
+        }),
+      };
+
       try {
-        const response = await axios.post(`${OnRun}/marketing/insurance_item`, {
-          access: access,
-        });
-        
+        const response = await axios(settings);
         setMordList(response.data);
       } catch (error) {
         console.error("Failed to fetch Mord list", error);
       }
     };
     fetchMordList();
-  }, [access]);
+  }, []);
 
   const AddMord = () => {
-    const available = MordList.some((mord) => mord.symbol === MordInput);
-    if (available) {
-      const itemsList = [...(config.config.insurance.insurance_item || [])];
-      itemsList.push(MordInput);
-      const insurance = { 
-        ...config.config.insurance, 
-        insurance_item: itemsList 
-      };
-      setConfig({ ...config, insurance: insurance });
+    if (MordList) {
+      const symbolList = [...(config.insurance?.insurance_item || [])];
+      symbolList.push(MordInput);
+      const insurance = { ...config.insurance, insurance_item: symbolList };
+      setConfig({ ...config, insurance });
       setMordInput("");
     } else {
-      toast.error("لطفا یک مورد معتبر انتخاب کنید");
+      toast.error("لطفا یک شرکت معتبر انتخاب کنید");
     }
   };
 
   const Remove = (itemToRemove) => {
-    const itemsList = (config.config.insurance.insurance_item || []).filter(
+    const itemsList = (config.insurance.insurance_item || []).filter(
       (item) => item !== itemToRemove
     );
-    const insurance = { 
-      ...config.config.insurance, 
-      insurance_item: itemsList 
+    const insurance = {
+      ...config.insurance,
+      insurance_item: itemsList,
     };
     setConfig({ ...config, insurance: insurance });
   };
@@ -98,12 +101,10 @@ const MordBime = ({ access, config, setConfig }) => {
               className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               style={{ marginBottom: 16 }}
             >
-              <option value="" disabled>
-                 
-              </option>
-              {MordList.map((mord) => (
-                <option key={mord.symbol} value={mord.symbol}>
-                  {mord.name}
+              <option value="" disabled></option>
+              {MordList.map((mord, index) => (
+                <option key={index} value={mord}>
+                  {mord}
                 </option>
               ))}
             </TextField>
@@ -118,17 +119,46 @@ const MordBime = ({ access, config, setConfig }) => {
 
           <Stack
             direction="row"
-            spacing={2}
+            spacing={1}
             mt={2}
-            justifyContent="flex-end"
-            sx={{ flexWrap: "wrap", gap: 1, direction: "rtl" }}
+            justifyContent="flex-start"
+            sx={{ flexWrap: "wrap" }}
           >
-            {(config.config.insurance.insurance_item || []).map((item, index) => (
+            {(config.insurance.insurance_item || []).map((item, index) => (
               <Chip
-                key={index}
+                key={`mored-${index}`}
                 label={item}
                 onDelete={() => Remove(item)}
-                color="primary"
+                deleteIcon={
+                  <button
+                    style={{ color: "white", marginRight: "5px" }}
+                    className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                }
+                style={{
+                  backgroundColor: "blue",
+                  color: "white",
+                  borderRadius: "16px",
+                  fontSize: "0.875rem",
+                  fontWeight: "bold",
+                  marginBottom: "10px",
+                }}
+                className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
               />
             ))}
           </Stack>

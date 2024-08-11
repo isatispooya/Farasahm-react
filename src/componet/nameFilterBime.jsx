@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, Chip, Stack, TextField } from "@mui/material";
 
 const NameFilterBime = ({
   config = { insurance: { name: [] } },
@@ -16,7 +16,7 @@ const NameFilterBime = ({
         insurance: { ...config.insurance, name: name_list },
       };
       setConfig(insurance);
-      setSearch("");  // Clear search after adding
+      setSearch(""); // Clear search after adding
     }
   };
 
@@ -99,17 +99,21 @@ const NameFilterBime = ({
                 افزودن
               </Button>
             </div>
-
-            {config.insurance.name && config.insurance.name.length > 0 && (
-              <div className="flex flex-wrap gap-4 mt-4">
-                {config.insurance.name.map((name) => (
-                  <div
-                    key={name}
-                    className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                  >
-                    <span className="mr-2 text-lg font-medium">{name}</span>
+            <Stack
+              direction="row"
+              spacing={1}
+              mt={2}
+              justifyContent="flex-start"
+              sx={{ flexWrap: "wrap" }}
+            >
+              {(config.insurance.name || []).map((item, index) => (
+                <Chip
+                  key={`name-${index}`}
+                  label={item}
+                  onDelete={() => Remove(item)}
+                  deleteIcon={
                     <button
-                      onClick={() => Remove(name)}
+                      style={{ color: "white", marginRight: "5px" }}
                       className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                     >
                       <svg
@@ -127,10 +131,19 @@ const NameFilterBime = ({
                         />
                       </svg>
                     </button>
-                  </div>
-                ))}
-              </div>
-            )}
+                  }
+                  style={{
+                    backgroundColor: "blue",
+                    color: "white",
+                    borderRadius: "16px",
+                    fontSize: "0.875rem",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                  }}
+                  className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                />
+              ))}
+            </Stack>
           </div>
         )}
       </div>
@@ -139,4 +152,3 @@ const NameFilterBime = ({
 };
 
 export default NameFilterBime;
-
