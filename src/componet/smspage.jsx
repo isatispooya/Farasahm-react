@@ -94,7 +94,7 @@ const Smspage = ({
       .post(OnRun + "/marketing/set_status", {
         access,
         _id: configSelected,
-        status: true
+        status: true,
       })
       .then((response) => {
         console.log(response);
