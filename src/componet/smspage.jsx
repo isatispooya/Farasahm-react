@@ -18,8 +18,8 @@ const Smspage = ({
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for Close ConfirmationModal
-  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] = useState(false); // State for Send ConfirmationModal
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); 
+  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] = useState(false); 
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -217,7 +217,7 @@ const Smspage = ({
             </button>
             <button
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-200 transform hover:scale-105"
-              onClick={sendRequest}
+              onClick={handleSend}
             >
               ارسال
             </button>
@@ -311,4 +311,5 @@ const Smspage = ({
 };
 
 export default Smspage;
+
 
