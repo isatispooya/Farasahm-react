@@ -5,23 +5,21 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MiniLoader from "./Loader/miniLoader";
 import { IoCloseOutline } from "react-icons/io5";
-import ConfirmationModal from "./confirmation"
+import ConfirmationModal from "./confirmation";
 
 const Smspage = ({
   toggleModal,
   access,
   Config,
-  status,
   configSelected,
   get,
   textareaRef,
 }) => {
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [show, setShow] = useState(10); 
+  const [show, setShow] = useState(10);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for ConfirmationModal
-  const modalRef = useRef(null); 
-
+  const modalRef = useRef(null);
   useEffect(() => {
     if (Config.context) {
       setMessage(Config.context);
@@ -60,17 +58,17 @@ const Smspage = ({
   };
 
   const handleClose = () => {
-    setIsConfirmationModalOpen(true); 
+    setIsConfirmationModalOpen(true);
   };
 
   const handleConfirmClose = () => {
     setIsConfirmationModalOpen(false);
     toggleModal(false);
-    editContext()
+    editContext();
   };
 
   const handleCancelClose = () => {
-    setIsConfirmationModalOpen(false); 
+    setIsConfirmationModalOpen(false);
   };
 
   const showPopUp = () => {
@@ -92,9 +90,27 @@ const Smspage = ({
   };
 
   const sendRequest = () => {
-    setIsModalVisible(false);
-    console.log("sendRequest")
-  }
+    axios
+      .post(OnRun + "/marketing/set_status", {
+        access,
+        _id: configSelected,
+        status: true
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.reply) {
+          toast.success("پیام با موفقیت ذخیره شد.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        } else {
+          toast.error("ارسال پیام با مشکل مواجه شد.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
+      });
+  };
 
   useEffect(() => {
     if (isModalVisible) {
@@ -182,8 +198,9 @@ const Smspage = ({
             >
               پیش‌نمایش
             </button>
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md text-sm"
-            onClick={sendRequest}
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md text-sm"
+              onClick={sendRequest}
             >
               ارسال
             </button>
@@ -272,8 +289,3 @@ const Smspage = ({
 };
 
 export default Smspage;
-
-
-
-
-
