@@ -155,6 +155,8 @@ const CompanyBime = ({ access, config, setConfig }) => {
                       borderRadius: "16px",
                       fontSize: "0.875rem",
                       fontWeight: "bold",
+                      marginBottom: "10px",
+
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />

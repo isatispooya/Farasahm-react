@@ -17,8 +17,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { AccessContext } from "../config/accessContext";
 import { OnRun } from "../config/config";
-import { MdOutlineClose } from "react-icons/md";
-import { IoCheckmarkSharp } from "react-icons/io5";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
 const theme = createTheme({
   components: {
@@ -31,7 +31,8 @@ const theme = createTheme({
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
           "&:hover": {
             boxShadow: "0 16px 30px rgba(0, 0, 0, 0.3)",
-            transform: "translateY(-5px)",
+            transform: "translateY(-3px)",
+            backgroundColor: "#f5f5f5",
           },
         },
       },
@@ -39,20 +40,30 @@ const theme = createTheme({
     MuiAvatar: {
       styleOverrides: {
         root: {
-          width: 64,
-          height: 64,
-          fontSize: "28px",
+          width: 80,
+          height: 80,
+          fontSize: "32px",
           fontWeight: "700",
+          transition: "all 0.3s ease",
+          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.2)",
+          "&:hover": {
+            transform: "scale(1.1)",
+            boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
+          },
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: 5,
           textTransform: "none",
           fontWeight: 600,
           padding: "8px 25px",
+          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.2)",
+          "&:hover": {
+            boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
+          },
         },
         containedPrimary: {
           backgroundColor: "#1976d2",
@@ -72,12 +83,10 @@ const theme = createTheme({
     MuiDialogTitle: {
       styleOverrides: {
         root: {
-          backgroundColor: "#e3f2fd",
           color: "#42a5f5",
           textAlign: "center",
           fontWeight: "bold",
           borderRadius: 8,
-          padding: "16px 24px",
         },
       },
     },
@@ -188,16 +197,17 @@ const CardConfigMarketing = ({
       <Grid item>
         <Card
           sx={{
-            minWidth: 300,
-            maxWidth: 300,
+            minWidth: 320,
+            maxWidth: 320,
             margin: 2,
-            padding: 2,
+            padding: 3,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height: 400,
+            height: 420,
             position: "relative",
             cursor: title === "جدید" ? "pointer" : "default",
+            backgroundColor: title === "جدید" ? "#e3f2fd" : "#ffffff",
           }}
           onClick={title === "جدید" ? handleSelect : undefined}
         >
@@ -214,11 +224,12 @@ const CardConfigMarketing = ({
           >
             <Avatar
               sx={{
-                backgroundColor: getRandomColor(),
+                backgroundColor:
+                  title === "جدید" ? "#1e88e5" : getRandomColor(),
                 marginBottom: 2,
-                width: title === "جدید" ? 80 : 64,
-                height: title === "جدید" ? 80 : 64,
-                fontSize: title === "جدید" ? "30px" : "28px",
+                width: title === "جدید" ? 90 : 80,
+                height: title === "جدید" ? 90 : 80,
+                fontSize: title === "جدید" ? "38px" : "32px",
                 fontWeight: "700",
                 cursor: title === "جدید" ? "pointer" : "default",
               }}
@@ -264,27 +275,35 @@ const CardConfigMarketing = ({
                     {getPeriodLabel(period)}
                   </Typography>
                 </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ display: "flex", alignItems: "center" }}
-                >
-                  وضعیت:
+                <div className="flex">
+                  <Typography
+                    variant="body2"
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    وضعیت:
+                  </Typography>
                   <Chip
                     icon={
                       status ? (
-                        <IoCheckmarkSharp
-                          style={{ color: "green", fontSize: "20px" }}
+                        <IoIosCheckmarkCircleOutline
+                          style={{ color: "#4CAF50", fontSize: "15px" }}
                         />
                       ) : (
-                        <MdOutlineClose
-                          style={{ color: "red", fontSize: "20px" }}
+                        <IoCloseCircleOutline
+                          style={{ color: "#D32F2F", fontSize: "20px" }}
                         />
                       )
                     }
                     label={status ? "فعال" : "غیرفعال"}
-                    sx={{ fontWeight: "600", ml: 1 }}
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: "600",
+                      ml: 1,
+                      bgcolor: status ? "#D7ECD9" : "#FFCDD2",
+                      color: status ? "#4CAF50" : "#D32F2F",
+                    }}
                   />
-                </Typography>
+                </div>
               </>
             )}
           </CardContent>

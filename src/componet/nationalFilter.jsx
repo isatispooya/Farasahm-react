@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TextField, MenuItem } from "@mui/material";
+import { Button, TextField, MenuItem, Stack, Chip } from "@mui/material";
 import { city_list } from "./marketing/city_list";
 
 const NationalIdSearch = ({ config, setConfig }) => {
@@ -109,37 +109,55 @@ const NationalIdSearch = ({ config, setConfig }) => {
               افزودن
             </Button>
           </div>
+        
+
           {config.nobours.national_id.length > 0 && (
-            <div className="flex flex-wrap gap-4 mt-4">
-              {config.nobours.national_id.map((id, index) => (
-                <div
-                  key={index}
-                  className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                >
-                  <span className="mr-2 text-lg font-medium">{id}</span>
-                  <button
-                    onClick={() => handleRemovePrimary(id)}
-                    className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+              <Stack
+                direction="row"
+                spacing={1}
+                mt={2}
+                justifyContent="flex-start"
+                sx={{ flexWrap: "wrap" }}
+              >
+                {(config.nobours.national_id || []).map((item, index) => (
+                  <Chip
+                    key={`national-${index}`}
+                    label={item}
+                    onDelete={() => handleRemovePrimary(item)}
+                    deleteIcon={
+                      <button
+                        style={{ color: "white", marginRight: "5px" }}
+                        className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    }
+                    style={{
+                      backgroundColor: "blue",
+                      color: "white",
+                      borderRadius: "16px",
+                      fontSize: "0.875rem",
+                      fontWeight: "bold",
+                      marginBottom: "10px",
+                    }}
+                    className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                  />
+                ))}
+              </Stack>
+            )}
         </div>
       )}
     </div>
