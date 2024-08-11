@@ -26,11 +26,12 @@ const CreateList = () => {
   const [loadingDf, setLoadingDf] = useState(false);
   window.XLSX = XLSX;
 
-
-  
-
   useEffect(() => {
     if (df && !isOpenFilter) {
+      if (table) {
+        table.destroy();  // Destroy the previous table before creating a new one
+      }
+
       const newTable = new Tabulator("#data-table", {
         data: df,
         layout: "fitColumns",
@@ -49,19 +50,22 @@ const CreateList = () => {
         rowTooltip: function(row) {
           var data = row.getData();
           return "Name: " + data.name + "\nAge: " + data.age + "\nGender: " + data.gender;
-      }
+        }
       });
 
       setTable(newTable);
 
       return () => {
-        newTable.destroy();
+        if (newTable) {
+          newTable.destroy();  // Ensure the table is destroyed when the component unmounts
+        }
       };
     }
   }, [df, isOpenFilter]);
 
   const get = () => {
-    setLoadingDf(true);        
+    setLoadingDf(true);
+    setTable(null);  // Reset the table when fetching new data
     if (configSelected) {
       setDf(null);
       axios({
@@ -78,9 +82,8 @@ const CreateList = () => {
       setLoadingDf(false);
     }
   };
-  
+
   useEffect(get, [access, configSelected, contextSelected]);
-  
 
   return (
     <div className="subPage tablePg">

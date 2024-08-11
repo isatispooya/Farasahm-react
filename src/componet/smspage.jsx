@@ -18,8 +18,10 @@ const Smspage = ({
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for ConfirmationModal
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // State for Close ConfirmationModal
+  const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] = useState(false); // State for Send ConfirmationModal
   const modalRef = useRef(null);
+
   useEffect(() => {
     if (Config.context) {
       setMessage(Config.context);
@@ -89,6 +91,19 @@ const Smspage = ({
     }
   };
 
+  const handleSend = () => {
+    setIsSendConfirmationModalOpen(true);
+  };
+
+  const handleConfirmSend = () => {
+    setIsSendConfirmationModalOpen(false);
+    sendRequest();
+  };
+
+  const handleCancelSend = () => {
+    setIsSendConfirmationModalOpen(false);
+  };
+
   const sendRequest = () => {
     axios
       .post(OnRun + "/marketing/set_status", {
@@ -117,7 +132,6 @@ const Smspage = ({
         });
       });
   };
-  
 
   useEffect(() => {
     if (isModalVisible) {
@@ -207,7 +221,7 @@ const Smspage = ({
             </button>
             <button
               className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md text-sm"
-              onClick={sendRequest}
+              onClick={handleSend}
             >
               ارسال
             </button>
@@ -257,7 +271,7 @@ const Smspage = ({
                       </div>
                       <div className="flex flex-col mb-2">
                         <span className="font-bold text-lg text-blue-800">
-                          نتیجه:
+                          متن پیام ارسالی:
                         </span>
                         <p
                           className="text-gray-700 text-sm"
@@ -291,8 +305,16 @@ const Smspage = ({
         onConfirm={handleConfirmClose}
         onCancel={handleCancelClose}
       />
+
+      <ConfirmationModal
+        isOpen={isSendConfirmationModalOpen}
+        message="آیا مطمئن هستید که می‌خواهید پیام را ارسال کنید؟"
+        onConfirm={handleConfirmSend}
+        onCancel={handleCancelSend}
+      />
     </div>
   );
 };
 
 export default Smspage;
+
