@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 const InsuranceConsultant = ({
   access,
-  config = { config: { consultant: [] } },
+  config = { insurance: { consultant: [] } },
   setConfig,
 }) => {
   const [consultantList, setConsultantList] = useState([]);
@@ -20,6 +20,7 @@ const InsuranceConsultant = ({
       data: { access },
     }).then((response) => {
       setConsultantList(response.data);
+      console.log("Consultant List:", response.data);
     });
   };
 
@@ -29,10 +30,12 @@ const InsuranceConsultant = ({
 
   const handle_add_consultant = () => {
     if (consultantInput) {
-      const available = consultantList.includes(consultantInput);
-      if (available) {
+      const selectedConsultant = consultantList.find(
+        (consultant) => consultant.nationalCode === consultantInput
+      );
+      if (selectedConsultant) {
         const consultant_list = config.insurance.consultant || [];
-        consultant_list.push(consultantInput);
+        consultant_list.push(selectedConsultant.nationalCode);
         const insurance = { ...config.insurance, consultant: consultant_list };
         setConfig({ ...config, insurance });
         setConsultantInput("");
@@ -42,9 +45,9 @@ const InsuranceConsultant = ({
     }
   };
 
-  const handleDelete = (consultant) => {
-    const consultant_list = config.insurance.consultant.filter(
-      (i) => i !== consultant
+  const handleDelete = (nationalCodeToRemove) => {
+    const consultant_list = (config.insurance.consultant || []).filter(
+      (nationalCode) => nationalCode !== nationalCodeToRemove
     );
     const insurance = { ...config.insurance, consultant: consultant_list };
     setConfig({ ...config, insurance });
@@ -54,10 +57,12 @@ const InsuranceConsultant = ({
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const availableCities = consultantList.filter(
-    (consultant) => !config.insurance.consultant?.includes(consultant)
+  const availableConsultants = consultantList.filter(
+    (consultant) =>
+      !(config.insurance.consultant || []).includes(consultant.nationalCode)
   );
-
+   
+  
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -101,9 +106,9 @@ const InsuranceConsultant = ({
                 style={{ marginBottom: 16 }}
               >
                 <option value="" disabled></option>
-                {availableCities.map((city, index) => (
-                  <option key={index} value={city}>
-                    {city}
+                {availableConsultants.map((consultant, index) => (
+                  <option key={index} value={consultant.nationalCode}>
+                    {consultant.name}
                   </option>
                 ))}
               </TextField>
@@ -124,43 +129,48 @@ const InsuranceConsultant = ({
                 sx={{ flexWrap: "wrap" }}
               >
                 {(config.insurance.consultant || []).map(
-                  (consultant, index) => (
-                    <Chip
-                      key={`city-${index}`}
-                      label={consultant}
-                      onDelete={() => handleDelete(consultant)}
-                      deleteIcon={
-                        <button
-                          style={{ color: "white", marginRight: "5px" }}
-                          className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
+                  (nationalCode, index) => {
+                    const consultant = consultantList.find(
+                      (c) => c.nationalCode === nationalCode
+                    );
+                    return (
+                      <Chip
+                        key={`consultant-${index}`}
+                        label={consultant ? consultant.name : nationalCode}
+                        onDelete={() => handleDelete(nationalCode)}
+                        deleteIcon={
+                          <button
+                            style={{ color: "white", marginRight: "5px" }}
+                            className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6 18L18 6M6 6l12 12"
-                            />
-                          </svg>
-                        </button>
-                      }
-                      style={{
-                        backgroundColor: "blue",
-                        color: "white",
-                        borderRadius: "16px",
-                        fontSize: "0.875rem",
-                        fontWeight: "bold",
-                        marginBottom: "10px",
-                      }}
-                      className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                    />
-                  )
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-4 w-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                        }
+                        style={{
+                          backgroundColor: "blue",
+                          color: "white",
+                          borderRadius: "16px",
+                          fontSize: "0.875rem",
+                          fontWeight: "bold",
+                          marginBottom: "10px",
+                        }}
+                        className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                      />
+                    );
+                  }
                 )}
               </Stack>
             </div>
