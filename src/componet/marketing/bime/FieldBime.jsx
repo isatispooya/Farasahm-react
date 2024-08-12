@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Chip, Stack, TextField } from "@mui/material";
+import { OnRun } from "../../../config/config";
+import axios from "axios";
 
-const FieldBime = ({ config, setConfig }) => {
+const FieldBime = ({ config, setConfig, access }) => {
   const [search, setSearch] = useState("");
   const [dropDown, setDropDown] = useState(false);
+  const [listFieldBime, ListFieldBime] = useState([]);
+
+  useEffect(() => {
+    const fetchCompanyList = async () => {
+      try {
+        const response = await axios.post(
+          `${OnRun}/marketing/Insurance_field`,
+          { access: access }
+        );
+
+        ListFieldBime(response.data);
+      } catch (error) {
+        console.error("Failed to fetch company list", error);
+      }
+    };
+    fetchCompanyList();
+  }, [access]);
 
   const AddField = () => {
     if (search && !config.insurance.insurance_field.includes(search)) {
@@ -46,6 +65,10 @@ const FieldBime = ({ config, setConfig }) => {
     setDropDown((prev) => !prev);
   };
 
+  const availablefieldBime = listFieldBime.filter(
+    (fieldBime) => !config.insurance.insurance_field.includes(fieldBime)
+  );
+
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <div>
@@ -75,19 +98,20 @@ const FieldBime = ({ config, setConfig }) => {
           <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
             <div className="mb-2 mt-8 flex items-center space-x-4">
               <TextField
-                style={{ backgroundColor: "white", marginLeft: "20px" }}
-                id="outlined-basic-name"
+                select
                 value={search}
                 onChange={searchFieldFilter}
-                onKeyDown={useEnterKey}
-                label="جستجو"
+                label="رشته بیمه"
                 variant="outlined"
-                inputProps={{
-                  inputMode: "text",
-                  pattern: "[\u0600-\u06FFa-zA-Z\\s]*",
-                }}
+                SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-              />
+                style={{ marginBottom: 16, backgroundColor: "white" }}
+              >
+                <option value="" disabled></option>
+                {availablefieldBime.map((i, index) => (
+                  <option key={index}>{i}</option>
+                ))}
+              </TextField>
 
               <Button
                 onClick={AddField}

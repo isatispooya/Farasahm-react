@@ -314,7 +314,7 @@ const CardConfigMarketing = ({
             {title !== "جدید" && (
               <>
                 <Button onClick={handleSelect} variant="contained">
-                  انتخاب
+                  انتخاب و ویرایش
                 </Button>
                 <Button
                   variant="outlined"

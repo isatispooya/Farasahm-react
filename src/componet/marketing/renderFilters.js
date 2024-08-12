@@ -182,7 +182,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
                   access={access}
                 />
                 <PhoneFilterBime setConfig={setConfig} config={config} />
-                <RemainingCustomer setConfig={setConfig} config={config} />
+                {/* <RemainingCustomer setConfig={setConfig} config={config} /> */}
                 <InsuranceConsultant
                   setConfig={setConfig}
                   config={config}
@@ -193,7 +193,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
                   config={config}
                   access={access}
                 />
-                <FieldBime setConfig={setConfig} config={config} />
+                <FieldBime access={access} setConfig={setConfig} config={config} />
                 <PaymentBime setConfig={setConfig} config={config} />
                 <CompanyBime
                   setConfig={setConfig}

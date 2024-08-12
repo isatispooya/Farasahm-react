@@ -217,7 +217,7 @@ const Smspage = ({
               onClick={editContext}
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-200 transform hover:scale-105"
             >
-              ذخیره پیام
+            اعمال تغییرات
             </button>
             <button
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-200 transform hover:scale-105"
