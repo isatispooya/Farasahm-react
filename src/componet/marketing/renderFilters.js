@@ -77,7 +77,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
 
   return (
     <div
-      className="overflow-y-auto max-h-[calc(150vh-180px)]"
+      className="overflow-y-auto mt-8 max-h-[calc(180vh-200px)]"
       ref={dropdownRef}
     >
       <div className="bg-white rounded-lg p-6 shadow-lg flex flex-col items-center space-y-4">
@@ -227,17 +227,17 @@ const RenderFilters = ({ config, setConfig, access }) => {
 
             {openBours && (
               <div className="mt-4 w-full">
-              <NationalFilterBors config={config} setConfig={setConfig}/>
-              <PhoneFilterBors setConfig={setConfig} config={config} />
+                <NationalFilterBors config={config} setConfig={setConfig} />
+                <PhoneFilterBors setConfig={setConfig} config={config} />
                 <NameBors config={config} setConfig={setConfig} />
-                <GenderBors config={config} setConfig={setConfig}/>
+                <GenderBors config={config} setConfig={setConfig} />
                 <BranchBors config={config} setConfig={setConfig} />
-                <PropertyBors setConfig={setConfig} config={config}/>
-                <CityFilterBors setConfig={setConfig} config={config}/>
+                <PropertyBors setConfig={setConfig} config={config} />
+                <CityFilterBors setConfig={setConfig} config={config} />
                 <BalanceBours config={config} setConfig={setConfig} />
                 <MeqdarDaraei config={config} setConfig={setConfig} />
                 <Latestdeals config={config} setConfig={setConfig} />
-                <DateBirthBors config={config} setConfig={setConfig}/>
+                <DateBirthBors config={config} setConfig={setConfig} />
               </div>
             )}
           </>

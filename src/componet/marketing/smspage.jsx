@@ -118,7 +118,9 @@ const Smspage = ({
             position: "top-right",
             autoClose: 3000,
           });
-          toggleModal(false);
+          setTimeout(() => {
+            toggleModal(false);
+          }, 2000); 
         } else {
           toast.error("ارسال پیام با مشکل مواجه شد.", {
             position: "top-right",
@@ -133,6 +135,7 @@ const Smspage = ({
         });
       });
   };
+  
 
   useEffect(() => {
     if (isModalVisible) {
