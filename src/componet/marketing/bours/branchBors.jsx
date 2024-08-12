@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { OnRun } from "../../config/config";
+import { OnRun } from '../../../config/config';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const CompanyBime = ({ access, config, setConfig }) => {
-  const [companyInput, setCompanyInput] = useState("");
-  const [companyList, setCompanyList] = useState([]);
+const BranchBors = ({ access, config, setConfig }) => {
+  const [branchInput, setBranchInput] = useState("");
+  const [branchList, setBranchList] = useState([]);
   const [dropdown, setdropdown] = useState(false);
-
-  useEffect(() => {
-    const fetchCompanyList = async () => {
-      try {
-        const response = await axios.post(
-          `${OnRun}/marketing/insurance_companies`,
-          { access: access }
-        );
-
-        setCompanyList(response.data);
-      } catch (error) {
-        console.error("Failed to fetch company list", error);
-      }
-    };
-    fetchCompanyList();
-  }, [access]);
 
   const Remove = (company) => {
     const company_list = (config.insurance.company || []).filter(
@@ -37,22 +22,22 @@ const CompanyBime = ({ access, config, setConfig }) => {
   const openDropDown = () => {
     setdropdown(!dropdown);
   };
-  const availableCompany = companyList.filter(
+  const availableCompany = branchList.filter(
     (company) => !config.insurance.company.includes(company)
   );
-  const handleCompanySelect = (e) => {
-    setCompanyInput(e.target.value);
+  const handleBranchSelect = (e) => {
+    setBranchInput(e.target.value);
   };
 
   const AddCompany = () => {
-    if (companyInput) {
-      const available = companyList.includes(companyInput);
+    if (branchInput) {
+      const available = branchList.includes(branchInput);
       if (available) {
         const company_list = [...(config.insurance.company || [])];
-        company_list.push(companyInput);
+        company_list.push(branchInput);
         const insurance = { ...config.insurance, company: company_list };
         setConfig({ ...config, insurance: insurance });
-        setCompanyInput("");
+        setBranchInput("");
       } else {
         toast.error("لطفا یک شرکت  معتبر انتخاب کنید");
       }
@@ -66,7 +51,7 @@ const CompanyBime = ({ access, config, setConfig }) => {
           onClick={openDropDown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          بیمه گر
+          شعبه
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
@@ -94,9 +79,9 @@ const CompanyBime = ({ access, config, setConfig }) => {
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <TextField
                 select
-                value={companyInput}
-                onChange={handleCompanySelect}
-                label="شرکت ها"
+                value={branchInput}
+                onChange={handleBranchSelect}
+                label="دارایی ها"
                 variant="outlined"
                 SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -156,7 +141,6 @@ const CompanyBime = ({ access, config, setConfig }) => {
                       fontSize: "0.875rem",
                       fontWeight: "bold",
                       marginBottom: "10px",
-
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />
@@ -170,4 +154,4 @@ const CompanyBime = ({ access, config, setConfig }) => {
   );
 };
 
-export default CompanyBime;
+export default BranchBors;

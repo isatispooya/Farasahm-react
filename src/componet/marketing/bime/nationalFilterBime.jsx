@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Button, TextField, Stack, Chip } from "@mui/material";
-import { city_list } from "./city_list.js";
 import { toast } from "react-toastify";
+import { city_list } from "../city_list";
 
-const NationalFilterBors = ({config , setConfig}) => {
+const NationalFilterBime = ({ config, setConfig }) => {
   const [search, setSearch] = useState("");
   const [cityselected, setCityselected] = useState("");
   const [dropDown, setDropDown] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const addToConfig = () => {
+  const add_num_to_config = () => {
     let nc_list = config.insurance.national_id || [];
     let insurance;
 
@@ -35,14 +35,14 @@ const NationalFilterBors = ({config , setConfig}) => {
     }
   };
 
-  const RemoveSelected = (id) => {
+  const Remove_selected = (id) => {
     let nc_list = config.insurance.national_id || [];
     nc_list = nc_list.filter((i) => i !== id);
     let insurance = { ...config.insurance, national_id: nc_list };
     setConfig({ ...config, insurance: insurance });
   };
 
-  const handleSearchNumber = (e) => {
+  const handle_search_number_national_code = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) setSearch(value);
   };
@@ -53,7 +53,7 @@ const NationalFilterBors = ({config , setConfig}) => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      addToConfig();
+      add_num_to_config();
     }
   };
 
@@ -92,7 +92,7 @@ const NationalFilterBors = ({config , setConfig}) => {
                 <TextField
                   style={{ flex: 1 }}
                   value={search}
-                  onChange={handleSearchNumber}
+                  onChange={handle_search_number_national_code}
                   label="جستجو کد ملی"
                   variant="outlined"
                   onKeyDown={handleKeyDown}
@@ -125,7 +125,7 @@ const NationalFilterBors = ({config , setConfig}) => {
               </datalist>
 
               <Button
-                onClick={addToConfig}
+                onClick={add_num_to_config}
                 className="ml-4 rounded-lg"
                 variant="contained"
               >
@@ -145,7 +145,7 @@ const NationalFilterBors = ({config , setConfig}) => {
                   <Chip
                     key={`mored-${index}`}
                     label={item}
-                    onDelete={() => RemoveSelected(item)}
+                    onDelete={() => Remove_selected(item)}
                     deleteIcon={
                       <button
                         style={{ color: "white", marginRight: "5px" }}
@@ -187,4 +187,4 @@ const NationalFilterBors = ({config , setConfig}) => {
   );
 };
 
-export default NationalFilterBors;
+export default NationalFilterBime;
