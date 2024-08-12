@@ -26,7 +26,7 @@ const GenderBors = ({ config, setConfig }) => {
           onClick={openDropDown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          دارایی
+          جنسیت
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
