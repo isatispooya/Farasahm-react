@@ -146,7 +146,7 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
-          console.log("getConfig", response.data);
+          // console.log("getConfig", response.data);
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }

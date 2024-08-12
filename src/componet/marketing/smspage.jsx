@@ -13,7 +13,7 @@ const Smspage = ({
   Config,
   configSelected,
   get,
-  textareaRef,
+  openFilterModal, // Added this prop to handle reopening ModalFilter
 }) => {
   const [message, setMessage] = useState(Config.context || "");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,6 +22,8 @@ const Smspage = ({
   const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] =
     useState(false);
   const modalRef = useRef(null);
+  const textareaRef = useRef(null);
+
 
   useEffect(() => {
     if (Config.context) {
@@ -119,7 +121,8 @@ const Smspage = ({
             autoClose: 3000,
           });
           setTimeout(() => {
-            toggleModal(false);
+            toggleModal(false); // Close the Smspage modal
+            openFilterModal(); // Reopen the ModalFilter
           }, 2000); 
         } else {
           toast.error("ارسال پیام با مشکل مواجه شد.", {
@@ -135,7 +138,6 @@ const Smspage = ({
         });
       });
   };
-  
 
   useEffect(() => {
     if (isModalVisible) {

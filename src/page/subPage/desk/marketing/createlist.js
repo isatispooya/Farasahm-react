@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BsFiletypeCsv } from "react-icons/bs";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
@@ -20,15 +20,26 @@ const CreateList = () => {
   const [table, setTable] = useState(null);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState();
-  const [isOpenSender, setIsOpenSender] = useState();
+  const [isOpenSender, setIsOpenSender] = useState(false);
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
   window.XLSX = XLSX;
 
+ 
+  const openModalFilter = () => {
+    setIsOpenFilter(true);
+  };
+
+ 
+  const closeSenderModal = () => {
+    setIsOpenSender(false);
+  };
+
+  
   useEffect(() => {
     if (df && !isOpenFilter) {
       if (table) {
-        table.destroy(); // Destroy the previous table before creating a new one
+        table.destroy(); 
       }
 
       const newTable = new Tabulator("#data-table", {
@@ -63,15 +74,16 @@ const CreateList = () => {
 
       return () => {
         if (newTable) {
-          newTable.destroy(); // Ensure the table is destroyed when the component unmounts
+          newTable.destroy();
         }
       };
     }
   }, [df, isOpenFilter]);
 
+ 
   const get = () => {
     setLoadingDf(true);
-    setTable(null); // Reset the table when fetching new data
+    setTable(null);
     if (configSelected) {
       setDf(null);
       axios({
@@ -80,7 +92,7 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        console.log("Response Data:", response.data);
+        // console.log("Response Data:", response.data);
         setConfig(response.data);
         setLoadingDf(false);
       });
@@ -88,6 +100,7 @@ const CreateList = () => {
       setLoadingDf(false);
     }
   };
+
 
   useEffect(get, [access, configSelected, contextSelected]);
 
@@ -103,7 +116,6 @@ const CreateList = () => {
               }}
             >
               <GrDocumentExcel />
-
               <span>خروجی Excel</span>
             </p>
             <p
@@ -152,18 +164,19 @@ const CreateList = () => {
         )}
       </div>
       <div>
-        {isOpenSender ? (
+        {isOpenSender && (
           <Smspage
-            toggleModal={setIsOpenSender}
+            toggleModal={closeSenderModal} 
             access={access}
             Config={Config}
             configSelected={configSelected}
             get={get}
+            openFilterModal={openModalFilter} 
           />
-        ) : null}
+        )}
       </div>
       <div></div>
-      {loadingDf ? <MiniLoader /> : null}
+      {loadingDf && <MiniLoader />}
       <div id="data-table"></div>
     </div>
   );
