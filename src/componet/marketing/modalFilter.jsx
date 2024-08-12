@@ -73,6 +73,40 @@ const ModalFilter = ({
         num2: [],
       },
     },
+    bours: {
+      enabled: false,
+      name: null,
+      birthday: {
+        from: null,
+        to: null,
+      },
+      city: [],
+      symbol: [],
+      national_id: [],
+      mande: {
+        from: null,
+        to: null,
+      },
+      mandeE: {
+        min: null,
+        max: null,
+      },
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+      daraei: [],
+      sex: false,
+      shobe: [],
+      meqdar: {
+        from: null,
+        to: null,
+      },
+      akharinM: {
+        from: null,
+        to: null,
+      },
+    },
     title: "",
   };
 

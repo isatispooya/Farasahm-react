@@ -1,5 +1,4 @@
-/* eslint-disable no-use-before-define */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NationalIdSearch from "./nationalFilter";
@@ -18,59 +17,89 @@ import PhoneFilterBime from "./phoneFilterBime.jsx";
 import CompanyBime from "./companyBime.jsx";
 import PaymentBime from "./payment&FeeBime.jsx";
 import FieldBime from "./FieldBime.jsx";
+import BalanceBours from "./Balancebours.jsx";
+import MeqdarDaraei from "./MeqdardaraeiBours.jsx";
+import Latestdeals from "./Latestdealsbours.jsx";
+import BranchBors from "./branchBors.jsx";
+import NameBors from "./nameBors.jsx";
+import NationalFilterBors from "./nationalFilterBors.jsx";
+import PhoneFilterBors from "./phoneFilterBors.jsx";
+import PropertyBors from "./propertyBors.jsx";
+import CityFilterBors from "./cityFilterBors.jsx";
+import DateBirthBors from "./dateBors.jsx";
 
 const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
   const [openInsuranceBroker, setOpenInsuranceBroker] = useState(false);
+  const [openBours, setOpenBours] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handleEnebledNobours = () => {
+  const handleEnabledNobours = () => {
     let nobours = {
       ...config.nobours,
       enabled: !config.nobours.enabled,
     };
-    setConfig({ ...config, nobours: nobours });
+    setConfig({ ...config, nobours });
   };
 
-  const handleEnebledInsurance = () => {
+  const handleEnabledInsurance = () => {
     let insurance = {
       ...config.insurance,
       enabled: !config.insurance.enabled,
     };
-    setConfig({ ...config, insurance: insurance });
+    setConfig({ ...config, insurance });
+  };
+
+  const handleEnabledStoBours = () => {
+    let bours = {
+      ...config.bours,
+      enabled: !config.bours.enabled,
+    };
+    setConfig({ ...config, bours });
   };
 
   const handleDropdownClick = (dropdownType) => {
     if (dropdownType === "nobours") {
       setOpenNobours(!openNobours);
       setOpenInsuranceBroker(false);
+      setOpenBours(false);
     } else if (dropdownType === "insuranceBroker") {
       setOpenInsuranceBroker(!openInsuranceBroker);
       setOpenNobours(false);
+      setOpenBours(false);
+    } else if (dropdownType === "bours") {
+      setOpenBours(!openBours);
+      setOpenNobours(false);
+      setOpenInsuranceBroker(false);
     }
   };
+
   return (
     <div
       className="overflow-y-auto max-h-[calc(150vh-180px)]"
       ref={dropdownRef}
     >
       <div className="bg-white rounded-lg p-6 shadow-lg flex flex-col items-center space-y-4">
-        <ButtonGroup variant="outlined" aria-label="Loading button group ">
+        <ButtonGroup variant="outlined" aria-label="Loading button group">
           <Button
             style={{ padding: "20px" }}
             variant={config.nobours.enabled ? "contained" : "outlined"}
-            onClick={handleEnebledNobours}
+            onClick={handleEnabledNobours}
           >
             غیر بورسی
           </Button>
           <Button
             style={{ padding: "20px" }}
             variant={config.insurance.enabled ? "contained" : "outlined"}
-            onClick={handleEnebledInsurance}
+            onClick={handleEnabledInsurance}
           >
             کارگزاری بیمه
           </Button>
-          <Button style={{ padding: "20px" }} disabled>
+          <Button
+            style={{ padding: "20px" }}
+            variant={config.bours.enabled ? "contained" : "outlined"}
+            onClick={handleEnabledStoBours}
+          >
             کارگزاری بورس
           </Button>
         </ButtonGroup>
@@ -170,6 +199,43 @@ const RenderFilters = ({ config, setConfig, access }) => {
                   config={config}
                   access={access}
                 />
+              </div>
+            )}
+          </>
+        )}
+
+        {config.bours.enabled && (
+          <>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleDropdownClick("bours")}
+              fullWidth
+              style={{ padding: "10px", margin: "10px" }}
+              endIcon={
+                <ExpandMoreIcon
+                  style={{
+                    transform: openBours ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 0.3s",
+                  }}
+                />
+              }
+            >
+              کارگزاری بورس
+            </Button>
+
+            {openBours && (
+              <div className="mt-4 w-full">
+              <NationalFilterBors config={config} setConfig={setConfig}/>
+              <PhoneFilterBors setConfig={setConfig} config={config} />
+                <NameBors config={config} setConfig={setConfig} />
+                <BranchBors config={config} setConfig={setConfig} />
+                <PropertyBors setConfig={setConfig} config={config}/>
+                <CityFilterBors setConfig={setConfig} config={config}/>
+                <BalanceBours config={config} setConfig={setConfig} />
+                <MeqdarDaraei config={config} setConfig={setConfig} />
+                <Latestdeals config={config} setConfig={setConfig} />
+                <DateBirthBors config={config} setConfig={setConfig}/>
               </div>
             )}
           </>
