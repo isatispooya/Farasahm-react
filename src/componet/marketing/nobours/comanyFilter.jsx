@@ -110,6 +110,7 @@ const CompanyFilter = ({ access, config, setConfig }) => {
                 </option>
               ))}
             </TextField>
+
           </div>
           <Button
             onClick={handleAddCompany}
