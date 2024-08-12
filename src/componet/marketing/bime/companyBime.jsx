@@ -1,66 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { OnRun } from "../../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { OnRun } from "../../../config/config";
 
-const CityFilter = ({ access, config, setConfig }) => {
-  const [cityList, setCityList] = useState([]);
-  const [cityInput, setCityInput] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const getCityList = () => {
-    const options = {
-      method: "POST",
-      url: `${OnRun}/marketing/cityregisternobours`,
-      headers: { "content-type": "application/json" },
-      data: { access: access },
-    };
-
-    axios
-      .request(options)
-      .then((response) => {
-        setCityList(response.data);
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  };
+const CompanyBime = ({ access, config, setConfig }) => {
+  const [companyInput, setCompanyInput] = useState("");
+  const [companyList, setCompanyList] = useState([]);
+  const [dropdown, setdropdown] = useState(false);
 
   useEffect(() => {
-    getCityList();
-  });
+    const fetchCompanyList = async () => {
+      try {
+        const response = await axios.post(
+          `${OnRun}/marketing/insurance_companies`,
+          { access: access }
+        );
 
-  const handleDelete = (city) => {
-    const city_list = (config.nobours.city || []).filter((i) => i !== city);
-    const nobours = { ...config.nobours, city: city_list };
-    setConfig({ ...config, nobours: nobours });
+        setCompanyList(response.data);
+      } catch (error) {
+        console.error("Failed to fetch company list", error);
+      }
+    };
+    fetchCompanyList();
+  }, [access]);
+
+  const Remove = (company) => {
+    const company_list = (config.insurance.company || []).filter(
+      (i) => i !== company
+    );
+    const insurance = { ...config.insurance, company: company_list };
+    setConfig({ ...config, insurance: insurance });
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const openDropDown = () => {
+    setdropdown(!dropdown);
   };
-
-  const availableCities = cityList.filter(
-    (city) => !(config.city ?? []).includes(city)
+  const availableCompany = companyList.filter(
+    (company) => !config.insurance.company.includes(company)
   );
-
-  const handleCitySelect = (e) => {
-    setCityInput(e.target.value);
+  const handleCompanySelect = (e) => {
+    setCompanyInput(e.target.value);
   };
 
-  const handleAddCity = () => {
-    if (cityInput) {
-      const available = cityList.includes(cityInput);
+  const AddCompany = () => {
+    if (companyInput) {
+      const available = companyList.includes(companyInput);
       if (available) {
-        const city_list = [...(config.nobours.city || [])];
-        city_list.push(cityInput);
-        const nobours = { ...config.nobours, city: city_list };
-        setConfig({ ...config, nobours: nobours });
-        setCityInput("");
+        const company_list = [...(config.insurance.company || [])];
+        company_list.push(companyInput);
+        const insurance = { ...config.insurance, company: company_list };
+        setConfig({ ...config, insurance: insurance });
+        setCompanyInput("");
       } else {
-        toast.error("لطفا یک شهر معتبر انتخاب کنید");
+        toast.error("لطفا یک شرکت  معتبر انتخاب کنید");
       }
     }
   };
@@ -69,14 +63,14 @@ const CityFilter = ({ access, config, setConfig }) => {
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
         <button
-          onClick={toggleDropdown}
+          onClick={openDropDown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          شهر
+          بیمه گر
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
-              isDropdownOpen ? "rotate-180" : "rotate-0"
+              dropdown ? "rotate-180" : "rotate-0"
             }`}
             fill="none"
             viewBox="0 0 24 24"
@@ -90,7 +84,7 @@ const CityFilter = ({ access, config, setConfig }) => {
             />
           </svg>
         </button>
-        {isDropdownOpen && (
+        {dropdown && (
           <div
             dir="rtl"
             className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
@@ -100,22 +94,22 @@ const CityFilter = ({ access, config, setConfig }) => {
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <TextField
                 select
-                value={cityInput}
-                onChange={handleCitySelect}
-                label="شهر ها"
+                value={companyInput}
+                onChange={handleCompanySelect}
+                label="شرکت ها"
                 variant="outlined"
                 SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
               >
                 <option value="" disabled></option>
-                {availableCities.map((i, index) => (
+                {availableCompany.map((i, index) => (
                   <option key={index}>{i}</option>
                 ))}
               </TextField>
 
               <Button
-                onClick={handleAddCity}
+                onClick={AddCompany}
                 sx={{ borderRadius: 2 }}
                 variant="contained"
               >
@@ -129,11 +123,11 @@ const CityFilter = ({ access, config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.nobours.city || []).map((city, index) => (
+                {(config.insurance.company || []).map((company, index) => (
                   <Chip
-                    key={`city-${index}`}
-                    label={city}
-                    onDelete={() => handleDelete(city)}
+                    key={`company-${index}`}
+                    label={company}
+                    onDelete={() => Remove(company)}
                     deleteIcon={
                       <button
                         style={{ color: "white", marginRight: "5px" }}
@@ -161,6 +155,8 @@ const CityFilter = ({ access, config, setConfig }) => {
                       borderRadius: "16px",
                       fontSize: "0.875rem",
                       fontWeight: "bold",
+                      marginBottom: "10px",
+
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />
@@ -174,4 +170,4 @@ const CityFilter = ({ access, config, setConfig }) => {
   );
 };
 
-export default CityFilter;
+export default CompanyBime;

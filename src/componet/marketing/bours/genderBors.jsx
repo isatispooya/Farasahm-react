@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { OnRun } from "../../config/config";
+import { OnRun } from '../../../config/config';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
