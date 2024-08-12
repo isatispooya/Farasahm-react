@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,9 +37,11 @@ const CompanyBime = ({ access, config, setConfig }) => {
   const openDropDown = () => {
     setdropdown(!dropdown);
   };
+
   const availableCompany = companyList.filter(
     (company) => !config.insurance.company.includes(company)
   );
+
   const handleCompanySelect = (e) => {
     setCompanyInput(e.target.value);
   };
@@ -92,21 +94,18 @@ const CompanyBime = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <TextField
-                select
+              <input
+                list="companies"
                 value={companyInput}
                 onChange={handleCompanySelect}
-                label="شرکت ها"
-                variant="outlined"
-                SelectProps={{ native: true }}
+                placeholder="جستجوی شرکت"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                style={{ marginBottom: 16 }}
-              >
-                <option value="" disabled></option>
+              />
+              <datalist id="companies">
                 {availableCompany.map((i, index) => (
-                  <option key={index}>{i}</option>
+                  <option key={index} value={i} />
                 ))}
-              </TextField>
+              </datalist>
 
               <Button
                 onClick={AddCompany}
@@ -156,7 +155,6 @@ const CompanyBime = ({ access, config, setConfig }) => {
                       fontSize: "0.875rem",
                       fontWeight: "bold",
                       marginBottom: "10px",
-
                     }}
                     className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                   />
@@ -171,3 +169,4 @@ const CompanyBime = ({ access, config, setConfig }) => {
 };
 
 export default CompanyBime;
+

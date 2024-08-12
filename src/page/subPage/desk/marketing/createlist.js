@@ -177,7 +177,10 @@ const CreateList = () => {
       </div>
       <div></div>
       {loadingDf && <MiniLoader />}
-      <div id="data-table"></div>
+      <div id="data-table">
+
+
+      </div>
     </div>
   );
 };
