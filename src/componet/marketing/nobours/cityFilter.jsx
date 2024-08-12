@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Chip, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { OnRun } from "../../../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { OnRun } from "../../../config/config";
 
 const CityFilter = ({ access, config, setConfig }) => {
   const [cityList, setCityList] = useState([]);
