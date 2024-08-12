@@ -27,6 +27,7 @@ import PhoneFilterBors from "./phoneFilterBors.jsx";
 import PropertyBors from "./propertyBors.jsx";
 import CityFilterBors from "./cityFilterBors.jsx";
 import DateBirthBors from "./dateBors.jsx";
+import GenderBors from "./genderBors.jsx";
 
 const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
@@ -229,6 +230,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
               <NationalFilterBors config={config} setConfig={setConfig}/>
               <PhoneFilterBors setConfig={setConfig} config={config} />
                 <NameBors config={config} setConfig={setConfig} />
+                <GenderBors config={config} setConfig={setConfig}/>
                 <BranchBors config={config} setConfig={setConfig} />
                 <PropertyBors setConfig={setConfig} config={config}/>
                 <CityFilterBors setConfig={setConfig} config={config}/>
