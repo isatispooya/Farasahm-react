@@ -19,13 +19,16 @@ import PaymentBime from "./payment&FeeBime.jsx";
 import FieldBime from "./FieldBime.jsx";
 import BalanceBours from "./Balancebours.jsx";
 import MeqdarDaraei from "./MeqdardaraeiBours.jsx";
-import Latestdeals from "./Latestdeals.jsx";
+import Latestdeals from "./Latestdealsbours.jsx";
+import BranchBors from "./branchBors.jsx";
+import NameBors from "./nameBors.jsx";
+import NationalFilterBors from "./nationalFilterBors.jsx";
+import PhoneFilterBors from "./phoneFilterBors.jsx";
+import PropertyBors from "./propertyBors.jsx";
+import CityFilterBors from "./cityFilterBors.jsx";
+import DateBirthBors from "./dateBors.jsx";
 
-const RenderFilters = ({
-  config,
-  setConfig,
-  access,
-}) => {
+const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
   const [openInsuranceBroker, setOpenInsuranceBroker] = useState(false);
   const [openBours, setOpenBours] = useState(false);
@@ -212,9 +215,7 @@ const RenderFilters = ({
               endIcon={
                 <ExpandMoreIcon
                   style={{
-                    transform: openBours
-                      ? "rotate(180deg)"
-                      : "rotate(0deg)",
+                    transform: openBours ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 0.3s",
                   }}
                 />
@@ -225,9 +226,16 @@ const RenderFilters = ({
 
             {openBours && (
               <div className="mt-4 w-full">
+              <NationalFilterBors config={config} setConfig={setConfig}/>
+              <PhoneFilterBors setConfig={setConfig} config={config} />
+                <NameBors config={config} setConfig={setConfig} />
+                <BranchBors config={config} setConfig={setConfig} />
+                <PropertyBors setConfig={setConfig} config={config}/>
+                <CityFilterBors setConfig={setConfig} config={config}/>
                 <BalanceBours config={config} setConfig={setConfig} />
-                <MeqdarDaraei config={config} setConfig={setConfig}/>
-                <Latestdeals config={config} setConfig={setConfig}/>
+                <MeqdarDaraei config={config} setConfig={setConfig} />
+                <Latestdeals config={config} setConfig={setConfig} />
+                <DateBirthBors config={config} setConfig={setConfig}/>
               </div>
             )}
           </>

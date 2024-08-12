@@ -51,7 +51,7 @@ const BranchBors = ({ access, config, setConfig }) => {
           onClick={openDropDown}
           className="w-full text-xl font-semibold text-gray-700 bg-gray-200 p-2 rounded-lg hover:bg-gray-400 transition duration-200"
         >
-          دارایی
+          شعبه
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={`inline-block ml-2 h-5 w-5 transform transition-transform duration-300 ${
@@ -79,8 +79,8 @@ const BranchBors = ({ access, config, setConfig }) => {
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <TextField
                 select
-                value={propertyInput}
-                onChange={handleCompanySelect}
+                value={branchInput}
+                onChange={handleBranchSelect}
                 label="دارایی ها"
                 variant="outlined"
                 SelectProps={{ native: true }}

@@ -136,7 +136,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
                     <Chip
                       key={`city-${index}`}
                       label={city}
-                      onDelete={() => handleDelete(city)}
+                      onDelete={() => Remove(city)}
                       deleteIcon={
                         <button
                           style={{ color: "white", marginRight: "5px" }}
