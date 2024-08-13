@@ -75,7 +75,7 @@ const ModalFilter = ({
       },
     },
     bours: {
-      enabled: true,
+      enabled: false,
       name: [],
       gender: null,
       birthday: {

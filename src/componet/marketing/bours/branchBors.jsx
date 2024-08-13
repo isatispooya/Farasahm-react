@@ -13,7 +13,6 @@ const BranchBors = ({ access, config, setConfig }) => {
           access: access,
         });
         setBranchList(response.data);
-        
       } catch (error) {
         console.error("Failed to fetch Branch list", error);
       }
@@ -36,7 +35,7 @@ const BranchBors = ({ access, config, setConfig }) => {
   };
 
   const availablebranch = branchList.filter(
-    (branch) => !config.bours.branch.includes(branch)
+    (branch) => !(config.bours.branch || []).includes(branch)
   );
 
   const handleBranchSelect = (e) => {
@@ -53,7 +52,7 @@ const BranchBors = ({ access, config, setConfig }) => {
         setConfig({ ...config, bours: bours });
         setBranchInput("");
       } else {
-        toast.error("لطفا یک شرکت معتبر انتخاب کنید");
+        toast.error("لطفا یک شعبه معتبر انتخاب کنید");
       }
     }
   };
