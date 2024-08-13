@@ -12,6 +12,10 @@ import { FiRefreshCw } from "react-icons/fi";
 import { MdOutlineTopic } from "react-icons/md";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { GrDocumentExcel } from "react-icons/gr";
+import { IoReloadSharp } from "react-icons/io5";
+
+import { AiOutlineUsergroupDelete } from "react-icons/ai";
+import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFilter";
 
 const CreateList = () => {
   const access = useContext(AccessContext);
@@ -21,25 +25,29 @@ const CreateList = () => {
   const [isOpenFilter, setIsOpenFilter] = useState(true);
   const [configSelected, setConfigSelected] = useState();
   const [isOpenSender, setIsOpenSender] = useState(false);
+  const [isOpenAdvancedFilter, setIsOpenAdvancedFilter] = useState(false);
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
   window.XLSX = XLSX;
 
- 
   const openModalFilter = () => {
     setIsOpenFilter(true);
   };
+  const openModalAdvancedFilter = () => {
+    setIsOpenAdvancedFilter(true);
+  };
+  const closeModalAdvancedFilter = () => {
+    setIsOpenAdvancedFilter(false);
+  };
 
- 
   const closeSenderModal = () => {
     setIsOpenSender(false);
   };
 
-  
   useEffect(() => {
     if (df && !isOpenFilter) {
       if (table) {
-        table.destroy(); 
+        table.destroy();
       }
 
       const newTable = new Tabulator("#data-table", {
@@ -80,7 +88,6 @@ const CreateList = () => {
     }
   }, [df, isOpenFilter]);
 
- 
   const get = () => {
     setLoadingDf(true);
     setTable(null);
@@ -100,7 +107,6 @@ const CreateList = () => {
       setLoadingDf(false);
     }
   };
-
 
   useEffect(get, [access, configSelected, contextSelected]);
 
@@ -142,9 +148,16 @@ const CreateList = () => {
                 ایجاد
                 <MdOutlineCreateNewFolder className="mt-1" />
               </button>
+              <button
+                className="inp-fld"
+                onClick={openModalAdvancedFilter}
+              >
+                فیلتر پیشرفته
+                <AiOutlineUsergroupDelete className="mt-1" />
+              </button>
               <button className="inp-fld" onClick={get}>
                 بارگزاری
-                <FiRefreshCw className="mt-1" />
+                <IoReloadSharp className="mt-1" />
               </button>
             </>
           )}
@@ -163,24 +176,31 @@ const CreateList = () => {
           />
         )}
       </div>
+
+      <div>
+        {isOpenAdvancedFilter && (
+          <ModalAdvancedFilter 
+            open={isOpenAdvancedFilter} 
+            handleClose={closeModalAdvancedFilter} 
+          />
+        )}
+      </div>
+
       <div>
         {isOpenSender && (
           <Smspage
-            toggleModal={closeSenderModal} 
+            toggleModal={closeSenderModal}
             access={access}
             Config={Config}
             configSelected={configSelected}
             get={get}
-            openFilterModal={openModalFilter} 
+            openFilterModal={openModalFilter}
           />
         )}
       </div>
       <div></div>
       {loadingDf && <MiniLoader />}
-      <div id="data-table">
-
-
-      </div>
+      <div id="data-table"></div>
     </div>
   );
 };

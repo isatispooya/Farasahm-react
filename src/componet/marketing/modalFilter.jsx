@@ -29,6 +29,7 @@ const ModalFilter = ({
     send_time: new DateObject(),
     context: "",
     period: null,
+    duplicate: [],
     insurance: {
       enabled: false,
       name: [],
@@ -180,9 +181,9 @@ const ModalFilter = ({
       const response = await postConfig;
 
       if (response.data.reply === true) {
-        setIsOpenFilter(false); 
+        setIsOpenFilter(false);
         console.log(config);
-        
+
         if (configSelected == null) setConfigSelected(response.data.id);
       } else {
         toast.error(response.data.msg);
@@ -263,8 +264,7 @@ const ModalFilter = ({
           loading={loading}
           config={config}
           setConfig={setConfig}
-                          getConfigList={getConfigList}
-
+          getConfigList={getConfigList}
         />
       )}
 
