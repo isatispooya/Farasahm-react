@@ -151,6 +151,7 @@ const CardConfigMarketing = ({
   setConfig,
   nextStep,
   setConfigSelected,
+  getConfigList,
 }) => {
   const access = useContext(AccessContext);
   const [openDialog, setOpenDialog] = useState(false);
@@ -171,7 +172,7 @@ const CardConfigMarketing = ({
         },
         body: JSON.stringify({ access, _id: id }),
       });
-
+      getConfigList() 
       if (response.ok) {
         setConfig((prevConfig) => {
           if (Array.isArray(prevConfig)) {
@@ -180,7 +181,6 @@ const CardConfigMarketing = ({
           console.error("prevConfig is not an array");
           return [];
         });
-        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error deleting config:", errorData);
@@ -188,9 +188,11 @@ const CardConfigMarketing = ({
     } catch (error) {
       console.error("Error deleting request:", error);
     } finally {
-      setOpenDialog(false);
+      setOpenDialog(false); 
     }
   };
+  
+  
 
   return (
     <ThemeProvider theme={theme}>

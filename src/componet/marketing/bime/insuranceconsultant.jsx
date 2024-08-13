@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Chip, Stack, TextField } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 
-const InsuranceConsultant = ({
-  access,
-  config = { insurance: { consultant: [] } },
-  setConfig,
-}) => {
+const InsuranceConsultant = ({ access, config, setConfig }) => {
   const [consultantList, setConsultantList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [consultantInput, setConsultantInput] = useState("");
@@ -17,7 +13,7 @@ const InsuranceConsultant = ({
     axios({
       method: "POST",
       url: `${OnRun}/marketing/insurance_consultant`,
-      data: { access },
+      data: { access: access },
     }).then((response) => {
       setConsultantList(response.data);
       console.log("Consultant List:", response.data);
@@ -26,7 +22,7 @@ const InsuranceConsultant = ({
 
   useEffect(() => {
     getConsultantList();
-  }, [access]);
+  }, []);
 
   const handle_add_consultant = () => {
     if (consultantInput) {
@@ -61,8 +57,7 @@ const InsuranceConsultant = ({
     (consultant) =>
       !(config.insurance.consultant || []).includes(consultant.nationalCode)
   );
-   
-  
+
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

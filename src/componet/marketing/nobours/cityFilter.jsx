@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,7 +15,7 @@ const CityFilter = ({ access, config, setConfig }) => {
       method: "POST",
       url: `${OnRun}/marketing/cityregisternobours`,
       headers: { "content-type": "application/json" },
-      data: { access: access },
+      data: { access }
     };
 
     axios
@@ -30,7 +30,7 @@ const CityFilter = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     getCityList();
-  });
+  },[]);
 
   const handleDelete = (city) => {
     const city_list = (config.nobours.city || []).filter((i) => i !== city);
@@ -46,9 +46,6 @@ const CityFilter = ({ access, config, setConfig }) => {
     (city) => !(config.city ?? []).includes(city)
   );
 
-  const handleCitySelect = (e) => {
-    setCityInput(e.target.value);
-  };
 
   const handleAddCity = () => {
     if (cityInput) {
@@ -98,21 +95,24 @@ const CityFilter = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <TextField
-                select
-                value={cityInput}
-                onChange={handleCitySelect}
-                label="شهر ها"
-                variant="outlined"
-                SelectProps={{ native: true }}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                style={{ marginBottom: 16 }}
-              >
-                <option value="" disabled></option>
-                {availableCities.map((i, index) => (
-                  <option key={index}>{i}</option>
-                ))}
-              </TextField>
+          
+
+              <input
+              className="p-3 border w-full border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+              list="city"
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
+              placeholder="جستجوی شهر"
+            />
+            <datalist id="city">
+              {availableCities.map((i,index) => {
+                return (
+                  <option key={index}>
+                    {i}
+                  </option>
+                );
+              })}
+            </datalist>
 
               <Button
                 onClick={handleAddCity}
