@@ -14,38 +14,38 @@ const BalanceBours = ({ config, setConfig }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleButtonClick_mande_from = (value) => {
+  const handleButtonClick_remain_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let mande = { ...config.bours.mande, from: formatNumber(rawValue) };
-      let bours = { ...config.bours, mande };
+      let remain = { ...config.bours.remain, from: formatNumber(rawValue) };
+      let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
   };
 
-  const handleButtonClick_mande_to = (value) => {
+  const handleButtonClick_remain_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let mande = { ...config.bours.mande, to: formatNumber(rawValue) };
-      let bours = { ...config.bours, mande };
+      let remain = { ...config.bours.remain, to: formatNumber(rawValue) };
+      let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
   };
 
-  const handleButtonClick_mandeE_min = (value) => {
+  const handleButtonClick_remain_min = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let mandeE = { ...config.bours.mandeE, min: formatNumber(rawValue) };
-      let bours = { ...config.bours, mandeE };
+      let remain = { ...config.bours.remain, min: formatNumber(rawValue) };
+      let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
   };
 
-  const handleButtonClick_mandeE_max = (value) => {
+  const handleButtonClick_remain_max = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let mandeE = { ...config.bours.mandeE, max: formatNumber(rawValue) };
-      let bours = { ...config.bours, mandeE };
+      let remain = { ...config.bours.remain, max: formatNumber(rawValue) };
+      let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
   };
@@ -85,8 +85,8 @@ const BalanceBours = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-from"
                   label="از"
-                  value={formatNumber(config.bours.mande.from)}
-                  onChange={(e) => handleButtonClick_mande_from(e.target.value)}
+                  value={formatNumber(config.bours.remain.from)}
+                  onChange={(e) => handleButtonClick_remain_from(e.target.value)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -96,8 +96,8 @@ const BalanceBours = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="amount-to"
                   label="تا"
-                  value={formatNumber(config.bours.mande.to)}
-                  onChange={(e) => handleButtonClick_mande_to(e.target.value)}
+                  value={formatNumber(config.bours.remain.to)}
+                  onChange={(e) => handleButtonClick_remain_to(e.target.value)}
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -116,8 +116,8 @@ const BalanceBours = ({ config, setConfig }) => {
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   id="rate-min"
                   label="از"
-                  value={formatNumber(config.bours.mandeE.min)}
-                  onChange={(e) => handleButtonClick_mandeE_min(e.target.value)}
+                  value={formatNumber(config.bours.remain.min)}
+                  onChange={(e) => handleButtonClick_remain_min(e.target.value)}
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
@@ -126,8 +126,8 @@ const BalanceBours = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="rate-max"
                   label="تا"
-                  value={formatNumber(config.bours.mandeE.max)}
-                  onChange={(e) => handleButtonClick_mandeE_max(e.target.value)}
+                  value={formatNumber(config.bours.remain.max)}
+                  onChange={(e) => handleButtonClick_remain_max(e.target.value)}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
                 />

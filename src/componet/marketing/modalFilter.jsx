@@ -75,40 +75,35 @@ const ModalFilter = ({
       },
     },
     bours: {
-      enabled: false,
-      name: null,
+      enabled: true,
+      name: [],
+      gender: null,
       birthday: {
-        from: null,
-        to: null,
+        from: null ,
+        to:  null,
       },
       city: [],
-      symbol: [],
+      branch: [],
+      asset: [],
       national_id: [],
-      mande: {
+      latest_deals: {
         from: null,
         to: null,
       },
-      mandeE: {
-        min: null,
-        max: null,
+      remain: {
+        from: null,
+        to: null,
+      },
+      credit_balance: {
+        from: null,
+        to: null,
       },
       mobile: {
         num1: [],
         num2: [],
       },
-      daraei: [],
-      sex: false,
-      shobe: [],
-      meqdar: {
-        from: null,
-        to: null,
-      },
-      akharinM: {
-        from: null,
-        to: null,
-      },
+      title: "",
     },
-    title: "",
   };
 
   const steps = ["لیست", "تنظیمات", "فیلتر"];

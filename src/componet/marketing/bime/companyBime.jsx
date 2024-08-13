@@ -17,7 +17,7 @@ const CompanyBime = ({ access, config, setConfig }) => {
           `${OnRun}/marketing/insurance_companies`,
           { access: access }
         );
-
+        console.log(response.data)
         setCompanyList(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
@@ -27,10 +27,10 @@ const CompanyBime = ({ access, config, setConfig }) => {
   }, [access]);
 
   const Remove = (company) => {
-    const company_list = (config.insurance.company || []).filter(
+    const company_list = (config.bours.company || []).filter(
       (i) => i !== company
     );
-    const insurance = { ...config.insurance, company: company_list };
+    const insurance = { ...config.bours, company: company_list };
     setConfig({ ...config, insurance: insurance });
   };
 

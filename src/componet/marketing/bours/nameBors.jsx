@@ -12,28 +12,28 @@ const NameBors = ({ config, setConfig }) => {
     }
   };
   const addName = () => {
-    const name_list = config.nobours.name ?? [];
+    const name_list = config.bours.name ?? [];
 
     if (searchName && !name_list.includes(searchName)) {
       const updatedNameList = [...name_list, searchName];
-      const nobours = {
-        ...config.nobours,
+      const bours = {
+        ...config.bours,
         name: updatedNameList,
       };
-      setConfig({ ...config, nobours: nobours });
+      setConfig({ ...config, bours: bours });
       setSearchName("");
     }
   };
   const removeName = (name) => {
-    const name_list = config.nobours.name ?? [];
+    const name_list = config.bours.name ?? [];
     const updatedNameList = name_list.filter(
       (existingName) => existingName !== name
     );
-    const nobours = {
-      ...config.nobours,
+    const bours = {
+      ...config.bours,
       name: updatedNameList,
     };
-    setConfig({ ...config, nobours: nobours });
+    setConfig({ ...config, bours: bours });
   };
 
   const KeyDownName = (e) => {
@@ -100,7 +100,7 @@ const NameBors = ({ config, setConfig }) => {
               </Button>
             </div>
 
-            {config.nobours.name && config.nobours.name.length > 0 && (
+            {config.bours.name && config.bours.name.length > 0 && (
               <Stack
                 direction="row"
                 spacing={1}
@@ -108,7 +108,7 @@ const NameBors = ({ config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.nobours.name || []).map((item, index) => (
+                {(config.bours.name || []).map((item, index) => (
                   <Chip
                     key={`name-${index}`}
                     label={item}

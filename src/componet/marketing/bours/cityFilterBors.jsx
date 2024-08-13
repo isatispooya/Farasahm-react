@@ -16,7 +16,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
     const getCityList = () => {
       const options = {
         method: "POST",
-        url: `${OnRun}/marketing/cityregisternobours`,
+        url: `${OnRun}/marketing/cityregisterbours`,
         headers: { "content-type": "application/json" },
         data: { access: access },
       };
@@ -36,9 +36,9 @@ const CityFilterBors = ({ access, config, setConfig }) => {
     });
   
     const Remove = (city) => {
-      const city_list = (config.nobours.city || []).filter((i) => i !== city);
-      const nobours = { ...config.nobours, city: city_list };
-      setConfig({ ...config, nobours: nobours });
+      const city_list = (config.bours.city || []).filter((i) => i !== city);
+      const bours = { ...config.bours, city: city_list };
+      setConfig({ ...config, bours: bours });
     };
   
     const toggleDropdown = () => {
@@ -57,10 +57,10 @@ const CityFilterBors = ({ access, config, setConfig }) => {
       if (cityInput) {
         const available = cityList.includes(cityInput);
         if (available) {
-          const city_list = [...(config.nobours.city || [])];
+          const city_list = [...(config.bours.city || [])];
           city_list.push(cityInput);
-          const nobours = { ...config.nobours, city: city_list };
-          setConfig({ ...config, nobours: nobours });
+          const bours = { ...config.bours, city: city_list };
+          setConfig({ ...config, bours: bours });
           setCityInput("");
         } else {
           toast.error("لطفا یک شهر معتبر انتخاب کنید");
@@ -132,7 +132,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
                   justifyContent="flex-start"
                   sx={{ flexWrap: "wrap" }}
                 >
-                  {(config.nobours.city || []).map((city, index) => (
+                  {(config.bours.city || []).map((city, index) => (
                     <Chip
                       key={`city-${index}`}
                       label={city}

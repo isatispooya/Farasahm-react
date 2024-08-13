@@ -18,11 +18,11 @@ const Latestdeals = ({ config, setConfig }) => {
   const handleButtonClick_akharinM_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let akharinM = {
-        ...config.bours.akharinM,
+      let latest_deals = {
+        ...config.bours.latest_deals,
         from: formatNumber(rawValue),
       };
-      let bours = { ...config.bours, akharinM };
+      let bours = { ...config.bours, latest_deals };
       setConfig({ ...config, bours });
     }
   };
@@ -30,11 +30,11 @@ const Latestdeals = ({ config, setConfig }) => {
   const handleButtonClick_akharinM_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let akharinM = {
-        ...config.bours.akharinM,
+      let latest_deals = {
+        ...config.bours.latest_deals,
         to: formatNumber(rawValue),
       };
-      let bours = { ...config.bours, akharinM };
+      let bours = { ...config.bours, latest_deals };
       setConfig({ ...config, bours });
     }
   };
@@ -76,7 +76,7 @@ const Latestdeals = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="akharinM-from"
                   label="از"
-                  value={formatNumber(config.bours.akharinM.from)}
+                  value={formatNumber(config.bours.latest_deals.from)}
                   onChange={(e) =>
                     handleButtonClick_akharinM_from(e.target.value)
                   }
@@ -89,7 +89,7 @@ const Latestdeals = ({ config, setConfig }) => {
                   style={{ backgroundColor: "white" }}
                   id="akharinM-to"
                   label="تا"
-                  value={formatNumber(config.bours.akharinM.to)}
+                  value={formatNumber(config.bours.latest_deals.to)}
                   onChange={(e) =>
                     handleButtonClick_akharinM_to(e.target.value)
                   }

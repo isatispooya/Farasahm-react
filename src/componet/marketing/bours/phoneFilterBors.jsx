@@ -7,7 +7,7 @@ const PhoneFilterBors = ({ config, setConfig }) => {
   const [inputNum2, setInputNum2] = useState("");
   const [dropDown, setDropDown] = useState(false);
 
-  const mobile = config?.insurance?.mobile || { num1: [], num2: [] };
+  const mobile = config?.bours?.mobile || { num1: [], num2: [] };
 
   const handleSearch1 = (e) => {
     const value = e.target.value;
@@ -27,8 +27,8 @@ const PhoneFilterBors = ({ config, setConfig }) => {
       const num1Config = [...mobile.num1, inputNum1];
       setConfig((prevConfig) => ({
         ...prevConfig,
-        insurance: {
-          ...prevConfig.insurance,
+        bours: {
+          ...prevConfig.bours,
           mobile: {
             ...mobile,
             num1: num1Config,
@@ -44,8 +44,8 @@ const PhoneFilterBors = ({ config, setConfig }) => {
       const num2Config = [...mobile.num2, inputNum2];
       setConfig((prevConfig) => ({
         ...prevConfig,
-        insurance: {
-          ...prevConfig.insurance,
+        bours: {
+          ...prevConfig.bours,
           mobile: {
             ...mobile,
             num2: num2Config,
@@ -60,8 +60,8 @@ const PhoneFilterBors = ({ config, setConfig }) => {
     const num1Config = mobile.num1.filter((i) => i !== id);
     setConfig((prevConfig) => ({
       ...prevConfig,
-      insurance: {
-        ...prevConfig.insurance,
+      bours: {
+        ...prevConfig.bours,
         mobile: {
           ...mobile,
           num1: num1Config,
@@ -73,8 +73,8 @@ const PhoneFilterBors = ({ config, setConfig }) => {
     const num2Config = mobile.num2.filter((i) => i !== id);
     setConfig((prevConfig) => ({
       ...prevConfig,
-      insurance: {
-        ...prevConfig.insurance,
+      bours: {
+        ...prevConfig.bours,
         mobile: {
           ...mobile,
           num2: num2Config,
