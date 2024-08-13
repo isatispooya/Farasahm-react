@@ -105,7 +105,7 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        setConfig(response.data);
+        setConfig(response.data);        
         setLoadingDf(false);
       });
     } else {
@@ -113,7 +113,7 @@ const CreateList = () => {
     }
   };
 
-  useEffect(get, [access, configSelected, contextSelected]);
+  useEffect(get, [access, configSelected, contextSelected]);  
 
   useEffect(() => {
     if (messageVisible) {
@@ -197,6 +197,13 @@ const CreateList = () => {
           <ModalAdvancedFilter 
             open={isOpenAdvancedFilter} 
             handleClose={closeModalAdvancedFilter} 
+            access={access}
+            configSelected={configSelected}
+            Config={Config.config}
+            setConfig={setConfig}
+            get={get}
+
+
           />
         )}
       </div>
@@ -206,7 +213,7 @@ const CreateList = () => {
           <Smspage
             toggleModal={closeSenderModal}
             access={access}
-            Config={Config}
+            Config={Config.config}
             configSelected={configSelected}
             get={get}
             openFilterModal={openModalFilter}

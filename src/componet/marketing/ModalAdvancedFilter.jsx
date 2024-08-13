@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Box,
@@ -10,20 +10,66 @@ import {
   Switch,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { OnRun } from "../../config/config";
+import axios from "axios";
+import MicroLoader from "../Loader/microLoader";
 
-const ModalAdvancedFilter = ({ open, handleClose }) => {
+const ModalAdvancedFilter = ({
+  open,
+  handleClose,
+  access,
+  configSelected,
+  setConfig,
+  Config,
+  get,
+}) => {
+  const [switchLabelList, setSwitchLabelList] = useState([]);
+  const [loadingDf, setLoadingDf] = useState(true);
+  const [switchData, setSwitchData] = useState([]);
+
   const save = () => {
-    alert("سیو شد انصرافو بزن برو");
+    const selectedLabels = switchLabelList.filter((label, index) => {
+      const switchElement = document.getElementById(`switch-${index}`);
+      return switchElement && switchElement.checked;
+    });
+
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      config: {
+        ...prevConfig.config,
+        duplicate: selectedLabels,
+      },
+    }));
+
+    setSwitchData(selectedLabels);
+
+    get();
+
+    handleClose();
   };
 
-  const switchLabel = [
-    "نام و نام خانوادگی ",
-    "کد ملی",
-    "نام شرکت",
-    "شماره شناسنامه",
-    "کد بورسی",
-    "درصد",
-  ];
+  const getAdvancedFilter = () => {
+    const options = {
+      method: "POST",
+      url: `${OnRun}/marketing/columnmarketing`,
+      headers: { "content-type": "application/json" },
+      data: { access: access, _id: configSelected },
+    };
+    axios
+      .request(options)
+      .then((response) => {
+        setSwitchLabelList(response.data.columns);
+        setLoadingDf(false);
+      })
+      .catch((error) => {
+        setLoadingDf(false);
+        console.error(error.message);
+      });
+  };
+
+  useEffect(() => {
+    getAdvancedFilter();
+  }, []);
 
   const IOSSwitch = styled((props) => (
     <Switch
@@ -128,43 +174,58 @@ const ModalAdvancedFilter = ({ open, handleClose }) => {
           حذف موارد تکراری از جدول
         </Typography>
 
-        <FormGroup
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          {switchLabel.map((label, index) => (
-            <Stack
-              key={index}
-              direction="row"
-              spacing={1}
-              alignItems="center"
-              sx={{
-                width: "100%",
-                justifyContent: "flex-end",
-                px: 3,
-                py: 1,
-                backgroundColor: "#f5f5f5",
-                borderRadius: 2,
-                boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <FormControlLabel
-                control={<IOSSwitch sx={{ m: 1 }} defaultChecked={false} />}
-                label={label}
-                sx={{
-                  fontSize: 14,
-                  textAlign: "right",
-                  flexGrow: 1,
-                  color: "text.primary",
-                }}
-              />
-            </Stack>
-          ))}
-        </FormGroup>
+        {loadingDf ? (
+          <MicroLoader loading={true} />
+        ) : (
+          <FormGroup
+            sx={{
+              direction: "ltr",
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              gap: 2,
+              maxHeight: "440px",
+              overflowX: "auto",
+              overflowY: "scroll",
+            }}
+          >
+            {switchLabelList &&
+              switchLabelList.map((label, index) => (
+                <Stack
+                  key={index}
+                  direction="row"
+                  spacing={1}
+                  alignItems="center"
+                  sx={{
+                    width: "100%",
+                    justifyContent: "flex-end",
+                    px: 3,
+                    py: 1,
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: 2,
+                    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        id={`switch-${index}`}
+                        sx={{ m: 1 }}
+                        defaultChecked={false}
+                      />
+                    }
+                    label={label.replace("{{", "").replace("}}", "")}
+                    sx={{
+                      fontSize: 14,
+                      textAlign: "right",
+                      flexGrow: 1,
+                      color: "text.primary",
+                    }}
+                  />
+                </Stack>
+              ))}
+          </FormGroup>
+        )}
 
         <Box
           sx={{
@@ -175,6 +236,22 @@ const ModalAdvancedFilter = ({ open, handleClose }) => {
             alignItems: "center",
           }}
         >
+          <Button
+            variant="contained"
+            onClick={save}
+            sx={{
+              backgroundColor: "primary.main",
+              borderRadius: 3,
+              px: 4,
+              py: 1,
+              fontWeight: "bold",
+              "&:hover": {
+                backgroundColor: "primary.dark",
+              },
+            }}
+          >
+            اعمال فیلتر
+          </Button>
           <Button
             variant="outlined"
             onClick={handleClose}
@@ -192,22 +269,6 @@ const ModalAdvancedFilter = ({ open, handleClose }) => {
             }}
           >
             انصراف
-          </Button>
-          <Button
-            variant="contained"
-            onClick={save}
-            sx={{
-              backgroundColor: "primary.main",
-              borderRadius: 3,
-              px: 4,
-              py: 1,
-              fontWeight: "bold",
-              "&:hover": {
-                backgroundColor: "primary.dark",
-              },
-            }}
-          >
-            اعمال فیلتر
           </Button>
         </Box>
       </Box>
