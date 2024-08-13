@@ -33,7 +33,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
   
     useEffect(() => {
       getCityList();
-    });
+    },[]);
   
     const Remove = (city) => {
       const city_list = (config.nobours.city || []).filter((i) => i !== city);
