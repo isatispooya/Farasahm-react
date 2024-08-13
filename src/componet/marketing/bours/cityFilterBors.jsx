@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,14 +10,12 @@ const CityFilterBors = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-
-
   const getCityList = () => {
     const options = {
       method: "POST",
       url: `${OnRun}/marketing/bours_city`,
       headers: { "content-type": "application/json" },
-      data: { access:access }
+      data: { access: access },
     };
 
     axios
@@ -32,11 +30,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     getCityList();
-  },[]);
-
-
-
-
+  }, []);
 
   const Remove = (city) => {
     const city_list = (config.bours.city || []).filter((i) => i !== city);
@@ -104,21 +98,19 @@ const CityFilterBors = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <TextField
-                select
+              <input
+                list="city-list"
                 value={cityInput}
                 onChange={handleCitySelect}
-                label="شهر ها"
-                variant="outlined"
-                SelectProps={{ native: true }}
+                placeholder="شهر ها"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
-              >
-                <option value="" disabled></option>
-                {availableCities.map((i, index) => (
-                  <option key={index}>{i}</option>
+              />
+              <datalist id="city-list">
+                {availableCities.map((city, index) => (
+                  <option key={index} value={city} />
                 ))}
-              </TextField>
+              </datalist>
 
               <Button
                 onClick={handleAddCity}

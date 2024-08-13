@@ -79,8 +79,8 @@ const ModalFilter = ({
       name: [],
       gender: null,
       birthday: {
-        from: null ,
-        to:  null,
+        from: null,
+        to: null,
       },
       city: [],
       branch: [],
@@ -215,16 +215,28 @@ const ModalFilter = ({
       className="relative w-full min-h-screen bg-gray-100 p-6 overflow-hidden"
     >
       <ToastContainer />
-      <Stepper activeStep={stepNumber}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+      <Stepper
+        activeStep={stepNumber}
+        className="bg-white p-4 rounded-lg shadow-md"
+        alternativeLabel
+      >
+        {steps.map((label, index) => (
+          <Step key={index}>
+            <StepLabel>
+              <span
+                className={`text-sm font-medium ${
+                  stepNumber === index ? "text-blue-600" : "text-gray-600"
+                }`}
+              >
+                {label}
+              </span>
+            </StepLabel>
           </Step>
         ))}
       </Stepper>
 
       {stepNumber === 0 && (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} className="mt-6">
           <CardConfigMarketing
             profil={<GoPlus size={30} style={{ strokeWidth: 2 }} />}
             title={"جدید"}
@@ -277,12 +289,13 @@ const ModalFilter = ({
         )
       )}
 
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between mt-8">
         <Button
           disabled={stepNumber === 0}
           onClick={backStep}
           variant="contained"
           color="primary"
+          className="bg-blue-600 hover:bg-blue-700"
         >
           قبلی
         </Button>
@@ -290,6 +303,9 @@ const ModalFilter = ({
           onClick={stepNumber === 2 ? () => PostData() : nextStep}
           variant="contained"
           color="primary"
+          className={`${
+            !checkValue ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+          }`}
           disabled={!checkValue}
         >
           {isSubmitting && checkValue ? (
