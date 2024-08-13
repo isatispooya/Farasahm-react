@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import axios from "axios";
-import { OnRun } from '../../../config/config';
+import { OnRun } from "../../../config/config";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -10,28 +9,24 @@ const BranchBors = ({ access, config, setConfig }) => {
   useEffect(() => {
     const fetchBranchList = async () => {
       try {
-        const response = await axios.post(
-          `${OnRun}/marketing/bours_branch`,
-            { access: access }
-        );
+        const response = await axios.post(`${OnRun}/marketing/bours_branch`, {
+          access: access,
+        });
         setBranchList(response.data);
-        console.log(response.data)
+        
       } catch (error) {
         console.error("Failed to fetch Branch list", error);
       }
     };
     fetchBranchList();
   }, [access]);
+
   const [branchInput, setBranchInput] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [dropdown, setdropdown] = useState(false);
 
-
-
   const Remove = (branch) => {
-    const branch_list = (config.bours.branch || []).filter(
-      (i) => i !== branch
-    );
+    const branch_list = (config.bours.branch || []).filter((i) => i !== branch);
     const bours = { ...config.bours, branch: branch_list };
     setConfig({ ...config, bours: bours });
   };
@@ -39,9 +34,11 @@ const BranchBors = ({ access, config, setConfig }) => {
   const openDropDown = () => {
     setdropdown(!dropdown);
   };
+
   const availablebranch = branchList.filter(
     (branch) => !config.bours.branch.includes(branch)
   );
+
   const handleBranchSelect = (e) => {
     setBranchInput(e.target.value);
   };
@@ -56,7 +53,7 @@ const BranchBors = ({ access, config, setConfig }) => {
         setConfig({ ...config, bours: bours });
         setBranchInput("");
       } else {
-        toast.error("لطفا یک شرکت  معتبر انتخاب کنید");
+        toast.error("لطفا یک شرکت معتبر انتخاب کنید");
       }
     }
   };
@@ -94,21 +91,19 @@ const BranchBors = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <TextField
-                select
+              <input
+                list="branch-list"
                 value={branchInput}
                 onChange={handleBranchSelect}
-                label="شعب"
-                variant="outlined"
-                SelectProps={{ native: true }}
+                placeholder="شعب"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
-              >
-                <option value="" disabled></option>
-                {availablebranch.map((i, index) => (
-                  <option key={index}>{i}</option>
+              />
+              <datalist id="branch-list">
+                {availablebranch.map((branch, index) => (
+                  <option key={index} value={branch} />
                 ))}
-              </TextField>
+              </datalist>
 
               <Button
                 onClick={Addbranch}

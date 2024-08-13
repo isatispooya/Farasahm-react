@@ -14,7 +14,7 @@ import InputIcon from "react-multi-date-picker/components/input_icon";
 
 const SendingOptions = ({ loading, config, setConfig }) => {
   return (
-    <div className="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-xl">
+    <div className="max-w-lg mt-10 mx-auto p-8 bg-white rounded-xl shadow-xl">
       {loading ? (
         <>
           <Skeleton

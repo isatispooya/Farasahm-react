@@ -24,7 +24,7 @@ const NationalFilterBors = ({config , setConfig}) => {
       );
   
       if (selectedCityObject && selectedCityObject.num.length > 0) {
-        // Convert the city number to string before adding it to the list
+        
         nc_list.push(String(selectedCityObject.num[0]));
         bours = { ...config.bours, national_id: nc_list };
         setConfig({ ...config, bours: bours });
@@ -57,7 +57,7 @@ const NationalFilterBors = ({config , setConfig}) => {
       addToConfig();
     }
   };
-  console.log(config)
+ 
 
   return (
     <>
@@ -104,9 +104,10 @@ const NationalFilterBors = ({config , setConfig}) => {
               </div>
 
               <input
-                className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className="p-3 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 list="city"
                 value={cityselected}
+                placeholder="جستجو کد ملی براساس شهر"
                 onChange={(e) => setCityselected(e.target.value)}
               />
               <datalist

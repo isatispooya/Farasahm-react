@@ -74,8 +74,9 @@ const NameBors = ({ config, setConfig }) => {
           </svg>
         </button>
         {isDropdownOpen && (
-          <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-            <div className="mb-2 mt-8 flex items-center space-x-4">
+          <div className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg">
+
+          <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
