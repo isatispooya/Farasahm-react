@@ -128,7 +128,7 @@ const PhoneSearch = ({ config, setConfig }) => {
       </button>
       {isDropdownOpen && (
         <div className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg">
-        <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+          <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
             <TextField
               style={{ backgroundColor: "white" }}
               value={inputNum1}
@@ -139,7 +139,7 @@ const PhoneSearch = ({ config, setConfig }) => {
               label="پیش شماره همراه"
               variant="outlined"
             />
-                       <TextField
+            <TextField
               style={{ backgroundColor: "white" }}
               id="outlined-basic"
               label="سه رقم میانه شماره همراه"
@@ -150,7 +150,7 @@ const PhoneSearch = ({ config, setConfig }) => {
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             />
 
-          <Button
+            <Button
               onClick={handleAdd2}
               sx={{ borderRadius: 2 }}
               variant="contained"
@@ -206,8 +206,6 @@ const PhoneSearch = ({ config, setConfig }) => {
               ))}
             </Stack>
           )}
-
-
 
           {mobile.num2.length > 0 && (
             <Stack
