@@ -10,14 +10,12 @@ const CityFilterBors = ({ access, config, setConfig }) => {
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-
-
   const getCityList = () => {
     const options = {
       method: "POST",
       url: `${OnRun}/marketing/bours_city`,
       headers: { "content-type": "application/json" },
-      data: { access:access }
+      data: { access: access },
     };
 
     axios
@@ -32,11 +30,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
 
   useEffect(() => {
     getCityList();
-  },[]);
-
-
-
-
+  }, []);
 
   const Remove = (city) => {
     const city_list = (config.bours.city || []).filter((i) => i !== city);
@@ -60,10 +54,10 @@ const CityFilterBors = ({ access, config, setConfig }) => {
     if (cityInput) {
       const available = cityList.includes(cityInput);
       if (available) {
-        const city_list = [...(config.nobours.city || [])];
+        const city_list = [...(config.bours.city || [])];
         city_list.push(cityInput);
-        const nobours = { ...config.nobours, city: city_list };
-        setConfig({ ...config, nobours: nobours });
+        const bours = { ...config.bours, city: city_list };
+        setConfig({ ...config, bours: bours });
         setCityInput("");
       } else {
         toast.error("لطفا یک شهر معتبر انتخاب کنید");

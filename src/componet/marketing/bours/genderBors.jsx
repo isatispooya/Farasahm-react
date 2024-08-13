@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, Box } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
+
+import { FaFemale } from "react-icons/fa";
+import { BiMale } from "react-icons/bi";
 
 const GenderBors = ({ config, setConfig }) => {
   const [dropdown, setDropdown] = useState(false);
@@ -13,10 +16,8 @@ const GenderBors = ({ config, setConfig }) => {
   const handleGenderChange = (event) => {
     const value = event.target.value;
 
-   
     setSelectedGender(value);
 
-    
     setConfig((prevConfig) => ({
       ...prevConfig,
       gender: value === "male" ? true : value === "female" ? false : null,
@@ -51,23 +52,36 @@ const GenderBors = ({ config, setConfig }) => {
         {dropdown && (
           <div className="mt-4 p-4 bg-gray-100 rounded-lg">
             <RadioGroup
+              row
               name="gender-radio-group"
               value={selectedGender}
               onChange={handleGenderChange}
+              className="flex justify-around"
             >
               <FormControlLabel
                 value="male"
-                label="مرد"
                 control={<Radio />}
+                label={
+                  <Box display="flex" alignItems="center">
+                    مرد
+                    <BiMale className="ml-1" />
+
+                  </Box>
+                }
                 className="text-gray-700"
               />
               <FormControlLabel
                 value="female"
-                label="زن"
                 control={<Radio />}
+                label={
+                  <Box display="flex" alignItems="center">
+                    زن
+                    <FaFemale className="ml-1" />
+
+                  </Box>
+                }
                 className="text-gray-700"
               />
-
             </RadioGroup>
           </div>
         )}
@@ -77,4 +91,3 @@ const GenderBors = ({ config, setConfig }) => {
 };
 
 export default GenderBors;
-
