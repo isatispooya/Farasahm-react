@@ -24,10 +24,10 @@ import BranchBors from "./bours/branchBors.jsx";
 import NameBors from "./bours/nameBors.jsx";
 import NationalFilterBors from "./bours/nationalFilterBors.jsx";
 import PhoneFilterBors from "./bours/phoneFilterBors.jsx";
-import PropertyBors from "./bours/propertyBors.jsx";
 import CityFilterBors from "./bours/cityFilterBors.jsx";
 import DateBirthBors from "./bours/dateBors.jsx";
 import GenderBors from "./bours/genderBors.jsx";
+import AssetBors from "./bours/assetBors.jsx";
 
 const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
@@ -232,7 +232,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
                 <NameBors config={config} setConfig={setConfig} />
                 <GenderBors config={config} setConfig={setConfig} />
                 <BranchBors config={config} setConfig={setConfig} />
-                <PropertyBors setConfig={setConfig} config={config} />
+                <AssetBors setConfig={setConfig} config={config} />
                 <CityFilterBors setConfig={setConfig} config={config} />
                 <BalanceBours config={config} setConfig={setConfig} />
                 <MeqdarDaraei config={config} setConfig={setConfig} />
