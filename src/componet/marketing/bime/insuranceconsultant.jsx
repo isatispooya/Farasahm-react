@@ -1,7 +1,7 @@
 import axios from "axios";
 import { OnRun } from "../../../config/config.js";
 import { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 
 const InsuranceConsultant = ({ access, config, setConfig }) => {
@@ -27,7 +27,7 @@ const InsuranceConsultant = ({ access, config, setConfig }) => {
   const handle_add_consultant = () => {
     if (consultantInput) {
       const selectedConsultant = consultantList.find(
-        (consultant) => consultant.nationalCode === consultantInput
+        (consultant) => consultant.name === consultantInput
       );
       if (selectedConsultant) {
         const consultant_list = config.insurance.consultant || [];
@@ -57,7 +57,6 @@ const InsuranceConsultant = ({ access, config, setConfig }) => {
     (consultant) =>
       !(config.insurance.consultant || []).includes(consultant.nationalCode)
   );
-
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -90,23 +89,19 @@ const InsuranceConsultant = ({ access, config, setConfig }) => {
           >
             <ToastContainer />
             <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-              <TextField
-                select
+              <input
+                list="consultants"
                 value={consultantInput}
                 onChange={(event) => setConsultantInput(event.target.value)}
-                label="مشاور"
-                variant="outlined"
-                SelectProps={{ native: true }}
+                placeholder="جستجوی مشاور"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                style={{ marginBottom: 16 }}
-              >
-                <option value="" disabled></option>
+                style={{ marginBottom: 16, backgroundColor: "white" }}
+              />
+              <datalist id="consultants">
                 {availableConsultants.map((consultant, index) => (
-                  <option key={index} value={consultant.nationalCode}>
-                    {consultant.name}
-                  </option>
+                  <option key={index} value={consultant.name} />
                 ))}
-              </TextField>
+              </datalist>
 
               <Button
                 onClick={handle_add_consultant}

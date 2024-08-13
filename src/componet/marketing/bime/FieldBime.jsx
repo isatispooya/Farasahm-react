@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import { OnRun } from "../../../config/config";
 import axios from "axios";
 
@@ -97,21 +97,20 @@ const FieldBime = ({ config, setConfig, access }) => {
         {dropDown && (
           <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
             <div className="mb-2 mt-8 flex items-center space-x-4">
-              <TextField
-                select
+              <input
+                list="fieldBimeList"
                 value={search}
                 onChange={searchFieldFilter}
-                label="رشته بیمه"
-                variant="outlined"
-                SelectProps={{ native: true }}
+                onKeyPress={useEnterKey}
+                placeholder="جستجوی رشته بیمه"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16, backgroundColor: "white" }}
-              >
-                <option value="" disabled></option>
+              />
+              <datalist id="fieldBimeList">
                 {availablefieldBime.map((i, index) => (
-                  <option key={index}>{i}</option>
+                  <option key={index} value={i} />
                 ))}
-              </TextField>
+              </datalist>
 
               <Button
                 onClick={AddField}
@@ -180,3 +179,4 @@ const FieldBime = ({ config, setConfig, access }) => {
 };
 
 export default FieldBime;
+
