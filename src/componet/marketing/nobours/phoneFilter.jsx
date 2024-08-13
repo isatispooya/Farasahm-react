@@ -54,6 +54,7 @@ const PhoneSearch = ({ config, setConfig }) => {
         },
       }));
     }
+    handleAdd1();
     setInputNum2("");
   };
 
@@ -126,20 +127,31 @@ const PhoneSearch = ({ config, setConfig }) => {
         </svg>
       </button>
       {isDropdownOpen && (
-        <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-          <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
+        <div className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg">
+          <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
             <TextField
               style={{ backgroundColor: "white" }}
               value={inputNum1}
               onChange={handleSearch1}
               onKeyDown={handleKeyDown1}
-              className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               id="outlined-basic"
               label="پیش شماره همراه"
               variant="outlined"
             />
+            <TextField
+              style={{ backgroundColor: "white" }}
+              id="outlined-basic"
+              label="سه رقم میانه شماره همراه"
+              variant="outlined"
+              value={inputNum2}
+              onChange={handleSearch2}
+              onKeyDown={handleKeyDown2}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            />
+
             <Button
-              onClick={handleAdd1}
+              onClick={handleAdd2}
               sx={{ borderRadius: 2 }}
               variant="contained"
             >
@@ -194,26 +206,6 @@ const PhoneSearch = ({ config, setConfig }) => {
               ))}
             </Stack>
           )}
-
-          <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
-            <TextField
-              style={{ backgroundColor: "white" }}
-              id="outlined-basic"
-              label="سه رقم میانه شماره همراه"
-              variant="outlined"
-              value={inputNum2}
-              onChange={handleSearch2}
-              onKeyDown={handleKeyDown2}
-              className="w-1/3 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-            />
-            <Button
-              onClick={handleAdd2}
-              sx={{ borderRadius: 2 }}
-              variant="contained"
-            >
-              افزودن
-            </Button>
-          </div>
 
           {mobile.num2.length > 0 && (
             <Stack

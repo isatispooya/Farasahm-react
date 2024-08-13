@@ -16,7 +16,7 @@ const NameFilterBime = ({
         insurance: { ...config.insurance, name: name_list },
       };
       setConfig(insurance);
-      setSearch(""); // Clear search after adding
+      setSearch(""); 
     }
   };
 
@@ -74,8 +74,12 @@ const NameFilterBime = ({
           </svg>
         </button>
         {dropDown && (
-          <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-            <div className="mb-2 mt-8 flex items-center space-x-4">
+          <div
+            dir="rtl"
+            className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
+          >
+           <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="flex items-center space-x-4">
               <TextField
                 style={{ backgroundColor: "white", marginLeft: "20px" }}
                 id="outlined-basic-name"
@@ -88,9 +92,11 @@ const NameFilterBime = ({
                   inputMode: "text",
                   pattern: "[\u0600-\u06FFa-zA-Z\\s]*",
                 }}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                className=" w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
 
+
+              </div>
               <Button
                 onClick={AddName}
                 sx={{ borderRadius: 2 }}

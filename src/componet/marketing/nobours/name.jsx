@@ -76,23 +76,27 @@ const NameSearch = ({ config, setConfig }) => {
           </svg>
         </button>
         {isDropdownOpen && (
-          <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-            <div className="mb-2 mt-8 flex items-center space-x-4">
-              <TextField
-                style={{ backgroundColor: "white", marginLeft: "20px" }}
-                id="outlined-basic-name"
-                value={searchTermName}
-                onChange={handleSearchName}
-                onKeyDown={handleKeyDownName}
-                label="جستجو نام و نام خانوادگی"
-                variant="outlined"
-                inputProps={{
-                  inputMode: "text",
-                  pattern: "[\u0600-\u06FFa-zA-Zs]*",
-                }}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-              />
-
+          <div
+            dir="rtl"
+            className="p-4 max-w-3xl mx-auto bg-gray-100 rounded-lg"
+          >
+            <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+              <div className="flex items-center space-x-4">
+                <TextField
+                  style={{ backgroundColor: "white", marginLeft: "20px" }}
+                  id="outlined-basic-name"
+                  value={searchTermName}
+                  onChange={handleSearchName}
+                  onKeyDown={handleKeyDownName}
+                  label="جستجو نام و نام خانوادگی"
+                  variant="outlined"
+                  inputProps={{
+                    inputMode: "text",
+                    pattern: "[\u0600-\u06FFa-zA-Zs]*",
+                  }}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                />
+              </div>
               <Button
                 onClick={handleAddName}
                 sx={{ borderRadius: 2 }}
@@ -100,55 +104,54 @@ const NameSearch = ({ config, setConfig }) => {
               >
                 افزودن
               </Button>
-            </div>
-
-            {config.nobours.name && config.nobours.name.length > 0 && (
-              <Stack
-                direction="row"
-                spacing={1}
-                mt={2}
-                justifyContent="flex-start"
-                sx={{ flexWrap: "wrap" }}
-              >
-                {(config.nobours.name || []).map((item, index) => (
-                  <Chip
-                    key={`name-${index}`}
-                    label={item}
-                    onDelete={() => handleRemoveName(item)}
-                    deleteIcon={
-                      <button
-                        style={{ color: "white", marginRight: "5px" }}
-                        className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
+              {config.nobours.name && config.nobours.name.length > 0 && (
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  mt={2}
+                  justifyContent="flex-start"
+                  sx={{ flexWrap: "wrap" }}
+                >
+                  {(config.nobours.name || []).map((item, index) => (
+                    <Chip
+                      key={`name-${index}`}
+                      label={item}
+                      onDelete={() => handleRemoveName(item)}
+                      deleteIcon={
+                        <button
+                          style={{ color: "white", marginRight: "5px" }}
+                          className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    }
-                    style={{
-                      backgroundColor: "blue",
-                      color: "white",
-                      borderRadius: "16px",
-                      fontSize: "0.875rem",
-                      fontWeight: "bold",
-                      marginBottom: "10px",
-                    }}
-                    className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
-                  />
-                ))}
-              </Stack>
-            )}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </button>
+                      }
+                      style={{
+                        backgroundColor: "blue",
+                        color: "white",
+                        borderRadius: "16px",
+                        fontSize: "0.875rem",
+                        fontWeight: "bold",
+                        marginBottom: "10px",
+                      }}
+                      className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                    />
+                  ))}
+                </Stack>
+              )}
+            </div>
           </div>
         )}
       </div>
