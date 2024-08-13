@@ -146,7 +146,6 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
-          // console.log("getConfig", response.data);
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }
@@ -163,7 +162,6 @@ const ModalFilter = ({
 
   const PostData = async () => {
     setIsSubmitting(true);
-
     try {
       const postConfig =
         configSelected == null || configSelected == undefined
@@ -251,6 +249,7 @@ const ModalFilter = ({
                 setConfigSelected={setConfigSelected}
                 nextStep={nextStep}
                 setConfig={setConfig}
+                getConfigList={getConfigList}
               />
             );
           })}
@@ -262,6 +261,8 @@ const ModalFilter = ({
           loading={loading}
           config={config}
           setConfig={setConfig}
+                          getConfigList={getConfigList}
+
         />
       )}
 

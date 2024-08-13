@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Stack, TextField } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import axios from "axios";
 import { OnRun } from "../../../config/config";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,33 +10,35 @@ const CompanyFilter = ({ access, config, setConfig }) => {
   const [companyList, setCompanyList] = useState([]);
   const [companyInput, setCompanyInput] = useState("");
 
-  
   useEffect(() => {
     const fetchCompanyList = async () => {
       const options = {
-        method: 'POST',
+        method: "POST",
         url: `${OnRun}/marketing/symbolregisternobours`,
-        headers: { 'content-type': 'application/json' },
+        headers: { "content-type": "application/json" },
         data: { access: access },
       };
-  
+
       try {
         const response = await axios.request(options);
         setCompanyList(response.data);
       } catch (error) {
-        console.error("Failed to fetch company list", error.response?.data || error.message);
+        console.error(
+          "Failed to fetch company list",
+          error.response?.data || error.message
+        );
       }
     };
     fetchCompanyList();
   }, [access]);
-  
+
   const handleAddCompany = () => {
-    const available = companyList.some(
-      (company) => company.symbol === companyInput
+    const availableCompany = companyList.find(
+      (company) => company.fullname === companyInput
     );
-    if (available) {
+    if (availableCompany) {
       const symbolList = [...(config.nobours?.symbol || [])];
-      symbolList.push(companyInput);
+      symbolList.push(availableCompany.symbol);
       const nobours = { ...config.nobours, symbol: symbolList };
       setConfig({ ...config, nobours });
       setCompanyInput("");
@@ -55,10 +57,6 @@ const CompanyFilter = ({ access, config, setConfig }) => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleCompanySelect = (event) => {
-    setCompanyInput(event.target.value);
   };
 
   const availableCompanies = companyList.filter(
@@ -92,25 +90,24 @@ const CompanyFilter = ({ access, config, setConfig }) => {
       </button>
       {isDropdownOpen && (
         <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
-          <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
-            <TextField
-              select
+          <div className="mb-2 w-full mt-2 flex items-center space-x-4 space-x-reverse">
+            <input
+              className="p-3 border w-full border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+              list="company"
               value={companyInput}
-              onChange={handleCompanySelect}
-              label="شرکت"
-              variant="outlined"
-              SelectProps={{ native: true }}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-              style={{ marginBottom: 16 }}
-            >
-              <option value="" disabled></option>
-              {availableCompanies.map((i) => (
-                <option value={i.symbol} key={i.symbol}>
-                  {i.fullname}
-                </option>
-              ))}
-            </TextField>
+              onChange={(e) => setCompanyInput(e.target.value)}
+              placeholder="جستجوی شرکت"
 
+            />
+            <datalist id="company">
+              {availableCompanies.map((i) => {
+                return (
+                  <option key={i.symbol} value={i.fullname}>
+                    {i.fullname}
+                  </option>
+                );
+              })}
+            </datalist>
           </div>
           <Button
             onClick={handleAddCompany}
@@ -165,7 +162,6 @@ const CompanyFilter = ({ access, config, setConfig }) => {
                     fontSize: "0.875rem",
                     fontWeight: "bold",
                     marginBottom: "10px",
-
                   }}
                   className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-full cursor-pointer shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
                 />
