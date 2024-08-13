@@ -21,7 +21,7 @@ const PaymentBime = ({
 
   const handleButtonClick_payment_min = (value) => {
     const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+    if (/^\d*$/.test(rawValue)) {
       let payment = {
         ...config.insurance.payment,
         min: formatNumber(rawValue),
@@ -33,7 +33,7 @@ const PaymentBime = ({
 
   const handleButtonClick_payment_max = (value) => {
     const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+    if (/^\d*$/.test(rawValue)) {
       let payment = {
         ...config.insurance.payment,
         max: formatNumber(rawValue),
@@ -45,7 +45,7 @@ const PaymentBime = ({
 
   const handleButtonClick_fee_min = (value) => {
     const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+    if (/^\d*$/.test(rawValue)) {
       let fee = {
         ...config.insurance.fee,
         min: formatNumber(rawValue),
@@ -57,7 +57,7 @@ const PaymentBime = ({
 
   const handleButtonClick_fee_max = (value) => {
     const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
+    if (/^\d*$/.test(rawValue)) {
       let fee = {
         ...config.insurance.fee,
         max: formatNumber(rawValue),
@@ -66,8 +66,6 @@ const PaymentBime = ({
       setConfig({ ...config, insurance });
     }
   };
-
-  
 
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

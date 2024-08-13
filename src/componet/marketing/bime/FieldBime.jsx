@@ -95,8 +95,8 @@ const FieldBime = ({ config, setConfig, access }) => {
           </svg>
         </button>
         {dropDown && (
-          <div className="mt-2 bg-gray-200 p-4 rounded-lg shadow-md">
-            <div className="mb-2 mt-8 flex items-center space-x-4">
+          <div className="flex flex-col mt-3 space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+            <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
               <input
                 list="fieldBimeList"
                 value={search}
@@ -112,14 +112,15 @@ const FieldBime = ({ config, setConfig, access }) => {
                 ))}
               </datalist>
 
-              <Button
+
+            </div>
+            <Button
                 onClick={AddField}
                 sx={{ borderRadius: 2 }}
                 variant="contained"
               >
                 افزودن
               </Button>
-            </div>
 
             {config.insurance.insurance_field &&
               config.insurance.insurance_field.length > 0 && (
@@ -179,4 +180,3 @@ const FieldBime = ({ config, setConfig, access }) => {
 };
 
 export default FieldBime;
-

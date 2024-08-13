@@ -182,7 +182,7 @@ const ModalFilter = ({
       const response = await postConfig;
 
       if (response.data.reply === true) {
-        setIsOpenFilter(false); // Close the modal after successful submission
+        setIsOpenFilter(false); 
         if (configSelected == null) setConfigSelected(response.data.id);
       } else {
         toast.error(response.data.msg);

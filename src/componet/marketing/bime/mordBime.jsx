@@ -89,7 +89,7 @@ const MordBime = ({ access, config, setConfig }) => {
         </svg>
       </button>
       {dropdown && (
-        <div className="flex flex-col space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
+        <div className="flex flex-col mt-3 space-y-4 p-6 bg-white rounded-lg shadow-md max-w-xl mx-auto">
           <div className="mb-2 mt-2 flex items-center space-x-4 space-x-reverse">
             <input
               list="mordList"

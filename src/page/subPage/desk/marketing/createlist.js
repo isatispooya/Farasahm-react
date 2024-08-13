@@ -23,23 +23,26 @@ const CreateList = () => {
   const [isOpenSender, setIsOpenSender] = useState(false);
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
+  const [messageVisible, setMessageVisible] = useState(false); 
   window.XLSX = XLSX;
 
- 
   const openModalFilter = () => {
     setIsOpenFilter(true);
   };
 
- 
   const closeSenderModal = () => {
     setIsOpenSender(false);
   };
 
-  
   useEffect(() => {
     if (df && !isOpenFilter) {
       if (table) {
-        table.destroy(); 
+        table.destroy();
+      }
+
+      if (df.length === 0) {
+        setMessageVisible(true);
+        return;
       }
 
       const newTable = new Tabulator("#data-table", {
@@ -80,10 +83,10 @@ const CreateList = () => {
     }
   }, [df, isOpenFilter]);
 
- 
   const get = () => {
     setLoadingDf(true);
     setTable(null);
+    setMessageVisible(false); 
     if (configSelected) {
       setDf(null);
       axios({
@@ -92,7 +95,6 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        // console.log("Response Data:", response.data);
         setConfig(response.data);
         setLoadingDf(false);
       });
@@ -101,8 +103,17 @@ const CreateList = () => {
     }
   };
 
-
   useEffect(get, [access, configSelected, contextSelected]);
+
+  useEffect(() => {
+    if (messageVisible) {
+      const timer = setTimeout(() => {
+        setMessageVisible(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [messageVisible]);
 
   return (
     <div className="subPage tablePg">
@@ -166,20 +177,34 @@ const CreateList = () => {
       <div>
         {isOpenSender && (
           <Smspage
-            toggleModal={closeSenderModal} 
+            toggleModal={closeSenderModal}
             access={access}
             Config={Config}
             configSelected={configSelected}
             get={get}
-            openFilterModal={openModalFilter} 
+            openFilterModal={openModalFilter}
           />
         )}
       </div>
       <div></div>
       {loadingDf && <MiniLoader />}
-      <div id="data-table">
-
-
+      <div id="data-table" className="mt-4">
+        {messageVisible && df && df.length === 0 && (
+          <div className="flex bg-gray-200 items-center rounded-lg justify-center h-64">
+            <button className="flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold" onClick={get}>
+              بارگزاری
+              <FiRefreshCw className=" text-2xl ml-2" />
+            </button>
+            <button className=" flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold" onClick={() => setIsOpenFilter(true)}>
+                تنظیم مجدد
+                <MdOutlineCreateNewFolder className="text-2xl ml-2" />
+              </button>
+            <p className="text-gray-600 text-lg">
+              داده ای موجود نیست , یا تنظیمات به درستی اعمال نشده است .مجددا
+              بارگزاری کنید
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
