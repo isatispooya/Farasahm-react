@@ -231,9 +231,9 @@ const RenderFilters = ({ config, setConfig, access }) => {
                 <PhoneFilterBors setConfig={setConfig} config={config} />
                 <NameBors config={config} setConfig={setConfig} />
                 <GenderBors config={config} setConfig={setConfig} />
-                <BranchBors config={config} setConfig={setConfig} />
-                <PropertyBors setConfig={setConfig} config={config} />
-                <CityFilterBors setConfig={setConfig} config={config} />
+                <BranchBors config={config} setConfig={setConfig} access={access} />
+                <PropertyBors setConfig={setConfig} config={config} access={access} />
+                <CityFilterBors setConfig={setConfig} config={config} access={access} />
                 <BalanceBours config={config} setConfig={setConfig} />
              
                 <Latestdeals config={config} setConfig={setConfig} />

@@ -12,7 +12,7 @@ const NationalFilterBors = ({config , setConfig}) => {
   const addToConfig = () => {
     let nc_list = config.bours.national_id || [];
     let bours;
-
+  
     if (search) {
       nc_list.push(search);
       bours = { ...config.bours, national_id: nc_list };
@@ -22,9 +22,10 @@ const NationalFilterBors = ({config , setConfig}) => {
       const selectedCityObject = city_list.find(
         (city) => city.city === cityselected
       );
-
+  
       if (selectedCityObject && selectedCityObject.num.length > 0) {
-        nc_list.push(selectedCityObject.num[0]);
+        // Convert the city number to string before adding it to the list
+        nc_list.push(String(selectedCityObject.num[0]));
         bours = { ...config.bours, national_id: nc_list };
         setConfig({ ...config, bours: bours });
         setCityselected("");

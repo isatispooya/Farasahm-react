@@ -32,20 +32,20 @@ const BalanceBours = ({ config, setConfig }) => {
     }
   };
 
-  const handleButtonClick_remain_min = (value) => {
+  const handleButtonClick_credit_balance_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, min: formatNumber(rawValue) };
-      let bours = { ...config.bours, remain };
+      let credit_balance = { ...config.bours.credit_balance, from: formatNumber(rawValue) };
+      let bours = { ...config.bours, credit_balance };
       setConfig({ ...config, bours });
     }
   };
 
-  const handleButtonClick_remain_max = (value) => {
+  const handleButtonClick_credit_balance_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, max: formatNumber(rawValue) };
-      let bours = { ...config.bours, remain };
+      let credit_balance = { ...config.bours.credit_balance, to: formatNumber(rawValue) };
+      let bours = { ...config.bours, credit_balance };
       setConfig({ ...config, bours });
     }
   };
@@ -114,20 +114,20 @@ const BalanceBours = ({ config, setConfig }) => {
                 <TextField
                   style={{ backgroundColor: "white" }}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
-                  id="rate-min"
+                  id="amount-from"
                   label="از"
-                  value={formatNumber(config.bours.remain.min)}
-                  onChange={(e) => handleButtonClick_remain_min(e.target.value)}
+                  value={formatNumber(config.bours.credit_balance.from)}
+                  onChange={(e) => handleButtonClick_credit_balance_from(e.target.value)}
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="rate-max"
+                  id="amount-to"
                   label="تا"
-                  value={formatNumber(config.bours.remain.max)}
-                  onChange={(e) => handleButtonClick_remain_max(e.target.value)}
+                  value={formatNumber(config.bours.credit_balance.to)}
+                  onChange={(e) => handleButtonClick_credit_balance_to(e.target.value)}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -141,3 +141,4 @@ const BalanceBours = ({ config, setConfig }) => {
 };
 
 export default BalanceBours;
+

@@ -7,18 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 const BranchBors = ({ access, config, setConfig }) => {
-  const [branchInput, setBranchInput] = useState("");
-  const [branchList, setBranchList] = useState([]);
-  const [dropdown, setdropdown] = useState(false);
-
-
-
- 
+  useEffect(() => {
     const fetchBranchList = async () => {
       try {
         const response = await axios.post(
           `${OnRun}/marketing/bours_branch`,
-          { access: access }
+            { access: access }
         );
         setBranchList(response.data);
         console.log(response.data)
@@ -27,7 +21,13 @@ const BranchBors = ({ access, config, setConfig }) => {
       }
     };
     fetchBranchList();
-  ;
+  }, [access]);
+  const [branchInput, setBranchInput] = useState("");
+  const [branchList, setBranchList] = useState([]);
+  const [dropdown, setdropdown] = useState(false);
+
+
+
   const Remove = (branch) => {
     const branch_list = (config.bours.branch || []).filter(
       (i) => i !== branch
