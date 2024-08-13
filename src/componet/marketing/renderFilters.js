@@ -235,7 +235,6 @@ const RenderFilters = ({ config, setConfig, access }) => {
                 <PropertyBors setConfig={setConfig} config={config} access={access} />
                 <CityFilterBors setConfig={setConfig} config={config} access={access} />
                 <BalanceBours config={config} setConfig={setConfig} />
-             
                 <Latestdeals config={config} setConfig={setConfig} />
                 <DateBirthBors config={config} setConfig={setConfig} />
               </div>
