@@ -106,7 +106,7 @@ const ModalFilter = ({
     },
   };
 
-  const steps = ["لیست", "تنظیمات", "فیلتر"];
+  const steps = ["لیست کارت ها ", " تنظیمات ارسال", "تنظیمات فیلتر"];
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
