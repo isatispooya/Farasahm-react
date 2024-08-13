@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 
 
-const PropertyBors = ({ access, config, setConfig }) => {
+const AssetBors = ({ access, config, setConfig }) => {
     const [propertyInput, setPropertyInput] = useState("");
     const [propertyList, setPropertyList] = useState([]);
     const [dropdown, setdropdown] = useState(false);
@@ -163,4 +163,4 @@ const PropertyBors = ({ access, config, setConfig }) => {
       );
 }
  
-export default PropertyBors;
+export default AssetBors;
