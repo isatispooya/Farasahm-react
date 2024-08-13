@@ -13,7 +13,6 @@ import { MdOutlineTopic } from "react-icons/md";
 import MiniLoader from "../../../../componet/Loader/miniLoader";
 import { GrDocumentExcel } from "react-icons/gr";
 import { IoReloadSharp } from "react-icons/io5";
-
 import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFilter";
 
@@ -28,7 +27,7 @@ const CreateList = () => {
   const [isOpenAdvancedFilter, setIsOpenAdvancedFilter] = useState(false);
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
-  const [messageVisible, setMessageVisible] = useState(false); 
+  const [messageVisible, setMessageVisible] = useState(false);
   window.XLSX = XLSX;
 
   const openModalFilter = () => {
@@ -97,7 +96,7 @@ const CreateList = () => {
   const get = () => {
     setLoadingDf(true);
     setTable(null);
-    setMessageVisible(false); 
+    setMessageVisible(false);
     if (configSelected) {
       setDf(null);
       axios({
@@ -226,14 +225,23 @@ const CreateList = () => {
       <div id="data-table" className="mt-4">
         {messageVisible && df && df.length === 0 && (
           <div className="flex bg-gray-200 items-center rounded-lg justify-center h-64">
-            <button className="flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold" onClick={get}>
+            <button
+              className="flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold"
+              onClick={get}
+            >
               بارگزاری
-              <FiRefreshCw className=" text-2xl ml-2" />
+              <FiRefreshCw className="text-2xl ml-2" />
             </button>
-            <button className=" flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold" onClick={() => setIsOpenFilter(true)}>
-                تنظیم مجدد
-                <MdOutlineCreateNewFolder className="text-2xl ml-2" />
-              </button>
+            <button
+              className="flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold"
+              onClick={() => {
+                setIsOpenFilter(true);
+                setMessageVisible(false); 
+              }}
+            >
+              تنظیم مجدد
+              <MdOutlineCreateNewFolder className="text-2xl ml-2" />
+            </button>
             <p className="text-gray-600 text-lg">
               داده ای موجود نیست , یا تنظیمات به درستی اعمال نشده است .مجددا
               بارگزاری کنید

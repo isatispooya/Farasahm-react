@@ -7,36 +7,53 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 const BranchBors = ({ access, config, setConfig }) => {
+  useEffect(() => {
+    const fetchBranchList = async () => {
+      try {
+        const response = await axios.post(
+          `${OnRun}/marketing/bours_branch`,
+            { access: access }
+        );
+        setBranchList(response.data);
+        console.log(response.data)
+      } catch (error) {
+        console.error("Failed to fetch Branch list", error);
+      }
+    };
+    fetchBranchList();
+  }, [access]);
   const [branchInput, setBranchInput] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [dropdown, setdropdown] = useState(false);
 
-  const Remove = (company) => {
-    const company_list = (config.insurance.company || []).filter(
-      (i) => i !== company
+
+
+  const Remove = (branch) => {
+    const branch_list = (config.bours.branch || []).filter(
+      (i) => i !== branch
     );
-    const insurance = { ...config.insurance, company: company_list };
-    setConfig({ ...config, insurance: insurance });
+    const bours = { ...config.bours, branch: branch_list };
+    setConfig({ ...config, bours: bours });
   };
 
   const openDropDown = () => {
     setdropdown(!dropdown);
   };
-  const availableCompany = branchList.filter(
-    (company) => !config.insurance.company.includes(company)
+  const availablebranch = branchList.filter(
+    (branch) => !config.bours.branch.includes(branch)
   );
   const handleBranchSelect = (e) => {
     setBranchInput(e.target.value);
   };
 
-  const AddCompany = () => {
+  const Addbranch = () => {
     if (branchInput) {
       const available = branchList.includes(branchInput);
       if (available) {
-        const company_list = [...(config.insurance.company || [])];
-        company_list.push(branchInput);
-        const insurance = { ...config.insurance, company: company_list };
-        setConfig({ ...config, insurance: insurance });
+        const branch_list = [...(config.bours.branch || [])];
+        branch_list.push(branchInput);
+        const bours = { ...config.bours, branch: branch_list };
+        setConfig({ ...config, bours: bours });
         setBranchInput("");
       } else {
         toast.error("لطفا یک شرکت  معتبر انتخاب کنید");
@@ -81,20 +98,20 @@ const BranchBors = ({ access, config, setConfig }) => {
                 select
                 value={branchInput}
                 onChange={handleBranchSelect}
-                label="دارایی ها"
+                label="شعب"
                 variant="outlined"
                 SelectProps={{ native: true }}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                 style={{ marginBottom: 16 }}
               >
                 <option value="" disabled></option>
-                {availableCompany.map((i, index) => (
+                {availablebranch.map((i, index) => (
                   <option key={index}>{i}</option>
                 ))}
               </TextField>
 
               <Button
-                onClick={AddCompany}
+                onClick={Addbranch}
                 sx={{ borderRadius: 2 }}
                 variant="contained"
               >
@@ -108,11 +125,11 @@ const BranchBors = ({ access, config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.insurance.company || []).map((company, index) => (
+                {(config.bours.branch || []).map((branch, index) => (
                   <Chip
-                    key={`company-${index}`}
-                    label={company}
-                    onDelete={() => Remove(company)}
+                    key={`branch-${index}`}
+                    label={branch}
+                    onDelete={() => Remove(branch)}
                     deleteIcon={
                       <button
                         style={{ color: "white", marginRight: "5px" }}

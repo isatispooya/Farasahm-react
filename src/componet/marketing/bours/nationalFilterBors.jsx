@@ -10,23 +10,24 @@ const NationalFilterBors = ({config , setConfig}) => {
   const [inputValue, setInputValue] = useState("");
 
   const addToConfig = () => {
-    let nc_list = config.insurance.national_id || [];
-    let insurance;
-
+    let nc_list = config.bours.national_id || [];
+    let bours;
+  
     if (search) {
       nc_list.push(search);
-      insurance = { ...config.insurance, national_id: nc_list };
-      setConfig({ ...config, insurance: insurance });
+      bours = { ...config.bours, national_id: nc_list };
+      setConfig({ ...config, bours: bours });
       setSearch("");
     } else if (cityselected) {
       const selectedCityObject = city_list.find(
         (city) => city.city === cityselected
       );
-
+  
       if (selectedCityObject && selectedCityObject.num.length > 0) {
-        nc_list.push(selectedCityObject.num[0]);
-        insurance = { ...config.insurance, national_id: nc_list };
-        setConfig({ ...config, insurance: insurance });
+        // Convert the city number to string before adding it to the list
+        nc_list.push(String(selectedCityObject.num[0]));
+        bours = { ...config.bours, national_id: nc_list };
+        setConfig({ ...config, bours: bours });
         setCityselected("");
         setInputValue("");
       } else {
@@ -36,10 +37,10 @@ const NationalFilterBors = ({config , setConfig}) => {
   };
 
   const RemoveSelected = (id) => {
-    let nc_list = config.insurance.national_id || [];
+    let nc_list = config.bours.national_id || [];
     nc_list = nc_list.filter((i) => i !== id);
-    let insurance = { ...config.insurance, national_id: nc_list };
-    setConfig({ ...config, insurance: insurance });
+    let bours = { ...config.bours, national_id: nc_list };
+    setConfig({ ...config, bours: bours });
   };
 
   const handleSearchNumber = (e) => {
@@ -56,6 +57,7 @@ const NationalFilterBors = ({config , setConfig}) => {
       addToConfig();
     }
   };
+  console.log(config)
 
   return (
     <>
@@ -133,7 +135,7 @@ const NationalFilterBors = ({config , setConfig}) => {
               </Button>
             </div>
 
-            {config?.insurance?.national_id?.length > 0 && (
+            {config?.bours?.national_id?.length > 0 && (
               <Stack
                 direction="row"
                 spacing={1}
@@ -141,7 +143,7 @@ const NationalFilterBors = ({config , setConfig}) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.insurance.national_id || []).map((item, index) => (
+                {(config.bours.national_id || []).map((item, index) => (
                   <Chip
                     key={`mored-${index}`}
                     label={item}

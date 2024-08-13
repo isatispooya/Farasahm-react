@@ -6,8 +6,8 @@ import { CiCalendarDate } from "react-icons/ci";
 import { DateObject } from "react-multi-date-picker";
 
 const DateBirthBors = ({ config, setConfig }) => {
-    const [from, setFrom] = useState(config.nobours?.birthday?.from ?? null);
-    const [to, setTo] = useState(config.nobours?.birthday?.to ?? null);
+    const [from, setFrom] = useState(config.bours?.birthday?.from ?? null);
+    const [to, setTo] = useState(config.bours?.birthday?.to ?? null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
     const openDropdown = () => {
@@ -18,13 +18,13 @@ const DateBirthBors = ({ config, setConfig }) => {
       if (type === "from") {
         setFrom(newValue);
         const birthday = { from: newValue, to };
-        const nobours = { ...config.nobours, birthday };
-        setConfig((prevConfig) => ({ ...prevConfig, nobours }));
+        const bours = { ...config.bours, birthday };
+        setConfig((prevConfig) => ({ ...prevConfig, bours }));
       } else if (type === "to") {
         setTo(newValue);
         const birthday = { from, to: newValue };
-        const nobours = { ...config.nobours, birthday };
-        setConfig((prevConfig) => ({ ...prevConfig, nobours }));
+        const bours = { ...config.bours, birthday };
+        setConfig((prevConfig) => ({ ...prevConfig, bours }));
       }
     };
   
