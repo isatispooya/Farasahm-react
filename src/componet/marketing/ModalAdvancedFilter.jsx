@@ -29,6 +29,7 @@ const ModalAdvancedFilter = ({
   const save = () => {
     const selectedLabels = switchLabelList.filter((label, index) => {
       const switchElement = document.getElementById(`switch-${index}`);
+      postEditFilter();
       return switchElement && switchElement.checked;
     });
 
@@ -58,6 +59,22 @@ const ModalAdvancedFilter = ({
         setLoadingDf(false);
         console.error(error.message);
       });
+  };
+
+  const postEditFilter = () => {
+    const options = {
+      method: "POST",
+      url: `${OnRun}/marketing/editfillter`,
+      headers: { "content-type": "application/json" },
+      data: {
+        access: access,
+        title: config.title,
+        config: config,
+        _id: configSelected,
+      },
+    };axios.request(options).then((response)=>{
+       console.log(response.data)
+    })
   };
 
   useEffect(() => {
