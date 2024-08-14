@@ -113,8 +113,6 @@ const ModalFilter = ({
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  console.log(config);
   
 
   const getConfigList = () => {
@@ -145,6 +143,8 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
+          console.log(config);
+          
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }

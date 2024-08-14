@@ -105,7 +105,7 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        setConfig(response.data);        
+        setConfig(response.data.config);   
         setLoadingDf(false);
       });
     } else {
@@ -124,6 +124,10 @@ const CreateList = () => {
       return () => clearTimeout(timer);
     }
   }, [messageVisible]);
+
+
+console.log(Config);
+
 
   return (
     <div className="subPage tablePg">
