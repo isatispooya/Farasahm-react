@@ -13,6 +13,7 @@ import { styled } from "@mui/material/styles";
 import { OnRun } from "../../config/config";
 import axios from "axios";
 import MicroLoader from "../Loader/microLoader";
+import { toast } from "react-toastify";
 
 const ModalAdvancedFilter = ({
   open,
@@ -61,6 +62,7 @@ const ModalAdvancedFilter = ({
       });
   };
 
+
   const postEditFilter = () => {
     const options = {
       method: "POST",
@@ -72,11 +74,19 @@ const ModalAdvancedFilter = ({
         config: config,
         _id: configSelected,
       },
-    };axios.request(options).then((response)=>{
-       console.log(response.data)
-    })
+    };
+  
+    axios.request(options)
+      .then((response) => {
+        console.log(response.data);
+        toast(response.message)
+      })
+      .catch((error) => {
+        console.error("Error sending the request:", error.message);
+        toast(error.message)
+      });
   };
-
+  
   useEffect(() => {
     getAdvancedFilter();
   }, []);
