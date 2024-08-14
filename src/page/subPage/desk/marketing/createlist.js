@@ -18,8 +18,6 @@ import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFil
 import { DateObject } from "react-multi-date-picker";
 
 const CreateList = () => {
-
-
   const newconfig = {
     send_time: new DateObject(),
     context: "",
@@ -94,16 +92,16 @@ const CreateList = () => {
         from: null,
         to: null,
       },
+      adjust_remain: {
+        from: null,
+        to: null,
+      },
       mobile: {
         num1: [],
         num2: [],
       },
     },
   };
-
-
-
-
 
   const access = useContext(AccessContext);
   const [df, setDf] = useState(null);
@@ -116,11 +114,9 @@ const CreateList = () => {
   const [loadingDf, setLoadingDf] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
   const [config, setConfig] = useState(newconfig);
-  const [Configperviewcontext,setConfigperviewcontext]=useState([])
+  const [Configperviewcontext, setConfigperviewcontext] = useState([]);
 
   window.XLSX = XLSX;
-
-
 
   const openModalFilter = () => {
     setIsOpenFilter(true);
@@ -198,13 +194,14 @@ const CreateList = () => {
       }).then(async (response) => {
         setDf(response.data.dict);
         setConfigperviewcontext(response.data.config);
-        
+
         setLoadingDf(false);
       });
     } else {
       setLoadingDf(false);
     }
   };
+  console.log(configSelected, "123456")
 
   useEffect(get, [access, configSelected, contextSelected]);
 
@@ -345,6 +342,5 @@ const CreateList = () => {
 };
 
 export default CreateList;
-
 
 //helooo

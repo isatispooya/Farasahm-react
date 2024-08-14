@@ -17,7 +17,7 @@ const CompanyBime = ({ access, config, setConfig }) => {
           `${OnRun}/marketing/insurance_companies`,
           { access: access }
         );
-        console.log(response.data)
+        
         setCompanyList(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
@@ -60,7 +60,7 @@ const CompanyBime = ({ access, config, setConfig }) => {
       }
     }
   };
-
+  
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

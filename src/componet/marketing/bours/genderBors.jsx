@@ -22,7 +22,7 @@ const GenderBors = ({ config, setConfig }) => {
       ...prevConfig,
       bours: {
         ...prevConfig.bours,
-        gender: value === "male" ? true : value === "female" ? false : null,
+        gender: value === "male" ? "true" : value === "female" ? "false" : null,
       },
     }));
   };

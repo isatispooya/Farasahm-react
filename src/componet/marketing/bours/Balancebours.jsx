@@ -17,7 +17,7 @@ const BalanceBours = ({ config, setConfig }) => {
   const handleButtonClick_remain_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, from: formatNumber(rawValue) };
+      let remain = { ...config.bours.remain, from: rawValue }; 
       let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
@@ -26,7 +26,7 @@ const BalanceBours = ({ config, setConfig }) => {
   const handleButtonClick_remain_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, to: formatNumber(rawValue) };
+      let remain = { ...config.bours.remain, to: rawValue }; 
       let bours = { ...config.bours, remain };
       setConfig({ ...config, bours });
     }
@@ -35,7 +35,10 @@ const BalanceBours = ({ config, setConfig }) => {
   const handleButtonClick_credit_balance_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let credit_balance = { ...config.bours.credit_balance, from: formatNumber(rawValue) };
+      let credit_balance = {
+        ...config.bours.credit_balance,
+        from: rawValue, // Store raw value without commas
+      };
       let bours = { ...config.bours, credit_balance };
       setConfig({ ...config, bours });
     }
@@ -44,8 +47,35 @@ const BalanceBours = ({ config, setConfig }) => {
   const handleButtonClick_credit_balance_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let credit_balance = { ...config.bours.credit_balance, to: formatNumber(rawValue) };
+      let credit_balance = {
+        ...config.bours.credit_balance,
+        to: rawValue, // Store raw value without commas
+      };
       let bours = { ...config.bours, credit_balance };
+      setConfig({ ...config, bours });
+    }
+  };
+
+  const handleButtonClick_adjust_remain_from = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
+      let adjust_remain = {
+        ...config.bours.adjust_remain,
+        from: rawValue, // Store raw value without commas
+      };
+      let bours = { ...config.bours, adjust_remain };
+      setConfig({ ...config, bours });
+    }
+  };
+
+  const handleButtonClick_adjust_remain_to = (value) => {
+    const rawValue = value.replace(/,/g, "");
+    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
+      let adjust_remain = {
+        ...config.bours.adjust_remain,
+        to: rawValue, // Store raw value without commas
+      };
+      let bours = { ...config.bours, adjust_remain };
       setConfig({ ...config, bours });
     }
   };
@@ -86,7 +116,9 @@ const BalanceBours = ({ config, setConfig }) => {
                   id="amount-from"
                   label="از"
                   value={formatNumber(config.bours.remain.from)}
-                  onChange={(e) => handleButtonClick_remain_from(e.target.value)}
+                  onChange={(e) =>
+                    handleButtonClick_remain_from(e.target.value)
+                  }
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -117,7 +149,9 @@ const BalanceBours = ({ config, setConfig }) => {
                   id="amount-from"
                   label="از"
                   value={formatNumber(config.bours.credit_balance.from)}
-                  onChange={(e) => handleButtonClick_credit_balance_from(e.target.value)}
+                  onChange={(e) =>
+                    handleButtonClick_credit_balance_from(e.target.value)
+                  }
                   InputLabelProps={{ shrink: true }}
                 />
               </div>
@@ -127,7 +161,44 @@ const BalanceBours = ({ config, setConfig }) => {
                   id="amount-to"
                   label="تا"
                   value={formatNumber(config.bours.credit_balance.to)}
-                  onChange={(e) => handleButtonClick_credit_balance_to(e.target.value)}
+                  onChange={(e) =>
+                    handleButtonClick_credit_balance_to(e.target.value)
+                  }
+                  className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
+                  InputLabelProps={{ shrink: true }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center mb-5 bg-gray-200 p-2">
+            <div className="text-right text-lg font-bold w-full">
+              {" "}
+              مانده تعلیلی
+            </div>
+            <div className="flex justify-between space-x-4 w-full">
+              <div className="text-right w-1/2">
+                <TextField
+                  style={{ backgroundColor: "white" }}
+                  className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
+                  id="amount-from"
+                  label="از"
+                  value={formatNumber(config.bours.adjust_remain.from)}
+                  onChange={(e) =>
+                    handleButtonClick_adjust_remain_from(e.target.value)
+                  }
+                  InputLabelProps={{ shrink: true }}
+                />
+              </div>
+              <div className="text-right w-1/2">
+                <TextField
+                  style={{ backgroundColor: "white" }}
+                  id="amount-to"
+                  label="تا"
+                  value={formatNumber(config.bours.adjust_remain.to)}
+                  onChange={(e) =>
+                    handleButtonClick_adjust_remain_to(e.target.value)
+                  }
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -141,4 +212,3 @@ const BalanceBours = ({ config, setConfig }) => {
 };
 
 export default BalanceBours;
-

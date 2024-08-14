@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 
 const PaymentBime = ({
   config = {
-    insurance: { payment: { min: "", max: "" } },
+    insurance: { payment: { min: "", max: "" }, fee: { min: "", max: "" } },
   },
   setConfig,
 }) => {
@@ -24,7 +24,7 @@ const PaymentBime = ({
     if (/^\d*$/.test(rawValue)) {
       let payment = {
         ...config.insurance.payment,
-        min: formatNumber(rawValue),
+        min: rawValue, // Save raw value without commas
       };
       let insurance = { ...config.insurance, payment: payment };
       setConfig({ ...config, insurance });
@@ -36,7 +36,7 @@ const PaymentBime = ({
     if (/^\d*$/.test(rawValue)) {
       let payment = {
         ...config.insurance.payment,
-        max: formatNumber(rawValue),
+        max: rawValue, // Save raw value without commas
       };
       let insurance = { ...config.insurance, payment: payment };
       setConfig({ ...config, insurance });
@@ -48,7 +48,7 @@ const PaymentBime = ({
     if (/^\d*$/.test(rawValue)) {
       let fee = {
         ...config.insurance.fee,
-        min: formatNumber(rawValue),
+        min: rawValue, // Save raw value without commas
       };
       let insurance = { ...config.insurance, fee: fee };
       setConfig({ ...config, insurance });
@@ -60,7 +60,7 @@ const PaymentBime = ({
     if (/^\d*$/.test(rawValue)) {
       let fee = {
         ...config.insurance.fee,
-        max: formatNumber(rawValue),
+        max: rawValue, // Save raw value without commas
       };
       let insurance = { ...config.insurance, fee: fee };
       setConfig({ ...config, insurance });

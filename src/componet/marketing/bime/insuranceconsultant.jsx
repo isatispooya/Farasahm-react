@@ -16,7 +16,7 @@ const InsuranceConsultant = ({ access, config, setConfig }) => {
       data: { access: access },
     }).then((response) => {
       setConsultantList(response.data);
-      console.log("Consultant List:", response.data);
+      
     });
   };
 

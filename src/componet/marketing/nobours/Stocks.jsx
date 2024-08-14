@@ -1,4 +1,4 @@
-import { TextField, Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import React, { useState } from "react";
 
 const Stocks = ({
@@ -7,62 +7,61 @@ const Stocks = ({
   },
   setConfig,
 }) => {
-  // تابع برای فرمت عدد با کاما
+  // Function to format number with commas
   const formatNumber = (num) => {
     if (!num) return "";
     const numStr = num.replace(/,/g, "");
     return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  // وضعیت باز و بسته بودن منو
+  // Dropdown state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // تغییر وضعیت منو
+  // Toggle dropdown
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // تغییر مقدار "از" در محدوده تعداد سهام
+  // Handle change in "from" value for the number of shares
   const handleButtonClick_amount_from = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let amount = { ...config.nobours.amount, from: formatNumber(rawValue) };
+      let amount = { ...config.nobours.amount, from: rawValue }; // Store raw value without commas
       let nobours = { ...config.nobours, amount: amount };
       setConfig({ ...config, nobours });
     }
   };
 
-  // تغییر مقدار "تا" در محدوده تعداد سهام
+  // Handle change in "to" value for the number of shares
   const handleButtonClick_amount_to = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let amount = { ...config.nobours.amount, to: formatNumber(rawValue) };
+      let amount = { ...config.nobours.amount, to: rawValue }; // Store raw value without commas
       let nobours = { ...config.nobours, amount: amount };
       setConfig({ ...config, nobours });
     }
   };
 
-  // تغییر مقدار "از" در درصد سهام
+  // Handle change in "min" value for the percentage of shares
   const handleButtonClick_rate_min = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
-      let rate = { ...config.nobours.rate, min: formatNumber(rawValue) };
+      let rate = { ...config.nobours.rate, min: rawValue }; // Store raw value without commas
       let nobours = { ...config.nobours, rate: rate };
       setConfig({ ...config, nobours });
     }
   };
 
-  // تغییر مقدار "تا" در درصد سهام
+  // Handle change in "max" value for the percentage of shares
   const handleButtonClick_rate_max = (value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0 && rawValue <= 100) {
-      let rate = { ...config.nobours.rate, max: formatNumber(rawValue) };
+      let rate = { ...config.nobours.rate, max: rawValue }; // Store raw value without commas
       let nobours = { ...config.nobours, rate: rate };
       setConfig({ ...config, nobours });
     }
   };
 
-  // نمایش کامپوننت
   return (
     <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
       <button
