@@ -15,10 +15,97 @@ import { GrDocumentExcel } from "react-icons/gr";
 import { IoReloadSharp } from "react-icons/io5";
 import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFilter";
+import { DateObject } from "react-multi-date-picker";
 
 const CreateList = () => {
+
+
+  const newconfig = {
+    send_time: new DateObject(),
+    context: "",
+    period: null,
+    title: "",
+    duplicate: [],
+    insurance: {
+      enabled: false,
+      name: [],
+      national_id: [],
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+      company: [],
+      consultant: [],
+      insurance_item: [],
+      insurance_field: [],
+      fee: {
+        max: null,
+        min: null,
+      },
+      payment: {
+        max: null,
+        min: null,
+      },
+    },
+    nobours: {
+      enabled: false,
+      name: null,
+      birthday: {
+        from: null,
+        to: null,
+      },
+      city: [],
+      symbol: [],
+      national_id: [],
+      amount: {
+        from: null,
+        to: null,
+      },
+      rate: {
+        min: null,
+        max: null,
+      },
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+    },
+    bours: {
+      enabled: false,
+      name: [],
+      gender: null,
+      birthday: {
+        from: null,
+        to: null,
+      },
+      city: [],
+      branch: [],
+      asset: [],
+      national_id: [],
+      latest_deals: {
+        from: null,
+        to: null,
+      },
+      remain: {
+        from: null,
+        to: null,
+      },
+      credit_balance: {
+        from: null,
+        to: null,
+      },
+      mobile: {
+        num1: [],
+        num2: [],
+      },
+    },
+  };
+
+
+
+
+
   const access = useContext(AccessContext);
-  const [Config, setConfig] = useState([]);
   const [df, setDf] = useState(null);
   const [table, setTable] = useState(null);
   const [isOpenFilter, setIsOpenFilter] = useState(true);
@@ -28,7 +115,12 @@ const CreateList = () => {
   const [contextSelected, setIsContextSelected] = useState("");
   const [loadingDf, setLoadingDf] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
+  const [config, setConfig] = useState(newconfig);
+  const [Configperviewcontext,setConfigperviewcontext]=useState([])
+
   window.XLSX = XLSX;
+
+
 
   const openModalFilter = () => {
     setIsOpenFilter(true);
@@ -105,8 +197,7 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        setConfig(response.data.config);
-        console.log(Config);
+        setConfigperviewcontext(response.data.config);
         
         setLoadingDf(false);
       });
@@ -187,6 +278,9 @@ const CreateList = () => {
             setConfigSelected={setConfigSelected}
             setIsContextSelected={setIsContextSelected}
             setIsOpenFilter={setIsOpenFilter}
+            config={config}
+            setConfig={setConfig}
+            newconfig={newconfig}
           />
         )}
       </div>
@@ -198,7 +292,7 @@ const CreateList = () => {
             handleClose={closeModalAdvancedFilter}
             access={access}
             configSelected={configSelected}
-            Config={Config}
+            config={config}
             setConfig={setConfig}
             get={get}
           />
@@ -210,7 +304,7 @@ const CreateList = () => {
           <Smspage
             toggleModal={closeSenderModal}
             access={access}
-            Config={Config.config}
+            Config={Configperviewcontext.config}
             configSelected={configSelected}
             get={get}
             openFilterModal={openModalFilter}
