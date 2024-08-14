@@ -10,13 +10,12 @@ import ConfirmationModal from "./confirmation";
 const Smspage = ({
   toggleModal,
   access,
-  Config,
+  Config = { context: '', column: [], dict: [], len: 0, cost: 0, count_sms: 0 },
   configSelected,
   get,
-  openFilterModal, // Added this prop to handle reopening ModalFilter
+  openFilterModal,
 }) => {
-  const [message, setMessage] = useState(Config.context || "");
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [message, setMessage] = useState(Config.context || '');  const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] =
@@ -24,9 +23,8 @@ const Smspage = ({
   const modalRef = useRef(null);
   const textareaRef = useRef(null);
 
-
   useEffect(() => {
-    if (Config.context) {
+    if (Config && Config.context) {
       setMessage(Config.context);
     }
   }, [Config]);
@@ -149,6 +147,8 @@ const Smspage = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isModalVisible]);
+
+  
 
   return (
     <div

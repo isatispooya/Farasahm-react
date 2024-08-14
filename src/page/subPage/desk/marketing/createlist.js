@@ -105,7 +105,9 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        setConfig(response.data.config);   
+        setConfig(response.data.config);
+        console.log(Config);
+        
         setLoadingDf(false);
       });
     } else {
@@ -113,7 +115,7 @@ const CreateList = () => {
     }
   };
 
-  useEffect(get, [access, configSelected, contextSelected]);  
+  useEffect(get, [access, configSelected, contextSelected]);
 
   useEffect(() => {
     if (messageVisible) {
@@ -124,10 +126,6 @@ const CreateList = () => {
       return () => clearTimeout(timer);
     }
   }, [messageVisible]);
-
-
-console.log(Config);
-
 
   return (
     <div className="subPage tablePg">
@@ -167,10 +165,7 @@ console.log(Config);
                 ایجاد
                 <MdOutlineCreateNewFolder className="mt-1" />
               </button>
-              <button
-                className="inp-fld"
-                onClick={openModalAdvancedFilter}
-              >
+              <button className="inp-fld" onClick={openModalAdvancedFilter}>
                 فیلتر پیشرفته
                 <AiOutlineUsergroupDelete className="mt-1" />
               </button>
@@ -198,16 +193,14 @@ console.log(Config);
 
       <div>
         {isOpenAdvancedFilter && (
-          <ModalAdvancedFilter 
-            open={isOpenAdvancedFilter} 
-            handleClose={closeModalAdvancedFilter} 
+          <ModalAdvancedFilter
+            open={isOpenAdvancedFilter}
+            handleClose={closeModalAdvancedFilter}
             access={access}
             configSelected={configSelected}
-            Config={Config.config}
+            Config={Config}
             setConfig={setConfig}
             get={get}
-
-
           />
         )}
       </div>
@@ -240,7 +233,7 @@ console.log(Config);
               className="flex items-center py-3 px-3 mr-5 text-white bg-gray-500 rounded-lg shadow-2xl text-lg font-bold"
               onClick={() => {
                 setIsOpenFilter(true);
-                setMessageVisible(false); 
+                setMessageVisible(false);
               }}
             >
               تنظیم مجدد

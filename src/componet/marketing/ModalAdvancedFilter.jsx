@@ -127,6 +127,8 @@ const ModalAdvancedFilter = ({
     },
   }));
 
+  
+
   return (
     <Modal
       open={open}
@@ -211,6 +213,7 @@ const ModalAdvancedFilter = ({
                       <IOSSwitch
                         id={`switch-${index}`}
                         sx={{ m: 1 }}
+
                       />
                     }
                     label={label.replace("{{", "").replace("}}", "")}
