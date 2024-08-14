@@ -16,6 +16,7 @@ import { IoReloadSharp } from "react-icons/io5";
 import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFilter";
 import { DateObject } from "react-multi-date-picker";
+import { toast } from "react-toastify";
 
 const CreateList = () => {
   const newconfig = {
@@ -115,6 +116,7 @@ const CreateList = () => {
   const [messageVisible, setMessageVisible] = useState(false);
   const [config, setConfig] = useState(newconfig);
   const [Configperviewcontext, setConfigperviewcontext] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   window.XLSX = XLSX;
 
@@ -194,14 +196,43 @@ const CreateList = () => {
       }).then(async (response) => {
         setDf(response.data.dict);
         setConfigperviewcontext(response.data.config);
-
         setLoadingDf(false);
       });
     } else {
       setLoadingDf(false);
     }
   };
-  console.log(configSelected, "123456")
+
+  const PostData = async () => {
+    setIsSubmitting(true);
+    try {
+      const postConfig =
+        configSelected == null || configSelected == undefined
+          ? axios.post(`${OnRun}/marketing/fillter`, {
+              access: access,
+              title: config.title,
+              config: { ...config, period: config.period },
+            })
+          : axios.post(`${OnRun}/marketing/editfillter`, {
+              access: access,
+              _id: configSelected,
+              title: config.title,
+              config: config,
+            });
+      const response = await postConfig;
+
+      if (response.data.reply === true) {
+        setIsOpenFilter(false);
+        if (configSelected == null) setConfigSelected(response.data.id);
+      } else {
+        toast.error(response.data.msg);
+      }
+    } catch (error) {
+      toast.error("خطا در بارگزاری");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(get, [access, configSelected, contextSelected]);
 
@@ -278,6 +309,8 @@ const CreateList = () => {
             config={config}
             setConfig={setConfig}
             newconfig={newconfig}
+            PostData={PostData}
+            isSubmitting={isSubmitting}
           />
         )}
       </div>
