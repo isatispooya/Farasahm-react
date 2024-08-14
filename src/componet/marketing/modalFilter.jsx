@@ -24,96 +24,18 @@ const ModalFilter = ({
   setConfigSelected,
   setIsContextSelected,
   setIsOpenFilter,
+  config,
+  setConfig,
+  newconfig
 }) => {
-  const newconfig = {
-    send_time: new DateObject(),
-    context: "",
-    period: null,
-    title: "",
-    duplicate: [],
-    insurance: {
-      enabled: false,
-      name: [],
-      national_id: [],
-      mobile: {
-        num1: [],
-        num2: [],
-      },
-      company: [],
-      consultant: [],
-      insurance_item: [],
-      insurance_field: [],
-      fee: {
-        max: null,
-        min: null,
-      },
-      payment: {
-        max: null,
-        min: null,
-      },
-    },
-    nobours: {
-      enabled: false,
-      name: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      symbol: [],
-      national_id: [],
-      amount: {
-        from: null,
-        to: null,
-      },
-      rate: {
-        min: null,
-        max: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
-      },
-    },
-    bours: {
-      enabled: false,
-      name: [],
-      gender: null,
-      birthday: {
-        from: null,
-        to: null,
-      },
-      city: [],
-      branch: [],
-      asset: [],
-      national_id: [],
-      latest_deals: {
-        from: null,
-        to: null,
-      },
-      remain: {
-        from: null,
-        to: null,
-      },
-      credit_balance: {
-        from: null,
-        to: null,
-      },
-      mobile: {
-        num1: [],
-        num2: [],
-      },
-    },
-  };
+
 
   const steps = ["لیست کارت ها ", " تنظیمات ارسال", "تنظیمات فیلتر"];
   const [stepNumber, setStepNumber] = useState(0);
-  const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
 
   const getConfigList = () => {
     axios
@@ -144,7 +66,6 @@ const ModalFilter = ({
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
           console.log(config);
-          
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }
