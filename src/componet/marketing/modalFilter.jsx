@@ -26,7 +26,7 @@ const ModalFilter = ({
   setIsOpenFilter,
   config,
   setConfig,
-  newconfig
+  newconfig,
 }) => {
 
 
