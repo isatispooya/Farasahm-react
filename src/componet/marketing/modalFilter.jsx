@@ -26,7 +26,9 @@ const ModalFilter = ({
   setIsOpenFilter,
   config,
   setConfig,
-  newconfig
+  newconfig,
+  PostData,
+  isSubmitting
 }) => {
 
 
@@ -35,7 +37,6 @@ const ModalFilter = ({
   const [listConfig, setListConfig] = useState([]);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getConfigList = () => {
     axios
@@ -80,38 +81,6 @@ const ModalFilter = ({
     }
   };
 
-  const PostData = async () => {
-    setIsSubmitting(true);
-    try {
-      const postConfig =
-        configSelected == null || configSelected == undefined
-          ? axios.post(`${OnRun}/marketing/fillter`, {
-              access: access,
-              title: config.title,
-              config: { ...config, period: config.period },
-            })
-          : axios.post(`${OnRun}/marketing/editfillter`, {
-              access: access,
-              _id: configSelected,
-              title: config.title,
-              config: config,
-            });
-
-      const response = await postConfig;
-
-      if (response.data.reply === true) {
-        setIsOpenFilter(false);
-
-        if (configSelected == null) setConfigSelected(response.data.id);
-      } else {
-        toast.error(response.data.msg);
-      }
-    } catch (error) {
-      toast.error("خطا در بارگزاری");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const checkValue =
     config.title !== "" && config.send_time !== null && config.period !== null;
