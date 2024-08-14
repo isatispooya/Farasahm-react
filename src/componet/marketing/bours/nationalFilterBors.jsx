@@ -57,7 +57,8 @@ const NationalFilterBors = ({config , setConfig}) => {
       addToConfig();
     }
   };
- 
+   
+  console.log(config)
 
   return (
     <>

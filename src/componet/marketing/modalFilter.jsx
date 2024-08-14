@@ -29,6 +29,7 @@ const ModalFilter = ({
     send_time: new DateObject(),
     context: "",
     period: null,
+    title: "",
     duplicate: [],
     insurance: {
       enabled: false,
@@ -102,11 +103,10 @@ const ModalFilter = ({
         num1: [],
         num2: [],
       },
-      title: "",
     },
   };
 
-  const steps = ["لیست", "تنظیمات", "فیلتر"];
+  const steps = ["لیست کارت ها ", " تنظیمات ارسال", "تنظیمات فیلتر"];
   const [stepNumber, setStepNumber] = useState(0);
   const [config, setConfig] = useState(newconfig);
   const [listConfig, setListConfig] = useState([]);
