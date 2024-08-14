@@ -25,7 +25,6 @@ const ModalAdvancedFilter = ({
 }) => {
   const [switchLabelList, setSwitchLabelList] = useState([]);
   const [loadingDf, setLoadingDf] = useState(true);
-  const [switchData, setSwitchData] = useState([]);
 
   const save = () => {
     const selectedLabels = switchLabelList.filter((label, index) => {
@@ -33,18 +32,17 @@ const ModalAdvancedFilter = ({
       return switchElement && switchElement.checked;
     });
 
+    const updatedDuplicateList = [...selectedLabels];
+    
     setConfig((prevConfig) => ({
       ...prevConfig,
       config: {
         ...prevConfig.config,
-        duplicate: selectedLabels,
+        duplicate: updatedDuplicateList,
       },
     }));
 
-    setSwitchData(selectedLabels);
-
     get();
-
     handleClose();
   };
 
@@ -207,13 +205,7 @@ const ModalAdvancedFilter = ({
                   }}
                 >
                   <FormControlLabel
-                    control={
-                      <IOSSwitch
-                        id={`switch-${index}`}
-                        sx={{ m: 1 }}
-                        defaultChecked={false}
-                      />
-                    }
+                    control={<IOSSwitch id={`switch-${index}`} sx={{ m: 1 }} />}
                     label={label.replace("{{", "").replace("}}", "")}
                     sx={{
                       fontSize: 14,

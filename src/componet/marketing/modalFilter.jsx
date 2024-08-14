@@ -114,6 +114,9 @@ const ModalFilter = ({
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  console.log(config);
+  
+
   const getConfigList = () => {
     axios
       .post(OnRun + "/marketing/marketinglist", {
@@ -177,7 +180,6 @@ const ModalFilter = ({
 
       if (response.data.reply === true) {
         setIsOpenFilter(false);
-        console.log(config);
 
         if (configSelected == null) setConfigSelected(response.data.id);
       } else {

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { OnRun } from "../../../config/config";
 
 const CityFilterBors = ({ access, config, setConfig }) => {
-  const [cityList, setCityList] = useState([]);
+  const [cityListBours, setCityListBours] = useState([]);
   const [cityInput, setCityInput] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -21,7 +21,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
     axios
       .request(options)
       .then((response) => {
-        setCityList(response.data);
+        setCityListBours(response.data);
       })
       .catch((error) => {
         console.error(error.message);
@@ -42,7 +42,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const availableCities = cityList.filter(
+  const availableCities = cityListBours.filter(
     (city) => !(config.city ?? []).includes(city)
   );
 
@@ -52,7 +52,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
 
   const handleAddCity = () => {
     if (cityInput) {
-      const available = cityList.includes(cityInput);
+      const available = cityListBours.includes(cityInput);
       if (available) {
         const city_list = [...(config.bours.city || [])];
         city_list.push(cityInput);
@@ -127,7 +127,7 @@ const CityFilterBors = ({ access, config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.nobours.city || []).map((city, index) => (
+                {(config.bours.city || []).map((city, index) => (
                   <Chip
                     key={`city-${index}`}
                     label={city}
