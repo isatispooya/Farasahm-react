@@ -25,7 +25,6 @@ const ModalAdvancedFilter = ({
 }) => {
   const [switchLabelList, setSwitchLabelList] = useState([]);
   const [loadingDf, setLoadingDf] = useState(true);
-  const [switchData, setSwitchData] = useState([]);
 
   const save = () => {
     const selectedLabels = switchLabelList.filter((label, index) => {
@@ -33,15 +32,12 @@ const ModalAdvancedFilter = ({
       return switchElement && switchElement.checked;
     });
 
-    setConfig(() => ({
-      ...config,
+    setConfig((prevConfig) => ({
+      ...prevConfig,
       duplicate: selectedLabels,
     }));
 
-    setSwitchData(selectedLabels);
-
     get();
-
     handleClose();
   };
 
@@ -124,10 +120,6 @@ const ModalAdvancedFilter = ({
     },
   }));
 
-
-  console.log(config);
-  
-
   return (
     <Modal
       open={open}
@@ -191,34 +183,43 @@ const ModalAdvancedFilter = ({
             }}
           >
             {switchLabelList &&
-              switchLabelList.map((label, index) => (
-                <Stack
-                  key={index}
-                  direction="row"
-                  spacing={1}
-                  alignItems="center"
-                  sx={{
-                    width: "100%",
-                    justifyContent: "flex-end",
-                    px: 3,
-                    py: 1,
-                    backgroundColor: "#f5f5f5",
-                    borderRadius: 2,
-                    boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
-                  }}
-                >
-                  <FormControlLabel
-                    control={<IOSSwitch id={`switch-${index}`} sx={{ m: 1 }} />}
-                    label={label.replace("{{", "").replace("}}", "")}
+              switchLabelList.map((label, index) => {
+                const isChecked = config.duplicate.includes(label);
+                return (
+                  <Stack
+                    key={index}
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
                     sx={{
-                      fontSize: 14,
-                      textAlign: "right",
-                      flexGrow: 1,
-                      color: "text.primary",
+                      width: "100%",
+                      justifyContent: "flex-end",
+                      px: 3,
+                      py: 1,
+                      backgroundColor: "#f5f5f5",
+                      borderRadius: 2,
+                      boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.1)",
                     }}
-                  />
-                </Stack>
-              ))}
+                  >
+                    <FormControlLabel
+                      control={
+                        <IOSSwitch
+                          id={`switch-${index}`}
+                          sx={{ m: 1 }}
+                          defaultChecked={isChecked}
+                        />
+                      }
+                      label={label.replace("{{", "").replace("}}", "")}
+                      sx={{
+                        fontSize: 14,
+                        textAlign: "right",
+                        flexGrow: 1,
+                        color: "text.primary",
+                      }}
+                    />
+                  </Stack>
+                );
+              })}
           </FormGroup>
         )}
 
