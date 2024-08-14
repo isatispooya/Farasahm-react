@@ -36,8 +36,8 @@ const PhoneSearch = ({ config, setConfig }) => {
           },
         },
       }));
+      setInputNum1("");
     }
-    setInputNum1("");
   };
 
   const handleAdd2 = () => {
@@ -53,9 +53,14 @@ const PhoneSearch = ({ config, setConfig }) => {
           },
         },
       }));
+      setInputNum2("");
     }
+  };
+
+  const handleAddBoth = () => {
+    // Ensure both inputs are added independently
     handleAdd1();
-    setInputNum2("");
+    handleAdd2();
   };
 
   const handleRemove1 = (id) => {
@@ -85,7 +90,6 @@ const PhoneSearch = ({ config, setConfig }) => {
       },
     }));
   };
-
   const handleKeyDown1 = (e) => {
     if (e.key === "Enter") {
       handleAdd1();
@@ -151,7 +155,7 @@ const PhoneSearch = ({ config, setConfig }) => {
             />
 
             <Button
-              onClick={handleAdd2}
+              onClick={handleAddBoth}
               sx={{ borderRadius: 2 }}
               variant="contained"
             >
@@ -173,25 +177,12 @@ const PhoneSearch = ({ config, setConfig }) => {
                   label={item}
                   onDelete={() => handleRemove1(item)}
                   deleteIcon={
-                    <button
-                      style={{ color: "white", marginRight: "5px" }}
-                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
+                    <IoCloseOutline
+                      style={{
+                        color: "white",
+                        marginRight: "5px",
+                      }}
+                    />
                   }
                   style={{
                     backgroundColor: "blue",
@@ -221,25 +212,12 @@ const PhoneSearch = ({ config, setConfig }) => {
                   label={item}
                   onDelete={() => handleRemove2(item)}
                   deleteIcon={
-                    <button
-                      style={{ color: "white", marginRight: "5px" }}
-                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
+                    <IoCloseOutline
+                      style={{
+                        color: "white",
+                        marginRight: "5px",
+                      }}
+                    />
                   }
                   style={{
                     backgroundColor: "blue",

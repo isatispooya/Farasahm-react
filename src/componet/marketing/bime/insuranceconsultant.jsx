@@ -57,6 +57,7 @@ const InsuranceConsultant = ({ access, config, setConfig }) => {
     (consultant) =>
       !(config.insurance.consultant || []).includes(consultant.nationalCode)
   );
+  
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">

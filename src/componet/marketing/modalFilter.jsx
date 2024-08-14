@@ -131,7 +131,7 @@ const ModalFilter = ({
       prevDropdownId === dropdownId ? null : dropdownId
     );
   };
-  console.log(config)
+   
   return (
     <div
       dir="rtl"

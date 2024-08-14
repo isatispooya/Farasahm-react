@@ -14,7 +14,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
     let insurance;
 
     if (search) {
-      nc_list.push(search);
+      nc_list.push(String(search)); // Ensure the value is added as a string
       insurance = { ...config.insurance, national_id: nc_list };
       setConfig({ ...config, insurance: insurance });
       setSearch("");
@@ -24,7 +24,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
       );
 
       if (selectedCityObject && selectedCityObject.num.length > 0) {
-        nc_list.push(selectedCityObject.num[0]);
+        nc_list.push(String(selectedCityObject.num[0])); // Convert to string before pushing
         insurance = { ...config.insurance, national_id: nc_list };
         setConfig({ ...config, insurance: insurance });
         setCityselected("");
@@ -56,7 +56,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
       add_num_to_config();
     }
   };
-
+  console.log(config)
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -106,6 +106,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
                 list="city"
                 value={cityselected}
                 onChange={(e) => setCityselected(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
               <datalist
                 id="city"

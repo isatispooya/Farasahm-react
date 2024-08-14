@@ -26,23 +26,31 @@ const NationalIdSearch = ({ config, setConfig }) => {
 
   const addNumToConfig = () => {
     let updatedNationalIds = [...config.nobours.national_id];
+
     if (searchTermPrimary) {
+      // Add the national ID if the input is filled
       updatedNationalIds.push(searchTermPrimary);
-    } else if (citySelected) {
+    }
+
+    if (citySelected) {
+      // Find the selected city and add its national IDs if the city input is filled
       const selectedCity = city_list.find((city) => city.city === citySelected);
       if (selectedCity) {
         updatedNationalIds = [...updatedNationalIds, ...selectedCity.num];
       }
     }
 
+    // Update the config only if there is any new data to add
     if (searchTermPrimary || citySelected) {
       setConfig({
         ...config,
         nobours: { ...config.nobours, national_id: updatedNationalIds },
       });
-      setSearchTermPrimary("");
-      setCitySelected("");
     }
+
+    // Clear the inputs after adding the values to the config
+    setSearchTermPrimary("");
+    setCitySelected("");
   };
 
   const toggleDropdown = () => {
