@@ -45,6 +45,10 @@ const CreateList = () => {
         max: null,
         min: null,
       },
+      issuance_date: {
+        from: null,
+        to: null,
+      },
     },
     nobours: {
       enabled: false,
@@ -375,5 +379,3 @@ const CreateList = () => {
 };
 
 export default CreateList;
-
-

@@ -14,6 +14,7 @@ import NationalFilterBime from "./bime/nationalFilterBime.jsx";
 import NameFilterBime from "./bime/nameFilterBime.jsx";
 import MordBime from "./bime/mordBime.jsx";
 import PhoneFilterBime from "./bime/phoneFilterBime.jsx";
+import SodorDate from "./bime/sodorDateBime.jsx";
 import CompanyBime from "./bime/companyBime.jsx";
 import PaymentBime from "./bime/payment&FeeBime.jsx";
 import FieldBime from "./bime/FieldBime.jsx";
@@ -28,6 +29,8 @@ import CityFilterBors from "./bours/cityFilterBors.jsx";
 import DateBirthBors from "./bours/dateBors.jsx";
 import GenderBors from "./bours/genderBors.jsx";
 import AssetBors from "./bours/assetBors.jsx";
+
+
 
 const RenderFilters = ({ config, setConfig, access }) => {
   const [openNobours, setOpenNobours] = useState(false);
@@ -181,6 +184,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
                   config={config}
                   access={access}
                 />
+               
                 <PhoneFilterBime setConfig={setConfig} config={config} />
                
                 <InsuranceConsultant
@@ -193,6 +197,7 @@ const RenderFilters = ({ config, setConfig, access }) => {
                   config={config}
                   access={access}
                 />
+                <SodorDate setConfig={setConfig} config={config}/>
                 <FieldBime access={access} setConfig={setConfig} config={config} />
                 <PaymentBime setConfig={setConfig} config={config} />
                 <CompanyBime
