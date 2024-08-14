@@ -15,7 +15,6 @@ import { OnRun } from "../../config/config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoPlus } from "react-icons/go";
-import { DateObject } from "react-multi-date-picker";
 import MiniLoader from "../Loader/miniLoader";
 
 const ModalFilter = ({
@@ -23,7 +22,6 @@ const ModalFilter = ({
   configSelected,
   setConfigSelected,
   setIsContextSelected,
-  setIsOpenFilter,
   config,
   setConfig,
   newconfig,
