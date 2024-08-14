@@ -29,6 +29,7 @@ const ModalFilter = ({
     send_time: new DateObject(),
     context: "",
     period: null,
+    title: "",
     duplicate: [],
     insurance: {
       enabled: false,
@@ -102,7 +103,6 @@ const ModalFilter = ({
         num1: [],
         num2: [],
       },
-      title: "",
     },
   };
 

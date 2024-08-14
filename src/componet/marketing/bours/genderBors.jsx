@@ -7,7 +7,7 @@ import { BiMale } from "react-icons/bi";
 
 const GenderBors = ({ config, setConfig }) => {
   const [dropdown, setDropdown] = useState(false);
-  const [selectedGender, setSelectedGender] = useState(config.bours.gender);
+  const [selectedGender, setSelectedGender] = useState(config.bours.gender === true ? 'male' : config.bours.gender === false ? 'female' : null);
 
   const openDropDown = () => {
     setDropdown(!dropdown);
@@ -20,7 +20,10 @@ const GenderBors = ({ config, setConfig }) => {
 
     setConfig((prevConfig) => ({
       ...prevConfig,
-      gender: value === "male" ? true : value === "female" ? false : null,
+      bours: {
+        ...prevConfig.bours,
+        gender: value === "male" ? true : value === "female" ? false : null,
+      },
     }));
   };
 
@@ -65,7 +68,6 @@ const GenderBors = ({ config, setConfig }) => {
                   <Box display="flex" alignItems="center">
                     مرد
                     <BiMale className="ml-1" />
-
                   </Box>
                 }
                 className="text-gray-700"
@@ -77,7 +79,6 @@ const GenderBors = ({ config, setConfig }) => {
                   <Box display="flex" alignItems="center">
                     زن
                     <FaFemale className="ml-1" />
-
                   </Box>
                 }
                 className="text-gray-700"
