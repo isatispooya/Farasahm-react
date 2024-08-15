@@ -38,6 +38,7 @@ const ModalAdvancedFilter = ({
       ...prevConfig,
       duplicate: selectedLabels,
     }));
+console.log(config.duplicate);
 
     get();
     handleClose();
@@ -55,6 +56,7 @@ const ModalAdvancedFilter = ({
       .then((response) => {
         setSwitchLabelList(response.data.columns);
         setLoadingDf(false);
+        
       })
       .catch((error) => {
         setLoadingDf(false);

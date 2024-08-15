@@ -228,6 +228,7 @@ const CreateList = () => {
       if (response.data.reply === true) {
         setIsOpenFilter(false);
         if (configSelected == null) setConfigSelected(response.data.id);
+        get()
       } else {
         toast.error(response.data.msg);
       }
