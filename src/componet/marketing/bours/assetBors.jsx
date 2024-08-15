@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 const AssetBors = ({ access, config, setConfig }) => {
   const [propertyInput, setPropertyInput] = useState("");
   const [propertyList, setPropertyList] = useState([]);
-  const [dropdown, setDropdown] = useState(false);
+  const [dropdown, setdropdown] = useState(false);
 
   useEffect(() => {
     const fetchBranchList = async () => {
@@ -25,19 +25,19 @@ const AssetBors = ({ access, config, setConfig }) => {
   }, [access]);
 
   const Remove = (company) => {
-    const company_list = (config.bours.company || []).filter(
+    const asset = (config.bours.asset || []).filter(
       (i) => i !== company
     );
-    const bours = { ...config.bours, company: company_list };
+    const bours = { ...config.bours, asset: asset };
     setConfig({ ...config, bours: bours });
   };
 
   const openDropDown = () => {
-    setDropdown(!dropdown);
+    setdropdown(!dropdown);
   };
   
   const availableCompany = propertyList.filter(
-    (company) => !config.bours.company.includes(company)
+    (company) => !config.bours.asset.includes(company)
   );
 
   const handleCompanySelect = (e) => {
@@ -48,9 +48,9 @@ const AssetBors = ({ access, config, setConfig }) => {
     if (propertyInput) {
       const available = propertyList.includes(propertyInput);
       if (available) {
-        const company_list = [...(config.bours.company || [])];
-        company_list.push(propertyInput);
-        const bours = { ...config.bours, company: company_list };
+        const asset = [...(config.bours.asset || [])];
+        asset.push(propertyInput);
+        const bours = { ...config.bours, asset: asset };
         setConfig({ ...config, bours: bours });
         setPropertyInput("");
       } else {
@@ -58,7 +58,7 @@ const AssetBors = ({ access, config, setConfig }) => {
       }
     }
   };
-
+  console.log(config)
   return (
     <>
       <div dir="rtl" className="p-1 max-w-3xl mx-auto bg-gray-100 rounded-lg">
@@ -121,11 +121,11 @@ const AssetBors = ({ access, config, setConfig }) => {
                 justifyContent="flex-start"
                 sx={{ flexWrap: "wrap" }}
               >
-                {(config.bours.company || []).map((company, index) => (
+                {(config.bours.asset || []).map((asset, index) => (
                   <Chip
                     key={`company-${index}`}
-                    label={company}
-                    onDelete={() => Remove(company)}
+                    label={asset}
+                    onDelete={() => Remove(asset)}
                     deleteIcon={
                       <button
                         style={{ color: "white", marginRight: "5px" }}
