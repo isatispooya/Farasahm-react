@@ -56,9 +56,9 @@ const ModalAdvancedFilter = ({
     axios
       .request(options)
       .then((response) => {
-        setSwitchLabelList(response.data.columns);
-        console.log(switchLabelList);
-        
+        setSwitchLabelList(response.data.columns);  
+        console.log(response.data,response.data.columns);
+         
         setLoadingDf(false);
       })
       .catch((error) => {
