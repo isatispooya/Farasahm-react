@@ -64,7 +64,7 @@ const ModalFilter = ({
         if (response.data && response.data.config) {
           response.data.config["title"] = response.data["title"];
           setConfig(response.data.config);
-          console.log(config);
+          
         } else {
           console.error(response.error?.data?.message || "Unknown error");
         }
@@ -98,7 +98,7 @@ const ModalFilter = ({
       prevDropdownId === dropdownId ? null : dropdownId
     );
   };
-  console.log(config)
+  
   return (
     <div
       dir="rtl"

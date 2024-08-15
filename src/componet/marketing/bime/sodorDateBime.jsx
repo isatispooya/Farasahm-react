@@ -6,7 +6,7 @@ import { CiCalendarDate } from "react-icons/ci";
 import { DateObject } from "react-multi-date-picker";
 
 const DateBirthBors = ({ config = {}, setConfig }) => {
-    // Ensure config.insurance is not undefined
+
     const insuranceConfig = config.insurance || {};
     const [from, setFrom] = useState(insuranceConfig.issuance_date?.from ?? null);
     const [to, setTo] = useState(insuranceConfig.issuance_date?.to ?? null);
