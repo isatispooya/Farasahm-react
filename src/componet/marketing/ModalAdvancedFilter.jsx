@@ -42,9 +42,6 @@ const ModalAdvancedFilter = ({
     };
     setConfig(updatedConfig);
     postEditFilter(updatedConfig);
-
-    console.log(updatedConfig);
-
     get();
     handleClose();
   };
@@ -85,7 +82,7 @@ const ModalAdvancedFilter = ({
       .request(options)
       .then((response) => {
         toast(response.data.message);
-        setConfig(updatedConfig); 
+        setConfig(updatedConfig);
         get();
       })
       .catch((error) => {
