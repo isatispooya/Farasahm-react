@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 const AssetBors = ({ access, config, setConfig }) => {
   const [propertyInput, setPropertyInput] = useState("");
   const [propertyList, setPropertyList] = useState([]);
-  const [dropdown, setdropdown] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     const fetchBranchList = async () => {
@@ -25,19 +25,19 @@ const AssetBors = ({ access, config, setConfig }) => {
   }, [access]);
 
   const Remove = (company) => {
-    const asset = (config.insurance.asset || []).filter(
+    const company_list = (config.bours.company || []).filter(
       (i) => i !== company
     );
-    const insurance = { ...config.insurance, asset: asset };
-    setConfig({ ...config, insurance: insurance });
+    const bours = { ...config.bours, company: company_list };
+    setConfig({ ...config, bours: bours });
   };
 
   const openDropDown = () => {
-    setdropdown(!dropdown);
+    setDropdown(!dropdown);
   };
   
   const availableCompany = propertyList.filter(
-    (company) => !config.insurance.company.includes(company)
+    (company) => !config.bours.company.includes(company)
   );
 
   const handleCompanySelect = (e) => {
