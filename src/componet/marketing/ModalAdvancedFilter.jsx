@@ -27,18 +27,23 @@ const ModalAdvancedFilter = ({
   const [switchLabelList, setSwitchLabelList] = useState([]);
   const [loadingDf, setLoadingDf] = useState(true);
 
+  useEffect(() => {
+    getAdvancedFilter();
+  }, []);
+
   const save = () => {
     const selectedLabels = switchLabelList.filter((label, index) => {
       const switchElement = document.getElementById(`switch-${index}`);
-      postEditFilter();
       return switchElement && switchElement.checked;
     });
-
-    setConfig((prevConfig) => ({
-      ...prevConfig,
+    const updatedConfig = {
+      ...config,
       duplicate: selectedLabels,
-    }));
-console.log(config.duplicate);
+    };
+    setConfig(updatedConfig);
+    postEditFilter(updatedConfig);
+
+    console.log(updatedConfig);
 
     get();
     handleClose();
@@ -56,7 +61,6 @@ console.log(config.duplicate);
       .then((response) => {
         setSwitchLabelList(response.data.columns);
         setLoadingDf(false);
-        
       })
       .catch((error) => {
         setLoadingDf(false);
@@ -64,34 +68,31 @@ console.log(config.duplicate);
       });
   };
 
-
-  const postEditFilter = () => {
+  const postEditFilter = (updatedConfig) => {
     const options = {
       method: "POST",
       url: `${OnRun}/marketing/editfillter`,
       headers: { "content-type": "application/json" },
       data: {
         access: access,
-        title: config.title,
-        config: config,
+        title: updatedConfig.title,
+        config: updatedConfig,
         _id: configSelected,
       },
     };
-  
-    axios.request(options)
+
+    axios
+      .request(options)
       .then((response) => {
-        console.log(response.data);
-        toast(response.message)
+        toast(response.data.message);
+        setConfig(updatedConfig); 
+        get();
       })
       .catch((error) => {
         console.error("Error sending the request:", error.message);
-        toast(error.message)
+        toast(error.message);
       });
   };
-  
-  useEffect(() => {
-    getAdvancedFilter();
-  }, []);
 
   const IOSSwitch = styled((props) => (
     <Switch
