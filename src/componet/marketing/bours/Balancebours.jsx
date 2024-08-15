@@ -14,68 +14,11 @@ const BalanceBours = ({ config, setConfig }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleButtonClick_remain_from = (value) => {
+  const handleButtonClick = (key, field, value) => {
     const rawValue = value.replace(/,/g, "");
     if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, from: rawValue }; 
-      let bours = { ...config.bours, remain };
-      setConfig({ ...config, bours });
-    }
-  };
-
-  const handleButtonClick_remain_to = (value) => {
-    const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let remain = { ...config.bours.remain, to: rawValue }; 
-      let bours = { ...config.bours, remain };
-      setConfig({ ...config, bours });
-    }
-  };
-
-  const handleButtonClick_credit_balance_from = (value) => {
-    const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let credit_balance = {
-        ...config.bours.credit_balance,
-        from: rawValue, // Store raw value without commas
-      };
-      let bours = { ...config.bours, credit_balance };
-      setConfig({ ...config, bours });
-    }
-  };
-
-  const handleButtonClick_credit_balance_to = (value) => {
-    const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let credit_balance = {
-        ...config.bours.credit_balance,
-        to: rawValue, // Store raw value without commas
-      };
-      let bours = { ...config.bours, credit_balance };
-      setConfig({ ...config, bours });
-    }
-  };
-
-  const handleButtonClick_adjust_remain_from = (value) => {
-    const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let adjust_remain = {
-        ...config.bours.adjust_remain,
-        from: rawValue, // Store raw value without commas
-      };
-      let bours = { ...config.bours, adjust_remain };
-      setConfig({ ...config, bours });
-    }
-  };
-
-  const handleButtonClick_adjust_remain_to = (value) => {
-    const rawValue = value.replace(/,/g, "");
-    if (/^\d*$/.test(rawValue) && rawValue >= 0) {
-      let adjust_remain = {
-        ...config.bours.adjust_remain,
-        to: rawValue, // Store raw value without commas
-      };
-      let bours = { ...config.bours, adjust_remain };
+      let updatedField = { ...(config.bours[key] || {}), [field]: rawValue };
+      let bours = { ...config.bours, [key]: updatedField };
       setConfig({ ...config, bours });
     }
   };
@@ -113,11 +56,11 @@ const BalanceBours = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="amount-from"
+                  id="remain-from"
                   label="از"
-                  value={formatNumber(config.bours.remain.from)}
+                  value={formatNumber(config?.bours?.remain?.from || "")}
                   onChange={(e) =>
-                    handleButtonClick_remain_from(e.target.value)
+                    handleButtonClick("remain", "from", e.target.value)
                   }
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
@@ -126,10 +69,12 @@ const BalanceBours = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="amount-to"
+                  id="remain-to"
                   label="تا"
-                  value={formatNumber(config.bours.remain.to)}
-                  onChange={(e) => handleButtonClick_remain_to(e.target.value)}
+                  value={formatNumber(config?.bours?.remain?.to || "")}
+                  onChange={(e) =>
+                    handleButtonClick("remain", "to", e.target.value)
+                  }
                   className="w-full p-2 text-center border border-gray-300 rounded shadow-md"
                   InputLabelProps={{ shrink: true }}
                 />
@@ -146,11 +91,11 @@ const BalanceBours = ({ config, setConfig }) => {
                 <TextField
                   style={{ backgroundColor: "white" }}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
-                  id="amount-from"
+                  id="credit-balance-from"
                   label="از"
-                  value={formatNumber(config.bours.credit_balance.from)}
+                  value={formatNumber(config?.bours?.credit_balance?.from || "")}
                   onChange={(e) =>
-                    handleButtonClick_credit_balance_from(e.target.value)
+                    handleButtonClick("credit_balance", "from", e.target.value)
                   }
                   InputLabelProps={{ shrink: true }}
                 />
@@ -158,11 +103,11 @@ const BalanceBours = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="amount-to"
+                  id="credit-balance-to"
                   label="تا"
-                  value={formatNumber(config.bours.credit_balance.to)}
+                  value={formatNumber(config?.bours?.credit_balance?.to || "")}
                   onChange={(e) =>
-                    handleButtonClick_credit_balance_to(e.target.value)
+                    handleButtonClick("credit_balance", "to", e.target.value)
                   }
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
@@ -181,11 +126,11 @@ const BalanceBours = ({ config, setConfig }) => {
                 <TextField
                   style={{ backgroundColor: "white" }}
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
-                  id="amount-from"
+                  id="adjust-remain-from"
                   label="از"
-                  value={formatNumber(config.bours.adjust_remain.from)}
+                  value={formatNumber(config?.bours?.adjust_remain?.from || "")}
                   onChange={(e) =>
-                    handleButtonClick_adjust_remain_from(e.target.value)
+                    handleButtonClick("adjust_remain", "from", e.target.value)
                   }
                   InputLabelProps={{ shrink: true }}
                 />
@@ -193,11 +138,11 @@ const BalanceBours = ({ config, setConfig }) => {
               <div className="text-right w-1/2">
                 <TextField
                   style={{ backgroundColor: "white" }}
-                  id="amount-to"
+                  id="adjust-remain-to"
                   label="تا"
-                  value={formatNumber(config.bours.adjust_remain.to)}
+                  value={formatNumber(config?.bours?.adjust_remain?.to || "")}
                   onChange={(e) =>
-                    handleButtonClick_adjust_remain_to(e.target.value)
+                    handleButtonClick("adjust_remain", "to", e.target.value)
                   }
                   className="w-full p-2 shadow-md text-center border border-gray-300 rounded"
                   InputLabelProps={{ shrink: true }}
@@ -212,3 +157,6 @@ const BalanceBours = ({ config, setConfig }) => {
 };
 
 export default BalanceBours;
+
+
+
