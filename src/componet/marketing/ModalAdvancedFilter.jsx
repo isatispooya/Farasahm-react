@@ -57,6 +57,8 @@ const ModalAdvancedFilter = ({
       .request(options)
       .then((response) => {
         setSwitchLabelList(response.data.columns);
+        console.log(switchLabelList);
+        
         setLoadingDf(false);
       })
       .catch((error) => {

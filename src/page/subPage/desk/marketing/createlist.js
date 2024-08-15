@@ -199,7 +199,7 @@ const CreateList = () => {
         data: { access: access, _id: configSelected },
       }).then(async (response) => {
         setDf(response.data.dict);
-        setConfigperviewcontext(response.data.config);
+        setConfigperviewcontext(response.data);
         setLoadingDf(false);
       });
     } else {
@@ -228,7 +228,7 @@ const CreateList = () => {
       if (response.data.reply === true) {
         setIsOpenFilter(false);
         if (configSelected == null) setConfigSelected(response.data.id);
-        get()
+        get();
       } else {
         toast.error(response.data.msg);
       }
@@ -339,7 +339,7 @@ const CreateList = () => {
           <Smspage
             toggleModal={closeSenderModal}
             access={access}
-            Config={Configperviewcontext.config}
+            Config={Configperviewcontext}
             configSelected={configSelected}
             get={get}
             openFilterModal={openModalFilter}

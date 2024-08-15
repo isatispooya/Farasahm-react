@@ -10,12 +10,13 @@ import ConfirmationModal from "./confirmation";
 const Smspage = ({
   toggleModal,
   access,
-  Config = { context: '', column: [], dict: [], len: 0, cost: 0, count_sms: 0 },
+  Config = { context: "", column: [], dict: [], len: 0, cost: 0, count_sms: 0 },
   configSelected,
   get,
   openFilterModal,
 }) => {
-  const [message, setMessage] = useState(Config.context || '');  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [message, setMessage] = useState(Config.context || "");
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(10);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isSendConfirmationModalOpen, setIsSendConfirmationModalOpen] =
@@ -121,7 +122,7 @@ const Smspage = ({
           setTimeout(() => {
             toggleModal(false); // Close the Smspage modal
             openFilterModal(); // Reopen the ModalFilter
-          }, 2000); 
+          }, 2000);
         } else {
           toast.error("ارسال پیام با مشکل مواجه شد.", {
             position: "top-right",
@@ -147,8 +148,6 @@ const Smspage = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isModalVisible]);
-
-  
 
   return (
     <div
@@ -219,7 +218,7 @@ const Smspage = ({
               onClick={editContext}
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-200 transform hover:scale-105"
             >
-            اعمال تغییرات
+              اعمال تغییرات
             </button>
             <button
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-200 transform hover:scale-105"
