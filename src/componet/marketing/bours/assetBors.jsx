@@ -25,10 +25,10 @@ const AssetBors = ({ access, config, setConfig }) => {
   }, [access]);
 
   const Remove = (company) => {
-    const company_list = (config.insurance.company || []).filter(
+    const asset = (config.insurance.asset || []).filter(
       (i) => i !== company
     );
-    const insurance = { ...config.insurance, company: company_list };
+    const insurance = { ...config.insurance, asset: asset };
     setConfig({ ...config, insurance: insurance });
   };
 

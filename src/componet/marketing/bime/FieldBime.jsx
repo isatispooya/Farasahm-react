@@ -15,7 +15,6 @@ const FieldBime = ({ config, setConfig, access }) => {
           `${OnRun}/marketing/Insurance_field`,
           { access: access }
         );
-
         ListFieldBime(response.data);
       } catch (error) {
         console.error("Failed to fetch company list", error);
@@ -25,8 +24,11 @@ const FieldBime = ({ config, setConfig, access }) => {
   }, [access]);
 
   const AddField = () => {
-    if (search && !config.insurance.insurance_field.includes(search)) {
-      let insurance_field_list = [...config.insurance.insurance_field, search];
+    if (search && !(config.insurance.insurance_field || []).includes(search)) {
+      let insurance_field_list = [
+        ...(config.insurance.insurance_field || []),
+        search,
+      ];
       setConfig({
         ...config,
         insurance: {
@@ -39,7 +41,7 @@ const FieldBime = ({ config, setConfig, access }) => {
   };
 
   const Remove = (id) => {
-    const filteredFields = config.insurance.insurance_field.filter(
+    const filteredFields = (config.insurance.insurance_field || []).filter(
       (field) => field !== id
     );
     setConfig({
@@ -66,7 +68,7 @@ const FieldBime = ({ config, setConfig, access }) => {
   };
 
   const availablefieldBime = listFieldBime.filter(
-    (fieldBime) => !config.insurance.insurance_field.includes(fieldBime)
+    (fieldBime) => !(config.insurance.insurance_field || []).includes(fieldBime)
   );
 
   return (
@@ -111,16 +113,10 @@ const FieldBime = ({ config, setConfig, access }) => {
                   <option key={index} value={i} />
                 ))}
               </datalist>
-
-
             </div>
-            <Button
-                onClick={AddField}
-                sx={{ borderRadius: 2 }}
-                variant="contained"
-              >
-                افزودن
-              </Button>
+            <Button onClick={AddField} sx={{ borderRadius: 2 }} variant="contained">
+              افزودن
+            </Button>
 
             {config.insurance.insurance_field &&
               config.insurance.insurance_field.length > 0 && (
