@@ -23,44 +23,27 @@ const PhoneSearch = ({ config, setConfig }) => {
     }
   };
 
-  const handleAdd1 = () => {
-    if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
-      const num1Config = [...mobile.num1, inputNum1];
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
-          mobile: {
-            ...mobile,
-            num1: num1Config,
-          },
-        },
-      }));
-      setInputNum1("");
-    }
-  };
-
-  const handleAdd2 = () => {
-    if (inputNum2.length > 0 && !mobile.num2.includes(inputNum2)) {
-      const num2Config = [...mobile.num2, inputNum2];
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        nobours: {
-          ...prevConfig.nobours,
-          mobile: {
-            ...mobile,
-            num2: num2Config,
-          },
-        },
-      }));
-      setInputNum2("");
-    }
-  };
-
   const handleAddBoth = () => {
-    // Ensure both inputs are added independently
-    handleAdd1();
-    handleAdd2();
+    let updatedMobile = { ...mobile };
+
+    if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
+      updatedMobile.num1 = [...mobile.num1, inputNum1];
+    }
+
+    if (inputNum2.length > 0 && !mobile.num2.includes(inputNum2)) {
+      updatedMobile.num2 = [...mobile.num2, inputNum2];
+    }
+
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      nobours: {
+        ...prevConfig.nobours,
+        mobile: updatedMobile,
+      },
+    }));
+
+    setInputNum1("");
+    setInputNum2("");
   };
 
   const handleRemove1 = (id) => {
@@ -90,15 +73,16 @@ const PhoneSearch = ({ config, setConfig }) => {
       },
     }));
   };
+
   const handleKeyDown1 = (e) => {
     if (e.key === "Enter") {
-      handleAdd1();
+      handleAddBoth();
     }
   };
 
   const handleKeyDown2 = (e) => {
     if (e.key === "Enter") {
-      handleAdd2();
+      handleAddBoth();
     }
   };
 
@@ -173,16 +157,29 @@ const PhoneSearch = ({ config, setConfig }) => {
             >
               {(mobile.num1 || []).map((item, index) => (
                 <Chip
-                  key={`num1-${index}`}
+                  key={`num2-${index}`}
                   label={item}
                   onDelete={() => handleRemove1(item)}
                   deleteIcon={
-                    <IoCloseOutline
-                      style={{
-                        color: "white",
-                        marginRight: "5px",
-                      }}
-                    />
+                    <button
+                      style={{ color: "white", marginRight: "5px" }}
+                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
                   }
                   style={{
                     backgroundColor: "blue",
@@ -212,12 +209,25 @@ const PhoneSearch = ({ config, setConfig }) => {
                   label={item}
                   onDelete={() => handleRemove2(item)}
                   deleteIcon={
-                    <IoCloseOutline
-                      style={{
-                        color: "white",
-                        marginRight: "5px",
-                      }}
-                    />
+                    <button
+                      style={{ color: "white", marginRight: "5px" }}
+                      className="ml-2 mr-2 text-white bg-red-500 hover:bg-red-700 rounded-full p-1 transition duration-300 focus:outline-none shadow-md hover:shadow-lg"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
                   }
                   style={{
                     backgroundColor: "blue",

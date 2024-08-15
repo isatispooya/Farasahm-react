@@ -107,6 +107,7 @@ const NationalFilterBime = ({ config, setConfig }) => {
                 value={cityselected}
                 onChange={(e) => setCityselected(e.target.value)}
                 onKeyDown={handleKeyDown}
+                placeHolder="جستجو کدملی براساس شهر"
               />
               <datalist
                 id="city"

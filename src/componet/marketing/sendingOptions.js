@@ -10,7 +10,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import InputIcon from "react-multi-date-picker/components/input_icon";
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 
 const SendingOptions = ({ loading, config, setConfig }) => {
   return (
@@ -80,6 +80,11 @@ const SendingOptions = ({ loading, config, setConfig }) => {
                   setConfig({ ...config, send_time: date.toDate().getTime() })
                 }
               />
+              
+            </div>
+            <div className="flex items-center text-base	 text-right text-yellow-600 mt-2">
+              <PriorityHighIcon className="mr-1" fontSize="small" /> {/* Add the icon here */}
+              <p>توجه : ارسال پیام هر 30 دقیقه یکبار انجام می شود</p>
             </div>
           </div>
           <FormControl fullWidth style={{ marginTop: "40px" }}>

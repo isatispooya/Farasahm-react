@@ -22,38 +22,27 @@ const PhoneFilterBime = ({ config, setConfig }) => {
       setInputNum2(value);
     }
   };
-  const handleAdd1 = () => {
-    if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
-      const num1Config = [...mobile.num1, inputNum1];
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        insurance: {
-          ...prevConfig.insurance,
-          mobile: {
-            ...mobile,
-            num1: num1Config,
-          },
-        },
-      }));
-    }
-    setInputNum1("");
-  };
 
-  const handleAdd2 = () => {
-    if (inputNum2.length > 0 && !mobile.num2.includes(inputNum2)) {
-      const num2Config = [...mobile.num2, inputNum2];
-      setConfig((prevConfig) => ({
-        ...prevConfig,
-        insurance: {
-          ...prevConfig.insurance,
-          mobile: {
-            ...mobile,
-            num2: num2Config,
-          },
-        },
-      }));
+  const handleAdd = () => {
+    let updatedMobile = { ...mobile };
+
+    if (inputNum1.length > 0 && !mobile.num1.includes(inputNum1)) {
+      updatedMobile.num1 = [...mobile.num1, inputNum1];
     }
-    handleAdd1();
+
+    if (inputNum2.length > 0 && !mobile.num2.includes(inputNum2)) {
+      updatedMobile.num2 = [...mobile.num2, inputNum2];
+    }
+
+    setConfig((prevConfig) => ({
+      ...prevConfig,
+      insurance: {
+        ...prevConfig.insurance,
+        mobile: updatedMobile,
+      },
+    }));
+
+    setInputNum1("");
     setInputNum2("");
   };
 
@@ -70,6 +59,7 @@ const PhoneFilterBime = ({ config, setConfig }) => {
       },
     }));
   };
+
   const handleRemove2 = (id) => {
     const num2Config = mobile.num2.filter((i) => i !== id);
     setConfig((prevConfig) => ({
@@ -86,13 +76,13 @@ const PhoneFilterBime = ({ config, setConfig }) => {
 
   const handleKeyDown1 = (e) => {
     if (e.key === "Enter") {
-      handleAdd1();
+      handleAdd();
     }
   };
 
   const handleKeyDown2 = (e) => {
     if (e.key === "Enter") {
-      handleAdd2();
+      handleAdd();
     }
   };
 
@@ -149,7 +139,7 @@ const PhoneFilterBime = ({ config, setConfig }) => {
             />
 
             <Button
-              onClick={handleAdd2}
+              onClick={handleAdd}
               sx={{ borderRadius: 2 }}
               variant="contained"
             >
@@ -204,8 +194,6 @@ const PhoneFilterBime = ({ config, setConfig }) => {
               ))}
             </Stack>
           )}
-
-          
 
           {mobile.num2.length > 0 && (
             <Stack
