@@ -265,8 +265,6 @@ const CardConfigMarketing = ({
                       gap: 1,
                     }}
                   >
-                    {send_time}
-                    {"-"}
                     {data}
                   </Typography>
                 </Typography>
