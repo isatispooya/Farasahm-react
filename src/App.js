@@ -100,6 +100,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="/section" element={<Section />} />
             <Route path="/desk" element={<Desk />}>
               <Route path="update" element={<Update />} />
@@ -207,7 +208,6 @@ function App() {
             <Route path="/pbl/pc/:sym/:nc" element={<PreemptionCard />} />
             <Route path="/pbl/Management/:sym/:key" element={<Management />} />
             <Route path="/*" element={<NotFound />} />
-            <Route path="settings" element={<Settings />} />
           </Routes>
         </BrowserRouter>
       </CacheProvider>
