@@ -66,6 +66,7 @@ import Residual from "./page/subPage/bours/Residual";
 import NotFound from "./page/notFound";
 import Calculator from "./page/subPage/fixincom/CalculatorFixincom";
 import CustomerRemain from "./page/subPage/fixincom/CustomerRemain";
+import Settings from "./page/subPage/settings";
 import "./style/tailwind.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -78,133 +79,137 @@ import SendSMS from "./page/subPage/desk/sms/send";
 import ReportAnalyze from "./page/subPage/desk/sms/report";
 import Bank from "./page/subPage/desk/accounting/bank";
 import CalendarCom from "./componet/dashbords/Calendar";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import CreateList from "./page/subPage/desk/marketing/createlist";
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
-import { prefixer } from 'stylis';
-import rtlPlugin from 'stylis-plugin-rtl';
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { prefixer } from "stylis";
+import rtlPlugin from "stylis-plugin-rtl";
 
 function App() {
   const cacheRtl = createCache({
-    key: 'muirtl',
+    key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
-  
 
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-    <CacheProvider value={cacheRtl}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/section" element={<Section />} />
-          <Route path="/desk" element={<Desk />}>
-            <Route path="update" element={<Update />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="tradersall" element={<Traders />} />
-            <Route path="newComer" element={<NewComer />} />
-            <Route path="runaway" element={<Runaway />} />
-            <Route path="stockman" element={<Stockman />} />
-            <Route path="formerstockman" element={<FormerStockman />} />
-            <Route path="calendar" element={<CalendarCom />} />
-            <Route path="metric" element={<Metric />} />
-            <Route path="details/:code" element={<Details />} />
-            <Route path="balancetrader/:code" element={<BalanceTrader />} />
+      <CacheProvider value={cacheRtl}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/section" element={<Section />} />
+            <Route path="/desk" element={<Desk />}>
+              <Route path="update" element={<Update />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="tradersall" element={<Traders />} />
+              <Route path="newComer" element={<NewComer />} />
+              <Route path="runaway" element={<Runaway />} />
+              <Route path="stockman" element={<Stockman />} />
+              <Route path="formerstockman" element={<FormerStockman />} />
+              <Route path="calendar" element={<CalendarCom />} />
+              <Route path="metric" element={<Metric />} />
+              <Route path="details/:code" element={<Details />} />
+              <Route path="balancetrader/:code" element={<BalanceTrader />} />
+              <Route
+                path="traderactivityreport/:code"
+                element={<TraderActivityReport />}
+              />
+              <Route
+                path="brokeractivityreport/:code"
+                element={<BrokerActivityReport />}
+              />
+              <Route
+                path="stationactivityreport/:code"
+                element={<StationActivityReport />}
+              />
+              <Route path="excerpttrader/:code" element={<ExcerptTrader />} />
+              <Route path="nav" element={<Nav />} />
+              <Route path="backwardreturn" element={<Return />} />
+              <Route path="compare" element={<Compare />} />
+              <Route path="biasicinformation" element={<BasicInformation />} />
+              <Route path="shareholders" element={<Shareholders />} />
+              <Route path="grouping" element={<Grouping />} />
+              <Route path="category" element={<Category />} />
+              <Route path="broker" element={<Broker />} />
+              <Route path="stocksheet" element={<StockSheet />} />
+              <Route path="transactions" element={<Transactions />} />
+              <Route path="createassembly" element={<CreateAssembly />} />
+              <Route path="attendeesassembly" element={<AttendeesAssembly />} />
+              <Route
+                path="sheetvotecontroller"
+                element={<SheetVoteController />}
+              />
+              <Route path="capitalincrease" element={<CapitalIncrease />} />
+              <Route path="priority" element={<Priority />} />
+              <Route
+                path="prioritytransaction"
+                element={<PriorityTransaction />}
+              />
+              <Route path="prioritypay" element={<PriorityPay />} />
+              <Route path="wellcom" element={<WellcomBrokerDesk />} />
+              <Route path="volumetrade" element={<VolumeTrade />} />
+              <Route path="tradersbroker" element={<TraderBroker />} />
+              <Route path="turnover" element={<Turnover />} />
+              <Route path="tradercodes" element={<TraderCodes />} />
+              <Route path="todo" element={<Todo />} />
+              <Route path="todocontrol" element={<TodoControl />} />
+
+              <Route
+                path="comparereturnsample"
+                element={<CompareReturnSample />}
+              />
+              <Route path="limitfundfix" element={<LimitFundFix />} />
+              <Route
+                path="comparereturnperiod"
+                element={<CompareReturnPeriod />}
+              />
+              <Route path="oraghytm" element={<OraghYTM />} />
+              <Route path="forwardytm" element={<ForwardYtm />} />
+              <Route path="invoicecreate" element={<InvoiceCreate />} />
+              <Route path="companymoadian" element={<CompanyMoadian />} />
+              {/* <Route path="invoicelist" element={<InvoceList />} /> */}
+              <Route
+                path="dashboardfixincom"
+                element={<DashboardFixInCome />}
+              />
+              <Route path="potential" element={<Potential />} />
+              <Route path="increaseasset" element={<IncreaseAsset />} />
+              <Route path="returnasset" element={<ReturnAsset />} />
+              <Route path="setreturnasset" element={<SetRetAsst />} />
+              <Route
+                path="managementcommittee"
+                element={<Managementcommittee />}
+              />
+              <Route path="residual" element={<Residual />} />
+              <Route path="calculator" element={<Calculator />} />
+              <Route path="customerremain" element={<CustomerRemain />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="sendsms" element={<SendSMS />} />
+              <Route path="analizsms" element={<ReportAnalyze />} />
+              <Route path="bank" element={<Bank />} />
+              <Route path="createlist" element={<CreateList />} />
+            </Route>
             <Route
-              path="traderactivityreport/:code"
-              element={<TraderActivityReport />}
+              path="/printas/:symbol/:nc"
+              element={<AssemblySheetPrint />}
             />
             <Route
-              path="brokeractivityreport/:code"
-              element={<BrokerActivityReport />}
-            />
-            <Route
-              path="stationactivityreport/:code"
-              element={<StationActivityReport />}
-            />
-            <Route path="excerpttrader/:code" element={<ExcerptTrader />} />
-            <Route path="nav" element={<Nav />} />
-            <Route path="backwardreturn" element={<Return />} />
-            <Route path="compare" element={<Compare />} />
-            <Route path="biasicinformation" element={<BasicInformation />} />
-            <Route path="shareholders" element={<Shareholders />} />
-            <Route path="grouping" element={<Grouping />} />
-            <Route path="category" element={<Category />} />
-            <Route path="broker" element={<Broker />} />
-            <Route path="stocksheet" element={<StockSheet />} />
-            <Route path="transactions" element={<Transactions />} />
-            <Route path="createassembly" element={<CreateAssembly />} />
-            <Route path="attendeesassembly" element={<AttendeesAssembly />} />
-            <Route
-              path="sheetvotecontroller"
+              path="/printas/sheetvotecontroller/:symbol"
               element={<SheetVoteController />}
             />
-            <Route path="capitalincrease" element={<CapitalIncrease />} />
-            <Route path="priority" element={<Priority />} />
             <Route
-              path="prioritytransaction"
-              element={<PriorityTransaction />}
+              path="/printas/sheetinassembly/:symbol"
+              element={<SheetInAssembly />}
             />
-            <Route path="prioritypay" element={<PriorityPay />} />
-            <Route path="wellcom" element={<WellcomBrokerDesk />} />
-            <Route path="volumetrade" element={<VolumeTrade />} />
-            <Route path="tradersbroker" element={<TraderBroker />} />
-            <Route path="turnover" element={<Turnover />} />
-            <Route path="tradercodes" element={<TraderCodes />} />
-            <Route path="todo" element={<Todo />} />
-            <Route path="todocontrol" element={<TodoControl />} />
-            
-            <Route
-              path="comparereturnsample"
-              element={<CompareReturnSample />}
-            />
-            <Route path="limitfundfix" element={<LimitFundFix />} />
-            <Route
-              path="comparereturnperiod"
-              element={<CompareReturnPeriod />}
-            />
-            <Route path="oraghytm" element={<OraghYTM />} />
-            <Route path="forwardytm" element={<ForwardYtm />} />
-            <Route path="invoicecreate" element={<InvoiceCreate />} />
-            <Route path="companymoadian" element={<CompanyMoadian />} />
-            {/* <Route path="invoicelist" element={<InvoceList />} /> */}
-            <Route path="dashboardfixincom" element={<DashboardFixInCome />} />
-            <Route path="potential" element={<Potential />} />
-            <Route path="increaseasset" element={<IncreaseAsset />} />
-            <Route path="returnasset" element={<ReturnAsset />} />
-            <Route path="setreturnasset" element={<SetRetAsst />} />
-            <Route
-              path="managementcommittee"
-              element={<Managementcommittee />}
-            />
-            <Route path="residual" element={<Residual />} />
-            <Route path="calculator" element={<Calculator />} />
-            <Route path="customerremain" element={<CustomerRemain />} />
-            <Route path="invoices" element={<Invoices />} />
-            <Route path="sendsms" element={<SendSMS />} />
-            <Route path="analizsms" element={<ReportAnalyze />} />
-            <Route path="bank" element={<Bank />} />
-            <Route path="createlist" element={<CreateList />} />
-            
-
-          </Route>
-          <Route path="/printas/:symbol/:nc" element={<AssemblySheetPrint />} />
-          <Route
-            path="/printas/sheetvotecontroller/:symbol"
-            element={<SheetVoteController />}
-          />
-          <Route
-            path="/printas/sheetinassembly/:symbol"
-            element={<SheetInAssembly />}
-          />
-          <Route path="/pbl/pc/:sym/:nc" element={<PreemptionCard />} />
-          <Route path="/pbl/Management/:sym/:key" element={<Management />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/pbl/pc/:sym/:nc" element={<PreemptionCard />} />
+            <Route path="/pbl/Management/:sym/:key" element={<Management />} />
+            <Route path="/*" element={<NotFound />} />
+            <Route path="settings" element={<Settings />} />
+          </Routes>
+        </BrowserRouter>
       </CacheProvider>
     </QueryClientProvider>
   );

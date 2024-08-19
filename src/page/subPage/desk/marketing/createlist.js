@@ -17,6 +17,7 @@ import { AiOutlineUsergroupDelete } from "react-icons/ai";
 import ModalAdvancedFilter from "../../../../componet/marketing/ModalAdvancedFilter";
 import { DateObject } from "react-multi-date-picker";
 import { toast } from "react-toastify";
+import LargeLoader from "../../../../componet/Loader/largeLoader";
 
 const CreateList = () => {
   const newconfig = {
@@ -347,7 +348,9 @@ const CreateList = () => {
         )}
       </div>
       <div></div>
-      {loadingDf && <MiniLoader />}
+      {loadingDf && (
+        <LargeLoader/>
+      )}
       <div id="data-table" className="mt-4">
         {messageVisible && df && df.length === 0 && (
           <div className="flex bg-gray-200 items-center rounded-lg justify-center h-64">

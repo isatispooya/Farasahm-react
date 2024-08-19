@@ -17,6 +17,7 @@ const AssetBors = ({ access, config, setConfig }) => {
           access: access,
         });
         setPropertyList(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error("Failed to fetch Branch list", error);
       }
@@ -123,7 +124,7 @@ const AssetBors = ({ access, config, setConfig }) => {
               >
                 {(config.bours.asset || []).map((asset, index) => (
                   <Chip
-                    key={`company-${index}`}
+                    key={`asset-${index}`}
                     label={asset}
                     onDelete={() => Remove(asset)}
                     deleteIcon={
