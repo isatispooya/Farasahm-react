@@ -86,7 +86,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
-
+import LoginFromSpace from "./page/LoginFromSpace";
 function App() {
   const cacheRtl = createCache({
     key: "muirtl",
@@ -100,6 +100,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/loginspace/:code" element={<LoginFromSpace />} />
             <Route path="settings" element={<Settings />} />
             <Route path="/section" element={<Section />} />
             <Route path="/desk" element={<Desk />}>
